@@ -2,8 +2,8 @@ import * as React from 'react';
 
 function Promo() {
   return (
-    <div></div>
-  )
+    <div />
+  );
 }
 
 export default Promo;

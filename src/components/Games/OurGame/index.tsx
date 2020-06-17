@@ -2,8 +2,8 @@ import * as React from 'react';
 
 function OurGame() {
   return (
-    <div></div>
-  )
+    <div />
+  );
 }
 
 export default OurGame;

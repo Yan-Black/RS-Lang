@@ -2,8 +2,8 @@ import * as React from 'react';
 
 function Learning() {
   return (
-    <div></div>
-  )
+    <div />
+  );
 }
 
 export default Learning;

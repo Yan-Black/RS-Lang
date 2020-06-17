@@ -2,8 +2,8 @@ import * as React from 'react';
 
 function Difficult() {
   return (
-    <div></div>
-  )
+    <div />
+  );
 }
 
 export default Difficult;

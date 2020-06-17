@@ -2,8 +2,8 @@ import * as React from 'react';
 
 function Deleted() {
   return (
-    <div></div>
-  )
+    <div />
+  );
 }
 
 export default Deleted;
