@@ -1,6 +1,6 @@
 import * as React from 'react';
-import Authorization from '../Authorization';
-import Main from '../Main';
+import Authorization from 'components/Authorization';
+import Main from 'components/Main';
 
 function App() {
   return (

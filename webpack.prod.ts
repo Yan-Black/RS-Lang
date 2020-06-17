@@ -2,9 +2,10 @@
 import * as path from 'path';
 import * as webpack from 'webpack';
 import * as HtmlWebPackPlugin from 'html-webpack-plugin';
+import { TsconfigPathsPlugin } from 'tsconfig-paths-webpack-plugin';
 
 const htmlPlugin = new HtmlWebPackPlugin({
-  template: './src/index.html',
+  template: './public/index.html',
   filename: './index.html',
 });
 
@@ -16,6 +17,7 @@ const config: webpack.Configuration = {
     filename: 'bundle.js',
   },
   resolve: {
+    plugins: [new TsconfigPathsPlugin({ configFile: './tsconfig.json' })],
     // Add '.ts' and '.tsx' as resolvable extensions.
     extensions: ['.ts', '.tsx', '.js', '.json'],
   },
