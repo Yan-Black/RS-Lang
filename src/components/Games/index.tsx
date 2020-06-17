@@ -1,17 +1,16 @@
 import * as React from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+} from 'react-router-dom';
 import AudioCall from './AudioCall';
 import EnglishPuzzle from './EnglishPuzzle';
 import Savannah from './Savannah';
 import SpeakIt from './SpeakIt';
 import Sprint from './Sprint';
 import OurGame from './OurGame';
-
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
 
 function Games() {
   return (
@@ -60,7 +59,7 @@ function Games() {
         </Switch>
       </div>
     </Router>
-  )
+  );
 }
 
 export default Games;

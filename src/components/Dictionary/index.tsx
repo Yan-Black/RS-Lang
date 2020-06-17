@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Deleted from './Deleted';
 import Difficult from './Difficult';
-import Learning from './Learning'
+import Learning from './Learning';
 
 function Dictionary() {
   return (
@@ -10,7 +10,7 @@ function Dictionary() {
       <Difficult />
       <Learning />
     </div>
-  )
+  );
 }
 
 export default Dictionary;

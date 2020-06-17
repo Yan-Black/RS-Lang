@@ -1,14 +1,14 @@
 import * as React from 'react';
-import Authorisation from '../Authorisation';
+import Authorization from '../Authorization';
 import Main from '../Main';
 
 function App() {
   return (
     <div className="app">
-      <Authorisation />
+      <Authorization />
       <Main />
     </div>
-  )
+  );
 }
 
 export default App;

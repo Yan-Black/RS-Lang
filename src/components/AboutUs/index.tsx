@@ -2,8 +2,8 @@ import * as React from 'react';
 
 function AboutUs() {
   return (
-    <div></div>
-  )
+    <div />
+  );
 }
 
 export default AboutUs;

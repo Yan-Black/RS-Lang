@@ -1,16 +1,15 @@
 import * as React from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+} from 'react-router-dom';
 import Statistic from '../Statistic';
 import Dictionary from '../Dictionary';
 import Games from '../Games';
 import Promo from '../Promo';
 import AboutUs from '../AboutUs';
-
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
 
 function Main() {
   return (
@@ -52,7 +51,7 @@ function Main() {
         </Switch>
       </div>
     </Router>
-  )
+  );
 }
 
 export default Main;
