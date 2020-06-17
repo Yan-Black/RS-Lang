@@ -26,6 +26,14 @@ const config: webpack.Configuration = {
     rules: [
       // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
       { test: /\.tsx?$/, loader: 'ts-loader' },
+      {
+        test: /\.s[ac]ss$/i,
+        use: [
+          'style-loader',
+          'css-loader',
+          'sass-loader',
+        ],
+      },
     ],
   },
   plugins: [htmlPlugin],
