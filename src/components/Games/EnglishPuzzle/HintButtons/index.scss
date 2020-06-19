@@ -1,0 +1,33 @@
+.hints-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.auto-pronunciation, .show-hint, .pronounce-word, .show-background {
+    height: 1.5vw;
+    width: 1.5vw;
+    border-radius: 3px;
+    background-color: blueviolet;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    margin-left: 0.5vw;
+    cursor: pointer;
+}
+
+.auto-pronunciation:hover, .show-hint:hover, 
+.pronounce-word:hover, .show-background:hover {
+    background-color: rgb(177, 115, 235);
+    transition: .1s ease-in-out;
+}
+
+.auto-pronunciation:active, .show-hint:active, 
+.pronounce-word:active, .show-background:active {
+    opacity: 0.5;
+}
+
+.off, .off:hover, .off:active {
+    background-color: slategrey;
+}

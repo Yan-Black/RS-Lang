@@ -1,0 +1,38 @@
+.english-puzzle-hints-block {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 1vw;
+    height: 5vw;
+}
+
+.english-puzzle-translation {
+  display: inline;
+}
+
+.english-puzzle-translation-disabled {
+    visibility: hidden;
+}
+
+.english-puzzle-speaker {
+    color: black;
+}
+
+.english-puzzle-speaker-disabled {
+  visibility: hidden;
+}
+
+.english-puzzle-speaker-active {
+  color: teal;
+  animation: speaking .7s infinite;
+}
+
+@keyframes speaking {
+    from {
+        transform: scale(1);
+    } to {
+        transform: scale(1.1);
+    }
+}

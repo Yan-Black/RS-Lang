@@ -1,9 +1,7 @@
 import * as React from 'react';
+import View from './View';
 
-function EnglishPuzzle() {
-  return (
-    <div />
-  );
-}
-
+const EnglishPuzzle: React.FunctionComponent = () => (
+  <View />
+);
 export default EnglishPuzzle;
