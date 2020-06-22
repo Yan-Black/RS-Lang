@@ -1,0 +1,5 @@
+export enum ActionType {
+  START_PAGE = 'START_PAGE',
+  GAME_PAGE = 'GAME_PAGE',
+  STATISTIC_PAGE = 'STATISTIC_PAGE',
+}

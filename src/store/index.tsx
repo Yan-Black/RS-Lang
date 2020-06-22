@@ -1,7 +1,16 @@
-import { createStore } from 'redux';
+import { createStore, combineReducers } from 'redux';
 
-import appReducer from '../containers/App/reducer';
+// import appReducer from '../containers/App/reducer';
+import pageReducer from '../containers/Games/AudioCall/reducer';
 
-const store = createStore(appReducer);
+const rootReducer = combineReducers({
+  audioCallPage: pageReducer,
+});
+
+const store = createStore(rootReducer);
+
+store.subscribe(() => {
+  // console.log(store.getState());
+});
 
 export default store;
