@@ -2,19 +2,20 @@ import * as React from 'react';
 import './index.scss';
 import Card from '../Card';
 
-function Cards() {
+function Cards({ dataWords, setBackground, setTranslate }) {
+  const words = dataWords.slice(0, 10);
+  // console.log(dataWords);
   return (
     <div className="cards-wrapper">
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
+      { words.map((item) => (
+        <Card
+          data={item}
+          key={item.word}
+          setBackground={setBackground}
+          setTranslate={setTranslate}
+          // onClick={setBackground(item.word)}
+        />
+      ))}
     </div>
   );
 }

@@ -2,11 +2,11 @@
 import * as React from 'react';
 import './index.scss';
 
-function ShowImage() {
+function ShowImage({ background, translate }) {
   return (
     <div className="img-wrapper">
-      <img src="http://languagenow.co.uk/wp-content/uploads/2016/05/languagenow_english.jpg" alt="image" className="card-img" />
-      <p className="translation" />
+      <img src={background} alt="image" className="card-img" />
+      <p className="translation">{translate}</p>
     </div>
   );
 }

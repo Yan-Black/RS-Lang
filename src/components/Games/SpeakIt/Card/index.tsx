@@ -3,13 +3,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVolumeUp } from '@fortawesome/free-solid-svg-icons';
 import './index.scss';
 
-function Card() {
+function Card({ data, setBackground, setTranslate }) {
+
+  const cardData = () => {
+    const urlImg = `https://raw.githubusercontent.com/ArtemDrushchyts/rslang-data/master/${data.image}`;
+    setBackground(urlImg);
+    setTranslate(data.wordTranslate);
+    const urlAudio = `https://raw.githubusercontent.com/ArtemDrushchyts/rslang-data/master/${data.audio}`;
+    const audio = new Audio(urlAudio);
+    audio.play();
+  };
+
   return (
-    <div className="card">
+    <div className="card" onClick={cardData}>
       <FontAwesomeIcon icon={faVolumeUp} className="voice-img" />
-      {/* <i class="far fa-play-circle"></i> */}
-      <p className="word">personality</p>
-      <p className="transcription">[pə̀ːrsənǽləti]</p>
+      <p className="word">{data.word}</p>
+      <p className="transcription">{data.transcription}</p>
     </div>
   );
 }
