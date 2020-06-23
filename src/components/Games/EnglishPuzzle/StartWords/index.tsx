@@ -1,28 +1,51 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import * as React from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { State } from '../../../../models/state';
+import { State } from 'models/state';
 import Word from './Word';
 import Loader from './Loader';
-import Desctiption from './Description';
+import Description from './Description';
 import './index.scss';
 
-const StartWords: React.FunctionComponent = () => {
+interface Props {
+  words: [{
+    cId: number;
+    status: string;
+    word: string;
+    idx: number;
+  }];
+}
+
+const StartWords: React.FunctionComponent<Props> = ({ words }) => {
   const loading = useSelector((state: State) => state.loading.isLoading);
-  const actualWordsCollection = useSelector((state: State) => state.fetchedWords.currentWords);
+  useEffect(() => {
+    setList(words);
+  }, [words]);
+
+  const [list, setList] = useState(words);
+
   if (loading) {
     return (
       <Loader />
     );
   }
+
   return (
     <div className="start-words">
-      {actualWordsCollection ? (
-        actualWordsCollection.map((el) => (
-          <Word word={el.textExample} />
-        ))
-      ) : (null)}
-      <Desctiption />
+      {
+        list ? (
+          list.filter((card) => card.status === 'onBase')
+            .map((card, i) => (
+              <Word
+                key={card.cId}
+                cId={card.cId}
+                word={card.word}
+                idx={i}
+              />
+            ))) : (null)
+      }
+      <Description />
     </div>
   );
 };

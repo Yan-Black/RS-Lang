@@ -12,7 +12,7 @@ const Settings: React.FunctionComponent = () => {
   const [page, setPage] = useState(0);
 
   useEffect(() => {
-    page % 2
+    page % 2 || page === 0
       ? dispatch(
         getFirstChunk(
           Math.floor((page > 0 ? page - 1 : page) / 2),

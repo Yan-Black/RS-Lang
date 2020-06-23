@@ -18,14 +18,17 @@
     cursor: grab;
     background-color: rgb(106, 106, 255);
     color: #fff;
-    transition: .2s ease-in-out;
-    text-align: center;
-    /* flex-grow: 1; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
     overflow: hidden;
-    /* padding: 0 2px; */
-    width: 100%;
     font-size: .7vw;
     border: 2px solid #0008;
+}
+
+.flying-card {
+  background-color: #fff;
+  transition: .3s ease-in-out;
 }
 
 .description {
@@ -44,11 +47,6 @@
 .cover {
     background-image: none !important;
 }
-/* .central {
-    background-color: blue;
-    height: 100%;
-    padding: 0 2px;
-} */
 
 .hide {
     animation: hide .7s linear;
