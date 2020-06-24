@@ -7,19 +7,20 @@ import Option from './Option';
 interface Options {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   options: any[],
+  currLvl: string,
 }
 
-function OptionItems({ options }: Options): JSX.Element {
+function OptionItems({ options, currLvl }: Options): JSX.Element {
   const dispatch = useDispatch();
   // const page = useSelector((state: State) => state.audioCallPage);
-  const level = useSelector((state: State) => state.audioCallLevel);
+  // const level = useSelector((state: State) => state.audioCallLevel);
   // const round = useSelector((state: State) => state.audioCallRound);
 
   return (
     <select
       className="custom-select mr-sm-2"
       id="levels"
-      defaultValue={level}
+      defaultValue={currLvl}
       onChange={(event) => {
         dispatch(lvl(event.currentTarget.value));
       }}

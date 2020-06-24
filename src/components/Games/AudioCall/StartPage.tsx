@@ -56,7 +56,7 @@ function StartPage(): JSX.Element {
                 {}
               </span>
               <div className="col-auto bg-info">
-                <OptionItems options={makeArray(6)} />
+                <OptionItems options={makeArray(6)} currLvl={level} />
                 {/* <select
                   className="custom-select mr-sm-2"
                   id="levels"
@@ -70,7 +70,7 @@ function StartPage(): JSX.Element {
               </div>
               <span>Раунд</span>
               <div className="col-auto bg-info">
-                <OptionItems options={makeArray(60)} />
+                <OptionItems options={makeArray(60)} currLvl={round} />
                 {/* <select
                   className="custom-select mr-sm-2"
                   id="rounds"
