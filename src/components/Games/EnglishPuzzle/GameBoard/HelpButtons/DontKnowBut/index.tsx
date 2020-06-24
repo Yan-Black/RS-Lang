@@ -2,8 +2,8 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { enableContinueBtn } from '../../../../../../containers/Games/EnglishPuzzle/GameBoard/HelpButtons/actions';
-import { State } from '../../../../../../models/state';
+import { enableContinueBtn } from 'containers/Games/EnglishPuzzle/GameBoard/HelpButtons/actions';
+import { State } from 'models/state';
 import '../index.scss';
 
 interface Props {

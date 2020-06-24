@@ -1,15 +1,24 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import * as React from 'react';
-import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { getFirstChunk, getLastChunk } from '../../../../containers/Games/EnglishPuzzle/SettingsBlock/actions';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  getFirstChunk, getLastChunk, updatePage, updateGrop,
+} from 'containers/Games/EnglishPuzzle/SettingsBlock/actions';
 import './index.scss';
+import { State } from 'models';
 
-const Settings: React.FunctionComponent = () => {
+const Settings: React.FC = () => {
   const dispatch = useDispatch();
+  const group = useSelector((state: State) => state.engPuzzleGroup.group);
+  const page = useSelector((state: State) => state.engPuzzlePage.page);
+  const changePageHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    dispatch(updatePage(Number(event.target.value)));
+  };
 
-  const [group, setGroup] = useState(0);
-  const [page, setPage] = useState(0);
+  const changeGroupHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    dispatch(updateGrop(Number(event.target.value)));
+  };
 
   useEffect(() => {
     page % 2 || page === 0
@@ -37,7 +46,7 @@ const Settings: React.FunctionComponent = () => {
     <div className="english-puzzle-settings">
       <div className="english-puzzle-settings-group">
         <p>Level: </p>
-        <select name="group" id="group" value={group} onChange={(e) => setGroup(Number(e.target.value))}>
+        <select name="group" id="group" value={group} onChange={changeGroupHandler}>
           {groups.map((gr) => (
             <option value={gr} key={gr}>{gr}</option>
           ))}
@@ -45,7 +54,7 @@ const Settings: React.FunctionComponent = () => {
       </div>
       <div className="english-puzzle-settings-page">
         <p>Page: </p>
-        <select name="page" id="page" value={page} onChange={(e) => setPage(Number(e.target.value))}>
+        <select name="page" id="page" value={page} onChange={changePageHandler}>
           {pages.map((pg) => (
             <option value={pg} key={pg}>{pg}</option>
           ))}

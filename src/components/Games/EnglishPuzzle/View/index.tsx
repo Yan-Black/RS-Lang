@@ -3,7 +3,7 @@ import Header from '../HeaderBlock';
 import GameBlock from '../GameBlock';
 import './index.scss';
 
-const View: React.FunctionComponent = () => (
+const View: React.FC = () => (
   <div className="english-puzzle-view">
     <Header />
     <GameBlock />

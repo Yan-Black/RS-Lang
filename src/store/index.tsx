@@ -1,6 +1,8 @@
 import thunk from 'redux-thunk';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 
+import pageReducer from 'containers/Games/EnglishPuzzle/SettingsBlock/pageReducer';
+import groupReducer from 'containers/Games/EnglishPuzzle/SettingsBlock/groupReducer';
 import appReducer from '../containers/App/reducer';
 import btnsReducer from '../containers/Games/EnglishPuzzle/HintButtons/reducer';
 import wordsReducer from '../containers/Games/EnglishPuzzle/SettingsBlock/wordsReducer';
@@ -15,6 +17,8 @@ const rootReducer = combineReducers({
   engPuzzleControlBtns: helpBtnsReducer,
   engPuzzleActiveIdx: activeIndexReducer,
   engPuzzleCards: collectionReducer,
+  engPuzzlePage: pageReducer,
+  engPuzzleGroup: groupReducer,
   fetchedWords: wordsReducer,
   loading: loaderReducer,
 });

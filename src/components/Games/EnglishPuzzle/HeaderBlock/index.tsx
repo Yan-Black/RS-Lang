@@ -3,7 +3,7 @@ import HintButtons from '../HintButtons';
 import Settings from '../SettingsBlock';
 import './index.scss';
 
-const Header: React.FunctionComponent = () => (
+const Header: React.FC = () => (
   <div className="header-section">
     <Settings />
     <HintButtons />

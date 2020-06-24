@@ -1,3 +1,5 @@
+import { Action } from 'redux';
+
 interface InitialState {
   audioHintActive: boolean,
   translateHintActive: boolean,
@@ -10,7 +12,7 @@ const initialState = <InitialState> {
   backgroundHintActive: false,
 };
 
-const btnsReducer = (state = initialState, action) => {
+const btnsReducer = (state = initialState, action: Action): InitialState => {
   switch (action.type) {
     case 'AUDIO_ENABLE':
       return { ...state, audioHintActive: true };

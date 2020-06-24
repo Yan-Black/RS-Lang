@@ -8,12 +8,16 @@ import '../index.scss';
 import { Draggable } from 'react-beautiful-dnd';
 
 interface Props {
+  onClickFn: React.MouseEventHandler;
   word: string;
   cId: number;
   idx: number;
+  id: number
 }
 
-const Word: React.FunctionComponent<Props> = ({ word, cId, idx }) => (
+const Word: React.FC<Props> = ({
+  word, cId, idx, id, onClickFn,
+}) => (
   <Draggable draggableId={cId.toString()} index={idx}>
     {(provided) => (
       <div
@@ -21,6 +25,8 @@ const Word: React.FunctionComponent<Props> = ({ word, cId, idx }) => (
         {...provided.dragHandleProps}
         ref={provided.innerRef}
         className="start-word"
+        id={`${id}`}
+        onClick={onClickFn}
       >
         {word}
       </div>

@@ -1,21 +1,22 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileAlt } from '@fortawesome/free-solid-svg-icons';
-import { translateEnable, translateDisable } from '../../../../../containers/Games/EnglishPuzzle/HintButtons/actions';
+import { translateEnable, translateDisable } from 'containers/Games/EnglishPuzzle/HintButtons/actions';
+import { State } from 'models';
 
-const Hint: React.FunctionComponent = () => {
+const Hint: React.FC = () => {
   const dispatch = useDispatch();
-  const currentBtnsState = useSelector((state: any) => state.engPuzzleBtns);
+  const translateBtnState = useSelector((state: State) => state.engPuzzleBtns.translateHintActive);
   const stateSwitcher = () => (
-    currentBtnsState.translateHintActive ? translateDisable() : translateEnable()
+    translateBtnState ? dispatch(translateDisable()) : dispatch(translateEnable())
   );
-  const translateBtnStyle = currentBtnsState.translateHintActive ? 'show-hint' : 'show-hint off';
+  const clickHandler = () => stateSwitcher();
+  const translateBtnStyle = translateBtnState ? 'show-hint' : 'show-hint off';
   return (
-    <div className={translateBtnStyle} onClick={() => dispatch(stateSwitcher())}>
+    <div className={translateBtnStyle} onClick={clickHandler}>
       <FontAwesomeIcon icon={faFileAlt} />
     </div>
   );

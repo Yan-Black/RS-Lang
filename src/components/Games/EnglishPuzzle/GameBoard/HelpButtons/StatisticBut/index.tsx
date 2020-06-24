@@ -10,8 +10,9 @@ const StatisticBtn: React.FC = () => {
   const statisticBtnState = useSelector((state: State) => state.engPuzzleControlBtns.statisticBtn);
   const dispatch = useDispatch();
   const statisticBtnStyle = statisticBtnState ? 'statistic' : 'statistic disabled';
+  const clickHandler = () => dispatch(disableStatisticBtn());
   return (
-    <div className={statisticBtnStyle} onClick={() => dispatch(disableStatisticBtn())}>
+    <div className={statisticBtnStyle} onClick={clickHandler}>
       Statistic
     </div>
   );

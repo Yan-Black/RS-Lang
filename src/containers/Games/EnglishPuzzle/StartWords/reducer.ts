@@ -1,10 +1,15 @@
+import { Action } from 'redux';
 import { SHOW_LOADER, HIDE_LOADER } from './types';
 
-const initialState = {
+interface InitialState {
+  isLoading: boolean;
+}
+
+const initialState = <InitialState> {
   isLoading: false,
 };
 
-const loaderReducer = (state = initialState, action) => {
+const loaderReducer = (state = initialState, action: Action): InitialState => {
   switch (action.type) {
     case SHOW_LOADER:
       return { ...state, isLoading: true };

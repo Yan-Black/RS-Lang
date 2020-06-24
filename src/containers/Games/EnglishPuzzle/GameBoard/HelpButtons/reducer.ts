@@ -1,3 +1,13 @@
+import { Action } from 'redux';
+
+interface InitialState {
+  dontKnowBtn: boolean,
+  checkBtn: boolean,
+  continueBtn: boolean,
+  resultsBtn: boolean,
+  statisticBtn: boolean,
+}
+
 const initialState = {
   dontKnowBtn: true,
   checkBtn: false,
@@ -6,7 +16,7 @@ const initialState = {
   statisticBtn: false,
 };
 
-const helpBtnsReducer = (state = initialState, action) => {
+const helpBtnsReducer = (state = initialState, action: Action): InitialState => {
   switch (action.type) {
     case 'ENABLE_DONT_KNOW_BTN': return {
       ...state,

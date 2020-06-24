@@ -1,11 +1,12 @@
+import { Action } from 'redux';
 import {
   AUDIO_ENABLE,
   AUDIO_DISABLE,
   TRANSLATE_ENABLE,
   TRANSLATE_DISABLE,
   BACKGROUND_ENABLE,
-  BACKGROUND_DISABLE } from './types';
-import { Action } from '../../../../models/redux/Action';
+  BACKGROUND_DISABLE,
+} from './types';
 
 export const audioEnabled = (): Action => ({
   type: AUDIO_ENABLE,

@@ -8,32 +8,66 @@ import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { State } from 'models/state';
-import { reorder, move } from '../Constants';
+import { reorder, move, shuffle } from '../Constants';
 import HelpButtons from './HelpButtons';
 import './index.scss';
 import Word from '../StartWords/Word';
 import { RowsMap, Card } from '../GameBlock/types';
+import Loader from '../StartWords/Loader';
 
 interface Props {
-  wordsMap: RowsMap;
+  gameData: [RowsMap, number];
 }
 
-const GameBoard: React.FC<Props> = ({ wordsMap }) => {
+const GameBoard: React.FC<Props> = ({ gameData }) => {
   const rows = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  const rowLength = wordsMap.selected.length;
+  const [wordsMap, rowLength] = gameData;
   const activeIdx = useSelector((state: State) => state.engPuzzleActiveIdx.currentIdx);
   const cardsCollection = useSelector((state: State) => state.engPuzzleCards.cardsCollection);
+  const loading = useSelector((state: State) => state.loading.isLoading);
   const [state, setState] = useState(wordsMap);
 
   useEffect(() => {
-    setState(wordsMap);
+    const shuffledArr = shuffle(wordsMap.selected);
+    setState({
+      cards: wordsMap.cards,
+      selected: shuffledArr,
+    });
   }, [wordsMap]);
+
+  if (loading) {
+    return (
+      <Loader />
+    );
+  }
 
   const pushWordsToBoard = () => {
     const solvedState = { ...wordsMap };
     solvedState.selected.forEach((card) => wordsMap.cards.push(card));
     solvedState.selected = [];
     setState(solvedState);
+  };
+
+  const replaceOnClick = (e) => {
+    if (e.target.parentElement.getAttribute('data-rbd-droppable-id') === 'base') {
+      const sourceClone = Array.from(state.selected);
+      const destClone = Array.from(state.cards);
+      const [replaced] = sourceClone.splice(e.target.id, 1);
+      destClone.push([replaced][0]);
+      setState({
+        cards: destClone,
+        selected: sourceClone,
+      });
+    } else {
+      const sourceClone = Array.from(state.selected);
+      const destClone = Array.from(state.cards);
+      const [replaced] = destClone.splice(e.target.id, 1);
+      sourceClone.push([replaced][0]);
+      setState({
+        cards: destClone,
+        selected: sourceClone,
+      });
+    }
   };
 
   const idList = {
@@ -89,9 +123,14 @@ const GameBoard: React.FC<Props> = ({ wordsMap }) => {
         <div className="canvas cover">
           {rows.map((row, i) => (
             i === activeIdx ? (
-              <Droppable droppableId="board" direction="horizontal">
+              <Droppable
+                droppableId="board"
+                direction="horizontal"
+                key={(Math.random() * 100).toFixed(3)}
+              >
                 {(provided) => (
                   <div
+                    key={(Math.random() * 100).toFixed(3)}
                     className="sentence active-sentence"
                     style={{ display: 'grid', gridTemplateColumns: `repeat(${rowLength}, 1fr)` }}
                     ref={provided.innerRef}
@@ -103,6 +142,8 @@ const GameBoard: React.FC<Props> = ({ wordsMap }) => {
                         cId={card.cId}
                         word={card.word}
                         idx={idx}
+                        id={idx}
+                        onClickFn={replaceOnClick}
                       />
                     ))}
                     {provided.placeholder}
@@ -148,6 +189,8 @@ const GameBoard: React.FC<Props> = ({ wordsMap }) => {
                 cId={card.cId}
                 word={card.word}
                 idx={idx}
+                id={idx}
+                onClickFn={replaceOnClick}
               />
             ))}
             {provided.placeholder}

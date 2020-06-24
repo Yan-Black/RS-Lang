@@ -9,7 +9,8 @@ import {
   ENABLE_RESULTS_BTN,
   DISABLE_RESULTS_BTN,
   ENABLE_STATISTIC_BTN,
-  DISABLE_STATISTIC_BTN } from './types';
+  DISABLE_STATISTIC_BTN,
+} from './types';
 
 export const enableDontKnowBtn = (): Action => ({
   type: ENABLE_DONT_KNOW_BTN,

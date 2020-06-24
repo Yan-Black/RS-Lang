@@ -3,13 +3,11 @@ import Authorization from 'components/Authorization';
 import Main from 'components/Main';
 import './index.scss';
 
-function App() {
-  return (
-    <div className="app">
-      <Authorization />
-      <Main />
-    </div>
-  );
-}
+const App: React.FC = () => (
+  <div className="app">
+    <Authorization />
+    <Main />
+  </div>
+);
 
 export default App;

@@ -6,5 +6,7 @@ export interface State {
   loading;
   engPuzzleControlBtns;
   engPuzzleCards;
+  engPuzzlePage;
+  engPuzzleGroup;
   // add more fields according rootReducer
 }
