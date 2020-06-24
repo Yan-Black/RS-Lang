@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { gamePage, statisticPage, startPage } from '../../../containers/Games/AudioCall/actions';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { startPage } from '../../../containers/Games/AudioCall/actions';
 
-function StatisticPage() {
+function StatisticPage(): JSX.Element {
   const dispatch = useDispatch();
 
   return (
@@ -13,97 +14,97 @@ function StatisticPage() {
           <div className="d-flex pb-3 bg-light text-dark flex-column border-bottom">
             <p className="text-danger my-1">ОШИБОК: 5</p>
             <div className="d-flex bg-light my-2 align-items-baseline">
-              <i className="fas fa-volume-down mr-3" />
+              <i className="fas fa-volume-down mr-3" style={{ cursor: 'pointer' }} />
               <span className="bg-light d-inline-block text-truncate" style={{ width: '70%' }}>
                 <span className="text-primary">word dfjl jljflek flkdjlij lkfejl fijfslfjlsk jfliej lfkj</span>
                 {' '}
                 - translate fewk lfkjs lfjls jflke
               </span>
-              <i className="fas fa-trash ml-auto mr-3" data-toggle="tooltip" data-placement="left" title="Удалить из словаря" />
+              <i className="fas fa-trash ml-auto mr-3" style={{ cursor: 'pointer' }} data-toggle="tooltip" data-placement="left" title="Удалить из словаря" />
             </div>
             <div className="d-flex bg-light my-2 align-items-baseline">
-              <i className="fas fa-volume-down mr-3" />
+              <i className="fas fa-volume-down mr-3" style={{ cursor: 'pointer' }} />
               <span className="bg-light d-inline-block text-truncate" style={{ width: '70%' }}>
                 <span className="text-primary">word</span>
                 {' '}
                 - translate
               </span>
-              <i className="fas fa-trash ml-auto mr-3" data-toggle="tooltip" data-placement="left" title="Удалить из словаря" />
+              <i className="fas fa-trash ml-auto mr-3" style={{ cursor: 'pointer' }} data-toggle="tooltip" data-placement="left" title="Удалить из словаря" />
             </div>
             <div className="d-flex bg-light my-2 align-items-baseline">
-              <i className="fas fa-volume-down mr-3" />
+              <i className="fas fa-volume-down mr-3" style={{ cursor: 'pointer' }} />
               <span className="bg-light d-inline-block text-truncate" style={{ width: '70%' }}>
                 <span className="text-primary">word</span>
                 {' '}
                 - translate
               </span>
-              <i className="fas fa-trash ml-auto mr-3" data-toggle="tooltip" data-placement="left" title="Удалить из словаря" />
+              <i className="fas fa-trash ml-auto mr-3" style={{ cursor: 'pointer' }} data-toggle="tooltip" data-placement="left" title="Удалить из словаря" />
             </div>
             <div className="d-flex bg-light my-2 align-items-baseline">
-              <i className="fas fa-volume-down mr-3" />
+              <i className="fas fa-volume-down mr-3" style={{ cursor: 'pointer' }} />
               <span className="bg-light d-inline-block text-truncate" style={{ width: '70%' }}>
                 <span className="text-primary">word</span>
                 {' '}
                 - translate
               </span>
-              <i className="fas fa-trash ml-auto mr-3" data-toggle="tooltip" data-placement="left" title="Удалить из словаря" />
+              <i className="fas fa-trash ml-auto mr-3" style={{ cursor: 'pointer' }} data-toggle="tooltip" data-placement="left" title="Удалить из словаря" />
             </div>
             <div className="d-flex bg-light my-2 align-items-baseline">
-              <i className="fas fa-volume-down mr-3" />
+              <i className="fas fa-volume-down mr-3" style={{ cursor: 'pointer' }} />
               <span className="bg-light d-inline-block text-truncate" style={{ width: '70%' }}>
                 <span className="text-primary">word</span>
                 {' '}
                 - translate
               </span>
-              <i className="fas fa-trash ml-auto mr-3" data-toggle="tooltip" data-placement="left" title="Удалить из словаря" />
+              <i className="fas fa-trash ml-auto mr-3" style={{ cursor: 'pointer' }} data-toggle="tooltip" data-placement="left" title="Удалить из словаря" />
             </div>
           </div>
           <div className="d-flex bg-light text-dark flex-column">
             <p className="text-success mb-1 mt-3">ЗНАЮ: 5</p>
             <div className="d-flex bg-light my-2 align-items-baseline">
-              <i className="fas fa-volume-down mr-3" />
+              <i className="fas fa-volume-down mr-3" style={{ cursor: 'pointer' }} />
               <span className="bg-light d-inline-block text-truncate" style={{ width: '70%' }}>
                 <span className="text-primary">word</span>
                 {' '}
                 - translate
               </span>
-              <i className="fas fa-trash ml-auto mr-3" data-toggle="tooltip" data-placement="left" title="Удалить из словаря" />
+              <i className="fas fa-trash ml-auto mr-3" style={{ cursor: 'pointer' }} data-toggle="tooltip" data-placement="left" title="Удалить из словаря" />
             </div>
             <div className="d-flex bg-light my-2 align-items-baseline">
-              <i className="fas fa-volume-down mr-3" />
+              <i className="fas fa-volume-down mr-3" style={{ cursor: 'pointer' }} />
               <span className="bg-light d-inline-block text-truncate" style={{ width: '70%' }}>
                 <span className="text-primary">word</span>
                 {' '}
                 - translate
               </span>
-              <i className="fas fa-trash ml-auto mr-3" data-toggle="tooltip" data-placement="left" title="Удалить из словаря" />
+              <i className="fas fa-trash ml-auto mr-3" style={{ cursor: 'pointer' }} data-toggle="tooltip" data-placement="left" title="Удалить из словаря" />
             </div>
             <div className="d-flex bg-light my-2 align-items-baseline">
-              <i className="fas fa-volume-down mr-3" />
+              <i className="fas fa-volume-down mr-3" style={{ cursor: 'pointer' }} />
               <span className="bg-light d-inline-block text-truncate" style={{ width: '70%' }}>
                 <span className="text-primary">word</span>
                 {' '}
                 - translate
               </span>
-              <i className="fas fa-trash ml-auto mr-3" data-toggle="tooltip" data-placement="left" title="Удалить из словаря" />
+              <i className="fas fa-trash ml-auto mr-3" style={{ cursor: 'pointer' }} data-toggle="tooltip" data-placement="left" title="Удалить из словаря" />
             </div>
             <div className="d-flex bg-light my-2 align-items-baseline">
-              <i className="fas fa-volume-down mr-3" />
+              <i className="fas fa-volume-down mr-3" style={{ cursor: 'pointer' }} />
               <span className="bg-light d-inline-block text-truncate" style={{ width: '70%' }}>
                 <span className="text-primary">word</span>
                 {' '}
                 - translate
               </span>
-              <i className="fas fa-trash ml-auto mr-3" data-toggle="tooltip" data-placement="left" title="Удалить из словаря" />
+              <i className="fas fa-trash ml-auto mr-3" style={{ cursor: 'pointer' }} data-toggle="tooltip" data-placement="left" title="Удалить из словаря" />
             </div>
             <div className="d-flex bg-light my-2 align-items-baseline">
-              <i className="fas fa-volume-down mr-3" />
+              <i className="fas fa-volume-down mr-3" style={{ cursor: 'pointer' }} />
               <span className="bg-light d-inline-block text-truncate" style={{ width: '70%' }}>
                 <span className="text-primary">word</span>
                 {' '}
                 - translate
               </span>
-              <i className="fas fa-trash ml-auto mr-3" data-toggle="tooltip" data-placement="left" title="Удалить из словаря" onMouseOver={(event) => {console.log(event.currentTarget.classList.add('text-danger'))}} />
+              <i className="fas fa-trash ml-auto mr-3" style={{ cursor: 'pointer' }} data-toggle="tooltip" data-placement="left" title="Удалить из словаря" onMouseOver={() => { /* console.log(event.currentTarget.classList.add('text-danger')); */ }} onFocus={() => {}} />
             </div>
           </div>
         </div>
@@ -117,12 +118,15 @@ function StatisticPage() {
           >
             ИГРАТЬ СНОВА
           </button>
-          <button
-            type="button"
-            className="btn btn-light border text-primary mr-5"
-          >
-            НА ГЛАВНУЮ
-          </button>
+          <Link to="/Main">
+            <button
+              type="button"
+              className="btn btn-light border text-primary mr-5"
+              style={{ cursor: 'pointer' }}
+            >
+              НА ГЛАВНУЮ
+            </button>
+          </Link>
         </div>
       </div>
     </div>

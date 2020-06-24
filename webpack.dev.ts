@@ -19,12 +19,41 @@ const config: webpack.Configuration = {
   module: {
     rules: [
       { test: /\.tsx?$/, loader: 'ts-loader' },
+      { test: /\.svg$/, loader: 'ts-loader' },
       {
         test: /\.s[ac]ss$/i,
         use: [
           'style-loader',
           'css-loader',
           'sass-loader',
+        ],
+      },
+      {
+        test: /\.(png|svg|jpe?g|gif)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[path][name].[ext]',
+            },
+          },
+        ],
+      }, {
+        test: /\.(ogg|mp3|wav|mpe?g)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[path][name].[ext]',
+            },
+          },
+        ],
+      }, {
+        test: /\.svg$/,
+        use: [
+          {
+            loader: 'svg-url-loader',
+          },
         ],
       },
     ],

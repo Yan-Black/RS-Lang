@@ -2,4 +2,8 @@ export enum ActionType {
   START_PAGE = 'START_PAGE',
   GAME_PAGE = 'GAME_PAGE',
   STATISTIC_PAGE = 'STATISTIC_PAGE',
+  LVL = 'LVL',
+  RND = 'RND',
+  INIT_WORDS = 'INIT_WORDS',
+  FETCH_WORDS = 'FETCH_WORDS',
 }
