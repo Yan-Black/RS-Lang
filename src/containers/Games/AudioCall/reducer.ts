@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import * as Models from 'models';
 import { ActionType } from './constants';
 
@@ -9,6 +10,22 @@ const initialState = {
   // fetchedWords: [],
   currentWords: [],
   translateOptions: [],
+};
+
+interface AnswerInitState {
+  btnTitle: string,
+  isChecked: boolean,
+  isCorrect: boolean,
+  isWrong: boolean,
+  progress: number,
+}
+
+const answerInitState = <AnswerInitState> {
+  btnTitle: ' НЕ ЗНАЮ',
+  isChecked: false,
+  isCorrect: false,
+  isWrong: false,
+  progress: 0,
 };
 
 // eslint-disable-next-line max-len
@@ -55,8 +72,35 @@ const currWordsReducer: Models.Reducer<unknown> = (state = initialState.currentW
   }
 };
 
+const answerReducer: Models.Reducer<unknown> = (state: AnswerInitState = answerInitState, { type, payload }): AnswerInitState => {
+  switch (type) {
+    case ActionType.CHECK_ANSWER:
+      // console.log(payload);
+      return {
+        // eslint-disable-next-line max-len
+        ...state, isChecked: payload, isCorrect: false, isWrong: false,
+      };
+    case ActionType.CORRECT_ANSWER:
+      return {
+        ...state, isCorrect: payload, isWrong: !payload,
+      };
+    case ActionType.WRONG_ANSWER:
+      return {
+        ...state, isWrong: payload, isCorrect: !payload,
+      };
+    case ActionType.PROGRESS_GAME:
+      return {
+        ...state, progress: state.progress + 10,
+      };
+    case ActionType.RESET_GAME:
+      return answerInitState;
+    default:
+      return state;
+  }
+};
+
 // const buttonReducer
 
 export {
-  pageReducer, levelReducer, roundReducer, currWordsReducer,
+  pageReducer, levelReducer, roundReducer, currWordsReducer, answerReducer,
 };

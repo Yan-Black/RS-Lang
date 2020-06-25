@@ -5,7 +5,7 @@ import {
 
 // import appReducer from '../containers/App/reducer';
 import {
-  pageReducer, levelReducer, roundReducer, currWordsReducer,
+  pageReducer, levelReducer, roundReducer, currWordsReducer, answerReducer,
 } from '../containers/Games/AudioCall/reducer';
 
 const rootReducer = combineReducers({
@@ -13,12 +13,13 @@ const rootReducer = combineReducers({
   audioCallLevel: levelReducer,
   audioCallRound: roundReducer,
   audioCallCurrWords: currWordsReducer,
+  audioCallAnswer: answerReducer,
 });
 
 const store = createStore(rootReducer, compose(applyMiddleware(thunk)));
 
-// store.subscribe(() => {
-//   console.log(store.getState());
-// });
+store.subscribe(() => {
+  console.log(store.getState());
+});
 
 export default store;

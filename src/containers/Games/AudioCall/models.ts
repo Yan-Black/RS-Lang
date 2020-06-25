@@ -12,6 +12,11 @@ export namespace Action {
   export interface Rnd extends Models.Action<Payload.SetDocumentTypes> { }
   export interface InitWords extends Models.Action<Payload.SetDocumentTypes> { }
   export interface FetchWords extends Models.Action<Payload.SetDocumentTypes> { }
+  export interface CheckAnswer extends Models.Action<Payload.SetDocumentTypes> { }
+  export interface CorrectAnswer extends Models.Action<Payload.SetDocumentTypes> { }
+  export interface WrongAnswer extends Models.Action<Payload.SetDocumentTypes> { }
+  export interface ProgressGame extends Models.Action<Payload.SetDocumentTypes> { }
+  export interface ResetGame extends Models.Action<Payload.SetDocumentTypes> { }
 }
 
 export namespace ActionCreator {
@@ -22,4 +27,9 @@ export namespace ActionCreator {
   export type Rnd = (round: string) => Action.Rnd;
   export type InitWords = () => Action.InitWords;
   export type FetchWords = (wordsObj: unknown) => Action.FetchWords;
+  export type CheckAnswer = (payload: boolean) => Action.CheckAnswer;
+  export type CorrectAnswer = (payload: boolean) => Action.CorrectAnswer;
+  export type WrongAnswer = (payload: boolean) => Action.WrongAnswer;
+  export type ProgressGame = () => Action.ProgressGame;
+  export type ResetGame = () => Action.ResetGame;
 }

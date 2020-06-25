@@ -31,3 +31,26 @@ export const fetchWords: ActionCreator.FetchWords = (wordsObj) => ({
   type: ActionType.FETCH_WORDS,
   payload: wordsObj,
 });
+
+export const checkAnswer: ActionCreator.CheckAnswer = (isChecked) => ({
+  type: ActionType.CHECK_ANSWER,
+  payload: isChecked,
+});
+
+export const correctAnswer: ActionCreator.CorrectAnswer = (isCorrect) => ({
+  type: ActionType.CORRECT_ANSWER,
+  payload: isCorrect,
+});
+
+export const wrongAnswer: ActionCreator.WrongAnswer = (isWrong) => ({
+  type: ActionType.WRONG_ANSWER,
+  payload: isWrong,
+});
+
+export const progressGame: ActionCreator.ProgressGame = () => ({
+  type: ActionType.PROGRESS_GAME,
+});
+
+export const resetGame: ActionCreator.ResetGame = () => ({
+  type: ActionType.RESET_GAME,
+});

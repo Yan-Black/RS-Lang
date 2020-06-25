@@ -23,7 +23,7 @@ function StartPage(): JSX.Element {
   return (
     <div className="p-3 mb-2 bg-info text-white text-center align-items-center" style={{ height: '100vh' }}>
       <div className="p-3 bg-info text-right">
-        <Link to="/Main" onClick={() => dispatch(startPage())}><i className="fas fa-times" /></Link>
+        <Link to="/Main" onClick={() => { dispatch(startPage()); }}><i className="fas fa-times text-white" /></Link>
       </div>
       <div className="d-flex flex-column bg-info justify-content-center" style={{ height: '70%' }}>
         <h1 className="mb-5">АУДИОВЫЗОВ</h1>
@@ -43,6 +43,7 @@ function StartPage(): JSX.Element {
           <form onSubmit={async (e) => {
             e.preventDefault();
             const jsonObj = await getWordsForGame(level, round);
+            // console.log(jsonObj);
             dispatch(fetchWords(jsonObj));
             dispatch(gamePage());
           }}
@@ -57,30 +58,10 @@ function StartPage(): JSX.Element {
               </span>
               <div className="col-auto bg-info">
                 <OptionItems options={makeArray(6)} currLvl={level} />
-                {/* <select
-                  className="custom-select mr-sm-2"
-                  id="levels"
-                  defaultValue={level}
-                  onChange={(event) => {
-                    dispatch(lvl(event.currentTarget.value));
-                  }}
-                >
-                  <OptionItems options={makeArray(6)} />
-                </select> */}
               </div>
               <span>Раунд</span>
               <div className="col-auto bg-info">
                 <OptionItems options={makeArray(60)} currLvl={round} />
-                {/* <select
-                  className="custom-select mr-sm-2"
-                  id="rounds"
-                  defaultValue={round}
-                  onChange={(event) => {
-                    dispatch(rnd(event.currentTarget.value));
-                  }}
-                >
-                  <OptionItems options={makeArray(60)} />
-                </select> */}
               </div>
             </div>
           </form>
