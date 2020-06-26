@@ -2,13 +2,13 @@ import * as React from 'react';
 // import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  statisticPage, checkAnswer, resetGame, progressGame,
+  statisticPage, checkAnswer, resetGame, progressGame, notKnowWords,
 } from 'containers/Games/AudioCall/actions';
 import { State } from 'models';
 
 function GameButton(): JSX.Element {
   const dispatch = useDispatch();
-  // const words = useSelector((state: State) => state.audioCallCurrWords);
+  const currWords = useSelector((state: State) => state.audioCallCurrWords);
   // const round = useSelector((state: State) => state.audioCallRound);
   // const firstWordNumber = (+round % 2) === 0 ? 0 : 10;
   // const [gameRound, setGameRound] = useState(0);
@@ -45,6 +45,8 @@ function GameButton(): JSX.Element {
       onClick={() => {
         // console.log(gameRound);
         // setGameRound(gameRound + 1);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+        dispatch(notKnowWords(currWords[currActiveId]));
         dispatch(checkAnswer(true));
         dispatch(progressGame());
       }}

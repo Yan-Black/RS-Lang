@@ -54,3 +54,17 @@ export const progressGame: ActionCreator.ProgressGame = () => ({
 export const resetGame: ActionCreator.ResetGame = () => ({
   type: ActionType.RESET_GAME,
 });
+
+export const knowWords: ActionCreator.KnowWords = (wordsObj) => ({
+  type: ActionType.KNOW,
+  payload: wordsObj,
+});
+
+export const notKnowWords: ActionCreator.NotKnowWords = (wordsObj) => ({
+  type: ActionType.NOT_KNOW,
+  payload: wordsObj,
+});
+
+export const resetCurrStatistic: ActionCreator.ResetCurrStatistic = () => ({
+  type: ActionType.RESET_CURR_STATISTIC,
+});

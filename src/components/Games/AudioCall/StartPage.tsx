@@ -7,7 +7,7 @@ import {
   gamePage, fetchWords, startPage,
 } from '../../../containers/Games/AudioCall/actions';
 import OptionItems from './OptionItems';
-import { getWordsForGame, Json } from './utils';
+import { getWordsForGame, Json, getTranslateOptions } from './utils';
 // import { ActionCreator } from 'redux';
 
 function makeArray(length) {
@@ -44,8 +44,9 @@ function StartPage(): JSX.Element {
             e.preventDefault();
             const jsonObj: Array<Json> = await getWordsForGame(level, round);
             const wordsList = round % 2 === 0 ? jsonObj.slice(0, 10) : jsonObj.slice(10);
-            // console.log(wordsList);
-            dispatch(fetchWords(wordsList));
+            const gameData = getTranslateOptions(wordsList);
+            // console.log(gameWords);
+            dispatch(fetchWords(gameData));
             dispatch(gamePage());
           }}
           >

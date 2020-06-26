@@ -14,12 +14,8 @@ interface Json {
   word: string,
   wordTranslate: string,
   wordsPerExampleSentence: number,
+  translateOptions: string[],
 }
-
-// interface WordData {
-//   imgJson: JSON,
-//   audioJson: JSON,
-// }
 
 async function getWordsForGame(level: number, round: number): Promise<Array<Json>> {
   const group = level - 1;
@@ -41,17 +37,26 @@ function playSound(sound: string): void {
   void audio.play();
 }
 
-// async function getWordData(imgFile: string, audioFile: string): Promise<WordData> {
-//   const imgUrl = `https://raw.githubusercontent.com/lactivka/rslang-data/master/${imgFile}`;
-//   const audioUrl = `https://raw.githubusercontent.com/lactivka/rslang-data/master/${audioFile}`;
+function getTranslateOptions(dataObj: Array<Json>): Array<Json> {
+  const gameData = dataObj;
+  for (let i = 0; i < gameData.length; i += 1) {
+    const options = [dataObj[i].wordTranslate, 'two', 'three', 'four', 'five'];
+    const shuffledOptions = shuffleArray(options);
+    gameData[i].translateOptions = shuffledOptions;
+  }
+  // console.log(gameData);
+  return gameData;
+}
 
-//   const imgResponse = await fetch(imgUrl);
-//   const audioResponse = await fetch(audioUrl);
-//   console.log(imgResponse, audioResponse);
-//   const imgJson = await imgResponse.json();
-//   const audioJson = await audioResponse.json();
+function shuffleArray(arr) {
+  for (let i = arr.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    // eslint-disable-next-line no-param-reassign
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
 
-//   return ({ imgJson, audioJson });
-// }
-
-export { getWordsForGame, Json, playSound };
+export {
+  getWordsForGame, Json, playSound, getTranslateOptions,
+};

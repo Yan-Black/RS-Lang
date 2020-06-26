@@ -1,6 +1,8 @@
 /* eslint-disable max-len */
 import * as Models from 'models';
+import { Json } from 'components/Games/AudioCall/utils';
 import { ActionType } from './constants';
+// import { knowWords } from './actions';
 
 const initialState = {
   page: 'START_PAGE',
@@ -26,6 +28,16 @@ const answerInitState = <AnswerInitState> {
   isCorrect: false,
   isWrong: false,
   progress: 0,
+};
+
+interface StatisticInitState {
+  wrongAnswers: Array<Json>,
+  correctAnswers: Array<Json>,
+}
+
+const statisticInitState = <StatisticInitState> {
+  wrongAnswers: [],
+  correctAnswers: [],
 };
 
 // eslint-disable-next-line max-len
@@ -75,7 +87,6 @@ const currWordsReducer: Models.Reducer<unknown> = (state = initialState.currentW
 const answerReducer: Models.Reducer<unknown> = (state: AnswerInitState = answerInitState, { type, payload }): AnswerInitState => {
   switch (type) {
     case ActionType.CHECK_ANSWER:
-      // console.log(payload);
       return {
         // eslint-disable-next-line max-len
         ...state, isChecked: payload, isCorrect: false, isWrong: false,
@@ -99,8 +110,19 @@ const answerReducer: Models.Reducer<unknown> = (state: AnswerInitState = answerI
   }
 };
 
-// const buttonReducer
+const statisticReducer: Models.Reducer<unknown> = (state: StatisticInitState = statisticInitState, { type, payload }): StatisticInitState => {
+  switch (type) {
+    case ActionType.KNOW:
+      return { ...state, correctAnswers: state.correctAnswers.concat(payload) };
+    case ActionType.NOT_KNOW:
+      return { ...state, wrongAnswers: state.wrongAnswers.concat(payload) };
+    case ActionType.RESET_CURR_STATISTIC:
+      return statisticInitState;
+    default:
+      return state;
+  }
+};
 
 export {
-  pageReducer, levelReducer, roundReducer, currWordsReducer, answerReducer,
+  pageReducer, levelReducer, roundReducer, currWordsReducer, answerReducer, statisticReducer,
 };

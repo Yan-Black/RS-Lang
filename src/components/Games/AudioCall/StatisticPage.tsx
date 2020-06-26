@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { startPage } from '../../../containers/Games/AudioCall/actions';
+import { startPage, resetCurrStatistic } from '../../../containers/Games/AudioCall/actions';
 
 function StatisticPage(): JSX.Element {
   const dispatch = useDispatch();
@@ -113,6 +113,7 @@ function StatisticPage(): JSX.Element {
             type="button"
             className="btn btn-light border text-primary mr-5"
             onClick={() => {
+              dispatch(resetCurrStatistic());
               dispatch(startPage());
             }}
           >
@@ -123,6 +124,10 @@ function StatisticPage(): JSX.Element {
               type="button"
               className="btn btn-light border text-primary mr-5"
               style={{ cursor: 'pointer' }}
+              onClick={() => {
+                dispatch(resetCurrStatistic());
+                dispatch(startPage());
+              }}
             >
               НА ГЛАВНУЮ
             </button>

@@ -7,31 +7,36 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from 'models';
 import {
-  correctAnswer, wrongAnswer, checkAnswer, progressGame,
+  correctAnswer, wrongAnswer, checkAnswer, progressGame, knowWords, notKnowWords,
 } from 'containers/Games/AudioCall/actions';
 import { playSound } from './utils';
 
 function TranslateOptions(): JSX.Element {
   const dispatch = useDispatch();
-  const [clickedPosition, setClickedPosition] = useState(6);
-  const correctAnswerPosition = 2;
+  const [clickedWord, setClickedWord] = useState('null');
 
   const currWords = useSelector((state: State) => state.audioCallCurrWords);
   const isChecked = useSelector((state: State) => state.audioCallAnswer.isChecked);
   const isCorrect = useSelector((state: State) => state.audioCallAnswer.isCorrect);
   const isWrong = useSelector((state: State) => state.audioCallAnswer.isWrong);
 
-  const optionClass = (wordId: number) => {
-    if (isCorrect && wordId === correctAnswerPosition) {
+  const gameProgress = useSelector((state: State) => state.audioCallAnswer.progress);
+  // const currActiveId = gameProgress < 10 ? gameProgress : 0;
+
+  const currActiveId = isChecked ? gameProgress - 1 : gameProgress;
+  const targetTranslate = currWords[currActiveId].wordTranslate;
+
+  const optionClass = (word: string) => {
+    if (isCorrect && word === targetTranslate) {
       return 'option bg-light text-success px-2 mx-5 border border-success';
     }
-    if (isWrong && wordId === clickedPosition) {
+    if (isWrong && word === clickedWord) {
       return 'option bg-light text-danger px-2 mx-5 border border-danger';
     }
-    if (isChecked && wordId !== correctAnswerPosition) {
+    if (isChecked && word !== targetTranslate) {
       return 'option bg-info mx-5 text-secondary';
     }
-    if (isChecked && wordId === correctAnswerPosition) {
+    if (isChecked && word === targetTranslate) {
       return 'option bg-info px-2 mx-5 border border-success';
     }
     return 'option bg-info mx-5';
@@ -39,20 +44,23 @@ function TranslateOptions(): JSX.Element {
   // const [wordsList, setWordsList] = useState(currWords)
 
   return (
+
     <div className="options mb-5 d-flex flex-wrap justify-content-center bg-info text-white">
-      { currWords.slice(0, 5).map((word, idx) => (
+      { currWords[currActiveId].translateOptions.map((word, idx) => (
         <div
-          className={optionClass(idx)}
+          className={optionClass(word)}
           role="button"
           key={+idx}
-          id={idx.toString()}
+          id={word}
           style={{ cursor: 'pointer' }}
           onClick={(event) => {
             if (!isChecked) {
-              const isAnswerCorrect = event.currentTarget.id === correctAnswerPosition.toString();
+              const isAnswerCorrect = event.currentTarget.id === targetTranslate;
               const sound = isAnswerCorrect ? 'correct' : 'error';
+              const funcToDispatch = isAnswerCorrect ? knowWords : notKnowWords;
               playSound(sound);
-              setClickedPosition(+event.currentTarget.id);
+              setClickedWord(event.currentTarget.id);
+              dispatch(funcToDispatch(currWords[currActiveId]));
               dispatch(checkAnswer(true));
               isAnswerCorrect ? dispatch(correctAnswer(true)) : dispatch(wrongAnswer(true));
               dispatch(progressGame());
@@ -62,45 +70,10 @@ function TranslateOptions(): JSX.Element {
           <h4 className="my-2">
             {+idx + 1}
             &nbsp;&nbsp;
-            {word.wordTranslate}
+            {word}
           </h4>
         </div>
       )) }
-      {/* <div className={optionClass} style={{ cursor: 'pointer' }}>
-        <span>
-          1&nbsp;
-          {currWords[0]}
-        </span>
-
-      </div>
-      <div className={optionClass} style={{ cursor: 'pointer' }}>
-        <span>
-          2&nbsp;
-          {currWords[1]}
-        </span>
-
-      </div>
-      <div className={optionClass} style={{ cursor: 'pointer' }}>
-        <span>
-          3&nbsp;
-          {currWords[2]}
-        </span>
-
-      </div>
-      <div className={optionClass} style={{ cursor: 'pointer' }}>
-        <span>
-          4&nbsp;
-          {currWords[3]}
-        </span>
-
-      </div>
-      <div className={optionClass} style={{ cursor: 'pointer' }}>
-        <span>
-          5&nbsp;
-          {currWords[4]}
-        </span>
-
-      </div> */}
     </div>
   );
 }

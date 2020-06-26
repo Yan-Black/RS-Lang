@@ -17,6 +17,9 @@ export namespace Action {
   export interface WrongAnswer extends Models.Action<Payload.SetDocumentTypes> { }
   export interface ProgressGame extends Models.Action<Payload.SetDocumentTypes> { }
   export interface ResetGame extends Models.Action<Payload.SetDocumentTypes> { }
+  export interface KnowWords extends Models.Action<Payload.SetDocumentTypes> { }
+  export interface NotKnowWords extends Models.Action<Payload.SetDocumentTypes> { }
+  export interface ResetCurrStatistic extends Models.Action<Payload.SetDocumentTypes> { }
 }
 
 export namespace ActionCreator {
@@ -32,4 +35,7 @@ export namespace ActionCreator {
   export type WrongAnswer = (payload: boolean) => Action.WrongAnswer;
   export type ProgressGame = () => Action.ProgressGame;
   export type ResetGame = () => Action.ResetGame;
+  export type KnowWords = (wordObj: unknown) => Action.KnowWords;
+  export type NotKnowWords = (wordObj: unknown) => Action.NotKnowWords;
+  export type ResetCurrStatistic = () => Action.ResetCurrStatistic;
 }
