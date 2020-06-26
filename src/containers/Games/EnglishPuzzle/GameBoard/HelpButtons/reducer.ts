@@ -22,6 +22,7 @@ const helpBtnsReducer = (state = initialState, action: Action): InitialState => 
       ...state,
       dontKnowBtn: true,
       continueBtn: false,
+      checkBtn: false,
     };
     case 'DISABLE_DONT_KNOW_BTN': return {
       ...state,

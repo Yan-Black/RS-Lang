@@ -1,19 +1,15 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
-/* eslint-disable no-nested-ternary */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/unbound-method */
-/* eslint-disable react/jsx-props-no-spreading */
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import { useSelector, useDispatch } from 'react-redux';
+import { DragDropContext } from 'react-beautiful-dnd';
 import { State } from 'models/state';
+import { enableCheckBtn, enableDontKnowBtn } from 'containers/Games/EnglishPuzzle/GameBoard/HelpButtons/actions';
 import { reorder, move, shuffle } from '../Constants';
 import HelpButtons from './HelpButtons';
 import './index.scss';
-import Word from '../StartWords/Word';
 import { RowsMap, Card } from '../GameBlock/types';
-import Loader from '../StartWords/Loader';
+import DroppableBoard from './DroppableBoard';
+import DroppableBase from './DroppableBase';
 
 interface Props {
   gameData: [RowsMap, number];
@@ -22,9 +18,14 @@ interface Props {
 const GameBoard: React.FC<Props> = ({ gameData }) => {
   const rows = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const [wordsMap, rowLength] = gameData;
+  const [isDragPrevented, setDragging] = useState(false);
+  const dispatch = useDispatch();
+  const basicStyleCards = new Array(rowLength).fill('start-word', 0, rowLength);
+  const [basicStyle, setBasicStyle] = useState(basicStyleCards);
   const activeIdx = useSelector((state: State) => state.engPuzzleActiveIdx.currentIdx);
-  const cardsCollection = useSelector((state: State) => state.engPuzzleCards.cardsCollection);
-  const loading = useSelector((state: State) => state.loading.isLoading);
+  const cardsCollection: Array<Card[]> = useSelector(
+    (state: State) => state.engPuzzleCards.cardsCollection,
+  );
   const [state, setState] = useState(wordsMap);
 
   useEffect(() => {
@@ -35,12 +36,6 @@ const GameBoard: React.FC<Props> = ({ gameData }) => {
     });
   }, [wordsMap]);
 
-  if (loading) {
-    return (
-      <Loader />
-    );
-  }
-
   const pushWordsToBoard = () => {
     const solvedState = { ...wordsMap };
     solvedState.selected.forEach((card) => wordsMap.cards.push(card));
@@ -49,11 +44,18 @@ const GameBoard: React.FC<Props> = ({ gameData }) => {
   };
 
   const replaceOnClick = (e) => {
+    if (isDragPrevented) {
+      return;
+    }
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     if (e.target.parentElement.getAttribute('data-rbd-droppable-id') === 'base') {
       const sourceClone = Array.from(state.selected);
       const destClone = Array.from(state.cards);
       const [replaced] = sourceClone.splice(e.target.id, 1);
       destClone.push([replaced][0]);
+      if (destClone.length === wordsMap.selected.length) {
+        dispatch(enableCheckBtn());
+      }
       setState({
         cards: destClone,
         selected: sourceClone,
@@ -63,6 +65,9 @@ const GameBoard: React.FC<Props> = ({ gameData }) => {
       const destClone = Array.from(state.cards);
       const [replaced] = destClone.splice(e.target.id, 1);
       sourceClone.push([replaced][0]);
+      if (destClone.length !== wordsMap.selected.length) {
+        dispatch(enableDontKnowBtn());
+      }
       setState({
         cards: destClone,
         selected: sourceClone,
@@ -76,36 +81,49 @@ const GameBoard: React.FC<Props> = ({ gameData }) => {
   };
 
   const getList = (id:string) => state[idList[id]];
-
-  return (
-    <DragDropContext onDragEnd={(result) => {
-      const { source, destination } = result;
-      if (!destination) {
-        return;
+  const onDragStartHandler = () => {
+    if (state.cards.length === rowLength) {
+      setBasicStyle(basicStyleCards);
+      dispatch(enableCheckBtn());
+    }
+  };
+  const onDragEndHandler = (result) => {
+    const { source, destination } = result;
+    if (!destination) {
+      return;
+    }
+    if (source.droppableId === destination.droppableId) {
+      const items = reorder(
+        getList(source.droppableId),
+        source.index,
+        destination.index,
+      );
+      setState({ ...state, cards: items });
+      if (source.droppableId === 'base') {
+        setState({ ...state, selected: items });
       }
-      if (source.droppableId === destination.droppableId) {
-        const items = reorder(
-          getList(source.droppableId),
-          source.index,
-          destination.index,
-        );
-        setState({ ...state, cards: items });
-        if (source.droppableId === 'base') {
-          setState({ ...state, selected: items });
-        }
+    } else {
+      const results = move(
+        getList(source.droppableId),
+        getList(destination.droppableId),
+        source,
+        destination,
+      );
+      if (results.board.length === wordsMap.selected.length) {
+        dispatch(enableCheckBtn());
       } else {
-        const results = move(
-          getList(source.droppableId),
-          getList(destination.droppableId),
-          source,
-          destination,
-        );
-        setState({
-          cards: results.board,
-          selected: results.base,
-        });
+        dispatch(enableDontKnowBtn());
       }
-    }}
+      setState({
+        cards: results.board,
+        selected: results.base,
+      });
+    }
+  };
+  return (
+    <DragDropContext
+      onDragStart={onDragStartHandler}
+      onDragEnd={onDragEndHandler}
     >
       <div
         className="game-board"
@@ -123,33 +141,14 @@ const GameBoard: React.FC<Props> = ({ gameData }) => {
         <div className="canvas cover">
           {rows.map((row, i) => (
             i === activeIdx ? (
-              <Droppable
-                droppableId="board"
-                direction="horizontal"
-                key={(Math.random() * 100).toFixed(3)}
-              >
-                {(provided) => (
-                  <div
-                    key={(Math.random() * 100).toFixed(3)}
-                    className="sentence active-sentence"
-                    style={{ display: 'grid', gridTemplateColumns: `repeat(${rowLength}, 1fr)` }}
-                    ref={provided.innerRef}
-                    {...provided.droppableProps}
-                  >
-                    {state.cards.map((card, idx:number) => (
-                      <Word
-                        key={`${card.word}-${card.cId}`}
-                        cId={card.cId}
-                        word={card.word}
-                        idx={idx}
-                        id={idx}
-                        onClickFn={replaceOnClick}
-                      />
-                    ))}
-                    {provided.placeholder}
-                  </div>
-                )}
-              </Droppable>
+              <DroppableBoard
+                rowLength={rowLength}
+                state={state}
+                onClickFn={replaceOnClick}
+                key={`row-${row}`}
+                cssStyle={basicStyle}
+                drag={isDragPrevented}
+              />
             )
               : (i <= activeIdx - 1 && cardsCollection.length
                 ? (
@@ -175,29 +174,20 @@ const GameBoard: React.FC<Props> = ({ gameData }) => {
           ))}
         </div>
       </div>
-      <Droppable droppableId="base" direction="horizontal">
-        {(provided) => (
-          <div
-            className="start-words"
-            style={{ display: 'grid', gridTemplateColumns: `repeat(${rowLength}, 1fr)` }}
-            ref={provided.innerRef}
-            {...provided.droppableProps}
-          >
-            {state.selected.map((card, idx:number) => (
-              <Word
-                key={`${card.word}-${card.cId}`}
-                cId={card.cId}
-                word={card.word}
-                idx={idx}
-                id={idx}
-                onClickFn={replaceOnClick}
-              />
-            ))}
-            {provided.placeholder}
-          </div>
-        )}
-      </Droppable>
-      <HelpButtons onClickFn={pushWordsToBoard} wordsToApply={wordsMap.selected} />
+      <DroppableBase
+        rowLength={rowLength}
+        words={state}
+        onClickFn={replaceOnClick}
+        cssStyle={basicStyle}
+        drag={isDragPrevented}
+      />
+      <HelpButtons
+        onClickFn={pushWordsToBoard}
+        wordsToApply={wordsMap.selected}
+        wordsToCheck={state.cards}
+        setCheckedStateToCards={setBasicStyle}
+        setDragging={setDragging}
+      />
     </DragDropContext>
   );
 };

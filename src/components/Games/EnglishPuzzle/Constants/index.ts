@@ -1,5 +1,3 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 import {
   Card, Source, Dest, Res, RowsMap,
 } from 'components/Games/EnglishPuzzle/GameBlock/types';
@@ -33,7 +31,8 @@ export const wordsExtractor = (
   arr: InitialStateWords, idx: number,
 ): [RowsMap, number] => {
   const regex = /<[^>]*>/g;
-  const currentSentence = arr[idx].textExample.replace(regex, '');
+  const currentSentence: string = arr[idx].textExample;
+  currentSentence.replace(regex, '');
   const wordsArr = currentSentence.split(' ');
   const baseList: Card[] = [];
   const boardList: Card[] = [];
@@ -67,4 +66,19 @@ export const shuffle = (arr: Card[]): Card[] => {
     shuffledArr[newPos] = temp;
   }
   return shuffledArr;
+};
+
+export const pronounceAudio = (
+  audioState: boolean, arr: InitialStateWords, idx: number,
+): void => {
+  if (audioState) {
+    const regex = /<[^>]*>/g;
+    const sentenceToPronunce: string = arr[idx].textExample;
+    const phrase = sentenceToPronunce.replace(regex, '');
+    const sentence = new SpeechSynthesisUtterance();
+    const { speechSynthesis } = window;
+    sentence.lang = 'en-EN';
+    sentence.text = phrase;
+    speechSynthesis.speak(sentence);
+  }
 };

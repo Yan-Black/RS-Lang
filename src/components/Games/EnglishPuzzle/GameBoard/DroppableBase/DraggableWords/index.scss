@@ -64,25 +64,24 @@
     cursor: grabbing;
 }
 
-.left-edge, .right-edge {
-    height: 100%;
-    width: 10px;
-    background-color: blue;
-}
-
-.checked-true {
+.true {
     border: none;
     filter: drop-shadow(2px 2px 3px rgba(4, 218, 75, 1));
 }
 
-.checked-false {
+.false {
     border: none;
     filter: drop-shadow(2px 2px 3px rgba(218, 4, 4, 1));
 }
 
-/* .right-edge {
-    background: radial-gradient(circle at center, blue, blue 8px, transparent 8px);
+.bounded {
+  animation: rotate .7s linear;
 }
-.left-edge {
-    background: radial-gradient(circle at center, transparent, transparent 8px, blue 8px);
-} */
+
+@keyframes rotate {
+  from {
+      transform: rotateX(0);
+  } to {
+      transform: rotateX(180deg);
+  }
+}

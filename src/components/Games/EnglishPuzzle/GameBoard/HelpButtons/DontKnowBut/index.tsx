@@ -8,13 +8,20 @@ import '../index.scss';
 
 interface Props {
   onClickFn: () => void;
+  length: number;
+  setCheckedStateToCards: React.Dispatch<React.SetStateAction<string[]>>;
+  setDragging: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const DontKnowBtn: React.FC<Props> = ({ onClickFn }) => {
+const DontKnowBtn: React.FC<Props> = ({
+  onClickFn, length, setCheckedStateToCards, setDragging,
+}) => {
   const dontKnowBtnState = useSelector((state: State) => state.engPuzzleControlBtns.dontKnowBtn);
   const dispatch = useDispatch();
   const pushWordsToBoard = () => {
     onClickFn();
+    setDragging(true);
+    setCheckedStateToCards(new Array(length).fill('start-word true', 0, length));
     dispatch(enableContinueBtn());
   };
   const dontKnowBtnStyle = dontKnowBtnState

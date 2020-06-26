@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/unbound-method */
-/* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import * as React from 'react';
@@ -12,19 +9,25 @@ interface Props {
   word: string;
   cId: number;
   idx: number;
-  id: number
+  id: number;
+  cssStyle: string;
+  drag: boolean
 }
 
 const Word: React.FC<Props> = ({
-  word, cId, idx, id, onClickFn,
+  word, cId, idx, id, onClickFn, cssStyle, drag,
 }) => (
-  <Draggable draggableId={cId.toString()} index={idx}>
-    {(provided) => (
+  <Draggable
+    draggableId={cId.toString()}
+    index={idx}
+    isDragDisabled={drag}
+  >
+    {({ innerRef, draggableProps, dragHandleProps }) => (
       <div
-        {...provided.draggableProps}
-        {...provided.dragHandleProps}
-        ref={provided.innerRef}
-        className="start-word"
+        {...draggableProps}
+        {...dragHandleProps}
+        ref={innerRef}
+        className={cssStyle}
         id={`${id}`}
         onClick={onClickFn}
       >
