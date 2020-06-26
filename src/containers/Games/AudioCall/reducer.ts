@@ -4,8 +4,8 @@ import { ActionType } from './constants';
 
 const initialState = {
   page: 'START_PAGE',
-  level: '3',
-  round: '5',
+  level: '1',
+  round: '1',
   // vocabWords: [],
   // fetchedWords: [],
   currentWords: [],
@@ -61,12 +61,12 @@ const roundReducer: Models.Reducer<unknown> = (state = initialState.round, { typ
 };
 
 // eslint-disable-next-line max-len
-const currWordsReducer: Models.Reducer<unknown> = (state = initialState.currentWords, { type /* payload */ }) => {
+const currWordsReducer: Models.Reducer<unknown> = (state = initialState.currentWords, { type, payload }) => {
   switch (type) {
     case ActionType.INIT_WORDS:
       return ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
     case ActionType.FETCH_WORDS:
-      return ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
+      return payload;
     default:
       return state;
   }
@@ -90,7 +90,7 @@ const answerReducer: Models.Reducer<unknown> = (state: AnswerInitState = answerI
       };
     case ActionType.PROGRESS_GAME:
       return {
-        ...state, progress: state.progress + 10,
+        ...state, progress: state.progress + 1,
       };
     case ActionType.RESET_GAME:
       return answerInitState;

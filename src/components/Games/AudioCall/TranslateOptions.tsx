@@ -9,6 +9,7 @@ import { State } from 'models';
 import {
   correctAnswer, wrongAnswer, checkAnswer, progressGame,
 } from 'containers/Games/AudioCall/actions';
+import { playSound } from './utils';
 
 function TranslateOptions(): JSX.Element {
   const dispatch = useDispatch();
@@ -38,7 +39,7 @@ function TranslateOptions(): JSX.Element {
   // const [wordsList, setWordsList] = useState(currWords)
 
   return (
-    <div className="options my-5 d-flex flex-wrap justify-content-center bg-info text-white">
+    <div className="options mb-5 d-flex flex-wrap justify-content-center bg-info text-white">
       { currWords.slice(0, 5).map((word, idx) => (
         <div
           className={optionClass(idx)}
@@ -49,6 +50,8 @@ function TranslateOptions(): JSX.Element {
           onClick={(event) => {
             if (!isChecked) {
               const isAnswerCorrect = event.currentTarget.id === correctAnswerPosition.toString();
+              const sound = isAnswerCorrect ? 'correct' : 'error';
+              playSound(sound);
               setClickedPosition(+event.currentTarget.id);
               dispatch(checkAnswer(true));
               isAnswerCorrect ? dispatch(correctAnswer(true)) : dispatch(wrongAnswer(true));
@@ -56,11 +59,11 @@ function TranslateOptions(): JSX.Element {
             }
           }}
         >
-          <h3>
+          <h4 className="my-2">
             {+idx + 1}
-            &nbsp;
-            {word}
-          </h3>
+            &nbsp;&nbsp;
+            {word.wordTranslate}
+          </h4>
         </div>
       )) }
       {/* <div className={optionClass} style={{ cursor: 'pointer' }}>

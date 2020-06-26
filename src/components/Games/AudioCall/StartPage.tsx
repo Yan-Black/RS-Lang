@@ -7,7 +7,7 @@ import {
   gamePage, fetchWords, startPage,
 } from '../../../containers/Games/AudioCall/actions';
 import OptionItems from './OptionItems';
-import getWordsForGame from './utils';
+import { getWordsForGame, Json } from './utils';
 // import { ActionCreator } from 'redux';
 
 function makeArray(length) {
@@ -42,9 +42,10 @@ function StartPage(): JSX.Element {
           </button>
           <form onSubmit={async (e) => {
             e.preventDefault();
-            const jsonObj = await getWordsForGame(level, round);
-            // console.log(jsonObj);
-            dispatch(fetchWords(jsonObj));
+            const jsonObj: Array<Json> = await getWordsForGame(level, round);
+            const wordsList = round % 2 === 0 ? jsonObj.slice(0, 10) : jsonObj.slice(10);
+            // console.log(wordsList);
+            dispatch(fetchWords(wordsList));
             dispatch(gamePage());
           }}
           >
@@ -57,11 +58,11 @@ function StartPage(): JSX.Element {
                 {}
               </span>
               <div className="col-auto bg-info">
-                <OptionItems options={makeArray(6)} currLvl={level} />
+                <OptionItems options={makeArray(6)} currLvl={level} isLevelOption />
               </div>
               <span>Раунд</span>
               <div className="col-auto bg-info">
-                <OptionItems options={makeArray(60)} currLvl={round} />
+                <OptionItems options={makeArray(60)} currLvl={round} isLevelOption={false} />
               </div>
             </div>
           </form>

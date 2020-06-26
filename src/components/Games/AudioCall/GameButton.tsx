@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+// import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   statisticPage, checkAnswer, resetGame, progressGame,
@@ -11,9 +11,10 @@ function GameButton(): JSX.Element {
   // const words = useSelector((state: State) => state.audioCallCurrWords);
   // const round = useSelector((state: State) => state.audioCallRound);
   // const firstWordNumber = (+round % 2) === 0 ? 0 : 10;
-  const [gameRound, setGameRound] = useState(0);
+  // const [gameRound, setGameRound] = useState(0);
   // const [buttonTitle, setButtonTitle] = useState('НЕ ЗНАЮ');
   const isChecked = useSelector((state: State) => state.audioCallAnswer.isChecked);
+  const currActiveId = useSelector((state: State) => state.audioCallAnswer.progress);
   // const actionToDispatch = gameRound === 10 ? statisticPage() : checkAnswer(false);
 
   if (isChecked) {
@@ -23,12 +24,13 @@ function GameButton(): JSX.Element {
         type="button"
         onClick={() => {
           // console.log(gameRound);
-          if (gameRound === 10) {
-            setGameRound(0);
+          if (currActiveId >= 10) {
+            // setGameRound(0);
             dispatch(resetGame());
             dispatch(statisticPage());
+          } else {
+            dispatch(checkAnswer(false));
           }
-          dispatch(checkAnswer(false));
         }}
       >
         ⟹
@@ -42,7 +44,7 @@ function GameButton(): JSX.Element {
       type="button"
       onClick={() => {
         // console.log(gameRound);
-        setGameRound(gameRound + 1);
+        // setGameRound(gameRound + 1);
         dispatch(checkAnswer(true));
         dispatch(progressGame());
       }}
