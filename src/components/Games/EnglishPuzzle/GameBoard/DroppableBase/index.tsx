@@ -2,20 +2,12 @@ import * as React from 'react';
 import { useSelector } from 'react-redux';
 import { State } from 'models/state';
 import { Droppable } from 'react-beautiful-dnd';
-import { RowsMap } from '../../GameBlock/types';
 import Word from './DraggableWords/Word';
 import Loader from './DraggableWords/Loader';
 import Description from './DraggableWords/Description';
+import { DroppableProps } from '../Models';
 
-interface Props {
-  rowLength: number;
-  words: RowsMap;
-  onClickFn: React.MouseEventHandler;
-  cssStyle: string[];
-  drag: boolean;
-}
-
-const DroppableBase: React.FC<Props> = ({
+const DroppableBase: React.FC<DroppableProps> = ({
   rowLength, words, onClickFn, cssStyle, drag,
 }) => {
   const loading = useSelector((state: State) => state.loading.isLoading);

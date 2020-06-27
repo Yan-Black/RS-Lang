@@ -16,14 +16,14 @@
 .start-word {
     height: 100%;
     cursor: grab;
-    background-color: rgb(106, 106, 255);
+    background-color: #38626e;
     color: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
     font-size: .7vw;
-    border: 2px solid #0008;
+    border: 2px solid #12352a;
 }
 
 .flying-card {
@@ -65,13 +65,13 @@
 }
 
 .true {
-    border: none;
-    filter: drop-shadow(2px 2px 3px rgba(4, 218, 75, 1));
+  border-bottom: 2px solid #567cd6;
+  box-shadow: 0px 5px 10px -5px #567cd6;
 }
 
 .false {
-    border: none;
-    filter: drop-shadow(2px 2px 3px rgba(218, 4, 4, 1));
+  border-bottom: 2px solid #d66763;
+  box-shadow: 0px 5px 10px -5px #d66763;
 }
 
 .bounded {

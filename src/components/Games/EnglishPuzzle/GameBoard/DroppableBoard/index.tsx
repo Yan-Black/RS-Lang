@@ -1,18 +1,10 @@
 import * as React from 'react';
 import { Droppable } from 'react-beautiful-dnd';
-import { RowsMap } from '../../GameBlock/types';
 import Word from '../DroppableBase/DraggableWords/Word';
+import { DroppableProps } from '../Models';
 
-interface Props {
-  rowLength: number;
-  state: RowsMap;
-  onClickFn: React.MouseEventHandler;
-  cssStyle: string[];
-  drag: boolean;
-}
-
-const DroppableBase: React.FC<Props> = ({
-  rowLength, state, onClickFn, cssStyle, drag,
+const DroppableBase: React.FC<DroppableProps> = ({
+  rowLength, words, onClickFn, cssStyle, drag,
 }) => (
   <Droppable droppableId="board" direction="horizontal">
     {({ innerRef, droppableProps, placeholder }) => (
@@ -22,7 +14,7 @@ const DroppableBase: React.FC<Props> = ({
         ref={innerRef}
         {...droppableProps}
       >
-        {state.cards.map((card, idx:number) => (
+        {words.cards.map((card, idx:number) => (
           <Word
             key={`${card.word}-${card.cId}`}
             cId={card.cId}

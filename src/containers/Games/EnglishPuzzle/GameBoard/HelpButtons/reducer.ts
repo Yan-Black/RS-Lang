@@ -41,6 +41,7 @@ const helpBtnsReducer = (state = initialState, action: Action): InitialState => 
     case 'ENABLE_CONTINUE_BTN': return {
       ...state,
       dontKnowBtn: false,
+      checkBtn: false,
       continueBtn: true,
     };
     case 'DISABLE_CONTINUE_BTN': return {

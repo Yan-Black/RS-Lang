@@ -9,14 +9,30 @@ import { State } from 'models';
 
 const Hint: React.FC = () => {
   const dispatch = useDispatch();
+  const backBtnState = useSelector((state: State) => state.engPuzzleBtns.backgroundHintActive);
+  const speakerBtnState = useSelector((state: State) => state.engPuzzleBtns.audioHintActive);
   const translateBtnState = useSelector((state: State) => state.engPuzzleBtns.translateHintActive);
-  const stateSwitcher = () => (
-    translateBtnState ? dispatch(translateDisable()) : dispatch(translateEnable())
-  );
+  const initialBtnsState = { ...JSON.parse(localStorage.getItem('hintsState')) };
+  const stateSwitcher = () => {
+    if (translateBtnState) {
+      dispatch(translateDisable());
+      initialBtnsState.translateHintActive = false;
+      initialBtnsState.backgroundHintActive = backBtnState;
+      initialBtnsState.audioHintActive = speakerBtnState;
+      localStorage.setItem('hintsState', JSON.stringify(initialBtnsState));
+    } else {
+      dispatch(translateEnable());
+      initialBtnsState.translateHintActive = true;
+      initialBtnsState.backgroundHintActive = backBtnState;
+      initialBtnsState.audioHintActive = speakerBtnState;
+      localStorage.setItem('hintsState', JSON.stringify(initialBtnsState));
+    }
+  };
   const clickHandler = () => stateSwitcher();
   const translateBtnStyle = translateBtnState ? 'show-hint' : 'show-hint off';
   return (
     <div className={translateBtnStyle} onClick={clickHandler}>
+      <span className="tooltiptext">translate hint</span>
       <FontAwesomeIcon icon={faFileAlt} />
     </div>
   );

@@ -3,18 +3,9 @@
 import * as React from 'react';
 import '../index.scss';
 import { Draggable } from 'react-beautiful-dnd';
+import { WordProps } from '../../../Models';
 
-interface Props {
-  onClickFn: React.MouseEventHandler;
-  word: string;
-  cId: number;
-  idx: number;
-  id: number;
-  cssStyle: string;
-  drag: boolean
-}
-
-const Word: React.FC<Props> = ({
+const Word: React.FC<WordProps> = ({
   word, cId, idx, id, onClickFn, cssStyle, drag,
 }) => (
   <Draggable

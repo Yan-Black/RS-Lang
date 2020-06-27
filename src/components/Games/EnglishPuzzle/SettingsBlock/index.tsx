@@ -45,7 +45,7 @@ const Settings: React.FC = () => {
   return (
     <div className="english-puzzle-settings">
       <div className="english-puzzle-settings-group">
-        <p>Level: </p>
+        <div>Level: </div>
         <select name="group" id="group" value={group} onChange={changeGroupHandler}>
           {groups.map((gr) => (
             <option value={gr} key={gr}>{gr}</option>
@@ -53,7 +53,7 @@ const Settings: React.FC = () => {
         </select>
       </div>
       <div className="english-puzzle-settings-page">
-        <p>Page: </p>
+        <div>Page: </div>
         <select name="page" id="page" value={page} onChange={changePageHandler}>
           {pages.map((pg) => (
             <option value={pg} key={pg}>{pg}</option>

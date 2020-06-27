@@ -7,15 +7,12 @@ import { enableCheckBtn, enableDontKnowBtn } from 'containers/Games/EnglishPuzzl
 import { reorder, move, shuffle } from '../Constants';
 import HelpButtons from './HelpButtons';
 import './index.scss';
-import { RowsMap, Card } from '../GameBlock/types';
+import { Card } from '../GameBlock/types';
 import DroppableBoard from './DroppableBoard';
 import DroppableBase from './DroppableBase';
+import { BoardProps } from './Models';
 
-interface Props {
-  gameData: [RowsMap, number];
-}
-
-const GameBoard: React.FC<Props> = ({ gameData }) => {
+const GameBoard: React.FC<BoardProps> = ({ gameData }) => {
   const rows = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const [wordsMap, rowLength] = gameData;
   const [isDragPrevented, setDragging] = useState(false);
@@ -30,6 +27,7 @@ const GameBoard: React.FC<Props> = ({ gameData }) => {
 
   useEffect(() => {
     const shuffledArr = shuffle(wordsMap.selected);
+    setBasicStyle(new Array(rowLength).fill('start-word', 0, rowLength));
     setState({
       cards: wordsMap.cards,
       selected: shuffledArr,
@@ -132,9 +130,9 @@ const GameBoard: React.FC<Props> = ({ gameData }) => {
         <div className="string-numbers">
           {rows.map((number, i) => (
             i === activeIdx ? (
-              <div key={`row-${number}`} className="string-number active-number">{number}</div>
+              <div key={`row-${number}`} className="string-number active-number" />
             ) : (
-              <div key={`row-${number}`} className="string-number">{number}</div>
+              <div key={`row-${number}`} className="string-number" />
             )
           ))}
         </div>
@@ -143,7 +141,7 @@ const GameBoard: React.FC<Props> = ({ gameData }) => {
             i === activeIdx ? (
               <DroppableBoard
                 rowLength={rowLength}
-                state={state}
+                words={state}
                 onClickFn={replaceOnClick}
                 key={`row-${row}`}
                 cssStyle={basicStyle}
@@ -187,6 +185,7 @@ const GameBoard: React.FC<Props> = ({ gameData }) => {
         wordsToCheck={state.cards}
         setCheckedStateToCards={setBasicStyle}
         setDragging={setDragging}
+        phrase={wordsMap.selected}
       />
     </DragDropContext>
   );

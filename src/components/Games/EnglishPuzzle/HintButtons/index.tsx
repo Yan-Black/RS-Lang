@@ -5,11 +5,15 @@ import Audio from './Audio';
 import Image from './Image';
 import './index.scss';
 
-const HintsButtons: React.FunctionComponent = () => (
+interface Props {
+  phrase: string;
+}
+
+const HintsButtons: React.FunctionComponent<Props> = ({ phrase }) => (
   <div className="hints-buttons">
     <Speaker />
     <Hint />
-    <Audio />
+    <Audio phrase={phrase} />
     <Image />
   </div>
 );

@@ -9,18 +9,20 @@
 }
 
 .canvas {
-    background-color: rgb(175, 175, 175);
+    background-color: #b1d2db;
     background-size: cover;
     background-repeat: no-repeat;
     width: 95%;
     height: 25vw;
     display: flex;
     flex-direction: column;
-    box-shadow: inset 0px 0px 10px rgba(0,0,0,0.9);
+    box-shadow: inset 0px 0px 5px rgba(0,0,0,0.9);
+    z-index: 2;
 }
 
 .active-sentence {
-    background-color: rgba(0,0,0,0.5);
+    background-color: #5c9890;
+    box-shadow: inset 0px 0px 5px rgba(0,0,0,0.9);
 }
 
 .active-sentence-hidden {
@@ -42,20 +44,15 @@
 }
 
 .string-number {
-    border: 1px solid black;
-    height: 1.4vw;
-    width: 1.4vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0.2vw;
+    height: 8px;
+    width: 8px;
+    background-color: #368297;
     border-radius: 50%;
-    font-size: .7vw;
-    font-weight: 700;
 }
 
 .active-number {
-    color: red;
+  background-color: #5fd2f1;
+  filter: drop-shadow(0 0 6px #5fd2f1);
 }
 
 .disabled {

@@ -10,6 +10,7 @@
 
 .english-puzzle-translation {
   display: inline;
+  color: #fff;
 }
 
 .english-puzzle-translation-disabled {
@@ -17,15 +18,16 @@
 }
 
 .english-puzzle-speaker {
-    color: black;
+  display: block;
+  color: #fff;
 }
 
 .english-puzzle-speaker-disabled {
-  visibility: hidden;
+  display: none;
 }
 
 .english-puzzle-speaker-active {
-  color: teal;
+  color: #fff;
   animation: speaking .7s infinite;
 }
 

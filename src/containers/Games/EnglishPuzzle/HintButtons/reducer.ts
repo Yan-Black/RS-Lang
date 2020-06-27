@@ -4,15 +4,24 @@ interface InitialState {
   audioHintActive: boolean,
   translateHintActive: boolean,
   backgroundHintActive: boolean,
+  speakerActive: boolean,
 }
 
 const initialState = <InitialState> {
   audioHintActive: true,
   translateHintActive: true,
   backgroundHintActive: false,
+  speakerActive: false,
 };
 
-const btnsReducer = (state = initialState, action: Action): InitialState => {
+if (!localStorage.getItem('hintsState')) {
+  localStorage.setItem('hintsState', JSON.stringify(initialState));
+}
+
+const btnsReducer = (
+  state = JSON.parse(localStorage.getItem('hintsState')),
+  action: Action,
+): InitialState => {
   switch (action.type) {
     case 'AUDIO_ENABLE':
       return { ...state, audioHintActive: true };
@@ -26,6 +35,12 @@ const btnsReducer = (state = initialState, action: Action): InitialState => {
       return { ...state, backgroundHintActive: true };
     case 'BACKGROUND_DISABLE':
       return { ...state, backgroundHintActive: false };
+    case 'SPEAKER_ENABLE':
+      return { ...state, speakerActive: true };
+    case 'SPEAKER_DISABLE':
+      return { ...state, speakerActive: false };
+    case 'SET_TO_USER_PREFERENCIES':
+      return JSON.parse(localStorage.getItem('hintsState'));
     default: return state;
   }
 };

@@ -7,16 +7,13 @@ import { updatePage, updateGrop } from 'containers/Games/EnglishPuzzle/SettingsB
 import { enableDontKnowBtn } from 'containers/Games/EnglishPuzzle/GameBoard/HelpButtons/actions';
 import { incrementIdx, setToInitial } from 'containers/Games/EnglishPuzzle/StartPage/actions';
 import { State } from 'models/state';
-import { Card } from '../../../GameBlock/types';
 import '../index.scss';
+import { setToUserPreferencies } from 'containers/Games/EnglishPuzzle/HintButtons/actions';
+import { ContinueBtnProps } from '../../Models';
 
-interface Props {
-  wordsToApply: Card[];
-  setCheckedStateToCards: React.Dispatch<React.SetStateAction<string[]>>;
-  setDragging: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-const ContinueBtn: React.FC<Props> = ({ wordsToApply, setCheckedStateToCards, setDragging }) => {
+const ContinueBtn: React.FC<ContinueBtnProps> = ({
+  wordsToApply, setCheckedStateToCards, setDragging,
+}) => {
   const continueBtnState = useSelector((state: State) => state.engPuzzleControlBtns.continueBtn);
   const page: number = useSelector((state: State) => state.engPuzzlePage.page);
   const group: number = useSelector((state: State) => state.engPuzzleGroup.group);
@@ -33,6 +30,7 @@ const ContinueBtn: React.FC<Props> = ({ wordsToApply, setCheckedStateToCards, se
   const clickHandler = () => {
     setCheckedStateToCards(new Array(wordsToApply.length).fill('start-word', 0, wordsToApply.length));
     setDragging(false);
+    dispatch(setToUserPreferencies());
     if (activeIdx === 9) {
       removeCardsCollection();
       if (group === 6 && page === 60) {

@@ -2,6 +2,8 @@ import {
   Card, Source, Dest, Res, RowsMap,
 } from 'components/Games/EnglishPuzzle/GameBlock/types';
 import { InitialStateWords } from 'containers/Games/EnglishPuzzle/SettingsBlock/wordsReducer';
+import { Dispatch } from 'react';
+import { Action } from 'redux';
 
 export const reorder = (list: Card[], startIndex: number, endIndex: number): Card[] => {
   const result = Array.from(list);
@@ -32,8 +34,7 @@ export const wordsExtractor = (
 ): [RowsMap, number] => {
   const regex = /<[^>]*>/g;
   const currentSentence: string = arr[idx].textExample;
-  currentSentence.replace(regex, '');
-  const wordsArr = currentSentence.split(' ');
+  const wordsArr = currentSentence.replace(regex, '').split(' ');
   const baseList: Card[] = [];
   const boardList: Card[] = [];
   for (let i = 0; i < wordsArr.length; i++) {
@@ -69,16 +70,19 @@ export const shuffle = (arr: Card[]): Card[] => {
 };
 
 export const pronounceAudio = (
-  audioState: boolean, arr: InitialStateWords, idx: number,
+  audioState: boolean, sntc: string, dispatch: Dispatch<Action>,
+  speakerEnable:() => Action, speakerDisable:() => Action,
 ): void => {
   if (audioState) {
     const regex = /<[^>]*>/g;
-    const sentenceToPronunce: string = arr[idx].textExample;
-    const phrase = sentenceToPronunce.replace(regex, '');
+    const phrase = sntc.replace(regex, '');
     const sentence = new SpeechSynthesisUtterance();
     const { speechSynthesis } = window;
     sentence.lang = 'en-EN';
     sentence.text = phrase;
+    sentence.onstart = () => dispatch(speakerEnable());
+    sentence.onend = () => dispatch(speakerDisable());
     speechSynthesis.speak(sentence);
+    if (!audioState) speechSynthesis.cancel();
   }
 };

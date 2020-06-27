@@ -6,6 +6,9 @@ import {
   TRANSLATE_DISABLE,
   BACKGROUND_ENABLE,
   BACKGROUND_DISABLE,
+  SPEAKER_ENABLE,
+  SPEAKER_DISABLE,
+  SET_TO_USER_PREFERENCIES,
 } from './types';
 
 export const audioEnabled = (): Action => ({
@@ -31,3 +34,15 @@ export const backgroundEnable = (): Action => ({
 export const backgroundDisable = (): Action => ({
   type: BACKGROUND_DISABLE,
 });
+
+export const speakerEnable = (): Action => ({
+  type: SPEAKER_ENABLE,
+});
+
+export const speakerDisable = (): Action => ({
+  type: SPEAKER_DISABLE,
+});
+
+export const setToUserPreferencies = (): Action => ({
+  type: SET_TO_USER_PREFERENCIES,
+})

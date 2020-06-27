@@ -5,18 +5,10 @@ import ContinueBtn from './ContinueBut';
 import ResultsBtn from './ResultsBut';
 import StatisticBtn from './StatisticBut';
 import '../index.scss';
-import { Card } from '../../GameBlock/types';
+import { ButtonsProps } from '../Models';
 
-interface Props {
-  onClickFn: () => void;
-  wordsToApply: Card[];
-  wordsToCheck: Card[];
-  setCheckedStateToCards: React.Dispatch<React.SetStateAction<string[]>>;
-  setDragging: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-const HelpButtons: React.FC<Props> = ({
-  onClickFn, wordsToApply, setCheckedStateToCards, wordsToCheck, setDragging,
+const HelpButtons: React.FC<ButtonsProps> = ({
+  onClickFn, wordsToApply, setCheckedStateToCards, wordsToCheck, setDragging, phrase,
 }) => (
   <div className="help-buttons">
     <DontKnowBtn
@@ -24,11 +16,14 @@ const HelpButtons: React.FC<Props> = ({
       length={wordsToApply.length}
       setDragging={setDragging}
       setCheckedStateToCards={setCheckedStateToCards}
+      phrase={phrase}
     />
     <CheckBtn
       setCheckedStateToCards={setCheckedStateToCards}
+      setDragging={setDragging}
       wordsToApply={wordsToApply}
       wordsToCheck={wordsToCheck}
+      phrase={phrase}
     />
     <ContinueBtn
       wordsToApply={wordsToApply}
