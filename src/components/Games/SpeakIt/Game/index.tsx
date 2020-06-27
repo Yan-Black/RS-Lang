@@ -8,7 +8,9 @@ import ShowImage from '../ShowImage';
 import Cards from '../Cards';
 import Control from '../Control';
 
-function Game({ dataWords, background, setBackground, translate, setTranslate }) {
+function Game({
+  dataWords, background, setBackground, translate, setTranslate,
+}) {
   return (
     <Container>
       <Row>

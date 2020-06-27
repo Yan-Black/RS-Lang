@@ -4,7 +4,7 @@ import Card from '../Card';
 
 function Cards({ dataWords, setBackground, setTranslate }) {
   const words = dataWords.slice(0, 10);
-  // console.log(dataWords);
+
   return (
     <div className="cards-wrapper">
       { words.map((item) => (
@@ -13,7 +13,6 @@ function Cards({ dataWords, setBackground, setTranslate }) {
           key={item.word}
           setBackground={setBackground}
           setTranslate={setTranslate}
-          // onClick={setBackground(item.word)}
         />
       ))}
     </div>
