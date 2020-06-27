@@ -1,18 +1,18 @@
 import * as React from 'react';
 import './index.scss';
 import Card from '../Card';
+import { useSelector } from 'react-redux';
+import {State} from "../../../../models/state";
 
-function Cards({ dataWords, setBackground, setTranslate }) {
-  const words = dataWords.slice(0, 10);
+function Cards() {
+  const dataWords = useSelector((state: State) => state.speakItfetch.dataWords);
 
   return (
     <div className="cards-wrapper">
-      { words.map((item) => (
+      { dataWords.map((item) => (
         <Card
           data={item}
           key={item.word}
-          setBackground={setBackground}
-          setTranslate={setTranslate}
         />
       ))}
     </div>

@@ -2,13 +2,14 @@ import * as React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVolumeUp } from '@fortawesome/free-solid-svg-icons';
 import './index.scss';
+import {useDispatch} from "react-redux";
+import {backgroundWord, translateWord} from "../../../../containers/Games/SpeakIt/FetchGroup/actions";
 
-function Card({ data, setBackground, setTranslate }) {
-
+function Card({ data }) {
+  const dispatch = useDispatch();
   const cardData = () => {
-    const urlImg = `https://raw.githubusercontent.com/ArtemDrushchyts/rslang-data/master/${data.image}`;
-    setBackground(urlImg);
-    setTranslate(data.wordTranslate);
+    dispatch(translateWord(data.wordTranslate));
+    dispatch(backgroundWord(data.image));
     const urlAudio = `https://raw.githubusercontent.com/ArtemDrushchyts/rslang-data/master/${data.audio}`;
     const audio = new Audio(urlAudio);
     audio.play();

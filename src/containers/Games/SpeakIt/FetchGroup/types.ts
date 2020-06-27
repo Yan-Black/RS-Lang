@@ -1,1 +1,3 @@
 export const FETCH_WORDS = 'FETCH_WORDS';
+export const TRANSLATE_WORD = 'TRANSLATE_WORD';
+export const BACKGROUND_WORD = 'BACKGROUND_WORD';
