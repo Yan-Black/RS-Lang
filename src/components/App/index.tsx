@@ -6,8 +6,8 @@ import './index.scss';
 function App() {
   return (
     <div className="app">
-      <Authorization />
-      <Main />
+      {/* <Authorization /> */}
+        <Main />
     </div>
   );
 }

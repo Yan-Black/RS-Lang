@@ -1,6 +1,7 @@
 .app {
   color: white;
-  div {
-    background-color: green;
-  }
 }
+
+@import "../Main/mainComponents/index.scss";
+
+
