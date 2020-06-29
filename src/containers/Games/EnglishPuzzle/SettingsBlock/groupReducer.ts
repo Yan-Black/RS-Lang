@@ -1,17 +1,10 @@
-interface InitialState {
-  group: number;
-}
+import { InitialStateGroup, ActionPages } from '../Models';
 
-interface Action {
-  type: string;
-  payload: number;
-}
-
-const initialState = <InitialState> {
+const initialState = <InitialStateGroup> {
   group: 1,
 };
 
-const groupReducer = (state = initialState, action: Action): InitialState => {
+const groupReducer = (state = initialState, action: ActionPages): InitialStateGroup => {
   switch (action.type) {
     case 'UPDATE_GROUP':
       return { ...state, group: action.payload };

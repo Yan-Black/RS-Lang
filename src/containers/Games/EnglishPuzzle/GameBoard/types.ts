@@ -1,2 +1,6 @@
 export const UPDATE_COLLECTION = 'UPDATE_COLLECTION';
 export const REMOVE_COLLECTION = 'REMOVE_COLLECTION';
+export const UPDATE_OFFSET = 'UPDATE_OFFSET';
+export const REMOVE_OFFSET = 'REMOVE_OFFSET';
+export const SOLVED = 'SOLVED';
+export const NEW_GAME = 'NEW_GAME';

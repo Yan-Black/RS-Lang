@@ -1,19 +1,14 @@
 import { Action } from 'redux';
+import { InitialStateIndex } from '../Models';
 
-interface InitialState {
-  currentIdx: number;
-}
-
-const initialState = <InitialState>{
+const initialState = <InitialStateIndex>{
   currentIdx: 0,
 };
 
-const maxIdx = 10;
-
-const activeIndexReducer = (state = initialState, action: Action): InitialState => {
+const activeIndexReducer = (state = initialState, action: Action): InitialStateIndex => {
   switch (action.type) {
     case 'INCREMENT': return { ...state, currentIdx: state.currentIdx + 1 };
-    case 'SET_TO_INITIAL': return { ...state, currentIdx: state.currentIdx - maxIdx };
+    case 'SET_TO_INITIAL': return { ...state, currentIdx: 0 };
     default: return state;
   }
 };

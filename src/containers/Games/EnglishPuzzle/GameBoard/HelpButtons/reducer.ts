@@ -1,14 +1,7 @@
 import { Action } from 'redux';
+import { InitialStateHelpBtns } from '../../Models';
 
-interface InitialState {
-  dontKnowBtn: boolean,
-  checkBtn: boolean,
-  continueBtn: boolean,
-  resultsBtn: boolean,
-  statisticBtn: boolean,
-}
-
-const initialState = {
+const initialState = <InitialStateHelpBtns> {
   dontKnowBtn: true,
   checkBtn: false,
   continueBtn: false,
@@ -16,7 +9,7 @@ const initialState = {
   statisticBtn: false,
 };
 
-const helpBtnsReducer = (state = initialState, action: Action): InitialState => {
+const helpBtnsReducer = (state = initialState, action: Action): InitialStateHelpBtns => {
   switch (action.type) {
     case 'ENABLE_DONT_KNOW_BTN': return {
       ...state,

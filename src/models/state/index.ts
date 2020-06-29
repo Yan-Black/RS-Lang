@@ -8,5 +8,7 @@ export interface State {
   engPuzzleCards;
   engPuzzlePage;
   engPuzzleGroup;
+  engPuzzleXOffset;
+  engPuzzleSolved;
   // add more fields according rootReducer
 }

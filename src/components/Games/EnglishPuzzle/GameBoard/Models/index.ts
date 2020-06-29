@@ -6,6 +6,8 @@ export interface DroppableProps {
   onClickFn: React.MouseEventHandler;
   cssStyle: string[];
   drag: boolean;
+  back: string;
+  description: string;
 }
 
 export interface ButtonsProps {
@@ -24,11 +26,15 @@ export interface WordProps {
   idx: number;
   id: number;
   cssStyle: string;
-  drag: boolean
+  drag: boolean;
+  back: string;
+  offsetX: number;
 }
 
 export interface BoardProps {
   gameData: [RowsMap, number];
+  background: string;
+  description: string;
 }
 
 export interface DontKnowBtnProps {
@@ -51,4 +57,8 @@ export interface CheckBtnProps {
   wordsToApply: Card[];
   wordsToCheck: Card[];
   phrase: Card[];
+}
+
+export interface DescProps {
+  description: string;
 }

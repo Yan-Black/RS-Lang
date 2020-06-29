@@ -1,6 +1,7 @@
 export interface Card {
   cId: number;
   word: string;
+  xOffset: number;
 }
 
 export interface RowsMap {

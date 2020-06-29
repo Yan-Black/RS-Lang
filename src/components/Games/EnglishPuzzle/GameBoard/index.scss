@@ -18,6 +18,12 @@
     flex-direction: column;
     box-shadow: inset 0px 0px 5px rgba(0,0,0,0.9);
     z-index: 2;
+    user-select: none;
+}
+
+.cover {
+  background: none;
+  background-color: #b1d2db;
 }
 
 .active-sentence {
@@ -48,9 +54,11 @@
     width: 8px;
     background-color: #368297;
     border-radius: 50%;
+    transition: .3s ease-in-out;
 }
 
 .active-number {
+  transition: .3s ease-in-out;
   background-color: #5fd2f1;
   filter: drop-shadow(0 0 6px #5fd2f1);
 }

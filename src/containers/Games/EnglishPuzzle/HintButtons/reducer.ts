@@ -1,13 +1,7 @@
 import { Action } from 'redux';
+import { InitialStateHintBtns } from '../Models';
 
-interface InitialState {
-  audioHintActive: boolean,
-  translateHintActive: boolean,
-  backgroundHintActive: boolean,
-  speakerActive: boolean,
-}
-
-const initialState = <InitialState> {
+const initialState = <InitialStateHintBtns> {
   audioHintActive: true,
   translateHintActive: true,
   backgroundHintActive: false,
@@ -21,7 +15,7 @@ if (!localStorage.getItem('hintsState')) {
 const btnsReducer = (
   state = JSON.parse(localStorage.getItem('hintsState')),
   action: Action,
-): InitialState => {
+): InitialStateHintBtns => {
   switch (action.type) {
     case 'AUDIO_ENABLE':
       return { ...state, audioHintActive: true };

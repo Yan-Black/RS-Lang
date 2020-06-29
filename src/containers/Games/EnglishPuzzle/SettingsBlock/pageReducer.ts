@@ -1,17 +1,10 @@
-interface InitialState {
-  page: number;
-}
+import { InitialStatePage, ActionPages } from '../Models';
 
-interface Action {
-  type: string;
-  payload: number;
-}
-
-const initialState = <InitialState> {
+const initialState = <InitialStatePage> {
   page: 1,
 };
 
-const pageReducer = (state = initialState, action: Action): InitialState => {
+const pageReducer = (state = initialState, action: ActionPages): InitialStatePage => {
   switch (action.type) {
     case 'UPDATE_PAGE':
       return { ...state, page: action.payload };

@@ -8,7 +8,7 @@ import Description from './DraggableWords/Description';
 import { DroppableProps } from '../Models';
 
 const DroppableBase: React.FC<DroppableProps> = ({
-  rowLength, words, onClickFn, cssStyle, drag,
+  rowLength, words, onClickFn, cssStyle, drag, back, description,
 }) => {
   const loading = useSelector((state: State) => state.loading.isLoading);
   if (loading) {
@@ -18,6 +18,7 @@ const DroppableBase: React.FC<DroppableProps> = ({
   }
   return (
     <>
+      <Description description={description} />
       <Droppable droppableId="base" direction="horizontal">
         {({ innerRef, droppableProps, placeholder }) => (
           <div
@@ -36,13 +37,14 @@ const DroppableBase: React.FC<DroppableProps> = ({
                 onClickFn={onClickFn}
                 cssStyle={cssStyle[idx]}
                 drag={drag}
+                back={back}
+                offsetX={card.xOffset}
               />
             ))}
             {placeholder}
           </div>
         )}
       </Droppable>
-      <Description />
     </>
   );
 };

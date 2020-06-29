@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-expressions */
 import * as React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,6 +6,9 @@ import {
 } from 'containers/Games/EnglishPuzzle/SettingsBlock/actions';
 import './index.scss';
 import { State } from 'models';
+import { removeOffsetX, removeCollection } from 'containers/Games/EnglishPuzzle/GameBoard/actions';
+import { setToInitial } from 'containers/Games/EnglishPuzzle/StartPage/actions';
+import { setToUserPreferencies } from 'containers/Games/EnglishPuzzle/HintButtons/actions';
 
 const Settings: React.FC = () => {
   const dispatch = useDispatch();
@@ -14,13 +16,22 @@ const Settings: React.FC = () => {
   const page = useSelector((state: State) => state.engPuzzlePage.page);
   const changePageHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(updatePage(Number(event.target.value)));
+    dispatch(setToUserPreferencies());
+    dispatch(removeCollection());
+    dispatch(removeOffsetX());
+    dispatch(setToInitial());
   };
 
   const changeGroupHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(updateGrop(Number(event.target.value)));
+    dispatch(setToUserPreferencies());
+    dispatch(removeCollection());
+    dispatch(removeOffsetX());
+    dispatch(setToInitial());
   };
 
   useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     page % 2 || page === 0
       ? dispatch(
         getFirstChunk(

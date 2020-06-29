@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { enableContinueBtn } from 'containers/Games/EnglishPuzzle/GameBoard/HelpButtons/actions';
@@ -32,9 +30,13 @@ const DontKnowBtn: React.FC<DontKnowBtnProps> = ({
     ? 'show-correct-sentence'
     : 'show-correct-sentence disabled';
   return (
-    <div className={dontKnowBtnStyle} onClick={pushWordsToBoard}>
+    <button
+      type="button"
+      className={dontKnowBtnStyle}
+      onClick={pushWordsToBoard}
+    >
       Don&apos;t know
-    </div>
+    </button>
   );
 };
 

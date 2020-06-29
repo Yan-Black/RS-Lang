@@ -3,10 +3,7 @@
 }
 
 .start-words {
-    display: flex;
     width: 95%;
-    /* justify-content: stretch; */
-    justify-content: flex-start;
     margin-left: 5%;
     height: 2.5vw;
     transition: .2s ease-in-out;
@@ -24,6 +21,7 @@
     overflow: hidden;
     font-size: .7vw;
     border: 2px solid #12352a;
+    user-select: none;
 }
 
 .flying-card {
@@ -38,6 +36,8 @@
     justify-content: center;
     margin-bottom: 1vw;
     font-weight: 700;
+    grid-row-start: 2;
+    grid-row-end: auto;
 }
 
 .description-disabled {
@@ -49,6 +49,7 @@
 }
 
 .hide {
+  opacity: 0;
     animation: hide .7s linear;
 }
 

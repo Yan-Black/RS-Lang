@@ -37,10 +37,12 @@ export const wordsExtractor = (
   const wordsArr = currentSentence.replace(regex, '').split(' ');
   const baseList: Card[] = [];
   const boardList: Card[] = [];
+  const offsetsX = countXOffsets(wordsArr.length);
   for (let i = 0; i < wordsArr.length; i++) {
     baseList.push({
       cId: Number((Math.random() * 100).toFixed(2)),
       word: wordsArr[i],
+      xOffset: offsetsX[i],
     });
   }
   const rowsMap: RowsMap = {
@@ -85,4 +87,15 @@ export const pronounceAudio = (
     speechSynthesis.speak(sentence);
     if (!audioState) speechSynthesis.cancel();
   }
+};
+
+export const countXOffsets = (length: number): number[] => {
+  const offsetsX = [];
+  const step = 972.8 / length;
+  let cardOffset = 0;
+  for (let i = 0; i <= length; i++) {
+    offsetsX.push(Number(cardOffset.toFixed(0)));
+    cardOffset += step;
+  }
+  return offsetsX;
 };

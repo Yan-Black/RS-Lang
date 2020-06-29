@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { enableContinueBtn, enableDontKnowBtn } from 'containers/Games/EnglishPuzzle/GameBoard/HelpButtons/actions';
@@ -43,9 +41,13 @@ const CheckBtn: React.FC<CheckBtnProps> = ({
     }
   };
   return (
-    <div className={checkBtnStyle} onClick={clickHandler}>
+    <button
+      type="button"
+      className={checkBtnStyle}
+      onClick={clickHandler}
+    >
       Check
-    </div>
+    </button>
   );
 };
 

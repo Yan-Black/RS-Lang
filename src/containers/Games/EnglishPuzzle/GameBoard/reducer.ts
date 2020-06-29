@@ -1,15 +1,12 @@
-import { Card } from 'components/Games/EnglishPuzzle/GameBlock/types';
-import { ActionPayload } from './actions';
+import { ActionCard, InitialStateCardsCollection } from '../Models';
 
-interface InitialState {
-  cardsCollection: Array<Card[]>;
-}
-
-const initialState = <InitialState>{
+const initialState = <InitialStateCardsCollection>{
   cardsCollection: [],
 };
 
-const collectionReducer = (state = initialState, action: ActionPayload): InitialState => {
+const collectionReducer = (
+  state = initialState, action: ActionCard,
+): InitialStateCardsCollection => {
   switch (action.type) {
     case 'UPDATE_COLLECTION':
       return { ...state, cardsCollection: state.cardsCollection.concat([action.payload]) };

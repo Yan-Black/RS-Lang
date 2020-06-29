@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { enableStatisticBtn } from 'containers/Games/EnglishPuzzle/GameBoard/HelpButtons/actions';
@@ -12,9 +10,13 @@ const ResultsBtn: React.FC = () => {
   const resultsBtnStyle = resultsBtnState ? 'results' : 'results disabled';
   const clickHandler = () => dispatch(enableStatisticBtn());
   return (
-    <div className={resultsBtnStyle} onClick={clickHandler}>
+    <button
+      type="button"
+      className={resultsBtnStyle}
+      onClick={clickHandler}
+    >
       Results
-    </div>
+    </button>
   );
 };
 
