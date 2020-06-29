@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable jsx-a11y/interactive-supports-focus */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
@@ -28,24 +29,52 @@ function TranslateOptions(): JSX.Element {
 
   const optionClass = (word: string) => {
     if (isCorrect && word === targetTranslate) {
-      return 'option bg-light text-success px-2 mx-5 border border-success';
+      return 'option bg-light text-success px-2 mx-5 mt-1 border border-success';
     }
     if (isWrong && word === clickedWord) {
-      return 'option bg-light text-danger px-2 mx-5 border border-danger';
+      return 'option bg-light text-danger px-2 mx-5 mt-1 border border-danger';
     }
     if (isChecked && word !== targetTranslate) {
-      return 'option bg-info mx-5 text-secondary';
+      return 'option mx-5 mt-1 text-dark';
     }
     if (isChecked && word === targetTranslate) {
-      return 'option bg-info px-2 mx-5 border border-success';
+      return 'option px-2 mx-5 mt-1 border border-success';
     }
-    return 'option bg-info mx-5';
+    return 'option mx-5 px-2 mt-1';
   };
   // const [wordsList, setWordsList] = useState(currWords)
 
+  function hovered(event: React.MouseEvent<HTMLElement, MouseEvent> | React.FocusEvent<HTMLElement>): void {
+    // event.currentTarget.classList.add('border');
+    if (!isChecked) { event.currentTarget.classList.add('shadow'); /* event.currentTarget.classList.add('bg-secondary'); */ }
+  }
+
+  function unHovered(event: React.MouseEvent<HTMLElement, MouseEvent> | React.FocusEvent<HTMLElement>): void {
+    // event.currentTarget.classList.remove('border');
+    if (!isChecked) { event.currentTarget.classList.remove('shadow'); /* event.currentTarget.classList.remove('bg-secondary'); */ }
+  }
+
+  const clickHandler = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    if (!isChecked) {
+      const isAnswerCorrect = event.currentTarget.id === targetTranslate;
+      const sound = isAnswerCorrect ? 'correct' : 'error';
+      const funcToDispatch = isAnswerCorrect ? knowWords : notKnowWords;
+      playSound(sound);
+      setClickedWord(event.currentTarget.id);
+      dispatch(funcToDispatch(currWords[currActiveId]));
+      dispatch(checkAnswer(true));
+      isAnswerCorrect ? dispatch(correctAnswer(true)) : dispatch(wrongAnswer(true));
+      dispatch(progressGame());
+    }
+  };
+
+  const mouseOverHandler = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => hovered(event);
+  const mouseLeaveHandler = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => unHovered(event);
+  const focusHandler = (event: React.FocusEvent<HTMLDivElement>) => hovered(event);
+
   return (
 
-    <div className="options mb-5 d-flex flex-wrap justify-content-center bg-info text-white">
+    <div className="options mb-5 d-flex flex-wrap justify-content-center text-white">
       { currWords[currActiveId].translateOptions.map((word, idx) => (
         <div
           className={optionClass(word)}
@@ -53,19 +82,10 @@ function TranslateOptions(): JSX.Element {
           key={+idx}
           id={word}
           style={{ cursor: 'pointer' }}
-          onClick={(event) => {
-            if (!isChecked) {
-              const isAnswerCorrect = event.currentTarget.id === targetTranslate;
-              const sound = isAnswerCorrect ? 'correct' : 'error';
-              const funcToDispatch = isAnswerCorrect ? knowWords : notKnowWords;
-              playSound(sound);
-              setClickedWord(event.currentTarget.id);
-              dispatch(funcToDispatch(currWords[currActiveId]));
-              dispatch(checkAnswer(true));
-              isAnswerCorrect ? dispatch(correctAnswer(true)) : dispatch(wrongAnswer(true));
-              dispatch(progressGame());
-            }
-          }}
+          onClick={clickHandler}
+          onMouseOver={mouseOverHandler}
+          onMouseLeave={mouseLeaveHandler}
+          onFocus={focusHandler}
         >
           <h4 className="my-2">
             {+idx + 1}

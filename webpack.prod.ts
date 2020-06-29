@@ -26,7 +26,6 @@ const config: webpack.Configuration = {
     rules: [
       // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
       { test: /\.tsx?$/, loader: 'ts-loader' },
-      { test: /\.svg$/, loader: 'ts-loader' },
       {
         test: /\.s[ac]ss$/i,
         use: [
@@ -36,14 +35,7 @@ const config: webpack.Configuration = {
         ],
       },
       {
-        test: /\.(png|svg|jpe?g|gif)$/,
-        use: [
-          {
-            loader: 'file-loader',
-          },
-        ],
-      }, {
-        test: /\.(ogg|mp3|wav|mpe?g)$/i,
+        test: /\.(svg|ogg|mp3|wav|mpe?g)$/,
         use: [
           {
             loader: 'file-loader',
@@ -52,11 +44,6 @@ const config: webpack.Configuration = {
             },
           },
         ],
-      }, {
-        test: /\.svg$/,
-        use: {
-          loader: 'svg-url-loader',
-        },
       },
     ],
   },

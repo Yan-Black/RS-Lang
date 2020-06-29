@@ -17,21 +17,28 @@ function GameButton(): JSX.Element {
   const currActiveId = useSelector((state: State) => state.audioCallAnswer.progress);
   // const actionToDispatch = gameRound === 10 ? statisticPage() : checkAnswer(false);
 
+  const btnNextClickHandler = () => {
+    if (currActiveId >= 10) {
+      // setGameRound(0);
+      dispatch(resetGame());
+      dispatch(statisticPage());
+    } else {
+      dispatch(checkAnswer(false));
+    }
+  };
+
+  const btnDoNotKnowClickHandler = () => {
+    dispatch(notKnowWords(currWords[currActiveId]));
+    dispatch(checkAnswer(true));
+    dispatch(progressGame());
+  };
+
   if (isChecked) {
     return (
       <button
         className="btn btn-outline-light px-5"
         type="button"
-        onClick={() => {
-          // console.log(gameRound);
-          if (currActiveId >= 10) {
-            // setGameRound(0);
-            dispatch(resetGame());
-            dispatch(statisticPage());
-          } else {
-            dispatch(checkAnswer(false));
-          }
-        }}
+        onClick={btnNextClickHandler}
       >
         ⟹
       </button>
@@ -42,14 +49,7 @@ function GameButton(): JSX.Element {
     <button
       className="btn btn-outline-light px-5"
       type="button"
-      onClick={() => {
-        // console.log(gameRound);
-        // setGameRound(gameRound + 1);
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-        dispatch(notKnowWords(currWords[currActiveId]));
-        dispatch(checkAnswer(true));
-        dispatch(progressGame());
-      }}
+      onClick={btnDoNotKnowClickHandler}
     >
       НЕ ЗНАЮ
     </button>

@@ -18,14 +18,15 @@ function OptionItems({ options, currLvl, isLevelOption }: Options): JSX.Element 
   // const level = useSelector((state: State) => state.audioCallLevel);
   // const round = useSelector((state: State) => state.audioCallRound);
 
+  // eslint-disable-next-line max-len
+  const selectChangeHandler = (event: React.ChangeEvent<HTMLSelectElement>) => dispatch(actionToDispatch(event.currentTarget.value));
+
   return (
     <select
       className="custom-select mr-sm-2"
       id="levels"
       defaultValue={currLvl}
-      onChange={(event) => {
-        dispatch(actionToDispatch(event.currentTarget.value));
-      }}
+      onChange={selectChangeHandler}
     >
       { options.map((option, ind) => <Option item={+ind + 1} key={+ind + 1} />) }
     </select>
