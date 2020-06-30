@@ -1,6 +1,8 @@
 export interface State {
   app;
   speakItControl;
-  speakItfetch;
+  speakItFetch;
+  speakItWord;
+  speakItButtons;
   // add more fields according rootReducer
 }

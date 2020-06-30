@@ -5,8 +5,8 @@ import {useSelector} from "react-redux";
 import {State} from "../../../../models/state";
 
 function ShowImage() {
-  const background = useSelector((state: State) => state.speakItfetch.background);
-  const translate = useSelector((state: State) => state.speakItfetch.translate);
+  const background = useSelector((state: State) => state.speakItFetch.background);
+  const translate = useSelector((state: State) => state.speakItFetch.translate);
 
   return (
     <div className="img-wrapper">
