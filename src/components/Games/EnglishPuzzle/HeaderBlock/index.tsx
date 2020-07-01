@@ -8,8 +8,9 @@ import './index.scss';
 const Header: React.FC = () => {
   const actualWordsCollection = useSelector((state: State) => state.fetchedWords.currentWords);
   const activeIdx = useSelector((state: State) => state.engPuzzleActiveIdx.currentIdx);
+  const isResultsOpen = useSelector((state: State) => state.engPuzzleResults.isOpen);
   return (
-    <div className="header-section">
+    <div className={isResultsOpen ? 'header-section disabled' : 'header-section'}>
       <Settings />
       {actualWordsCollection.length ? (
         <HintButtons phrase={actualWordsCollection[activeIdx].textExample} />

@@ -5,6 +5,9 @@ import pageReducer from 'containers/Games/EnglishPuzzle/SettingsBlock/pageReduce
 import groupReducer from 'containers/Games/EnglishPuzzle/SettingsBlock/groupReducer';
 import offsetXReducer from 'containers/Games/EnglishPuzzle/GameBoard/offsetReducer';
 import solvedReducer from 'containers/Games/EnglishPuzzle/GameBoard/solvedReducer';
+import dontKnowReducer from 'containers/Games/EnglishPuzzle/GameBoard/Results/dontKnowReduser';
+import knowReducer from 'containers/Games/EnglishPuzzle/GameBoard/Results/knowReducer';
+import openResultsReducer from 'containers/Games/EnglishPuzzle/GameBoard/Results/openResultsReducer';
 import appReducer from '../containers/App/reducer';
 import btnsReducer from '../containers/Games/EnglishPuzzle/HintButtons/reducer';
 import wordsReducer from '../containers/Games/EnglishPuzzle/SettingsBlock/wordsReducer';
@@ -23,6 +26,9 @@ const rootReducer = combineReducers({
   engPuzzleGroup: groupReducer,
   engPuzzleXOffset: offsetXReducer,
   engPuzzleSolved: solvedReducer,
+  engPuzzleFailed: dontKnowReducer,
+  engPuzzleSuccess: knowReducer,
+  engPuzzleResults: openResultsReducer,
   fetchedWords: wordsReducer,
   loading: loaderReducer,
 });

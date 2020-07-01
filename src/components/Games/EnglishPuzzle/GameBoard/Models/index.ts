@@ -62,3 +62,11 @@ export interface CheckBtnProps {
 export interface DescProps {
   description: string;
 }
+
+export interface ResultsProps {
+  back: string;
+  description: string;
+  wordsToApply: Card[];
+  setCheckedStateToCards: React.Dispatch<React.SetStateAction<string[]>>;
+  setDragging: React.Dispatch<React.SetStateAction<boolean>>;
+}

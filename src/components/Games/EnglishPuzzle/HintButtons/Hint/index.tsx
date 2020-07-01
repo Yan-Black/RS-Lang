@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -29,12 +27,16 @@ const Hint: React.FC = () => {
     }
   };
   const clickHandler = () => stateSwitcher();
-  const translateBtnStyle = translateBtnState ? 'show-hint' : 'show-hint off';
+  const translateBtnStyle = translateBtnState ? 'hint-button' : 'hint-button off';
   return (
-    <div className={translateBtnStyle} onClick={clickHandler}>
+    <button
+      type="button"
+      className={translateBtnStyle}
+      onClick={clickHandler}
+    >
       <span className="tooltiptext">translate hint</span>
       <FontAwesomeIcon icon={faFileAlt} />
-    </div>
+    </button>
   );
 };
 

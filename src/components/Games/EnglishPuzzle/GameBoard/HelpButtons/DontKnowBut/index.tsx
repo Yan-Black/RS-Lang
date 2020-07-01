@@ -6,6 +6,7 @@ import '../index.scss';
 import {
   audioEnabled, translateEnable, backgroundEnable, speakerEnable, speakerDisable,
 } from 'containers/Games/EnglishPuzzle/HintButtons/actions';
+import { addFailed } from 'containers/Games/EnglishPuzzle/GameBoard/Results/actions';
 import { DontKnowBtnProps } from '../../Models';
 import { pronounceAudio } from '../../../Constants';
 
@@ -24,11 +25,12 @@ const DontKnowBtn: React.FC<DontKnowBtnProps> = ({
     dispatch(translateEnable());
     dispatch(backgroundEnable());
     dispatch(enableContinueBtn());
+    dispatch(addFailed(phraseToSpeak.join(' ')));
     pronounceAudio(true, phraseToSpeak.join(' '), dispatch, speakerEnable, speakerDisable);
   };
   const dontKnowBtnStyle = dontKnowBtnState
-    ? 'show-correct-sentence'
-    : 'show-correct-sentence disabled';
+    ? 'help-button'
+    : 'help-button disabled';
   return (
     <button
       type="button"

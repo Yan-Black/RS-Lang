@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -30,13 +28,17 @@ const Speaker: React.FC = () => {
     }
   };
   const clickHandler = () => stateSwitcher();
-  const speakerBtnStyle = speakerBtnState ? 'auto-pronunciation' : 'auto-pronunciation off';
+  const speakerBtnStyle = speakerBtnState ? 'hint-button' : 'hint-button off';
 
   return (
-    <div className={speakerBtnStyle} onClick={clickHandler}>
+    <button
+      type="button"
+      className={speakerBtnStyle}
+      onClick={clickHandler}
+    >
       <span className="tooltiptext">audio state switch</span>
       <FontAwesomeIcon icon={faVolumeUp} />
-    </div>
+    </button>
   );
 };
 export default Speaker;

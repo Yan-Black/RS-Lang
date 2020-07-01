@@ -16,6 +16,8 @@ const helpBtnsReducer = (state = initialState, action: Action): InitialStateHelp
       dontKnowBtn: true,
       continueBtn: false,
       checkBtn: false,
+      resultsBtn: false,
+      statisticBtn: false,
     };
     case 'DISABLE_DONT_KNOW_BTN': return {
       ...state,
@@ -40,6 +42,7 @@ const helpBtnsReducer = (state = initialState, action: Action): InitialStateHelp
     case 'DISABLE_CONTINUE_BTN': return {
       ...state,
       dontKnowBtn: true,
+      statisticBtn: false,
     };
     case 'ENABLE_RESULTS_BTN': return {
       ...state,
@@ -54,6 +57,7 @@ const helpBtnsReducer = (state = initialState, action: Action): InitialStateHelp
     case 'ENABLE_STATISTIC_BTN': return {
       ...state,
       statisticBtn: true,
+      resultsBtn: false,
     };
     case 'DISABLE_STATISTIC_BTN': return {
       ...state,

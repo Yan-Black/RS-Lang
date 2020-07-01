@@ -31,10 +31,6 @@
     box-shadow: inset 0px 0px 5px rgba(0,0,0,0.9);
 }
 
-.active-sentence-hidden {
-    visibility: hidden;
-}
-
 .sentence {
     height: 10%;
     display: flex;
@@ -64,5 +60,5 @@
 }
 
 .disabled {
-    display: none;
+    display: none !important;
 }

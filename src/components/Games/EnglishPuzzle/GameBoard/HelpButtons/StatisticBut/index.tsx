@@ -7,7 +7,7 @@ import '../index.scss';
 const StatisticBtn: React.FC = () => {
   const statisticBtnState = useSelector((state: State) => state.engPuzzleControlBtns.statisticBtn);
   const dispatch = useDispatch();
-  const statisticBtnStyle = statisticBtnState ? 'statistic' : 'statistic disabled';
+  const statisticBtnStyle = statisticBtnState ? 'help-button' : 'help-button disabled';
   const clickHandler = () => dispatch(disableStatisticBtn());
   return (
     <button

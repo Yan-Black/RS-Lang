@@ -30,14 +30,17 @@
 }
 
 .description {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1vw;
-    font-weight: 700;
-    grid-row-start: 2;
-    grid-row-end: auto;
+  width: 95%;
+  margin-left: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1vw;
+  font-weight: 700;
+  grid-row-start: 2;
+  grid-row-end: auto;
+  color: #fff;
+  user-select: none;
 }
 
 .description-disabled {
@@ -50,7 +53,9 @@
 
 .hide {
   opacity: 0;
-    animation: hide .7s linear;
+  height: 2vw;
+  cursor: auto;
+  animation: hide .7s linear;
 }
 
 @keyframes hide {

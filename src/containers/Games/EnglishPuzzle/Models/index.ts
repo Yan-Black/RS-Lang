@@ -1,21 +1,18 @@
 import { Card } from 'components/Games/EnglishPuzzle/GameBlock/types';
 
 export interface FetchedWordData {
-  audio: string;
-  audioExample: string;
-  audioMeaning: string;
-  group: number;
-  id: string;
-  image: string;
-  page: number;
-  textExample: string;
-  textExampleTranslate: string;
-  textMeaning: string;
-  textMeaningTranslate: string;
-  transcription: string;
   word: string;
+  image: string;
+  audio: string;
+  audioMeaning: string;
+  audioExample: string;
+  textMeaning: string;
+  textExample: string;
+  transcription: string;
   wordTranslate: string;
-  wordsPerExampleSentence: number;
+  textMeaningTranslate: string;
+  textExampleTranslate: string;
+  id: number;
 }
 export interface InitialStateWords {
   currentWords: Array<FetchedWordData>;
@@ -82,4 +79,21 @@ export interface InitialStateIndex {
 
 export interface InitialStateLoading {
   isLoading: boolean;
+}
+
+export interface InitialStateFailed {
+  failed: string[];
+}
+
+export interface InitialStateSuccess {
+  success: string[];
+}
+
+export interface InitialStateResultsPage {
+  isOpen: boolean;
+}
+
+export interface ActionResults {
+  type: string;
+  payload?: string;
 }

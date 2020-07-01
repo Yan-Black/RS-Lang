@@ -4,7 +4,7 @@
     align-items: center;
 }
 
-.auto-pronunciation, .show-hint, .pronounce-word, .show-background {
+.hint-button {
     height: 2vw;
     width: 2vw;
     font-size: 1vw;
@@ -17,6 +17,31 @@
     margin-left: 0.5vw;
     cursor: pointer;
     position: relative;
+    border: none;
+    -moz-outline-style: none;
+    outline-style: none;
+	  outline:none;
+    outline:0;
+    &:hover {
+      background-color: #5c9890;
+      transition: .1s ease-in-out;
+      .tooltiptext {
+        visibility: visible;
+      }
+    }
+    &:active {
+      opacity: 0.5;
+      -moz-outline-style: none;
+      outline-style: none;
+      outline:none;
+      outline:0;
+    }
+    &:focus {
+      -moz-outline-style: none;
+      outline-style: none;
+      outline:none;
+      outline:0;
+    }
 }
 
 .tooltiptext {
@@ -32,20 +57,6 @@
   top: 120%;
   left: 0;
   z-index: 1;
-}
-
-.auto-pronunciation:hover, .show-hint:hover,
-.pronounce-word:hover, .show-background:hover {
-    background-color: #5c9890;
-    transition: .1s ease-in-out;
-    .tooltiptext {
-      visibility: visible;
-    }
-}
-
-.auto-pronunciation:active, .show-hint:active,
-.pronounce-word:active, .show-background:active {
-    opacity: 0.5;
 }
 
 .off, .off:hover, .off:active {

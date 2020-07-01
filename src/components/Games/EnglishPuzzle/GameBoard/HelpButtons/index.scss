@@ -11,7 +11,7 @@
   margin-top: 1vw;
 }
 
-.show-correct-sentence, .check, .continue, .results, .statistic {
+.help-button {
   width: 7vw;
   height: 2vw;
   margin-right: 1vw;
@@ -25,17 +25,18 @@
   cursor: pointer;
   font-size: .7vw;
   user-select: none;
-}
-
-.show-correct-sentence:hover, .check:hover,
-.continue:hover, .results:hover, .statistic:hover {
-  background-color: #5c9890;
-  transition: .1s ease-in-out;
-}
-
-.show-correct-sentence:active, .check:active,
-.continue:active, .results:active, .statistic:active {
-  opacity: 0.5;
+  border: none;
+  outline: none;
+  &:hover {
+    background-color: #5c9890;
+    transition: .1s ease-in-out;
+  }
+  &:active {
+    opacity: 0.5;
+  }
+  &:focus {
+    outline: none;
+  }
 }
 
 .disabled {

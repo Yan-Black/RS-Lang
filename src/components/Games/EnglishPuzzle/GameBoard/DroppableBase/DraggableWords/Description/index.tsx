@@ -6,8 +6,9 @@ import { DescProps } from '../../../Models';
 
 const Description: React.FC<DescProps> = ({ description }) => {
   const isSolved = useSelector((state: State) => state.engPuzzleSolved.solved);
+  const isOpen = useSelector((state: State) => state.engPuzzleResults.isOpen);
   return (
-    <div className={isSolved ? 'description' : '  description description-disabled'}>
+    <div className={isSolved && !isOpen ? 'description' : 'description description-disabled'}>
       {description}
     </div>
   );

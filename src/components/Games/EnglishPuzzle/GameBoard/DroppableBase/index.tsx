@@ -3,26 +3,20 @@ import { useSelector } from 'react-redux';
 import { State } from 'models/state';
 import { Droppable } from 'react-beautiful-dnd';
 import Word from './DraggableWords/Word';
-import Loader from './DraggableWords/Loader';
 import Description from './DraggableWords/Description';
 import { DroppableProps } from '../Models';
 
 const DroppableBase: React.FC<DroppableProps> = ({
   rowLength, words, onClickFn, cssStyle, drag, back, description,
 }) => {
-  const loading = useSelector((state: State) => state.loading.isLoading);
-  if (loading) {
-    return (
-      <Loader />
-    );
-  }
+  const isOpen = useSelector((state: State) => state.engPuzzleResults.isOpen);
   return (
     <>
       <Description description={description} />
       <Droppable droppableId="base" direction="horizontal">
         {({ innerRef, droppableProps, placeholder }) => (
           <div
-            className="start-words"
+            className={isOpen ? 'start-words disabled' : 'start-words'}
             style={{ display: 'grid', gridTemplateColumns: `repeat(${rowLength}, 1fr)` }}
             ref={innerRef}
             {...droppableProps}
@@ -48,5 +42,4 @@ const DroppableBase: React.FC<DroppableProps> = ({
     </>
   );
 };
-
 export default DroppableBase;

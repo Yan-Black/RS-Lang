@@ -13,7 +13,7 @@ const DroppableBase: React.FC<DroppableProps> = ({
     <Droppable droppableId="board" direction="horizontal">
       {({ innerRef, droppableProps, placeholder }) => (
         <div
-          className={isSolved ? 'hide' : 'sentence active-sentence'}
+          className={isSolved ? 'disabled' : 'sentence active-sentence'}
           style={{ display: 'grid', gridTemplateColumns: `repeat(${rowLength}, 1fr)` }}
           ref={innerRef}
           {...droppableProps}

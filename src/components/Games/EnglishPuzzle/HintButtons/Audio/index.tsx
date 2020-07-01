@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 import * as React from 'react';
 import { useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -15,7 +13,7 @@ interface Props {
 const Audio: React.FC<Props> = ({ phrase }) => {
   const audioBtnState = useSelector((state: State) => state.engPuzzleBtns.audioHintActive);
   const dispatch = useDispatch();
-  const audioBtnStyle = audioBtnState ? 'pronounce-word' : 'pronounce-word off';
+  const audioBtnStyle = audioBtnState ? 'hint-button' : 'hint-button off';
   const regex = /<[^>]*>/g;
   const sentence = new SpeechSynthesisUtterance();
   const { speechSynthesis } = window;
@@ -39,10 +37,14 @@ const Audio: React.FC<Props> = ({ phrase }) => {
   }, [phrase]);
 
   return (
-    <div className={audioBtnStyle} onClick={clickHandler}>
+    <button
+      type="button"
+      className={audioBtnStyle}
+      onClick={clickHandler}
+    >
       <span className="tooltiptext">play audio</span>
       <FontAwesomeIcon icon={faMusic} />
-    </div>
+    </button>
   );
 };
 

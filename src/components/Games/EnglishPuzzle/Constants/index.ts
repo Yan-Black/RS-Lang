@@ -1,9 +1,9 @@
 import {
   Card, Source, Dest, Res, RowsMap,
 } from 'components/Games/EnglishPuzzle/GameBlock/types';
-import { InitialStateWords } from 'containers/Games/EnglishPuzzle/SettingsBlock/wordsReducer';
 import { Dispatch } from 'react';
 import { Action } from 'redux';
+import { InitialStateWords } from 'containers/Games/EnglishPuzzle/Models';
 
 export const reorder = (list: Card[], startIndex: number, endIndex: number): Card[] => {
   const result = Array.from(list);

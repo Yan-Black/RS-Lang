@@ -6,6 +6,7 @@ import {
 } from 'containers/Games/EnglishPuzzle/HintButtons/actions';
 import { State } from 'models/state';
 import '../index.scss';
+import { addSuccess } from 'containers/Games/EnglishPuzzle/GameBoard/Results/actions';
 import { CheckBtnProps } from '../../Models';
 import { pronounceAudio } from '../../../Constants';
 
@@ -17,7 +18,7 @@ const CheckBtn: React.FC<CheckBtnProps> = ({
   const phraseToSpeak = [];
   phrase.forEach((card) => phraseToSpeak.push(card.word));
   const dispatch = useDispatch();
-  const checkBtnStyle = checkBtnState ? 'check' : 'check disabled';
+  const checkBtnStyle = checkBtnState ? 'help-button' : 'help-button disabled';
   const clickHandler = () => {
     if (wordsToApply.every((_, i) => wordsToApply[i].word === wordsToCheck[i].word)) {
       setDragging(true);
@@ -26,6 +27,7 @@ const CheckBtn: React.FC<CheckBtnProps> = ({
       dispatch(translateEnable());
       dispatch(backgroundEnable());
       dispatch(enableContinueBtn());
+      dispatch(addSuccess(phraseToSpeak.join(' ')));
       pronounceAudio(true, phraseToSpeak.join(' '), dispatch, speakerEnable, speakerDisable);
       setCheckedStateToCards(checkedCssState.fill('start-word true', 0, checkedCssState.length));
     } else {

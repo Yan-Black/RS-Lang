@@ -6,6 +6,7 @@ import { State } from 'models/state';
 import { enableCheckBtn, enableDontKnowBtn } from 'containers/Games/EnglishPuzzle/GameBoard/HelpButtons/actions';
 import { reorder, move, shuffle } from '../Constants';
 import HelpButtons from './HelpButtons';
+import Results from './Results';
 import './index.scss';
 import { Card } from '../GameBlock/types';
 import DroppableBoard from './DroppableBoard';
@@ -23,6 +24,7 @@ const GameBoard: React.FC<BoardProps> = ({ gameData, background, description }) 
   );
   const activeIdx = useSelector((state: State) => state.engPuzzleActiveIdx.currentIdx);
   const isSolved = useSelector((state: State) => state.engPuzzleSolved.solved);
+  const isResultsOpen = useSelector((state: State) => state.engPuzzleResults.isOpen);
   const dispatch = useDispatch();
   const [wordsMap, rowLength] = gameData;
   const [isDragPrevented, setDragging] = useState(false);
@@ -30,6 +32,7 @@ const GameBoard: React.FC<BoardProps> = ({ gameData, background, description }) 
   const [basicStyle, setBasicStyle] = useState(basicStyleCards);
   const [backImg, setBackImg] = useState(background);
   const [state, setState] = useState(wordsMap);
+
   useEffect(() => {
     const shuffledArr = shuffle(wordsMap.selected);
     setBasicStyle(new Array(rowLength).fill('start-word', 0, rowLength));
@@ -51,11 +54,12 @@ const GameBoard: React.FC<BoardProps> = ({ gameData, background, description }) 
     if (isDragPrevented) {
       return;
     }
+    const { target } = e;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-    if (e.target.parentElement.getAttribute('data-rbd-droppable-id') === 'base') {
+    if (target.parentElement.getAttribute('data-rbd-droppable-id') === 'base') {
       const sourceClone = Array.from(state.selected);
       const destClone = Array.from(state.cards);
-      const [replaced] = sourceClone.splice(e.target.id, 1);
+      const [replaced] = sourceClone.splice(Number(target.id), 1);
       destClone.push([replaced][0]);
       if (destClone.length === wordsMap.selected.length) {
         dispatch(enableCheckBtn());
@@ -67,7 +71,7 @@ const GameBoard: React.FC<BoardProps> = ({ gameData, background, description }) 
     } else {
       const sourceClone = Array.from(state.selected);
       const destClone = Array.from(state.cards);
-      const [replaced] = destClone.splice(e.target.id, 1);
+      const [replaced] = destClone.splice(Number(target.id), 1);
       sourceClone.push([replaced][0]);
       if (destClone.length !== wordsMap.selected.length) {
         dispatch(enableDontKnowBtn());
@@ -130,7 +134,7 @@ const GameBoard: React.FC<BoardProps> = ({ gameData, background, description }) 
       onDragEnd={onDragEndHandler}
     >
       <div
-        className="game-board"
+        className={isResultsOpen ? 'game-board disabled' : 'game-board'}
         id="board-1"
       >
         <div className="string-numbers">
@@ -175,7 +179,7 @@ const GameBoard: React.FC<BoardProps> = ({ gameData, background, description }) 
                     {cardsCollection.length
                       ? cardsCollection[row - 1].map((card: Card, index) => (
                         <div
-                          key={(Math.random() * 100).toFixed(3)}
+                          key={(Math.random() * 100).toFixed(5)}
                           className={isSolved ? 'start-word hide' : 'start-word'}
                           style={{
                             backgroundImage: `url(${backImg})`,
@@ -208,6 +212,13 @@ const GameBoard: React.FC<BoardProps> = ({ gameData, background, description }) 
         setCheckedStateToCards={setBasicStyle}
         setDragging={setDragging}
         phrase={wordsMap.selected}
+      />
+      <Results
+        back={backImg}
+        description={description}
+        wordsToApply={wordsMap.selected}
+        setCheckedStateToCards={setBasicStyle}
+        setDragging={setDragging}
       />
     </DragDropContext>
   );

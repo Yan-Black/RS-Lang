@@ -10,6 +10,7 @@ import { State } from 'models/state';
 import '../index.scss';
 import { setToUserPreferencies } from 'containers/Games/EnglishPuzzle/HintButtons/actions';
 import { countXOffsets } from 'components/Games/EnglishPuzzle/Constants';
+import { reomveFailed, reomveSuccess, closeResults } from 'containers/Games/EnglishPuzzle/GameBoard/Results/actions';
 import { ContinueBtnProps } from '../../Models';
 
 const ContinueBtn: React.FC<ContinueBtnProps> = ({
@@ -36,8 +37,12 @@ const ContinueBtn: React.FC<ContinueBtnProps> = ({
     setDragging(false);
     dispatch(setToUserPreferencies());
     if (isSolved) {
+      dispatch(closeResults());
       removeCardsCollection();
       dispatch(setToNewGame());
+      dispatch(enableDontKnowBtn());
+      dispatch(reomveFailed());
+      dispatch(reomveSuccess());
       if (group === 6 && page === 60) {
         return;
       }
@@ -49,12 +54,13 @@ const ContinueBtn: React.FC<ContinueBtnProps> = ({
     } else if (activeIdx === 9) {
       dispatch(setToSolved());
       dispatch(enableResultsBtn());
+      setTimeout(() => dispatch(removeCollection()), 800);
     } else {
       updateCardsCollection();
       dispatch(enableDontKnowBtn());
     }
   };
-  const continueBtnStyle = continueBtnState ? 'continue' : 'continue disabled';
+  const continueBtnStyle = continueBtnState ? 'help-button' : 'help-button disabled';
   return (
     <button
       type="button"

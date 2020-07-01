@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -29,12 +27,16 @@ const Image: React.FC = () => {
     }
   };
   const clickHandler = () => stateSwitcher();
-  const backgroundBtnStyle = backBtnState ? 'show-background' : 'show-background off';
+  const backgroundBtnStyle = backBtnState ? 'hint-button' : 'hint-button off';
   return (
-    <div className={backgroundBtnStyle} onClick={clickHandler}>
+    <button
+      type="button"
+      className={backgroundBtnStyle}
+      onClick={clickHandler}
+    >
       <span className="tooltiptext">image hint</span>
       <FontAwesomeIcon icon={faImage} />
-    </div>
+    </button>
   );
 };
 export default Image;

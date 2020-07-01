@@ -10,5 +10,8 @@ export interface State {
   engPuzzleGroup;
   engPuzzleXOffset;
   engPuzzleSolved;
+  engPuzzleFailed;
+  engPuzzleSuccess;
+  engPuzzleResults;
   // add more fields according rootReducer
 }
