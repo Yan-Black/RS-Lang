@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import thunk from 'redux-thunk';
 import {
   createStore, combineReducers, compose, applyMiddleware,
@@ -5,7 +6,7 @@ import {
 
 // import appReducer from '../containers/App/reducer';
 import {
-  pageReducer, levelReducer, roundReducer, currWordsReducer, answerReducer, statisticReducer,
+  pageReducer, levelReducer, roundReducer, currWordsReducer, answerReducer, statisticReducer, modalReducer,
 } from '../containers/Games/AudioCall/reducer';
 
 const rootReducer = combineReducers({
@@ -15,12 +16,13 @@ const rootReducer = combineReducers({
   audioCallCurrWords: currWordsReducer,
   audioCallAnswer: answerReducer,
   audioCallStatistic: statisticReducer,
+  audioCallModal: modalReducer,
 });
 
 const store = createStore(rootReducer, compose(applyMiddleware(thunk)));
 
 store.subscribe(() => {
-  console.log(store.getState());
+  // console.log(store.getState());
 });
 
 export default store;

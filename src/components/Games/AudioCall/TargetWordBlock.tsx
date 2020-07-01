@@ -1,6 +1,4 @@
 /* eslint-disable max-len */
-/* eslint-disable jsx-a11y/interactive-supports-focus */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import * as React from 'react';
 import { useSelector } from 'react-redux';
@@ -29,33 +27,9 @@ function TargetWordBlock(): JSX.Element {
     void audio.play();
   }
 
-  // function hovered(event: React.MouseEvent<HTMLElement, MouseEvent> | React.FocusEvent<HTMLElement>): void {
-  //   // event.currentTarget.classList.add('border');
-  //   if (!isChecked) event.currentTarget.classList.add('shadow');
-  // }
-
-  // function unHovered(event: React.MouseEvent<HTMLElement, MouseEvent> | React.FocusEvent<HTMLElement>): void {
-  //   // event.currentTarget.classList.remove('border');
-  //   if (!isChecked) event.currentTarget.classList.remove('shadow');
-  // }
-  // function setShow(toShow: boolean): void {
-  //   show = toShow;
-  // }
-
-  // function playIndicate() {
-  //   console.log(spinnerClass);
-  //   setShowSpinner(true);
-  //   // play = false;
-  //   // setPlay(false);
-  //   console.log(spinnerClass);
-  //   // setTimeout(setShow, 5000, false);
-  //   setTimeout(() => { setShowSpinner(false); console.log(spinnerClass); }, 1000);
-  //   // setTimeout(() => { setPlay(true); console.log(spinnerClass); }, 1600);
-  //   // setTimeout(() => console.log('1 sec passed'), 1000);
-  //   // console.log(show);
-  // }
-
   const speakerIconClickHandler = (): void => { playWordAudio(); };
+  // const speakerIconFocusHandler = (event: React.FocusEvent<HTMLDivElement>): void => event.preventDefault();
+  const speakerIconKeyPressHandler = (event: React.KeyboardEvent<HTMLDivElement>) => event.preventDefault();
 
   if (!isChecked && currActiveId < 10) {
     playWordAudio();
@@ -72,7 +46,7 @@ function TargetWordBlock(): JSX.Element {
         {/* <img src={`https://raw.githubusercontent.com/lactivka/rslang-data/master/${currWords[3].image}`} alt="" /> */}
         <div className="rounded-pill" style={{ width: '300px', height: '200px', background: `url(https://raw.githubusercontent.com/lactivka/rslang-data/master/${imageUrl})` }} />
         <div className="d-flex align-items-center">
-          <i className="fas fa-volume-up text-white my-5 mr-5 p-2 shadow border border-light rounded-circle" role="button" style={{ cursor: 'pointer' }} onClick={speakerIconClickHandler} />
+          <i className="fas fa-volume-up text-white my-5 mr-5 p-2 shadow border border-light rounded-circle" tabIndex={0} role="button" style={{ cursor: 'pointer' }} onClick={speakerIconClickHandler} onKeyPress={speakerIconKeyPressHandler} />
           <h2>{currWord}</h2>
         </div>
       </div>
@@ -85,10 +59,12 @@ function TargetWordBlock(): JSX.Element {
         <div
           className="shadow rounded-circle"
           role="button"
+          tabIndex={-1}
           style={{
             width: '200px', height: '200px', cursor: 'pointer', background: `url(${speakerIcon})`, backgroundSize: 'contain',
           }}
           onClick={speakerIconClickHandler}
+          onKeyPress={speakerIconKeyPressHandler}
         />
       </div>
     </div>

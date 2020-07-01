@@ -9,33 +9,30 @@ import { State } from 'models';
 function GameButton(): JSX.Element {
   const dispatch = useDispatch();
   const currWords = useSelector((state: State) => state.audioCallCurrWords);
-  // const round = useSelector((state: State) => state.audioCallRound);
-  // const firstWordNumber = (+round % 2) === 0 ? 0 : 10;
-  // const [gameRound, setGameRound] = useState(0);
-  // const [buttonTitle, setButtonTitle] = useState('НЕ ЗНАЮ');
   const isChecked = useSelector((state: State) => state.audioCallAnswer.isChecked);
   const currActiveId = useSelector((state: State) => state.audioCallAnswer.progress);
-  // const actionToDispatch = gameRound === 10 ? statisticPage() : checkAnswer(false);
 
-  const btnNextClickHandler = () => {
+  const btnNextClickHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
     if (currActiveId >= 10) {
-      // setGameRound(0);
       dispatch(resetGame());
       dispatch(statisticPage());
     } else {
-      dispatch(checkAnswer(false));
+      dispatch(checkAnswer('null'));
     }
   };
 
-  const btnDoNotKnowClickHandler = () => {
+  const btnDoNotKnowClickHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
     dispatch(notKnowWords(currWords[currActiveId]));
-    dispatch(checkAnswer(true));
+    dispatch(checkAnswer('null'));
     dispatch(progressGame());
   };
 
   if (isChecked) {
     return (
       <button
+        tabIndex={-1}
         className="btn btn-outline-light px-5"
         type="button"
         onClick={btnNextClickHandler}
@@ -47,6 +44,7 @@ function GameButton(): JSX.Element {
 
   return (
     <button
+      tabIndex={-1}
       className="btn btn-outline-light px-5"
       type="button"
       onClick={btnDoNotKnowClickHandler}

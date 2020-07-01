@@ -4,7 +4,7 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import * as React from 'react';
-import { useState } from 'react';
+// import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from 'models';
 import {
@@ -14,9 +14,10 @@ import { playSound } from './utils';
 
 function TranslateOptions(): JSX.Element {
   const dispatch = useDispatch();
-  const [clickedWord, setClickedWord] = useState('null');
+  // const [clickedWord, setClickedWord] = useState('null');
 
   const currWords = useSelector((state: State) => state.audioCallCurrWords);
+  const selectedWord = useSelector((state: State) => state.audioCallAnswer.selectedWord);
   const isChecked = useSelector((state: State) => state.audioCallAnswer.isChecked);
   const isCorrect = useSelector((state: State) => state.audioCallAnswer.isCorrect);
   const isWrong = useSelector((state: State) => state.audioCallAnswer.isWrong);
@@ -31,7 +32,7 @@ function TranslateOptions(): JSX.Element {
     if (isCorrect && word === targetTranslate) {
       return 'option bg-light text-success px-2 mx-5 mt-1 border border-success';
     }
-    if (isWrong && word === clickedWord) {
+    if (isWrong && word === selectedWord) {
       return 'option bg-light text-danger px-2 mx-5 mt-1 border border-danger';
     }
     if (isChecked && word !== targetTranslate) {
@@ -60,9 +61,9 @@ function TranslateOptions(): JSX.Element {
       const sound = isAnswerCorrect ? 'correct' : 'error';
       const funcToDispatch = isAnswerCorrect ? knowWords : notKnowWords;
       playSound(sound);
-      setClickedWord(event.currentTarget.id);
+      // setClickedWord(event.currentTarget.id);
       dispatch(funcToDispatch(currWords[currActiveId]));
-      dispatch(checkAnswer(true));
+      dispatch(checkAnswer(event.currentTarget.id));
       isAnswerCorrect ? dispatch(correctAnswer(true)) : dispatch(wrongAnswer(true));
       dispatch(progressGame());
     }
@@ -71,6 +72,9 @@ function TranslateOptions(): JSX.Element {
   const mouseOverHandler = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => hovered(event);
   const mouseLeaveHandler = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => unHovered(event);
   const focusHandler = (event: React.FocusEvent<HTMLDivElement>) => hovered(event);
+  // const keyPressHandler = (event) => {
+  //   if (event.key === 'Enter') clickHandler(event);
+  // };
 
   return (
 
@@ -81,11 +85,13 @@ function TranslateOptions(): JSX.Element {
           role="button"
           key={+idx}
           id={word}
+          tabIndex={0}
           style={{ cursor: 'pointer' }}
           onClick={clickHandler}
           onMouseOver={mouseOverHandler}
           onMouseLeave={mouseLeaveHandler}
           onFocus={focusHandler}
+          // onKeyPress={keyPressHandler}
         >
           <h4 className="my-2">
             {+idx + 1}
