@@ -3,15 +3,13 @@
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from 'models';
-import { Link } from 'react-router-dom';
 import backgroundImage from '../../../assets/pattern-369543.svg';
 import {
-  gamePage, fetchWords, startPage,
+  gamePage, fetchWords, toggleModal,
 } from '../../../containers/Games/AudioCall/actions';
 import OptionItems from './OptionItems';
 import { getWordsForGame, Json, getTranslateOptions } from './utils';
-// import ModalMessage from './ModalMessage';
-// import { ActionCreator } from 'redux';
+import ModalMessage from './ModalMessage';
 
 function makeArray(length) {
   return new Array(length).fill(0);
@@ -19,47 +17,43 @@ function makeArray(length) {
 
 function StartPage(): JSX.Element {
   const dispatch = useDispatch();
-  // const page = useSelector((state: State) => state.audioCallPage);
   const level = useSelector((state: State) => state.audioCallLevel);
   const round = useSelector((state: State) => state.audioCallRound);
+  // let modalMessage = 'exit';
 
-  const exitClickHandler = () => dispatch(startPage());
-  const btnMyWordsClickHandler = () => dispatch(gamePage());
-  const btnFreeGameClickHandler = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const jsonObj: Array<Json> = await getWordsForGame(level, round);
-    const wordsList = round % 2 === 0 ? jsonObj.slice(0, 10) : jsonObj.slice(10);
-    const gameData = getTranslateOptions(wordsList);
-    // console.log(gameWords);
-    dispatch(fetchWords(gameData));
+  const exitClickHandler = () => { dispatch(toggleModal('exit')); };
+  const btnMyWordsClickHandler = () => {
     dispatch(gamePage());
+    // const translateOption = await getTranslates('sharp', 'острый');
+    // console.log(translateOption);
+  };
+  const btnFreeGameClickHandler = async (e: React.FormEvent<HTMLFormElement>) => {
+    try {
+      e.preventDefault();
+      const jsonObj: Array<Json> = await getWordsForGame(level, round);
+      const wordsList = round % 2 === 0 ? jsonObj.slice(0, 10) : jsonObj.slice(10);
+      const gameData = await getTranslateOptions(wordsList);
+      // console.log(gameData);
+      dispatch(fetchWords(gameData));
+      dispatch(gamePage());
+    } catch (err) {
+      // console.log(err);
+      dispatch(toggleModal('error'));
+    }
+  };
+
+  const keyPressHandler = (event: React.KeyboardEvent<HTMLElement>) => {
+    if (event.key === 'Enter') {
+      dispatch(toggleModal('exit'));
+    }
   };
 
   return (
-    <div className="p-3 mb-2 text-white text-center align-items-center" style={{ height: '100vh', background: `url(${backgroundImage})`, backgroundSize: 'cover' }}>
-      {/* <ModalMessage /> */}
-      <div className="p-3 text-right">
-        <Link to="/Main" onClick={exitClickHandler}><i className="fas fa-times text-white" /></Link>
-        {/* <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop" />
-        <div className="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabIndex={-1} role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title" id="staticBackdropLabel">Modal title</h5>
-                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div className="modal-body">
-                ...bla-bla
-              </div>
-              <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" className="btn btn-primary">Understood</button>
-              </div>
-            </div>
-          </div>
-        </div> */}
+    <div className="mb-2 text-white text-center align-items-center" style={{ height: '100vh', background: `url(${backgroundImage})`, backgroundSize: 'cover' }}>
+      <ModalMessage />
+      <div className="p-4 text-right">
+        <i className="fas fa-times text-white" style={{ cursor: 'pointer' }} role="button" tabIndex={0} onClick={exitClickHandler} onKeyPress={keyPressHandler} />
+        {/* <Link to="/Main" onClick={exitClickHandler}><i className="fas fa-times text-white" /></Link> */}
       </div>
       <div className="d-flex flex-column justify-content-center" style={{ height: '70%' }}>
         <h1 className="mb-5">АУДИОВЫЗОВ</h1>

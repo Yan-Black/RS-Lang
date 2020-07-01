@@ -12,10 +12,24 @@ const initialState = {
   // fetchedWords: [],
   currentWords: [],
   translateOptions: [],
+  // isOpen: false,
+};
+
+interface ModalInitState {
+  isOpen: boolean,
+  title: string,
+  message: string,
+}
+
+const modalInitState = <ModalInitState> {
+  isOpen: false,
+  title: '',
+  message: '',
 };
 
 interface AnswerInitState {
   btnTitle: string,
+  selectedWord: string,
   isChecked: boolean,
   isCorrect: boolean,
   isWrong: boolean,
@@ -24,6 +38,7 @@ interface AnswerInitState {
 
 const answerInitState = <AnswerInitState> {
   btnTitle: ' НЕ ЗНАЮ',
+  selectedWord: 'null',
   isChecked: false,
   isCorrect: false,
   isWrong: false,
@@ -38,6 +53,19 @@ interface StatisticInitState {
 const statisticInitState = <StatisticInitState> {
   wrongAnswers: [],
   correctAnswers: [],
+};
+
+const modalReducer: Models.Reducer<unknown> = (state: ModalInitState = modalInitState, { type, payload }) => {
+  const messageTitle = payload === 'exit' ? 'Вы уверены? Тренировка не закончена!' : 'Ой! Ошибка!';
+  const messageBody = payload === 'exit' ? 'Если вы выйдете из игры, ваш прогресс не будет сохранен' : 'Что-то пошло не так. Попробуйте, пожалуйста, позже';
+  switch (type) {
+    case ActionType.TOGGLE_MODAL:
+      return {
+        ...state, isOpen: !state.isOpen, title: messageTitle, message: messageBody,
+      };
+    default:
+      return state;
+  }
 };
 
 // eslint-disable-next-line max-len
@@ -89,7 +117,7 @@ const answerReducer: Models.Reducer<unknown> = (state: AnswerInitState = answerI
     case ActionType.CHECK_ANSWER:
       return {
         // eslint-disable-next-line max-len
-        ...state, isChecked: payload, isCorrect: false, isWrong: false,
+        ...state, isChecked: !state.isChecked, isCorrect: false, isWrong: false, selectedWord: payload,
       };
     case ActionType.CORRECT_ANSWER:
       return {
@@ -124,5 +152,5 @@ const statisticReducer: Models.Reducer<unknown> = (state: StatisticInitState = s
 };
 
 export {
-  pageReducer, levelReducer, roundReducer, currWordsReducer, answerReducer, statisticReducer,
+  pageReducer, levelReducer, roundReducer, currWordsReducer, answerReducer, statisticReducer, modalReducer,
 };

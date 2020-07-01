@@ -6,5 +6,6 @@ export interface State {
   audioCallCurrWords;
   audioCallAnswer;
   audioCallStatistic;
+  audioCallModal;
   // add more fields according rootReducer
 }

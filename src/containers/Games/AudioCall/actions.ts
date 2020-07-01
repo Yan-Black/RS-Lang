@@ -68,3 +68,8 @@ export const notKnowWords: ActionCreator.NotKnowWords = (wordsObj) => ({
 export const resetCurrStatistic: ActionCreator.ResetCurrStatistic = () => ({
   type: ActionType.RESET_CURR_STATISTIC,
 });
+
+export const toggleModal: ActionCreator.ToggleModal = (messageType) => ({
+  type: ActionType.TOGGLE_MODAL,
+  payload: messageType,
+});
