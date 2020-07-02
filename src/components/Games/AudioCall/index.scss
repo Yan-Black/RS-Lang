@@ -1,4 +1,4 @@
-#modal {
+#modal, #loader {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -6,7 +6,7 @@
   z-index: 2;
 }
 
-.modal-dialog {
+.modal-dialog, .spinner-border {
   margin: 200px auto;
-    z-index: 2;
+  z-index: 2;
 }

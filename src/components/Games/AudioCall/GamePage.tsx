@@ -10,6 +10,8 @@ import {
   toggleModal, resetGame, statisticPage, checkAnswer, notKnowWords, progressGame, knowWords, correctAnswer, wrongAnswer,
 } from 'containers/Games/AudioCall/actions';
 // import { useState } from 'react';
+import * as ReactDOM from 'react-dom';
+import { useRef, useEffect } from 'react';
 import TranslateOptions from './translateOptions';
 import GameButton from './GameButton';
 import TargetWordBlock from './TargetWordBlock';
@@ -25,6 +27,11 @@ function GamePage(): JSX.Element {
   const currWords = useSelector((state: State) => state.audioCallCurrWords);
   const currActiveId: number = useSelector((state: State) => state.audioCallAnswer.progress);
   const currGameProgress: number = currActiveId * 10;
+  // const textInput = useRef(null);
+  let textInput: HTMLDivElement = null;
+  useEffect(() => {
+    textInput.focus();
+  });
 
   const exitClickHandler = () => {
     dispatch(toggleModal('exit'));
@@ -38,6 +45,7 @@ function GamePage(): JSX.Element {
 
   const keyBoardPressHandler = (event) => {
     // console.log('game press');
+    // textInput.current.focus();
     if (event.key === 'Enter' && isChecked) {
       if (currActiveId >= 10) {
         dispatch(resetGame());
@@ -79,10 +87,12 @@ function GamePage(): JSX.Element {
   return (
     <div
       className="align-middle"
+      id="game-page"
       tabIndex={0}
       role="button"
+      ref={(button) => { textInput = button; }}
       style={{
-        height: '100vh', background: `url(${backgroundImage})`, backgroundSize: 'cover', cursor: 'default',
+        height: '100vh', background: `url(${backgroundImage})`, backgroundSize: 'cover', cursor: 'default', overflow: 'scroll',
       }}
       onKeyPress={keyBoardPressHandler}
     >

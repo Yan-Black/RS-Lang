@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from 'models';
+import { useState } from 'react';
 import backgroundImage from '../../../assets/pattern-369543.svg';
 import {
   gamePage, fetchWords, toggleModal,
@@ -19,6 +20,9 @@ function StartPage(): JSX.Element {
   const dispatch = useDispatch();
   const level = useSelector((state: State) => state.audioCallLevel);
   const round = useSelector((state: State) => state.audioCallRound);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const loaderClass = isLoading ? 'visible position-absolute' : 'invisible';
   // let modalMessage = 'exit';
 
   const exitClickHandler = () => { dispatch(toggleModal('exit')); };
@@ -28,6 +32,7 @@ function StartPage(): JSX.Element {
     // console.log(translateOption);
   };
   const btnFreeGameClickHandler = async (e: React.FormEvent<HTMLFormElement>) => {
+    setIsLoading(true);
     try {
       e.preventDefault();
       const jsonObj: Array<Json> = await getWordsForGame(level, round);
@@ -35,9 +40,11 @@ function StartPage(): JSX.Element {
       const gameData = await getTranslateOptions(wordsList);
       // console.log(gameData);
       dispatch(fetchWords(gameData));
+      setIsLoading(false);
       dispatch(gamePage());
     } catch (err) {
       // console.log(err);
+      setIsLoading(false);
       dispatch(toggleModal('error'));
     }
   };
@@ -51,11 +58,16 @@ function StartPage(): JSX.Element {
   return (
     <div className="mb-2 text-white text-center align-items-center" style={{ height: '100vh', background: `url(${backgroundImage})`, backgroundSize: 'cover' }}>
       <ModalMessage />
-      <div className="p-4 text-right">
+      <div className={loaderClass} id="loader">
+        <div className="spinner-border" style={{ width: '7rem', height: '7rem' }} role="status">
+          <span className="sr-only">Loading...</span>
+        </div>
+      </div>
+      <div className="p-4 mb-2 text-right">
         <i className="fas fa-times text-white" style={{ cursor: 'pointer' }} role="button" tabIndex={0} onClick={exitClickHandler} onKeyPress={keyPressHandler} />
         {/* <Link to="/Main" onClick={exitClickHandler}><i className="fas fa-times text-white" /></Link> */}
       </div>
-      <div className="d-flex flex-column justify-content-center" style={{ height: '70%' }}>
+      <div className="d-flex flex-column justify-content-center px-3" style={{ height: '70%' }}>
         <h1 className="mb-5">АУДИОВЫЗОВ</h1>
         <p>Выбери правильный перевод услышанного слова из 5 вариантов.</p>
         <p>В режиме &quot;Мои слова&quot; будут звучать слова из Вашего словаря</p>
@@ -63,7 +75,7 @@ function StartPage(): JSX.Element {
         <div className="d-flex justify-content-center mt-5 text-white">
           <button
             type="button"
-            className="btn btn-success mr-5"
+            className="btn btn-success mr-5 mb-2"
             onClick={btnMyWordsClickHandler}
           >
             Мои слова
@@ -71,18 +83,22 @@ function StartPage(): JSX.Element {
           <form onSubmit={btnFreeGameClickHandler}>
             <div className="form-row align-items-center pl-5">
               <div className="col-auto mr-3">
-                <button type="submit" className="btn btn-success">Свободная игра</button>
+                <button type="submit" className="btn btn-success mb-2">Свободная игра</button>
               </div>
-              <span>
-                Уровень
-                {}
-              </span>
-              <div className="col-auto">
-                <OptionItems options={makeArray(6)} currLvl={level} isLevelOption />
+              <div className="d-flex">
+                <span>
+                  Уровень
+                  {}
+                </span>
+                <div className="col-auto mb-2">
+                  <OptionItems options={makeArray(6)} currLvl={level} isLevelOption />
+                </div>
               </div>
-              <span>Раунд</span>
-              <div className="col-auto">
-                <OptionItems options={makeArray(60)} currLvl={round} isLevelOption={false} />
+              <div className="d-flex">
+                <span>Раунд</span>
+                <div className="col-auto mb-2">
+                  <OptionItems options={makeArray(60)} currLvl={round} isLevelOption={false} />
+                </div>
               </div>
             </div>
           </form>

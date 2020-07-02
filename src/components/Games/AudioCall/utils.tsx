@@ -51,6 +51,19 @@ async function getWordsForGame(level: number, round: number): Promise<Array<Json
     const page = round === 1 ? 0 : Math.ceil(round / 2) - 1;
     const response = await fetch(`https://afternoon-falls-25894.herokuapp.com/words?page=${page}&group=${group}`);
     const json = await response.json();
+
+    // const resp = await fetch(`https://afternoon-falls-25894.herokuapp.com/words?page=${page}`);
+    // const respJson = await resp.json();
+    // console.log('respJson:', respJson);
+
+    // const resp = await fetch('https://api.datamuse.com/words?sl=jirraf');
+    // const respJsnon = await resp.json();
+    // console.log(respJsnon);
+
+    // const resp = await fetch('http://paraphraser.ru/api?token=60428dfc0d70b8051d4cc423e0a0941271d62017b&c=syns&query=полосатый котик&top=3& lang=ru&format=json');
+    // const respJsnon = await resp.json();
+    // console.log(respJsnon);
+
     // console.log(group, level, json);
     return json;
   } catch (err) {
@@ -72,63 +85,68 @@ async function getTranslates(wordsData: Array<Json>, word: string, wordTranslate
   });
   shuffleArray(defaultTranslates);
 
-  const rawResponse = await fetch(`https://dictionary.skyeng.ru/api/public/v1/words/search?search=${word}`);
-  // const rawResponse = await fetch('https://api.datamuse.com/words?sp=sharp');
-  const content: Array<WordsFromAPI> = await rawResponse.json();
-  const targetWord = content.filter((wordContent) => wordContent.text === word);
-  const wordId = targetWord[0].id;
-  // console.log(content);
-  const meaningsResponse = await fetch(`https://dictionary.skyeng.ru/api/public/v1/meanings?ids=${wordId}`);
-  const meanings: Array<WordInfo> = await meaningsResponse.json();
-  // console.log(meanings);
-  // console.log(content, targetWord, wordId, meanings, defaultTranslates);
+  try {
+    const rawResponse = await fetch(`https://dictionary.skyeng.ru/api/public/v1/words/search?search=${word}`);
+    // const rawResponse = await fetch('https://api.datamuse.com/words?sp=sharp');
+    const content: Array<WordsFromAPI> = await rawResponse.json();
+    const targetWord = content.filter((wordContent) => wordContent.text === word);
+    const wordId = targetWord[0].id;
+    // console.log(content);
+    const meaningsResponse = await fetch(`https://dictionary.skyeng.ru/api/public/v1/meanings?ids=${wordId}`);
+    const meanings: Array<WordInfo> = await meaningsResponse.json();
+    // console.log(meanings);
+    // console.log(content, targetWord, wordId, meanings, defaultTranslates);
 
-  if (meanings.length > 0) {
-    meanings[0].meaningsWithSimilarTranslation.map((meaning: WordInfo) => translates.push(meaning.translation.text));
-    meanings[0].alternativeTranslations.map((meaning: WordInfo) => translates.push(meaning.translation.text));
+    if (meanings.length > 0) {
+      meanings[0].meaningsWithSimilarTranslation.map((meaning: WordInfo) => translates.push(meaning.translation.text));
+      meanings[0].alternativeTranslations.map((meaning: WordInfo) => translates.push(meaning.translation.text));
 
-    translates.map((translate: string) => {
-      if (translate.slice(0, 2) === wordTranslate.slice(0, 2) && translate.length < wordTranslate.length + 5 && !similarTranslates.includes(translate)) similarTranslates.push(translate);
-      return similarTranslates;
-    });
-    translates.map((translate: string) => {
-      if (translate.length === wordTranslate.length && translate[0] === wordTranslate[0] && !similarTranslates.includes(translate)) similarTranslates.push(translate);
-      return similarTranslates;
-    });
-    translates.map((translate: string) => {
-      if (translate.slice(-4) === wordTranslate.slice(-4) && translate.length < wordTranslate.length + 5 && !similarTranslates.includes(translate)) similarTranslates.push(translate);
-      return similarTranslates;
-    });
-    translates.map((translate: string) => {
-      if (translate.slice(-3) === wordTranslate.slice(-3) && translate.length < wordTranslate.length + 5 && !similarTranslates.includes(translate)) similarTranslates.push(translate);
-      return similarTranslates;
-    });
-    translates.map((translate: string) => {
-      if (translate[0] === wordTranslate[0] && translate.length < wordTranslate.length + 5 && !similarTranslates.includes(translate)) similarTranslates.push(translate);
-      return similarTranslates;
-    });
-    translates.map((translate: string) => {
-      if (translate.length === wordTranslate.length && !similarTranslates.includes(translate)) similarTranslates.push(translate);
-      return similarTranslates;
-    });
-    translates.map((translate: string) => {
-      if (translate.length === wordTranslate.length + 1 && !similarTranslates.includes(translate)) similarTranslates.push(translate);
-      return similarTranslates;
-    });
-    if (similarTranslates.length < 4) {
       translates.map((translate: string) => {
-        if (!similarTranslates.includes(translate) && translate.length < wordTranslate.length + 5) similarTranslates.push(translate);
+        if (translate.slice(0, 2) === wordTranslate.slice(0, 2) && translate.length < wordTranslate.length + 5 && !similarTranslates.includes(translate)) similarTranslates.push(translate);
         return similarTranslates;
       });
+      translates.map((translate: string) => {
+        if (translate.length === wordTranslate.length && translate[0] === wordTranslate[0] && !similarTranslates.includes(translate)) similarTranslates.push(translate);
+        return similarTranslates;
+      });
+      translates.map((translate: string) => {
+        if (translate.slice(-4) === wordTranslate.slice(-4) && translate.length < wordTranslate.length + 5 && !similarTranslates.includes(translate)) similarTranslates.push(translate);
+        return similarTranslates;
+      });
+      translates.map((translate: string) => {
+        if (translate.slice(-3) === wordTranslate.slice(-3) && translate.length < wordTranslate.length + 5 && !similarTranslates.includes(translate)) similarTranslates.push(translate);
+        return similarTranslates;
+      });
+      translates.map((translate: string) => {
+        if (translate[0] === wordTranslate[0] && translate.length < wordTranslate.length + 5 && !similarTranslates.includes(translate)) similarTranslates.push(translate);
+        return similarTranslates;
+      });
+      translates.map((translate: string) => {
+        if (translate.length === wordTranslate.length && !similarTranslates.includes(translate)) similarTranslates.push(translate);
+        return similarTranslates;
+      });
+      translates.map((translate: string) => {
+        if (translate.length === wordTranslate.length + 1 && !similarTranslates.includes(translate)) similarTranslates.push(translate);
+        return similarTranslates;
+      });
+      if (similarTranslates.length < 4) {
+        translates.map((translate: string) => {
+          if (!similarTranslates.includes(translate) && translate.length < wordTranslate.length + 5) similarTranslates.push(translate);
+          return similarTranslates;
+        });
+      }
+      // console.log(similarTranslates.length);
+      if (similarTranslates.length < 4) {
+        const newTranslates = similarTranslates.concat(defaultTranslates);
+        return newTranslates.slice(0, 4);
+      }
+      return similarTranslates.slice(0, 4);
     }
-    // console.log(similarTranslates.length);
-    if (similarTranslates.length < 4) {
-      const newTranslates = similarTranslates.concat(defaultTranslates);
-      return newTranslates.slice(0, 4);
-    }
-    return similarTranslates.slice(0, 4);
+    return defaultTranslates.slice(0, 4);
+  } catch (err) {
+    // console.log(err);
+    return defaultTranslates.slice(0, 4);
   }
-  return defaultTranslates.slice(0, 4);
 
   // console.log(content, meanings, translates, similarTranslates);
 }

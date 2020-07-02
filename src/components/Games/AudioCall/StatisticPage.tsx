@@ -42,7 +42,7 @@ function StatisticPage(): JSX.Element {
 
   return (
     <div className="py-5" style={{ height: '100%', background: `url(${backgroundImage})`, backgroundSize: 'cover' }}>
-      <div className="bg-light rounded mx-auto p-3" style={{ width: '600px' }}>
+      <div className="container bg-light rounded mx-auto p-3" style={{ maxWidth: '600px' }}>
         <p className="text-dark text-center mb-5" style={{ fontSize: '2rem' }}>{statisticTitle}</p>
         <div className="bg-light mx-5 text-dark" style={{ overflowY: 'scroll', maxHeight: '50vh' }}>
           <div className="d-flex pb-3 bg-light text-dark flex-column border-bottom">

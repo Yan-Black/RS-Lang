@@ -5,7 +5,7 @@ import { State } from 'models';
 // import { modalReducer } from 'containers/Games/AudioCall/reducer';
 import { toggleModal, startPage, resetGame } from 'containers/Games/AudioCall/actions';
 import { Link } from 'react-router-dom';
-import { statisticReducer } from 'containers/Games/AudioCall/reducer';
+// import { statisticReducer } from 'containers/Games/AudioCall/reducer';
 // import { useState } from 'react';
 
 function ModalMessage(): JSX.Element {
