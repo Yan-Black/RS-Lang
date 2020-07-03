@@ -8,6 +8,8 @@ import solvedReducer from 'containers/Games/EnglishPuzzle/GameBoard/solvedReduce
 import dontKnowReducer from 'containers/Games/EnglishPuzzle/GameBoard/Results/dontKnowReduser';
 import knowReducer from 'containers/Games/EnglishPuzzle/GameBoard/Results/knowReducer';
 import openResultsReducer from 'containers/Games/EnglishPuzzle/GameBoard/Results/openResultsReducer';
+import statisticReducer from 'containers/Games/EnglishPuzzle/GameBoard/Statistic/statisticReducer';
+import statisticInfoReducer from 'containers/Games/EnglishPuzzle/GameBoard/Statistic/statisticInfoReducer';
 import appReducer from '../containers/App/reducer';
 import btnsReducer from '../containers/Games/EnglishPuzzle/HintButtons/reducer';
 import wordsReducer from '../containers/Games/EnglishPuzzle/SettingsBlock/wordsReducer';
@@ -29,6 +31,8 @@ const rootReducer = combineReducers({
   engPuzzleFailed: dontKnowReducer,
   engPuzzleSuccess: knowReducer,
   engPuzzleResults: openResultsReducer,
+  engPuzzleStatistic: statisticReducer,
+  engPuzzleStatisticInfo: statisticInfoReducer,
   fetchedWords: wordsReducer,
   loading: loaderReducer,
 });

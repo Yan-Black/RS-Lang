@@ -12,6 +12,7 @@ const HintsBlock: React.FC = () => {
   const activeIdx = useSelector((state: State) => state.engPuzzleActiveIdx.currentIdx);
   const actualWordsCollection = useSelector((state: State) => state.fetchedWords.currentWords);
   const isResultsOpen = useSelector((state: State) => state.engPuzzleResults.isOpen);
+  const isStatOpen = useSelector((state: State) => state.engPuzzleStatistic.statOpen);
   const speakerState = currentState.audioHintActive;
   const speakerStyle = () => {
     let style: string;
@@ -34,7 +35,7 @@ const HintsBlock: React.FC = () => {
     : 'english-puzzle-translation-disabled';
 
   return (
-    <div className={isResultsOpen ? 'english-puzzle-hints-block disabled' : 'english-puzzle-hints-block'}>
+    <div className={isResultsOpen || isStatOpen ? 'english-puzzle-hints-block disabled' : 'english-puzzle-hints-block'}>
       <FontAwesomeIcon icon={faVolumeUp} className={speakerStyle()} />
       <FontAwesomeIcon
         icon={faVolumeMute}

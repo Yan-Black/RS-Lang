@@ -81,19 +81,81 @@ export interface InitialStateLoading {
   isLoading: boolean;
 }
 
+export interface SavedResult {
+  sentence: string;
+  learning: string;
+}
 export interface InitialStateFailed {
-  failed: string[];
+  failed: SavedResult[];
 }
 
 export interface InitialStateSuccess {
-  success: string[];
+  success: SavedResult[];
 }
 
 export interface InitialStateResultsPage {
   isOpen: boolean;
 }
 
+export interface InitialStateStatisticPage {
+  statOpen: boolean;
+}
 export interface ActionResults {
   type: string;
-  payload?: string;
+  payload?: SavedResult;
+}
+
+export interface StatisticDate {
+  date: string;
+}
+export interface StatisticTimes {
+  date: string;
+  time: string;
+}
+
+export interface StatisticLevels {
+  date: string;
+  level: string;
+}
+
+export interface StatisticFailed {
+  date: string;
+  failed: number;
+}
+
+export interface StatisticSuccess {
+  date: string;
+  success: number;
+}
+
+export interface ActionDate {
+  type: string;
+  payload: StatisticDate;
+}
+
+export interface ActionTimes {
+  type: string;
+  payload: StatisticTimes;
+}
+
+export interface ActionLevels {
+  type: string;
+  payload: StatisticLevels;
+}
+
+export interface ActionFailed {
+  type: string;
+  payload: StatisticFailed;
+}
+
+export interface ActionSuccess {
+  type: string;
+  payload: StatisticSuccess;
+}
+export interface InitialStateStatisticInfo {
+  playedDates: string[],
+  playedTimes: StatisticTimes[],
+  playedLevels: StatisticLevels[],
+  failed: StatisticFailed[],
+  success: StatisticSuccess[],
 }

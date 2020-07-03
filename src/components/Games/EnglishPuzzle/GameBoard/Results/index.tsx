@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVolumeUp } from '@fortawesome/free-solid-svg-icons';
 import { State } from 'models/state';
 import { speakerEnable, speakerDisable } from 'containers/Games/EnglishPuzzle/HintButtons/actions';
+import { SavedResult } from 'containers/Games/EnglishPuzzle/Models';
 import ContinueBtn from '../HelpButtons/ContinueBut';
 import StatisticBtn from '../HelpButtons/StatisticBut';
 import { pronounceAudio } from '../../Constants';
@@ -15,8 +16,8 @@ const Results: React.FC<ResultsProps> = ({
   wordsToApply, setDragging,
 }) => {
   const dispatch = useDispatch();
-  const failedWords: string[] = useSelector((state: State) => state.engPuzzleFailed.failed);
-  const successWords: string[] = useSelector((state: State) => state.engPuzzleSuccess.success);
+  const failedWords: SavedResult[] = useSelector((state: State) => state.engPuzzleFailed.failed);
+  const successWords: SavedResult[] = useSelector((state: State) => state.engPuzzleSuccess.success);
   const isOpen = useSelector((state: State) => state.engPuzzleResults.isOpen);
   const speakHandler = (
     str: string,
@@ -40,16 +41,24 @@ const Results: React.FC<ResultsProps> = ({
               </span>
             </h5>
             <ul className="results-list">
-              {failedWords.map((words: string) => (
-                <li key={words}>
+              {failedWords.map((res: SavedResult) => (
+                <li key={res.sentence}>
                   <FontAwesomeIcon
                     className="results-audio"
                     icon={faVolumeUp}
                     // eslint-disable-next-line react/jsx-no-bind
-                    onClick={speakHandler.bind(null, words)}
+                    onClick={speakHandler.bind(null, res.sentence)}
                   />
                   &nbsp;&nbsp;
-                  {words}
+                  <span
+                    // eslint-disable-next-line react/no-danger
+                    dangerouslySetInnerHTML={{
+                      __html: res.sentence.replace(
+                        res.learning,
+                        res.learning.fontcolor('#d66763'),
+                      ),
+                    }}
+                  />
                 </li>
               ))}
             </ul>
@@ -63,16 +72,24 @@ const Results: React.FC<ResultsProps> = ({
               </span>
             </h5>
             <ul className="results-list">
-              {successWords.map((words: string) => (
-                <li key={words}>
+              {successWords.map((res: SavedResult) => (
+                <li key={res.sentence}>
                   <FontAwesomeIcon
                     className="results-audio"
                     icon={faVolumeUp}
                     // eslint-disable-next-line react/jsx-no-bind
-                    onClick={speakHandler.bind(null, words)}
+                    onClick={speakHandler.bind(null, res.sentence)}
                   />
                   &nbsp;&nbsp;
-                  {words}
+                  <span
+                    // eslint-disable-next-line react/no-danger
+                    dangerouslySetInnerHTML={{
+                      __html: res.sentence.replace(
+                        res.learning,
+                        res.learning.fontcolor('#567cd6'),
+                      ),
+                    }}
+                  />
                 </li>
               ))}
             </ul>

@@ -7,6 +7,7 @@ import { enableCheckBtn, enableDontKnowBtn } from 'containers/Games/EnglishPuzzl
 import { reorder, move, shuffle } from '../Constants';
 import HelpButtons from './HelpButtons';
 import Results from './Results';
+import Statistic from './Statistic';
 import './index.scss';
 import { Card } from '../GameBlock/types';
 import DroppableBoard from './DroppableBoard';
@@ -25,8 +26,9 @@ const GameBoard: React.FC<BoardProps> = ({ gameData, background, description }) 
   const activeIdx = useSelector((state: State) => state.engPuzzleActiveIdx.currentIdx);
   const isSolved = useSelector((state: State) => state.engPuzzleSolved.solved);
   const isResultsOpen = useSelector((state: State) => state.engPuzzleResults.isOpen);
+  const isStatOpen = useSelector((state: State) => state.engPuzzleStatistic.statOpen);
   const dispatch = useDispatch();
-  const [wordsMap, rowLength] = gameData;
+  const [wordsMap, rowLength, learningWord] = gameData;
   const [isDragPrevented, setDragging] = useState(false);
   const basicStyleCards = new Array(rowLength).fill('start-word', 0, rowLength);
   const [basicStyle, setBasicStyle] = useState(basicStyleCards);
@@ -50,12 +52,11 @@ const GameBoard: React.FC<BoardProps> = ({ gameData, background, description }) 
     setState(solvedState);
   };
 
-  const replaceOnClick = (e) => {
+  const replaceOnClick = (e: React.MouseEvent) => {
     if (isDragPrevented) {
       return;
     }
-    const { target } = e;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    const target = e.target as HTMLDivElement;
     if (target.parentElement.getAttribute('data-rbd-droppable-id') === 'base') {
       const sourceClone = Array.from(state.selected);
       const destClone = Array.from(state.cards);
@@ -134,7 +135,7 @@ const GameBoard: React.FC<BoardProps> = ({ gameData, background, description }) 
       onDragEnd={onDragEndHandler}
     >
       <div
-        className={isResultsOpen ? 'game-board disabled' : 'game-board'}
+        className={isResultsOpen || isStatOpen ? 'game-board disabled' : 'game-board'}
         id="board-1"
       >
         <div className="string-numbers">
@@ -212,6 +213,7 @@ const GameBoard: React.FC<BoardProps> = ({ gameData, background, description }) 
         setCheckedStateToCards={setBasicStyle}
         setDragging={setDragging}
         phrase={wordsMap.selected}
+        learningWord={learningWord}
       />
       <Results
         back={backImg}
@@ -219,6 +221,11 @@ const GameBoard: React.FC<BoardProps> = ({ gameData, background, description }) 
         wordsToApply={wordsMap.selected}
         setCheckedStateToCards={setBasicStyle}
         setDragging={setDragging}
+      />
+      <Statistic
+        wordsToApply={wordsMap.selected}
+        setDragging={setDragging}
+        setCheckedStateToCards={setBasicStyle}
       />
     </DragDropContext>
   );

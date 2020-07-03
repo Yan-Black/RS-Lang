@@ -31,9 +31,10 @@ export const move = (
 
 export const wordsExtractor = (
   arr: InitialStateWords, idx: number,
-): [RowsMap, number] => {
+): [RowsMap, number, string] => {
   const regex = /<[^>]*>/g;
   const currentSentence: string = arr[idx].textExample;
+  const learningWord = arr[idx].word;
   const wordsArr = currentSentence.replace(regex, '').split(' ');
   const baseList: Card[] = [];
   const boardList: Card[] = [];
@@ -50,7 +51,7 @@ export const wordsExtractor = (
     selected: baseList,
   };
   const { length } = wordsArr;
-  const gameData: [RowsMap, number] = [rowsMap, length];
+  const gameData: [RowsMap, number, string] = [rowsMap, length, learningWord];
   return gameData;
 };
 

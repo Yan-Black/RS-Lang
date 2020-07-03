@@ -11,7 +11,7 @@ import { CheckBtnProps } from '../../Models';
 import { pronounceAudio } from '../../../Constants';
 
 const CheckBtn: React.FC<CheckBtnProps> = ({
-  setCheckedStateToCards, wordsToApply, wordsToCheck, setDragging, phrase,
+  setCheckedStateToCards, wordsToApply, wordsToCheck, setDragging, phrase, learningWord,
 }) => {
   const checkBtnState = useSelector((state: State) => state.engPuzzleControlBtns.checkBtn);
   const checkedCssState = new Array(wordsToApply.length);
@@ -27,7 +27,7 @@ const CheckBtn: React.FC<CheckBtnProps> = ({
       dispatch(translateEnable());
       dispatch(backgroundEnable());
       dispatch(enableContinueBtn());
-      dispatch(addSuccess(phraseToSpeak.join(' ')));
+      dispatch(addSuccess({sentence: phraseToSpeak.join(' '), learning: learningWord}));
       pronounceAudio(true, phraseToSpeak.join(' '), dispatch, speakerEnable, speakerDisable);
       setCheckedStateToCards(checkedCssState.fill('start-word true', 0, checkedCssState.length));
     } else {

@@ -11,7 +11,7 @@ import { DontKnowBtnProps } from '../../Models';
 import { pronounceAudio } from '../../../Constants';
 
 const DontKnowBtn: React.FC<DontKnowBtnProps> = ({
-  onClickFn, length, setCheckedStateToCards, setDragging, phrase,
+  onClickFn, length, setCheckedStateToCards, setDragging, phrase, learningWord,
 }) => {
   const dontKnowBtnState = useSelector((state: State) => state.engPuzzleControlBtns.dontKnowBtn);
   const phraseToSpeak = [];
@@ -25,7 +25,7 @@ const DontKnowBtn: React.FC<DontKnowBtnProps> = ({
     dispatch(translateEnable());
     dispatch(backgroundEnable());
     dispatch(enableContinueBtn());
-    dispatch(addFailed(phraseToSpeak.join(' ')));
+    dispatch(addFailed({ sentence: phraseToSpeak.join(' '), learning: learningWord }));
     pronounceAudio(true, phraseToSpeak.join(' '), dispatch, speakerEnable, speakerDisable);
   };
   const dontKnowBtnStyle = dontKnowBtnState

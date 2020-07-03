@@ -17,6 +17,7 @@ export interface ButtonsProps {
   setCheckedStateToCards: React.Dispatch<React.SetStateAction<string[]>>;
   setDragging: React.Dispatch<React.SetStateAction<boolean>>;
   phrase: Card[];
+  learningWord: string
 }
 
 export interface WordProps {
@@ -32,7 +33,7 @@ export interface WordProps {
 }
 
 export interface BoardProps {
-  gameData: [RowsMap, number];
+  gameData: [RowsMap, number, string];
   background: string;
   description: string;
 }
@@ -43,6 +44,7 @@ export interface DontKnowBtnProps {
   setCheckedStateToCards: React.Dispatch<React.SetStateAction<string[]>>;
   setDragging: React.Dispatch<React.SetStateAction<boolean>>;
   phrase: Card[];
+  learningWord: string;
 }
 
 export interface ContinueBtnProps {
@@ -57,6 +59,7 @@ export interface CheckBtnProps {
   wordsToApply: Card[];
   wordsToCheck: Card[];
   phrase: Card[];
+  learningWord: string;
 }
 
 export interface DescProps {
@@ -66,6 +69,12 @@ export interface DescProps {
 export interface ResultsProps {
   back: string;
   description: string;
+  wordsToApply: Card[];
+  setCheckedStateToCards: React.Dispatch<React.SetStateAction<string[]>>;
+  setDragging: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export interface StatisticProps {
   wordsToApply: Card[];
   setCheckedStateToCards: React.Dispatch<React.SetStateAction<string[]>>;
   setDragging: React.Dispatch<React.SetStateAction<boolean>>;

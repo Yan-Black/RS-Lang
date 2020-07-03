@@ -3,12 +3,18 @@ import { useSelector, useDispatch } from 'react-redux';
 import { disableStatisticBtn } from 'containers/Games/EnglishPuzzle/GameBoard/HelpButtons/actions';
 import { State } from 'models/state';
 import '../index.scss';
+import { openStatistic } from 'containers/Games/EnglishPuzzle/GameBoard/Statistic/actions';
+import { closeResults } from 'containers/Games/EnglishPuzzle/GameBoard/Results/actions';
 
 const StatisticBtn: React.FC = () => {
   const statisticBtnState = useSelector((state: State) => state.engPuzzleControlBtns.statisticBtn);
   const dispatch = useDispatch();
   const statisticBtnStyle = statisticBtnState ? 'help-button' : 'help-button disabled';
-  const clickHandler = () => dispatch(disableStatisticBtn());
+  const clickHandler = () => {
+    dispatch(closeResults());
+    dispatch(openStatistic());
+    dispatch(disableStatisticBtn());
+  };
   return (
     <button
       type="button"

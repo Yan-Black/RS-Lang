@@ -7,20 +7,20 @@ import {
   OPEN_RESULTS,
   CLOSE_RESULTS,
 } from './types';
-import { ActionResults } from '../../Models';
+import { ActionResults, SavedResult } from '../../Models';
 
-export const addSuccess = (str: string): ActionResults => ({
+export const addSuccess = (data: SavedResult): ActionResults => ({
   type: ADD_SUCCESS,
-  payload: str,
+  payload: data,
 });
 
 export const reomveSuccess = (): ActionResults => ({
   type: REMOVE_SUCCESS,
 });
 
-export const addFailed = (str: string): ActionResults => ({
+export const addFailed = (data: SavedResult): ActionResults => ({
   type: ADD_FAILED,
-  payload: str,
+  payload: data,
 });
 
 export const reomveFailed = (): ActionResults => ({

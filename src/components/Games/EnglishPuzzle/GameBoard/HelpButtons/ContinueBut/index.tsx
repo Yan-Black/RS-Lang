@@ -11,6 +11,7 @@ import '../index.scss';
 import { setToUserPreferencies } from 'containers/Games/EnglishPuzzle/HintButtons/actions';
 import { countXOffsets } from 'components/Games/EnglishPuzzle/Constants';
 import { reomveFailed, reomveSuccess, closeResults } from 'containers/Games/EnglishPuzzle/GameBoard/Results/actions';
+import { closeStatistic, updateDate, updateTime, updateLevels, updateFailed, updateSuccess } from 'containers/Games/EnglishPuzzle/GameBoard/Statistic/actions';
 import { ContinueBtnProps } from '../../Models';
 
 const ContinueBtn: React.FC<ContinueBtnProps> = ({
@@ -21,11 +22,14 @@ const ContinueBtn: React.FC<ContinueBtnProps> = ({
   const group: number = useSelector((state: State) => state.engPuzzleGroup.group);
   const activeIdx = useSelector((state: State) => state.engPuzzleActiveIdx.currentIdx);
   const isSolved = useSelector((state: State) => state.engPuzzleSolved.solved);
+  const isStatOpen = useSelector((state: State) => state.engPuzzleStatistic.statOpen);
+  const failedWords = useSelector((state: State) => state.engPuzzleFailed.failed);
+  const successWords = useSelector((state: State) => state.engPuzzleSuccess.success);
   const dispatch = useDispatch();
   const updateCardsCollection = () => {
-    dispatch(updateCollection(wordsToApply));
-    dispatch(updateOffsetX(countXOffsets(wordsToApply.length)));
     dispatch(incrementIdx());
+    dispatch(updateOffsetX(countXOffsets(wordsToApply.length)));
+    dispatch(updateCollection(wordsToApply));
   };
   const removeCardsCollection = () => {
     dispatch(removeCollection());
@@ -36,7 +40,8 @@ const ContinueBtn: React.FC<ContinueBtnProps> = ({
     setCheckedStateToCards(new Array(wordsToApply.length).fill('start-word', 0, wordsToApply.length));
     setDragging(false);
     dispatch(setToUserPreferencies());
-    if (isSolved) {
+    if (isSolved || isStatOpen) {
+      dispatch(closeStatistic());
       dispatch(closeResults());
       removeCardsCollection();
       dispatch(setToNewGame());
@@ -54,6 +59,11 @@ const ContinueBtn: React.FC<ContinueBtnProps> = ({
     } else if (activeIdx === 9) {
       dispatch(setToSolved());
       dispatch(enableResultsBtn());
+      dispatch(updateDate(new Date().toDateString()));
+      dispatch(updateTime({ date: new Date().toDateString(), time: new Date().toTimeString() }));
+      dispatch(updateLevels({ date: new Date().toDateString(), level: `Group: ${group} - Page: ${page}` }));
+      dispatch(updateFailed({ date: new Date().toDateString(), failed: failedWords.length }));
+      dispatch(updateSuccess({ date: new Date().toDateString(), success: successWords.length }));
       setTimeout(() => dispatch(removeCollection()), 800);
     } else {
       updateCardsCollection();

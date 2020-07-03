@@ -11,17 +11,19 @@ import { ButtonsProps } from '../Models';
 
 const HelpButtons: React.FC<ButtonsProps> = ({
   onClickFn, wordsToApply, setCheckedStateToCards,
-  wordsToCheck, setDragging, phrase,
+  wordsToCheck, setDragging, phrase, learningWord,
 }) => {
   const isResultsOpen = useSelector((state: State) => state.engPuzzleResults.isOpen);
+  const isStatOpen = useSelector((state: State) => state.engPuzzleStatistic.statOpen);
   return (
-    <div className={isResultsOpen ? 'help-buttons disabled' : 'help-buttons'}>
+    <div className={isResultsOpen || isStatOpen ? 'help-buttons disabled' : 'help-buttons'}>
       <DontKnowBtn
         onClickFn={onClickFn}
         length={wordsToApply.length}
         setDragging={setDragging}
         setCheckedStateToCards={setCheckedStateToCards}
         phrase={phrase}
+        learningWord={learningWord}
       />
       <CheckBtn
         setCheckedStateToCards={setCheckedStateToCards}
@@ -29,6 +31,7 @@ const HelpButtons: React.FC<ButtonsProps> = ({
         wordsToApply={wordsToApply}
         wordsToCheck={wordsToCheck}
         phrase={phrase}
+        learningWord={learningWord}
       />
       <ContinueBtn
         wordsToApply={wordsToApply}

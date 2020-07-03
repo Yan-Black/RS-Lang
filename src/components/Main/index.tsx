@@ -10,9 +10,11 @@ import Dictionary from '../Dictionary';
 import Games from '../Games';
 import Promo from '../Promo';
 import AboutUs from '../AboutUs';
+import Training from './Training';
 
 const Main: React.FC = () => (
-  <Games />
+  <Training />
+  // <Games />
   // <Router>
   //   <div>
   //     <ul>
@@ -31,6 +33,9 @@ const Main: React.FC = () => (
   //       <li>
   //         <Link to="/AboutUs">About Us</Link>
   //       </li>
+  //       <li>
+  //         <Link to="/Training">Training</Link>
+  //       </li>
   //     </ul>
   //     <Switch>
   //       <Route path="/Statistic">
@@ -47,6 +52,9 @@ const Main: React.FC = () => (
   //       </Route>
   //       <Route path="/AboutUs">
   //         <AboutUs />
+  //       </Route>
+  //       <Route path="/Training">
+  //         <Training />
   //       </Route>
   //     </Switch>
   //   </div>
