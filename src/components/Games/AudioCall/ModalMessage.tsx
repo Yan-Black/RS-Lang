@@ -54,8 +54,8 @@ function ModalMessage(): JSX.Element {
   }
 
   return (
-    <div id="modal">
-      <div className="modal-dialog">
+    <div id="audio-call-modal">
+      <div className="modal-dialog audio-call-modal-dialog">
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title text-dark font-weight-bold" id="modalLabel">{messageTitle}</h5>

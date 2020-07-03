@@ -10,8 +10,7 @@ import {
   toggleModal, resetGame, statisticPage, checkAnswer, notKnowWords, progressGame, knowWords, correctAnswer, wrongAnswer,
 } from 'containers/Games/AudioCall/actions';
 // import { useState } from 'react';
-import * as ReactDOM from 'react-dom';
-import { useRef, useEffect } from 'react';
+import { useEffect } from 'react';
 import TranslateOptions from './translateOptions';
 import GameButton from './GameButton';
 import TargetWordBlock from './TargetWordBlock';

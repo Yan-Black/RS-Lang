@@ -58,8 +58,8 @@ function StartPage(): JSX.Element {
   return (
     <div className="mb-2 text-white text-center align-items-center" style={{ height: '100vh', background: `url(${backgroundImage})`, backgroundSize: 'cover' }}>
       <ModalMessage />
-      <div className={loaderClass} id="loader">
-        <div className="spinner-border" style={{ width: '7rem', height: '7rem' }} role="status">
+      <div className={loaderClass} id="audio-call-loader">
+        <div className="spinner-border audio-call-spinner-border" style={{ width: '7rem', height: '7rem' }} role="status">
           <span className="sr-only">Loading...</span>
         </div>
       </div>
