@@ -7,8 +7,12 @@ import LevelControl from '../Level-control';
 import ShowImage from '../ShowImage';
 import Cards from '../Cards';
 import Control from '../Control';
+import Result from "../Result";
+import {useSelector} from "react-redux";
+import {State} from "../../../../models/state";
 
 function Game() {
+  const result = useSelector((state: State) => state.speakItButtons.result);
   return (
     <Container>
       <Row>
@@ -33,6 +37,7 @@ function Game() {
           <Control />
         </Col>
       </Row>
+      {result ? <Result /> : '' }
     </Container>
   );
 }

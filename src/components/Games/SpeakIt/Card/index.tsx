@@ -8,6 +8,7 @@ import {backgroundWord, translateWord} from "../../../../containers/Games/SpeakI
 import {State} from "../../../../models/state";
 import {activeWord} from "../../../../containers/Games/SpeakIt/CardsGroup/actions";
 import {selectedWord} from "../../../../containers/Games/SpeakIt/ControlButtons/actions";
+
 function Card({ data, index, next }) {
 
   const dispatch = useDispatch();

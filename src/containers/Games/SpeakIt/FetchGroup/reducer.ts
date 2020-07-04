@@ -1,5 +1,13 @@
 import update from 'immutability-helper';
-import {BACKGROUND_WORD, FETCH_WORDS, INIT_WORD_STATISTICS, MISTAKE, TRANSLATE_WORD, WIN} from './types';
+import {
+  BACKGROUND_WORD,
+  FETCH_WORDS,
+  INIT_WORD_STATISTICS,
+  MISTAKE,
+  RESET_STATISTICS,
+  TRANSLATE_WORD,
+  WIN
+} from './types';
 
 interface FetchedWordData {
   audio: string;
@@ -45,6 +53,8 @@ const fetchReducer = (state = initialState, action): InitialStateWords => {
       return  {...state, background: action.payload}
     case INIT_WORD_STATISTICS:
       return update(state, { statistics: { $set: action.payload } });
+    case RESET_STATISTICS:
+      return {...state, statistics: state.statistics.map(el => el = {...el, win: false, mistake: false})}
     case WIN:
       return {...state, statistics: state.statistics.map((el, index) => el.word === action.payload ? {...el, win: true} : el) }
     case MISTAKE:

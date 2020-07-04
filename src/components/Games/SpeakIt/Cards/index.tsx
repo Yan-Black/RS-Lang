@@ -11,7 +11,7 @@ import {win} from "../../../../containers/Games/SpeakIt/FetchGroup/actions";
 function Cards() {
 
   const dispatch = useDispatch();
-  const dataWords = useSelector((state: State) => state.speakItFetch.dataWords);
+  const statistics = useSelector((state: State) => state.speakItFetch.statistics);
   const game = useSelector((state: State) => state.speakItButtons.startGame);
   const arr = [1,3,4,5,2,6,0,7,9,8];
   const gameWord = useSelector((state: State) => state.speakItButtons.gameWord);
@@ -21,7 +21,7 @@ function Cards() {
       setValue(result.toLowerCase());
     }
   });
-  const cards = dataWords.map((item, index) => (
+  const cards = statistics.map((item, index) => (
     <Card
       next={arr[index]}
       index={index}
@@ -32,10 +32,9 @@ function Cards() {
 
   if(game) {
     listen({lang: "en-AU"});
-    let count = 0;
       if (value === gameWord) {
-        dispatch(win(gameWord));
         dispatch(nextCard());
+        dispatch(win(gameWord));
       }
   } else {
     stop();

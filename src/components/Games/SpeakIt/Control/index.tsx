@@ -4,12 +4,12 @@ import { Button } from 'react-bootstrap';
 import {useDispatch, useSelector} from "react-redux";
 import {
   nextCard,
-  resetGame,
+  resetGame, resultGame,
   startGame,
   stopGame
 } from "../../../../containers/Games/SpeakIt/ControlButtons/actions";
 import {State} from "../../../../models/state";
-import {mistake, win} from "../../../../containers/Games/SpeakIt/FetchGroup/actions";
+import {mistake, resetStatistics, win} from "../../../../containers/Games/SpeakIt/FetchGroup/actions";
 
 function Control() {
   const dispatch = useDispatch();
@@ -21,11 +21,16 @@ function Control() {
   }
   const stop = () => {
     dispatch(stopGame());
-    dispatch(resetGame());
+    dispatch(resetGame())
+    dispatch(resetStatistics())
   }
   const next = () => {
     dispatch(nextCard());
     dispatch(mistake(gameWord));
+  }
+
+  const result = () => {
+    dispatch(resultGame(true));
   }
 
 
@@ -33,7 +38,7 @@ function Control() {
     <div className="btn-wrapper">
       <Button variant="danger" className="btn" onClick={stop}>Stop</Button>
       <Button variant="success" className="btn" onClick={game ? next : start}>{game ? 'Next' : 'Start'}</Button>
-      <Button variant="info" className="btn">Result</Button>
+      <Button variant="info" className="btn" onClick={result}>Result</Button>
     </div>
   );
 }

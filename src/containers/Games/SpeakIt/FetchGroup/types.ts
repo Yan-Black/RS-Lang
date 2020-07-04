@@ -4,3 +4,4 @@ export const BACKGROUND_WORD = 'BACKGROUND_WORD';
 export const INIT_WORD_STATISTICS = 'INIT_WORD_STATISTICS';
 export const WIN = 'WIN';
 export const MISTAKE = 'MISTAKE';
+export const RESET_STATISTICS = 'RESET_STATISTICS';

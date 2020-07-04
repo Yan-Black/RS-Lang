@@ -1,4 +1,4 @@
-import {NEXT, RESET, SELECTED_GAME_WORD, START_GAME, STOP_GAME} from "./types";
+import {NEXT, RESET, RESULT_GAME, SELECTED_GAME_WORD, START_GAME, STOP_GAME} from "./types";
 
 
 export const startGame = () => ({
@@ -25,3 +25,8 @@ export const resetGame = () => ({
   type: RESET,
   payload: null
 });
+
+export const resultGame = (value: boolean) => ({
+  type: RESULT_GAME,
+  payload: value
+})

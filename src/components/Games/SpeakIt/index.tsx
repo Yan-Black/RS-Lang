@@ -12,7 +12,7 @@ import Game from './Game';
 const SpeakIt = () : JSX.Element => {
   const dispatch = useDispatch();
   const group = useSelector((state: State) => state.speakItControl.group);
-  const [game, setGame] = useState(false);
+  const [game, setGame] = useState(true);
 
   useEffect(() => {
     dispatch(fetchWords(group));
@@ -43,6 +43,7 @@ const SpeakIt = () : JSX.Element => {
                 </Button>
               </Col>
             </Row>
+
           </Container>
         )}
     </div>
