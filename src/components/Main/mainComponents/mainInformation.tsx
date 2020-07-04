@@ -3,7 +3,7 @@ import {useState, useEffect} from 'react';
 import MainControlCenter from '../mainComponents/mainControlCenter'
 import MainStat from '../mainComponents/mainStat'
 import GameCard from './gameCard';
-import AnkiGame from './ankiGame';
+import CardGame from './cardGame';
 
 const rusValues = [
   {
@@ -90,6 +90,7 @@ function MainInformation() {
     engLangSwitchButton.classList.remove("active-lang");
     rusLangSwitchButton.classList.add("active-lang");
 
+    let mainCardText = document.getElementById("mainCardText");
     let learnedWords = document.getElementById("learned-words");
     let playedGames = document.getElementById("played-games");
     let rightsWords = document.getElementById("rights-words");
@@ -99,6 +100,7 @@ function MainInformation() {
     playedGames.innerText = 'Сыграно игры: 0';
     rightsWords.innerText = 'Правильных слов: 0';
     correctRepeats.innerText = 'Правильных повторов: 0';
+    mainCardText.innerText = "Настройки";
     setCardsValues([...rusValues]);
     localStorage.setItem("lang", "rus");
   }
@@ -109,6 +111,7 @@ function MainInformation() {
     rusLangSwitchButton.classList.remove("active-lang");
     engLangSwitchButton.classList.add("active-lang");
 
+    let mainCardText = document.getElementById("mainCardText");
     let learnedWords = document.getElementById("learned-words");
     let playedGames = document.getElementById("played-games");
     let rightsWords = document.getElementById("rights-words");
@@ -118,6 +121,7 @@ function MainInformation() {
     playedGames.innerText = 'Games you played: 0';
     rightsWords.innerText = 'Right words in a row: 0';
     correctRepeats.innerText = 'Correct Repeats: 0';
+    mainCardText.innerText = "Settings";
 
     setCardsValues([...engValues]);
     localStorage.setItem("lang", "eng");
@@ -138,11 +142,11 @@ function MainInformation() {
     <div className="main-wrapper">
       <p className="header-text" id="header-text-1">{gameCardsValues[6].firstParagraph}</p>
       <div className="main-stat-container">
-        <MainStat />
+        <MainStat/>
       </div>
       <div className="main-information">
         <MainControlCenter/>
-        <AnkiGame/>
+        <CardGame />
       </div>
       <p className="header-text-2" id="header-text-2">{gameCardsValues[6].secondParagraph}</p>
       <div className="games-container" id="eng-cards">

@@ -47,7 +47,7 @@ class MainControlCenter extends React.Component {
   render(){
     return(
       <div className="main-control-center">
-        <div><p className="main-card-text">Settings</p></div>
+        <div><p className="main-card-text" id="mainCardText">Settings</p></div>
         <div>
           <span>Dark Mode / Тёмный режим</span>
           <div className="modes">
