@@ -29,7 +29,7 @@ const settingsInitState = <SettingsState> {
   showIntervalBTNS: true,
 };
 
-const settingsReducer: Models.Reducer<unknown> = (state: SettingsState = settingsInitState, { /* type, */ payload }) => {
+const settingsReducer = (state: SettingsState = settingsInitState, { /* type, */ payload }): SettingsState => {
   switch (payload) {
     case 'showWordTranslate':
       return { ...state, showWordTranslate: !state.showWordTranslate };
