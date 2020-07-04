@@ -4,10 +4,10 @@
 
 .training-card-wrapper {
   width: 60vw;
-  height: 25vw;
+  height: 30vw;
   background: #fff;
   border-radius: 5px;
-  margin: 5vw auto;
+  margin: 4vw auto;
   .training-card-content {
     display: flex;
     padding: 1vw 1vw;
@@ -17,6 +17,7 @@
       display: flex;
       justify-content: space-between;
       flex-direction: column;
+      text-align: center;
     }
     .training-card-image {
       width: 50%;

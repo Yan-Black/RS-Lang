@@ -32,6 +32,7 @@ import mainLangReducer from 'containers/Main/mainLangReducer';
 import regFormReducer from 'containers/Authorisation/regFormReducer';
 import logFormReducer from 'containers/Authorisation/logFormReducer';
 import studyModesReducer from 'containers/Main/studyModesReducer.';
+import { settingsReducer } from 'containers/Main/Training/reducers';
 import appReducer from '../containers/App/reducer';
 import btnsReducer from '../containers/Games/EnglishPuzzle/HeaderBlock/HintButtons/btnsReducer';
 import wordsReducer from '../containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/wordsReducer';
@@ -88,8 +89,15 @@ const rootReducer = combineReducers({
   speakItFetch: fetchReducer,
   speakItWord: cardsReducer,
   speakItButtons: startGameReducer,
+  fetchedWords: wordsReducer,
+  loading: loaderReducer,
+  trainingSettings: settingsReducer,
 });
 
 const store = createStore(rootReducer, compose(applyMiddleware(thunk)));
+
+store.subscribe(() => {
+  // console.log(store.getState());
+});
 
 export default store;

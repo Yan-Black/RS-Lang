@@ -8,6 +8,7 @@ import * as React from 'react';
 import Card from './Card';
 import './index.scss';
 import AnkiBtns from './Card/AnkiBtns';
+import AppSettings from './Card/AppSettings';
 
 const Training: React.FC = () => (
   <div className="training-page-wrapper">
@@ -18,6 +19,7 @@ const Training: React.FC = () => (
       Back
     </button>
     {/* </Link> */}
+    <AppSettings />
     <Card />
     <AnkiBtns />
   </div>
