@@ -1,7 +1,6 @@
 import { Action } from 'redux';
 import {
   ActionDate,
-  StatisticDate,
   ActionTimes,
   StatisticTimes,
   ActionLevels,
@@ -29,7 +28,7 @@ export const closeStatistic = (): Action => ({
   type: CLOSE_STATISTIC,
 });
 
-export const updateDate = (data: StatisticDate): ActionDate => ({
+export const updateDate = (data: string): ActionDate => ({
   type: UPDATE_DATE,
   payload: data,
 });

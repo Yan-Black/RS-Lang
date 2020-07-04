@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
 import { State } from 'models/state';
+import { InitialStateStatisticInfo } from 'containers/Games/EnglishPuzzle/Models';
 import ContinueBtn from '../HelpButtons/ContinueBut';
 import './index.scss';
 import { StatisticProps } from '../Models';
@@ -11,7 +12,9 @@ const Statistic: React.FC<StatisticProps> = ({
   wordsToApply, setDragging, setCheckedStateToCards,
 }) => {
   const isStatOpen = useSelector((state: State) => state.engPuzzleStatistic.statOpen);
-  const statInfo = useSelector((state: State) => state.engPuzzleStatisticInfo);
+  const statInfo: InitialStateStatisticInfo = useSelector(
+    (state: State) => state.engPuzzleStatisticInfo,
+  );
   return (
     <div className={isStatOpen ? 'eng-puzzle-statistic-wrapper' : 'disabled'}>
       <div className="eng-puzzle-statistic">
@@ -19,39 +22,29 @@ const Statistic: React.FC<StatisticProps> = ({
           <Accordion>
             {statInfo.playedDates.map((date, i) => (
               <Card key={date}>
-                <Accordion.Toggle as={Card.Header} eventKey={i}>
+                <Accordion.Toggle as={Card.Header} eventKey={`${i}`}>
                   {date}
                 </Accordion.Toggle>
-                <Accordion.Collapse eventKey={i}>
+                <Accordion.Collapse eventKey={`${i}`}>
                   <Card.Body>
-                    <table>
+                    <table className="eng-puzzle-stat-table">
                       <tbody>
-                        <td>
+                        <tr>
                           <th>Time:</th>
-                          {statInfo.playedTimes.map((info) => (
-                            info.date === statInfo.playedDates[i] ? (
-                              <tr key={info.time}>{info.time}</tr>
-                            ) : (null)
-                          ))}
                           <th>Level:</th>
-                          {statInfo.playedLevels.map((info) => (
-                            info.date === statInfo.playedDates[i] ? (
-                              <tr key={info}>{info.level}</tr>
-                            ) : (null)
-                          ))}
                           <th>Success:</th>
-                          {statInfo.success.map((info) => (
-                            info.date === statInfo.playedDates[i] ? (
-                              <tr key={info}>{info.success}</tr>
-                            ) : (null)
-                          ))}
                           <th>Failed:</th>
-                          {statInfo.failed.map((info) => (
-                            info.date === statInfo.playedDates[i] ? (
-                              <tr key={info}>{info.failed}</tr>
-                            ) : (null)
-                          ))}
-                        </td>
+                        </tr>
+                        {statInfo.playedTimes.map((info, idx) => (
+                          info.date === statInfo.playedDates[i] ? (
+                            <tr key={info.time}>
+                              <td>{statInfo.playedTimes[idx].time}</td>
+                              <td>{statInfo.playedLevels[idx].level}</td>
+                              <td>{statInfo.success[idx].success}</td>
+                              <td>{statInfo.failed[idx].failed}</td>
+                            </tr>
+                          ) : (null)
+                        ))}
                       </tbody>
                     </table>
                   </Card.Body>

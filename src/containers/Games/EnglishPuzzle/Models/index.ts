@@ -105,9 +105,6 @@ export interface ActionResults {
   payload?: SavedResult;
 }
 
-export interface StatisticDate {
-  date: string;
-}
 export interface StatisticTimes {
   date: string;
   time: string;
@@ -130,7 +127,7 @@ export interface StatisticSuccess {
 
 export interface ActionDate {
   type: string;
-  payload: StatisticDate;
+  payload: string;
 }
 
 export interface ActionTimes {

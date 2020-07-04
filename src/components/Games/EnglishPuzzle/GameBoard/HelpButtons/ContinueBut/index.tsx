@@ -11,7 +11,9 @@ import '../index.scss';
 import { setToUserPreferencies } from 'containers/Games/EnglishPuzzle/HintButtons/actions';
 import { countXOffsets } from 'components/Games/EnglishPuzzle/Constants';
 import { reomveFailed, reomveSuccess, closeResults } from 'containers/Games/EnglishPuzzle/GameBoard/Results/actions';
-import { closeStatistic, updateDate, updateTime, updateLevels, updateFailed, updateSuccess } from 'containers/Games/EnglishPuzzle/GameBoard/Statistic/actions';
+import {
+  closeStatistic, updateDate, updateTime, updateLevels, updateFailed, updateSuccess,
+} from 'containers/Games/EnglishPuzzle/GameBoard/Statistic/actions';
 import { ContinueBtnProps } from '../../Models';
 
 const ContinueBtn: React.FC<ContinueBtnProps> = ({
@@ -25,6 +27,7 @@ const ContinueBtn: React.FC<ContinueBtnProps> = ({
   const isStatOpen = useSelector((state: State) => state.engPuzzleStatistic.statOpen);
   const failedWords = useSelector((state: State) => state.engPuzzleFailed.failed);
   const successWords = useSelector((state: State) => state.engPuzzleSuccess.success);
+  const savedDate = useSelector((state: State) => state.engPuzzleStatisticInfo.playedDates[0]);
   const dispatch = useDispatch();
   const updateCardsCollection = () => {
     dispatch(incrementIdx());
@@ -59,8 +62,15 @@ const ContinueBtn: React.FC<ContinueBtnProps> = ({
     } else if (activeIdx === 9) {
       dispatch(setToSolved());
       dispatch(enableResultsBtn());
-      dispatch(updateDate(new Date().toDateString()));
-      dispatch(updateTime({ date: new Date().toDateString(), time: new Date().toTimeString() }));
+      if (savedDate !== new Date().toDateString()) {
+        dispatch(updateDate(new Date().toDateString()));
+      }
+      dispatch(updateTime(
+        {
+          date: new Date().toDateString(),
+          time: new Date().toTimeString().slice(0, 9),
+        },
+      ));
       dispatch(updateLevels({ date: new Date().toDateString(), level: `Group: ${group} - Page: ${page}` }));
       dispatch(updateFailed({ date: new Date().toDateString(), failed: failedWords.length }));
       dispatch(updateSuccess({ date: new Date().toDateString(), success: successWords.length }));
