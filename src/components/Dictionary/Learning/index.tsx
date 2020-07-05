@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-function Learning() {
+function Learning(): JSX.Element {
   return (
-    <div />
+    <div className="dictionary-content bg-light rounded container py-2 my-3">Learning</div>
   );
 }
 
