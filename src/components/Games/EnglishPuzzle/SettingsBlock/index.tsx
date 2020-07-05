@@ -34,8 +34,9 @@ const Settings: React.FC = () => {
   }, [group, page]);
 
   const pages = [];
+  const maxPage = 60;
   const groups = [1, 2, 3, 4, 5, 6];
-  for (let i = 1; i <= 60; i += 1) {
+  for (let i = 1; i <= maxPage; i += 1) {
     pages.push(i);
   }
 
