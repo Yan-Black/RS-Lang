@@ -26,8 +26,8 @@ const SpeakIt = () : JSX.Element => {
         )
         : (
           <Container className="text-center intro" fluid>
-            <Row style={{ position: 'relative', top: '30%' }}>
-              <Col>
+            <Row style={{ position: 'relative', top: '30%', background: 'none' }}>
+              <Col className="intro-container">
                 <h2 className="title">SPEAKIT</h2>
                 <p className="intro-text">
                   Click on the words to hear them sound.
