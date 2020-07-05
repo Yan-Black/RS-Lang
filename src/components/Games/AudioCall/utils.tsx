@@ -1,4 +1,6 @@
 import { Json, WordsFromAPI, WordInfo } from 'containers/Games/AudioCall/models';
+import urlError from '../../../assets/error.mp3';
+import urlCorrect from '../../../assets/correct.mp3';
 
 async function getWordsForGame(level: number, round: number): Promise<Array<Json>> {
   try {
@@ -110,9 +112,6 @@ async function getTranslates(
 }
 
 function playSound(sound: string): void {
-  const urlError = 'https://raw.githubusercontent.com/rolling-scopes-school/lactivka-RS2020Q1/english-for-kids/english-for-kids/src/assets/audio/error.mp3?token=AL3NXWYFT2DZ6YS3KDTPDUK7BLJWY';
-  const urlCorrect = 'https://raw.githubusercontent.com/rolling-scopes-school/lactivka-RS2020Q1/english-for-kids/english-for-kids/src/assets/audio/correct.mp3?token=AL3NXWZCT2KUBZ32NCHFZT27BLJHO';
-
   const url = sound === 'error' ? urlError : urlCorrect;
   const audio = new Audio(url);
 
