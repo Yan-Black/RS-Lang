@@ -1,10 +1,10 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import * as React from 'react';
 import './index.scss';
-import {useSelector} from "react-redux";
-import {State} from "../../../../models/state";
+import { useSelector } from 'react-redux';
+import { State } from '../../../../models/state';
 
-function ShowImage() {
+const ShowImage = () => {
   const background = useSelector((state: State) => state.speakItFetch.background);
   const translate = useSelector((state: State) => state.speakItFetch.translate);
 
@@ -14,6 +14,6 @@ function ShowImage() {
       <p className="translation">{translate}</p>
     </div>
   );
-}
+};
 
 export default ShowImage;

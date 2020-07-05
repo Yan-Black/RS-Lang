@@ -3,18 +3,18 @@ import './index.scss';
 import {
   Container, Col, Row,
 } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 import LevelControl from '../Level-control';
 import ShowImage from '../ShowImage';
 import Cards from '../Cards';
 import Control from '../Control';
-import Result from "../Result";
-import {useSelector} from "react-redux";
-import {State} from "../../../../models/state";
+import Result from '../Result';
+import { State } from '../../../../models/state';
 
-function Game() {
+const Game = () => {
   const result = useSelector((state: State) => state.speakItButtons.result);
   return (
-    <Container>
+    <Container className="speakit-app">
       <Row>
         <Col>
           <LevelControl />
@@ -22,14 +22,12 @@ function Game() {
       </Row>
       <Row>
         <Col>
-          <ShowImage
-          />
+          <ShowImage />
         </Col>
       </Row>
       <Row>
         <Col>
-          <Cards
-          />
+          <Cards />
         </Col>
       </Row>
       <Row>
@@ -40,6 +38,6 @@ function Game() {
       {result ? <Result /> : '' }
     </Container>
   );
-}
+};
 
 export default Game;

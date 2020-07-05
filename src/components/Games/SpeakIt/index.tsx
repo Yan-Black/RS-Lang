@@ -12,7 +12,7 @@ import Game from './Game';
 const SpeakIt = () : JSX.Element => {
   const dispatch = useDispatch();
   const group = useSelector((state: State) => state.speakItControl.group);
-  const [game, setGame] = useState(true);
+  const [game, setGame] = useState(false);
 
   useEffect(() => {
     dispatch(fetchWords(group));
@@ -25,7 +25,7 @@ const SpeakIt = () : JSX.Element => {
           <Game/>
         )
         : (
-          <Container className="text-center intro" fluid>
+          <Container className="text-center intro" fluid >
             <Row style={{ position: 'relative', top: '30%' }}>
               <Col>
                 <h2 className="title">SPEAKIT</h2>

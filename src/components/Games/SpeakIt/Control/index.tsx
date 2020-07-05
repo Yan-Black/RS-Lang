@@ -1,38 +1,39 @@
 import * as React from 'react';
 import './index.scss';
 import { Button } from 'react-bootstrap';
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
 import {
   nextCard,
   resetGame, resultGame,
   startGame,
-  stopGame
-} from "../../../../containers/Games/SpeakIt/ControlButtons/actions";
-import {State} from "../../../../models/state";
-import {mistake, resetStatistics, win} from "../../../../containers/Games/SpeakIt/FetchGroup/actions";
+  stopGame,
+} from '../../../../containers/Games/SpeakIt/ControlButtons/actions';
+import { State } from '../../../../models/state';
+import { mistake, resetStatistics } from '../../../../containers/Games/SpeakIt/FetchGroup/actions';
+import { activeWord } from '../../../../containers/Games/SpeakIt/CardsGroup/actions';
 
-function Control() {
+const Control = () => {
   const dispatch = useDispatch();
   const game = useSelector((state: State) => state.speakItButtons.startGame);
   const gameWord = useSelector((state: State) => state.speakItButtons.gameWord);
 
   const start = () => {
     dispatch(startGame());
-  }
+  };
   const stop = () => {
     dispatch(stopGame());
-    dispatch(resetGame())
-    dispatch(resetStatistics())
-  }
+    dispatch(resetGame());
+    dispatch(resetStatistics());
+    dispatch(activeWord(null));
+  };
   const next = () => {
     dispatch(nextCard());
     dispatch(mistake(gameWord));
-  }
+  };
 
   const result = () => {
     dispatch(resultGame(true));
-  }
-
+  };
 
   return (
     <div className="btn-wrapper">
@@ -41,6 +42,6 @@ function Control() {
       <Button variant="info" className="btn" onClick={result}>Result</Button>
     </div>
   );
-}
+};
 
 export default Control;
