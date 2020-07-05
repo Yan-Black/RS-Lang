@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import * as React from 'react';
 import { Json } from 'containers/Games/AudioCall/models';
 
@@ -7,26 +6,35 @@ function StatisticItem(currWord: {item: Json}): JSX.Element {
     return null;
   }
 
-  function playWordAudio() {
+  async function playWordAudio() {
     const audioUrl: string = currWord.item.audio;
     const url = `https://raw.githubusercontent.com/lactivka/rslang-data/master/${audioUrl}`;
     const audio = new Audio(url);
-    // eslint-disable-next-line no-void
-    void audio.play();
+    await audio.play();
   }
 
-  function hovered(event: React.MouseEvent<HTMLElement, MouseEvent> | React.FocusEvent<HTMLElement>): void {
+  function hovered(
+    event: React.MouseEvent<HTMLElement, MouseEvent> | React.FocusEvent<HTMLElement>,
+  ): void {
     event.currentTarget.classList.add('text-danger');
   }
 
-  function unHovered(event: React.MouseEvent<HTMLElement, MouseEvent> | React.FocusEvent<HTMLElement>): void {
+  function unHovered(
+    event: React.MouseEvent<HTMLElement, MouseEvent> | React.FocusEvent<HTMLElement>,
+  ): void {
     event.currentTarget.classList.remove('text-danger');
   }
 
   const speakerIconClickHandler = () => playWordAudio();
-  const speakerIconKeyPressHandler = (event: React.KeyboardEvent<HTMLElement>) => event.preventDefault();
-  const trashMouseOverHandler = (event: React.MouseEvent<HTMLElement, MouseEvent>) => hovered(event);
-  const trashMouseLeaveHandler = (event: React.MouseEvent<HTMLElement, MouseEvent>) => unHovered(event);
+  const speakerIconKeyPressHandler = (
+    event: React.KeyboardEvent<HTMLElement>,
+  ) => event.preventDefault();
+  const trashMouseOverHandler = (
+    event: React.MouseEvent<HTMLElement, MouseEvent>,
+  ) => hovered(event);
+  const trashMouseLeaveHandler = (
+    event: React.MouseEvent<HTMLElement, MouseEvent>,
+  ) => unHovered(event);
   const trashFocusHandler = (event: React.FocusEvent<HTMLElement>) => hovered(event);
 
   return (

@@ -11,8 +11,9 @@ function ModalMessage(): JSX.Element {
   const messageTitle = useSelector((state: State) => state.audioCallModal.title);
   const messageBody = useSelector((state: State) => state.audioCallModal.message);
   const stayBtnClickHandler = () => dispatch(toggleModal(null));
-  // eslint-disable-next-line max-len
-  const exitBtnClickHandler = () => { dispatch(toggleModal(null)); dispatch(resetGame()); dispatch(startPage()); };
+  const exitBtnClickHandler = () => {
+    dispatch(toggleModal(null)); dispatch(resetGame()); dispatch(startPage());
+  };
 
   const stayKeyPressHandler = (event: React.KeyboardEvent<HTMLElement>) => {
     if (event.key === 'Enter') {

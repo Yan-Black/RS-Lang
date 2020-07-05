@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import * as React from 'react';
 import { useSelector } from 'react-redux';
 import { State } from 'models';
@@ -9,19 +8,21 @@ function TargetWordBlock(): JSX.Element {
   const currWords = useSelector((state: State) => state.audioCallCurrWords);
   const currActiveId = useSelector((state: State) => state.audioCallAnswer.progress);
 
-  function playWordAudio() {
+  async function playWordAudio() {
     const id = isChecked ? currActiveId - 1 : currActiveId;
     const audioUrl: string = currWords[id].audio;
     const url = `https://raw.githubusercontent.com/lactivka/rslang-data/master/${audioUrl}`;
     const audio = new Audio(url);
-    // eslint-disable-next-line no-void
-    void audio.play();
+    await audio.play();
   }
 
-  const speakerIconClickHandler = (): void => { playWordAudio(); };
-  const speakerIconKeyPressHandler = (event: React.KeyboardEvent<HTMLDivElement>) => event.preventDefault();
+  const speakerIconClickHandler = () => playWordAudio();
+  const speakerIconKeyPressHandler = (
+    event: React.KeyboardEvent<HTMLDivElement>,
+  ) => event.preventDefault();
 
   if (!isChecked && currActiveId < 10) {
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     playWordAudio();
   }
 

@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from 'models';
@@ -64,7 +63,10 @@ function StartPage(): JSX.Element {
         <h1 className="mb-5">АУДИОВЫЗОВ</h1>
         <p>Выбери правильный перевод услышанного слова из 5 вариантов.</p>
         <p>В режиме &quot;Мои слова&quot; будут звучать слова из Вашего словаря</p>
-        <p>В режиме &quot;Свободная игра&quot; будут часто употребляемые слова выбранной сложности</p>
+        <p>
+          В режиме &quot;Свободная игра&quot; будут часто употребляемые слова
+          выбранной сложности
+        </p>
         <div className="d-flex justify-content-center mt-5 text-white">
           <button
             type="button"

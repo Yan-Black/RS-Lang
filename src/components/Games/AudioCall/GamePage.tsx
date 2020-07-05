@@ -1,10 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unused-expressions */
-/* eslint-disable max-len */
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from 'models';
 import {
-  toggleModal, resetGame, statisticPage, checkAnswer, notKnowWords, progressGame, knowWords, correctAnswer, wrongAnswer,
+  toggleModal, resetGame, statisticPage, checkAnswer, notKnowWords, progressGame,
+  knowWords, correctAnswer, wrongAnswer,
 } from 'containers/Games/AudioCall/actions';
 import { useEffect } from 'react';
 import TranslateOptions from './translateOptions';
@@ -51,13 +50,18 @@ function GamePage(): JSX.Element {
     }
     if (!isChecked && (event.key === '1' || event.key === '2' || event.key === '3' || event.key === '4' || event.key === '5')) {
       const selected = currWords[currActiveId].translateOptions[+event.key - 1];
-      const isAnswerCorrect = currWords[currActiveId].wordTranslate === currWords[currActiveId].translateOptions[+event.key - 1];
+      const isAnswerCorrect = currWords[currActiveId].wordTranslate
+      === currWords[currActiveId].translateOptions[+event.key - 1];
       const sound = isAnswerCorrect ? 'correct' : 'error';
       const funcToDispatch = isAnswerCorrect ? knowWords : notKnowWords;
       playSound(sound);
       dispatch(funcToDispatch(currWords[currActiveId]));
       dispatch(checkAnswer(selected));
-      isAnswerCorrect ? dispatch(correctAnswer(true)) : dispatch(wrongAnswer(true));
+
+      if (isAnswerCorrect) {
+        dispatch(correctAnswer(true));
+      } else dispatch(wrongAnswer(true));
+
       dispatch(progressGame());
     }
   };

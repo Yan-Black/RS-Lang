@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-expressions */
-/* eslint-disable max-len */
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from 'models';
@@ -40,11 +38,15 @@ function TranslateOptions(): JSX.Element {
     return 'option mx-5 px-2 mt-1';
   };
 
-  function hovered(event: React.MouseEvent<HTMLElement, MouseEvent> | React.FocusEvent<HTMLElement>): void {
+  function hovered(
+    event: React.MouseEvent<HTMLElement, MouseEvent> | React.FocusEvent<HTMLElement>,
+  ): void {
     if (!isChecked) { event.currentTarget.classList.add('shadow'); }
   }
 
-  function unHovered(event: React.MouseEvent<HTMLElement, MouseEvent> | React.FocusEvent<HTMLElement>): void {
+  function unHovered(
+    event: React.MouseEvent<HTMLElement, MouseEvent> | React.FocusEvent<HTMLElement>,
+  ): void {
     if (!isChecked) { event.currentTarget.classList.remove('shadow'); }
   }
 
@@ -56,13 +58,19 @@ function TranslateOptions(): JSX.Element {
       playSound(sound);
       dispatch(funcToDispatch(currWords[currActiveId]));
       dispatch(checkAnswer(event.currentTarget.id));
-      isAnswerCorrect ? dispatch(correctAnswer(true)) : dispatch(wrongAnswer(true));
+      if (isAnswerCorrect) {
+        dispatch(correctAnswer(true));
+      } else {
+        dispatch(wrongAnswer(true));
+      }
       dispatch(progressGame());
     }
   };
 
   const mouseOverHandler = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => hovered(event);
-  const mouseLeaveHandler = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => unHovered(event);
+  const mouseLeaveHandler = (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+  ) => unHovered(event);
   const keyPressHandler = (event: React.KeyboardEvent<HTMLDivElement>) => event.preventDefault();
   const focusHandler = (event: React.FocusEvent<HTMLDivElement>) => hovered(event);
 

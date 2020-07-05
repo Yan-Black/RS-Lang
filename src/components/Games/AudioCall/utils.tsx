@@ -1,6 +1,3 @@
-/* eslint-disable no-await-in-loop */
-/* eslint-disable max-len */
-
 import { Json, WordsFromAPI, WordInfo } from 'containers/Games/AudioCall/models';
 
 async function getWordsForGame(level: number, round: number): Promise<Array<Json>> {
@@ -15,7 +12,9 @@ async function getWordsForGame(level: number, round: number): Promise<Array<Json
   }
 }
 
-async function getTranslates(wordsData: Array<Json>, word: string, wordTranslate: string): Promise<Array<string>> {
+async function getTranslates(
+  wordsData: Array<Json>, word: string, wordTranslate: string,
+): Promise<Array<string>> {
   const translates = [];
   const similarTranslates = [];
   const defaultTranslates = [];
@@ -36,40 +35,65 @@ async function getTranslates(wordsData: Array<Json>, word: string, wordTranslate
     const meanings: Array<WordInfo> = await meaningsResponse.json();
 
     if (meanings.length > 0) {
-      meanings[0].meaningsWithSimilarTranslation.map((meaning: WordInfo) => translates.push(meaning.translation.text));
-      meanings[0].alternativeTranslations.map((meaning: WordInfo) => translates.push(meaning.translation.text));
+      meanings[0].meaningsWithSimilarTranslation.map(
+        (meaning: WordInfo) => translates.push(meaning.translation.text),
+      );
+      meanings[0].alternativeTranslations.map(
+        (meaning: WordInfo) => translates.push(meaning.translation.text),
+      );
 
       translates.map((translate: string) => {
-        if (translate.slice(0, 2) === wordTranslate.slice(0, 2) && translate.length < wordTranslate.length + 5 && !similarTranslates.includes(translate)) similarTranslates.push(translate);
+        if (
+          translate.slice(0, 2) === wordTranslate.slice(0, 2)
+          && translate.length < wordTranslate.length + 5
+          && !similarTranslates.includes(translate)) similarTranslates.push(translate);
         return similarTranslates;
       });
       translates.map((translate: string) => {
-        if (translate.length === wordTranslate.length && translate[0] === wordTranslate[0] && !similarTranslates.includes(translate)) similarTranslates.push(translate);
+        if (
+          translate.length === wordTranslate.length
+          && translate[0] === wordTranslate[0]
+          && !similarTranslates.includes(translate)) similarTranslates.push(translate);
         return similarTranslates;
       });
       translates.map((translate: string) => {
-        if (translate.slice(-4) === wordTranslate.slice(-4) && translate.length < wordTranslate.length + 5 && !similarTranslates.includes(translate)) similarTranslates.push(translate);
+        if (
+          translate.slice(-4) === wordTranslate.slice(-4)
+          && translate.length < wordTranslate.length + 5
+          && !similarTranslates.includes(translate)) similarTranslates.push(translate);
         return similarTranslates;
       });
       translates.map((translate: string) => {
-        if (translate.slice(-3) === wordTranslate.slice(-3) && translate.length < wordTranslate.length + 5 && !similarTranslates.includes(translate)) similarTranslates.push(translate);
+        if (
+          translate.slice(-3) === wordTranslate.slice(-3)
+          && translate.length < wordTranslate.length + 5
+          && !similarTranslates.includes(translate)) similarTranslates.push(translate);
         return similarTranslates;
       });
       translates.map((translate: string) => {
-        if (translate[0] === wordTranslate[0] && translate.length < wordTranslate.length + 5 && !similarTranslates.includes(translate)) similarTranslates.push(translate);
+        if (
+          translate[0] === wordTranslate[0]
+          && translate.length < wordTranslate.length + 5
+          && !similarTranslates.includes(translate)) similarTranslates.push(translate);
         return similarTranslates;
       });
       translates.map((translate: string) => {
-        if (translate.length === wordTranslate.length && !similarTranslates.includes(translate)) similarTranslates.push(translate);
+        if (
+          translate.length === wordTranslate.length
+          && !similarTranslates.includes(translate)) similarTranslates.push(translate);
         return similarTranslates;
       });
       translates.map((translate: string) => {
-        if (translate.length === wordTranslate.length + 1 && !similarTranslates.includes(translate)) similarTranslates.push(translate);
+        if (
+          translate.length === wordTranslate.length + 1
+          && !similarTranslates.includes(translate)) similarTranslates.push(translate);
         return similarTranslates;
       });
       if (similarTranslates.length < 4) {
         translates.map((translate: string) => {
-          if (!similarTranslates.includes(translate) && translate.length < wordTranslate.length + 5) similarTranslates.push(translate);
+          if (
+            !similarTranslates.includes(translate)
+            && translate.length < wordTranslate.length + 5) similarTranslates.push(translate);
           return similarTranslates;
         });
       }
@@ -92,16 +116,15 @@ function playSound(sound: string): void {
   const url = sound === 'error' ? urlError : urlCorrect;
   const audio = new Audio(url);
 
-  // eslint-disable-next-line no-void
-  void audio.play();
+  // eslint-disable-next-line @typescript-eslint/no-floating-promises
+  audio.play();
 }
 
-async function getTranslateOptions(dataObj: Array<Json>): Promise<Array<Json>> {
+function addTranslateOptions(dataObj, optionsArr) {
   const gameData = dataObj;
   for (let i = 0; i < gameData.length; i += 1) {
-    const targetWord = dataObj[i].word;
     const targetTranslation = dataObj[i].wordTranslate;
-    const options = await getTranslates(gameData, targetWord, targetTranslation);
+    const options: Array<string> = optionsArr[i];
     options.push(targetTranslation);
     const shuffledOptions = shuffleArray(options);
     gameData[i].translateOptions = shuffledOptions;
@@ -109,13 +132,26 @@ async function getTranslateOptions(dataObj: Array<Json>): Promise<Array<Json>> {
   return gameData;
 }
 
-function shuffleArray(arr) {
+async function getTranslateOptions(dataObj: Array<Json>): Promise<Array<Json>> {
+  const gameData = dataObj;
+  const allOptions = [];
+  for (let i = 0; i < gameData.length; i += 1) {
+    const targetWord = dataObj[i].word;
+    const targetTranslation = dataObj[i].wordTranslate;
+    const options = getTranslates(gameData, targetWord, targetTranslation);
+    allOptions.push(options);
+  }
+  const dataWithOptions = addTranslateOptions(gameData, await Promise.all(allOptions));
+  return dataWithOptions;
+}
+
+function shuffleArray(arr: Array<string>) {
+  const newArr = arr;
   for (let i = arr.length - 1; i > 0; i -= 1) {
     const j = Math.floor(Math.random() * (i + 1));
-    // eslint-disable-next-line no-param-reassign
-    [arr[i], arr[j]] = [arr[j], arr[i]];
+    [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
   }
-  return arr;
+  return newArr;
 }
 
 export {

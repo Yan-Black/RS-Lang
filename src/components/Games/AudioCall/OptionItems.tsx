@@ -13,8 +13,11 @@ function OptionItems({ options, currLvl, isLevelOption }: Options): JSX.Element 
   const dispatch = useDispatch();
   const actionToDispatch = isLevelOption ? lvl : rnd;
 
-  // eslint-disable-next-line max-len
-  const selectChangeHandler = (event: React.ChangeEvent<HTMLSelectElement>) => dispatch(actionToDispatch(event.currentTarget.value));
+  const selectChangeHandler = (
+    event: React.ChangeEvent<HTMLSelectElement>,
+  ) => dispatch(
+    actionToDispatch(event.currentTarget.value),
+  );
 
   return (
     <select

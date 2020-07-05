@@ -1,5 +1,3 @@
-/* eslint-disable max-len */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -31,8 +29,12 @@ function StatisticPage(): JSX.Element {
   }
 
   const dispatch = useDispatch();
-  const knowWords: Array<Json> = useSelector((state: State) => state.audioCallStatistic.correctAnswers);
-  const notKnowWords: Array<Json> = useSelector((state: State) => state.audioCallStatistic.wrongAnswers);
+  const knowWords: Array<Json> = useSelector(
+    (state: State) => state.audioCallStatistic.correctAnswers,
+  );
+  const notKnowWords: Array<Json> = useSelector(
+    (state: State) => state.audioCallStatistic.wrongAnswers,
+  );
   const statisticTitle = getTitle(knowWords.length, notKnowWords.length);
   const btnClickHandler = () => {
     dispatch(resetCurrStatistic());
