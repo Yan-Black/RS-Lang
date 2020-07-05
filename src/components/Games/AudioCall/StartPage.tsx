@@ -2,10 +2,10 @@ import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from 'models';
 import { useState } from 'react';
-import backgroundImage from '../../../assets/pattern-369543.svg';
+import backgroundImage from 'assets/pattern-369543.svg';
 import {
   gamePage, fetchWords, toggleModal,
-} from '../../../containers/Games/AudioCall/actions';
+} from 'containers/Games/AudioCall/actions';
 import OptionItems from './OptionItems';
 import { getWordsForGame, Json, getTranslateOptions } from './utils';
 import ModalMessage from './ModalMessage';

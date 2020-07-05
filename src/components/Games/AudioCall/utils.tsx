@@ -1,6 +1,6 @@
 import { Json, WordsFromAPI, WordInfo } from 'containers/Games/AudioCall/models';
-import urlError from '../../../assets/error.mp3';
-import urlCorrect from '../../../assets/correct.mp3';
+import urlError from 'assets/error.mp3';
+import urlCorrect from 'assets/correct.mp3';
 
 async function getWordsForGame(level: number, round: number): Promise<Array<Json>> {
   try {
@@ -10,7 +10,7 @@ async function getWordsForGame(level: number, round: number): Promise<Array<Json
     const json = await response.json();
     return json;
   } catch (err) {
-    throw new Error();
+    throw new Error('Cannot fetch words');
   }
 }
 
@@ -111,12 +111,10 @@ async function getTranslates(
   }
 }
 
-function playSound(sound: string): void {
+async function playSound(sound: string): Promise<void> {
   const url = sound === 'error' ? urlError : urlCorrect;
   const audio = new Audio(url);
-
-  // eslint-disable-next-line @typescript-eslint/no-floating-promises
-  audio.play();
+  await audio.play();
 }
 
 function addTranslateOptions(dataObj, optionsArr) {

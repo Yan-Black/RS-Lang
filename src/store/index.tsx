@@ -1,13 +1,12 @@
-/* eslint-disable max-len */
 import thunk from 'redux-thunk';
 import {
   createStore, combineReducers, compose, applyMiddleware,
 } from 'redux';
 
-// import appReducer from '../containers/App/reducer';
 import {
-  pageReducer, levelReducer, roundReducer, currWordsReducer, answerReducer, statisticReducer, modalReducer,
-} from '../containers/Games/AudioCall/reducer';
+  pageReducer, levelReducer, roundReducer,
+  currWordsReducer, answerReducer, statisticReducer, modalReducer,
+} from 'containers/Games/AudioCall/reducer';
 
 const rootReducer = combineReducers({
   audioCallPage: pageReducer,

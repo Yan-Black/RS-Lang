@@ -6,10 +6,10 @@ import {
   knowWords, correctAnswer, wrongAnswer,
 } from 'containers/Games/AudioCall/actions';
 import { useEffect } from 'react';
+import backgroundImage from 'assets/pattern-369543.svg';
 import TranslateOptions from './translateOptions';
 import GameButton from './GameButton';
 import TargetWordBlock from './TargetWordBlock';
-import backgroundImage from '../../../assets/pattern-369543.svg';
 import ModalMessage from './ModalMessage';
 import { playSound } from './utils';
 
@@ -54,7 +54,8 @@ function GamePage(): JSX.Element {
       === currWords[currActiveId].translateOptions[+event.key - 1];
       const sound = isAnswerCorrect ? 'correct' : 'error';
       const funcToDispatch = isAnswerCorrect ? knowWords : notKnowWords;
-      playSound(sound);
+      // eslint-disable-next-line no-void
+      void playSound(sound);
       dispatch(funcToDispatch(currWords[currActiveId]));
       dispatch(checkAnswer(selected));
 

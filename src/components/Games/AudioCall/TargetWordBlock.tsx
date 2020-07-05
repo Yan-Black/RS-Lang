@@ -1,18 +1,18 @@
 import * as React from 'react';
 import { useSelector } from 'react-redux';
 import { State } from 'models';
-import speakerIcon from '../../../assets/speaker_Icon.svg';
+import speakerIcon from 'assets/speaker_Icon.svg';
 
 function TargetWordBlock(): JSX.Element {
   const isChecked = useSelector((state: State) => state.audioCallAnswer.isChecked);
   const currWords = useSelector((state: State) => state.audioCallCurrWords);
   const currActiveId = useSelector((state: State) => state.audioCallAnswer.progress);
+  const id = isChecked ? currActiveId - 1 : currActiveId;
+  const audioUrl: string = currWords[id].audio;
+  const url = `https://raw.githubusercontent.com/lactivka/rslang-data/master/${audioUrl}`;
+  const audio = new Audio(url);
 
-  async function playWordAudio() {
-    const id = isChecked ? currActiveId - 1 : currActiveId;
-    const audioUrl: string = currWords[id].audio;
-    const url = `https://raw.githubusercontent.com/lactivka/rslang-data/master/${audioUrl}`;
-    const audio = new Audio(url);
+  async function playWordAudio(): Promise<void> {
     await audio.play();
   }
 
@@ -22,8 +22,12 @@ function TargetWordBlock(): JSX.Element {
   ) => event.preventDefault();
 
   if (!isChecked && currActiveId < 10) {
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    playWordAudio();
+    try {
+      // eslint-disable-next-line no-void
+      void playWordAudio();
+    } catch (err) {
+      throw new Error('Play audio error');
+    }
   }
 
   if (isChecked) {

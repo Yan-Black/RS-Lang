@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { State } from 'models';
 import { Json } from 'containers/Games/AudioCall/models';
-import { startPage, resetCurrStatistic } from '../../../containers/Games/AudioCall/actions';
+import { startPage, resetCurrStatistic } from 'containers/Games/AudioCall/actions';
+import backgroundImage from 'assets/pattern-369543.svg';
 import StatisticItem from './StatisticItem';
-import backgroundImage from '../../../assets/pattern-369543.svg';
 
 function StatisticPage(): JSX.Element {
   function getTitle(first: number, second: number): string {
