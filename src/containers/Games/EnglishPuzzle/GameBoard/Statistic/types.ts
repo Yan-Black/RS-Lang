@@ -1,7 +1,0 @@
-export const OPEN_STATISTIC = 'OPEN_STATISTIC';
-export const CLOSE_STATISTIC = 'CLOSE_STATISTIC';
-export const UPDATE_DATE = 'UPDATE_DATE';
-export const UPDATE_TIME = 'UPDATE_TIME';
-export const UPDATE_LEVELS = 'UPDATE_LEVELS';
-export const UPDATE_FAILED = 'UPDATE_FAILED';
-export const UPDATE_SUCCESS = 'UPDATE_SUCCESS';

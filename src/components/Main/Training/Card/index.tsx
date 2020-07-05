@@ -1,6 +1,6 @@
 import * as React from 'react';
 // import image from 'assets/files/01_0001.jpg';
-import { FetchedWordData } from 'containers/Games/EnglishPuzzle/Models';
+import { FetchedWordData } from 'containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/models';
 import book1 from '../../../../assets/WordsData';
 import './index.scss';
 

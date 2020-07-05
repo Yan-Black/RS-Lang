@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faImage } from '@fortawesome/free-solid-svg-icons';
 import { State } from 'models';
-import { backgroundEnable, backgroundDisable } from 'containers/Games/EnglishPuzzle/HintButtons/actions';
+import { backgroundEnable, backgroundDisable } from 'containers/Games/EnglishPuzzle/HeaderBlock/HintButtons/actions';
 
 const Image: React.FC = () => {
   const dispatch = useDispatch();

@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { updatePage, updateGrop, getWords } from 'containers/Games/EnglishPuzzle/SettingsBlock/actions';
-import './index.scss';
 import { State } from 'models';
-import { removeOffsetX, removeCollection } from 'containers/Games/EnglishPuzzle/GameBoard/actions';
-import { setToInitial } from 'containers/Games/EnglishPuzzle/StartPage/actions';
-import { setToUserPreferencies } from 'containers/Games/EnglishPuzzle/HintButtons/actions';
-import wordsData from '../../../../assets/WordsData';
+import { updatePage, updateGrop, getWords } from 'containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/actions';
+import { removeOffsetX, removeCollection } from 'containers/Games/EnglishPuzzle/GameBlock/GameBoard/actions';
+import { setToInitial } from 'containers/Games/EnglishPuzzle/GameIndex/actions';
+import { setToUserPreferencies } from 'containers/Games/EnglishPuzzle/HeaderBlock/HintButtons/actions';
+import wordsData from 'assets/WordsData';
+import './index.scss';
 
 const Settings: React.FC = () => {
   const dispatch = useDispatch();

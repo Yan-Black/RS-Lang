@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { enableStatisticBtn } from 'containers/Games/EnglishPuzzle/GameBoard/HelpButtons/actions';
+import { enableStatisticBtn } from 'containers/Games/EnglishPuzzle/GameBlock/GameBoard/HelpButtons/actions';
 import { State } from 'models/state';
 import '../index.scss';
-import { openResults } from 'containers/Games/EnglishPuzzle/GameBoard/Results/actions';
+import { openResults } from 'containers/Games/EnglishPuzzle/GameBlock/GameBoard/Results/actions';
 
 const ResultsBtn: React.FC = () => {
   const resultsBtnState = useSelector((state: State) => state.engPuzzleControlBtns.resultsBtn);

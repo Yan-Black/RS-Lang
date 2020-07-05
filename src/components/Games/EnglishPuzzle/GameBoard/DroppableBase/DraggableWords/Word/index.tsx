@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { State } from 'models/state';
 import '../index.scss';
 import { Draggable } from 'react-beautiful-dnd';
-import { WordProps } from '../../../Models';
+import { WordProps } from 'components/Games/EnglishPuzzle/models';
 
 const Word: React.FC<WordProps> = ({
   word, cId, idx, id, onClickFn, cssStyle, drag, back, offsetX,
@@ -15,9 +15,13 @@ const Word: React.FC<WordProps> = ({
   const activeIdx = useSelector((state: State) => state.engPuzzleActiveIdx.currentIdx);
   const backBtnState = useSelector((state: State) => state.engPuzzleBtns.backgroundHintActive);
   const [defaultStyle, setDefaultStyle] = backBtnState ? useState(cssStyle) : useState(`${cssStyle} cover`);
+  const canvasSizes = {
+    width: 972.8,
+    height: 480,
+  };
   const setWordStyle = (draggableStyle) => ({
     backgroundImage: `url(${back})`,
-    backgroundSize: `${972.8}px ${480}px`,
+    backgroundSize: `${canvasSizes.width}px ${canvasSizes.height}px`,
     backgroundPositionY: `${yOffset[activeIdx]}%`,
     backgroundPositionX: `-${offsetX}px`,
     ...draggableStyle,

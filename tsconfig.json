@@ -7,6 +7,6 @@
     "moduleResolution": "node",
     "jsx": "react",
     "noImplicitAny": false,
-    "baseUrl": "./src",
+    "baseUrl": "./src"
   }
 }

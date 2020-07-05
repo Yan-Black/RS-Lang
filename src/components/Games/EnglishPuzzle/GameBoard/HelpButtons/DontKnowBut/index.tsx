@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { enableContinueBtn } from 'containers/Games/EnglishPuzzle/GameBoard/HelpButtons/actions';
+import { enableContinueBtn } from 'containers/Games/EnglishPuzzle/GameBlock/GameBoard/HelpButtons/actions';
 import { State } from 'models/state';
 import '../index.scss';
 import {
   audioEnabled, translateEnable, backgroundEnable, speakerEnable, speakerDisable,
-} from 'containers/Games/EnglishPuzzle/HintButtons/actions';
-import { addFailed } from 'containers/Games/EnglishPuzzle/GameBoard/Results/actions';
-import { DontKnowBtnProps } from '../../Models';
-import { pronounceAudio } from '../../../Constants';
+} from 'containers/Games/EnglishPuzzle/HeaderBlock/HintButtons/actions';
+import { addFailed } from 'containers/Games/EnglishPuzzle/GameBlock/GameBoard/Results/actions';
+import { DontKnowBtnProps } from 'components/Games/EnglishPuzzle/models';
+import { pronounceAudio } from 'components/Games/EnglishPuzzle/Constants';
 
 const DontKnowBtn: React.FC<DontKnowBtnProps> = ({
   onClickFn, length, setCheckedStateToCards, setDragging, phrase, learningWord,

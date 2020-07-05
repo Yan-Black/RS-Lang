@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileAlt } from '@fortawesome/free-solid-svg-icons';
-import { translateEnable, translateDisable } from 'containers/Games/EnglishPuzzle/HintButtons/actions';
+import { translateEnable, translateDisable } from 'containers/Games/EnglishPuzzle/HeaderBlock/HintButtons/actions';
 import { State } from 'models';
 
 const Hint: React.FC = () => {

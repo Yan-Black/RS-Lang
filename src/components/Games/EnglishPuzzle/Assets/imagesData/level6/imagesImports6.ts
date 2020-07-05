@@ -23,26 +23,6 @@ import ViewOfTivoliAndTheRomanCampagna from '../../level6/cut/6_22.jpg';
 import TheWesternRailwayLeavingParis from '../../level6/cut/6_23.jpg';
 import LandscapeWithAmusician from '../../level6/cut/6_24.jpg';
 import EdgeOfAwood from '../../level6/cut/6_25.jpg';
-import AnExtensiveWoodedLandscapeWithTravellersOnApath from '../../level4/cut/4_02.jpg';
-import WoodedLandscape from '../../level1/cut/extensiv_1.jpg';
-import TheDelftCityWallWithTheHouttuinen from '../../level1/cut/landscap_1.jpg';
-import RiverAndLandscape from '../../level1/cut/woodedla.jpg';
-import ViewOfKillarney from '../../level1/cut/citywall.jpg';
-import LandscapeWithWaterfallAndFarm from '../../level1/cut/river_la.jpg';
-import WinterLandscape from '../../level1/cut/kilarney.jpg';
-import CoastalSceneWithRestingRiders from '../../level1/cut/waterfal.jpg';
-import ItalianateLandscapeWithAriverAndAnArchedBridge from '../../level1/cut/winterla_1.jpg';
-import ItalianateLandscapeWithPeasantsAndAnimalsFordingAriver from '../../level1/cut/coastal.jpg';
-import LandscapeWithFrozenRiver from '../../level1/cut/italiana.jpg';
-import IceLandscape from '../../level1/cut/italianb.jpg';
-import ArabsOnHorseback from '../../level1/cut/landscap_2.jpg';
-import ShipsInDistressOffArockyCoast from '../../level1/cut/ice_land.jpg';
-import AfishingPink from '../../level1/cut/arabs.jpg';
-import ShippingByTheDutchCoast from '../../level1/cut/distress.jpg';
-import ViewFromTheNieuweMaasRiverTowardsTheCityOfVlaardingen from '../../level1/cut/fishing.jpg';
-import DutchVesselsOffAcoastlineOnAbreezyDay from '../../level1/cut/shipping_1.jpg';
-import WinterAndlandscape from '../../level1/cut/viewvlaa.jpg';
-import Cypresses from '../../level1/cut/vessels1.jpg';
 
 export const levelSixDatabase = {
   '6_01': StagHunt,
@@ -70,39 +50,39 @@ export const levelSixDatabase = {
   '6_23': TheWesternRailwayLeavingParis,
   '6_24': LandscapeWithAmusician,
   '6_25': EdgeOfAwood,
-  '6_26': AnExtensiveWoodedLandscapeWithTravellersOnApath,
-  '6_27': WoodedLandscape,
-  '6_28': TheDelftCityWallWithTheHouttuinen,
-  '6_29': RiverAndLandscape,
-  '6_30': ViewOfKillarney,
-  '6_31': LandscapeWithWaterfallAndFarm,
-  '6_32': WinterLandscape,
-  '6_33': CoastalSceneWithRestingRiders,
-  '6_34': ItalianateLandscapeWithAriverAndAnArchedBridge,
-  '6_35': ItalianateLandscapeWithPeasantsAndAnimalsFordingAriver,
-  '6_36': LandscapeWithFrozenRiver,
-  '6_37': IceLandscape,
-  '6_38': ArabsOnHorseback,
-  '6_39': ShipsInDistressOffArockyCoast,
-  '6_40': AfishingPink,
-  '6_41': ShippingByTheDutchCoast,
-  '6_42': ViewFromTheNieuweMaasRiverTowardsTheCityOfVlaardingen,
-  '6_43': DutchVesselsOffAcoastlineOnAbreezyDay,
-  '6_44': WinterAndlandscape,
-  '6_45': Cypresses,
-  '6_46': ItalianateLandscapeWithPeasantsAndAnimalsFordingAriver,
-  '6_47': ItalianateLandscapeWithPeasantsAndAnimalsFordingAriver,
-  '6_48': LandscapeWithFrozenRiver,
-  '6_49': ArabsOnHorseback,
-  '6_50': ViewFromTheNieuweMaasRiverTowardsTheCityOfVlaardingen,
-  '6_51': Cypresses,
-  '6_52': LandscapeWithFrozenRiver,
-  '6_53': CoastalSceneWithRestingRiders,
-  '6_54': WoodedLandscape,
-  '6_55': TheWesternRailwayLeavingParis,
-  '6_56': LandscapeWithAmusician,
-  '6_57': EdgeOfAwood,
-  '6_58': AnExtensiveWoodedLandscapeWithTravellersOnApath,
-  '6_59': TheDelftCityWallWithTheHouttuinen,
-  '6_60': RiverAndLandscape,
+  '6_26': StagHunt,
+  '6_27': DeerBesideAlake,
+  '6_28': CountryRoadWithCypresses,
+  '6_29': FireworksInNaples,
+  '6_30': TheNinthWave,
+  '6_31': ViewOfCampoSantiGiovanniEpaolo,
+  '6_32': SanGiuseppeDiCastello,
+  '6_33': ViewOfStPetersburg,
+  '6_34': LandscapeWithTheFindingOfMoses,
+  '6_35': RiverLandscape,
+  '6_36': ExtensiveWoodedLandscapeWithCephalusAndProcris,
+  '6_37': SkatingDuringCarnival,
+  '6_38': WinterLandscapeInTheForetDeSoignesWithWheFlightIntoEgypt,
+  '6_39': ViewOfViennaFromThePrater,
+  '6_40': AnEnglishThirdRateShipOfTheLineInThreePositions,
+  '6_41': ShippingInACalmSeaOffTheCoast,
+  '6_42': ShippingOnTheThamesOffDeptford,
+  '6_43': ItalianateCoastalLandscape,
+  '6_44': TiberBridgeInRome,
+  '6_45': ViewOfTheRomanCampagna,
+  '6_46': HarbourScene,
+  '6_47': ViewOfTivoliAndTheRomanCampagna,
+  '6_48': TheWesternRailwayLeavingParis,
+  '6_49': LandscapeWithAmusician,
+  '6_50': EdgeOfAwood,
+  '6_51': StagHunt,
+  '6_52': DeerBesideAlake,
+  '6_53': CountryRoadWithCypresses,
+  '6_54': FireworksInNaples,
+  '6_55': TheNinthWave,
+  '6_56': ViewOfCampoSantiGiovanniEpaolo,
+  '6_57': SanGiuseppeDiCastello,
+  '6_58': ViewOfStPetersburg,
+  '6_59': LandscapeWithTheFindingOfMoses,
+  '6_60': RiverLandscape,
 };

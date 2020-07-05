@@ -1,20 +1,20 @@
 import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { State } from 'models/state';
 import {
   updateCollection, removeCollection, updateOffsetX, removeOffsetX, setToSolved, setToNewGame,
-} from 'containers/Games/EnglishPuzzle/GameBoard/actions';
-import { updatePage, updateGrop } from 'containers/Games/EnglishPuzzle/SettingsBlock/actions';
-import { enableDontKnowBtn, enableResultsBtn } from 'containers/Games/EnglishPuzzle/GameBoard/HelpButtons/actions';
-import { incrementIdx, setToInitial } from 'containers/Games/EnglishPuzzle/StartPage/actions';
-import { State } from 'models/state';
-import '../index.scss';
-import { setToUserPreferencies } from 'containers/Games/EnglishPuzzle/HintButtons/actions';
-import { countXOffsets } from 'components/Games/EnglishPuzzle/Constants';
-import { reomveFailed, reomveSuccess, closeResults } from 'containers/Games/EnglishPuzzle/GameBoard/Results/actions';
+} from 'containers/Games/EnglishPuzzle/GameBlock/GameBoard/actions';
+import { updatePage, updateGrop } from 'containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/actions';
+import { enableDontKnowBtn, enableResultsBtn } from 'containers/Games/EnglishPuzzle/GameBlock/GameBoard/HelpButtons/actions';
+import { incrementIdx, setToInitial } from 'containers/Games/EnglishPuzzle/GameIndex/actions';
+import { setToUserPreferencies } from 'containers/Games/EnglishPuzzle/HeaderBlock/HintButtons/actions';
+import { reomveFailed, reomveSuccess, closeResults } from 'containers/Games/EnglishPuzzle/GameBlock/GameBoard/Results/actions';
 import {
   closeStatistic, updateDate, updateTime, updateLevels, updateFailed, updateSuccess,
-} from 'containers/Games/EnglishPuzzle/GameBoard/Statistic/actions';
-import { ContinueBtnProps } from '../../Models';
+} from 'containers/Games/EnglishPuzzle/GameBlock/GameBoard/Statistic/actions';
+import { countXOffsets } from 'components/Games/EnglishPuzzle/Constants';
+import { ContinueBtnProps } from 'components/Games/EnglishPuzzle/models';
+import '../index.scss';
 
 const ContinueBtn: React.FC<ContinueBtnProps> = ({
   wordsToApply, setCheckedStateToCards, setDragging,
@@ -57,23 +57,24 @@ const ContinueBtn: React.FC<ContinueBtnProps> = ({
       if (page === 60) {
         dispatch(updateGrop((group + 1)));
         dispatch(updatePage(1));
+      } else {
+        dispatch(updatePage((page + 1)));
       }
-      dispatch(updatePage((page + 1)));
     } else if (activeIdx === 9) {
       dispatch(setToSolved());
       dispatch(enableResultsBtn());
       if (savedDate !== new Date().toDateString()) {
-        dispatch(updateDate(new Date().toDateString()));
+        dispatch(updateDate({ date: new Date().toDateString() }));
       }
       dispatch(updateTime(
         {
           date: new Date().toDateString(),
-          time: new Date().toTimeString().slice(0, 9),
+          payload: new Date().toTimeString().slice(0, 9),
         },
       ));
-      dispatch(updateLevels({ date: new Date().toDateString(), level: `Group: ${group} - Page: ${page}` }));
-      dispatch(updateFailed({ date: new Date().toDateString(), failed: failedWords.length }));
-      dispatch(updateSuccess({ date: new Date().toDateString(), success: successWords.length }));
+      dispatch(updateLevels({ date: new Date().toDateString(), payload: `Group: ${group} - Page: ${page}` }));
+      dispatch(updateFailed({ date: new Date().toDateString(), payload: failedWords.length }));
+      dispatch(updateSuccess({ date: new Date().toDateString(), payload: successWords.length }));
       setTimeout(() => dispatch(removeCollection()), 800);
     } else {
       updateCardsCollection();

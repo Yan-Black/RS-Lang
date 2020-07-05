@@ -1,11 +1,15 @@
 import {
   Card, Source, Dest, Res, RowsMap,
-} from 'components/Games/EnglishPuzzle/GameBlock/types';
+} from 'components/Games/EnglishPuzzle/models';
 import { Dispatch } from 'react';
 import { Action } from 'redux';
-import { InitialStateWords } from 'containers/Games/EnglishPuzzle/Models';
+import { InitialStateWords } from 'containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/models';
 
-export const reorder = (list: Card[], startIndex: number, endIndex: number): Card[] => {
+export const reorder = (
+  list: Card[],
+  startIndex: number,
+  endIndex: number,
+): Card[] => {
   const result = Array.from(list);
   const [removed] = result.splice(startIndex, 1);
   result.splice(endIndex, 0, removed);
@@ -14,7 +18,10 @@ export const reorder = (list: Card[], startIndex: number, endIndex: number): Car
 };
 
 export const move = (
-  source: Card[], destination: Card[], droppableSource: Source, droppableDestination: Dest,
+  source: Card[],
+  destination: Card[],
+  droppableSource: Source,
+  droppableDestination: Dest,
 ): Res => {
   const sourceClone = Array.from(source);
   const destClone = Array.from(destination);
@@ -22,11 +29,11 @@ export const move = (
 
   destClone.splice(droppableDestination.index, 0, removed);
 
-  const result = {};
+  const result = {} as Res;
   result[droppableSource.droppableId] = sourceClone;
   result[droppableDestination.droppableId] = destClone;
 
-  return result as Res;
+  return result;
 };
 
 export const wordsExtractor = (
@@ -73,8 +80,11 @@ export const shuffle = (arr: Card[]): Card[] => {
 };
 
 export const pronounceAudio = (
-  audioState: boolean, sntc: string, dispatch: Dispatch<Action>,
-  speakerEnable:() => Action, speakerDisable:() => Action,
+  audioState: boolean,
+  sntc: string,
+  dispatch: Dispatch<Action>,
+  speakerEnable:() => Action,
+  speakerDisable:() => Action,
 ): void => {
   if (audioState) {
     const regex = /<[^>]*>/g;
@@ -92,7 +102,8 @@ export const pronounceAudio = (
 
 export const countXOffsets = (length: number): number[] => {
   const offsetsX = [];
-  const step = 972.8 / length;
+  const width = 972.8;
+  const step = width / length;
   let cardOffset = 0;
   for (let i = 0; i <= length; i++) {
     offsetsX.push(Number(cardOffset.toFixed(0)));

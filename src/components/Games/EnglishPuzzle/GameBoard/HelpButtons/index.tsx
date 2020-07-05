@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { useSelector } from 'react-redux';
 import { State } from 'models/state';
+import { ButtonsProps } from 'components/Games/EnglishPuzzle/models';
 import DontKnowBtn from './DontKnowBut';
 import CheckBtn from './CheckBut';
 import ContinueBtn from './ContinueBut';
 import ResultsBtn from './ResultsBut';
 import StatisticBtn from './StatisticBut';
 import '../index.scss';
-import { ButtonsProps } from '../Models';
 
 const HelpButtons: React.FC<ButtonsProps> = ({
   onClickFn, wordsToApply, setCheckedStateToCards,

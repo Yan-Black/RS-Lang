@@ -3,8 +3,8 @@ import { useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVolumeUp, faVolumeMute } from '@fortawesome/free-solid-svg-icons';
 import { State } from 'models/state';
+import { translateExtractor } from 'components/Games/EnglishPuzzle/Constants';
 import './index.scss';
-import { translateExtractor } from '../Constants';
 
 const HintsBlock: React.FC = () => {
   const currentState = useSelector((state: State) => state.engPuzzleBtns);

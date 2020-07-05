@@ -3,8 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVolumeUp } from '@fortawesome/free-solid-svg-icons';
 import { State } from 'models/state';
-import { audioEnabled, audioDisabled } from 'containers/Games/EnglishPuzzle/HintButtons/actions';
-import '../index.scss';
+import { audioEnabled, audioDisabled } from 'containers/Games/EnglishPuzzle/HeaderBlock/HintButtons/actions';
 
 const Speaker: React.FC = () => {
   const dispatch = useDispatch();

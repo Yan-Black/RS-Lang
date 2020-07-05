@@ -13,50 +13,51 @@ import AboutUs from '../AboutUs';
 import Training from './Training';
 
 const Main: React.FC = () => (
-  <Router>
-    <div>
-      <ul>
-        <li>
-          <Link to="/Statistic">Statistic</Link>
-        </li>
-        <li>
-          <Link to="/Dictionary">Dictionary</Link>
-        </li>
-        <li>
-          <Link to="/Games">Games</Link>
-        </li>
-        <li>
-          <Link to="/Promo">Promo</Link>
-        </li>
-        <li>
-          <Link to="/AboutUs">About Us</Link>
-        </li>
-        <li>
-          <Link to="/Training">Training</Link>
-        </li>
-      </ul>
-      <Switch>
-        <Route path="/Statistic">
-          <Statistic />
-        </Route>
-        <Route path="/Dictionary">
-          <Dictionary />
-        </Route>
-        <Route path="/Games">
-          <Games />
-        </Route>
-        <Route path="/Promo">
-          <Promo />
-        </Route>
-        <Route path="/AboutUs">
-          <AboutUs />
-        </Route>
-        <Route path="/Training">
-          <Training />
-        </Route>
-      </Switch>
-    </div>
-  </Router>
+  <Games />
+  // <Router>
+  //   <div>
+  //     <ul>
+  //       <li>
+  //         <Link to="/Statistic">Statistic</Link>
+  //       </li>
+  //       <li>
+  //         <Link to="/Dictionary">Dictionary</Link>
+  //       </li>
+  //       <li>
+  //         <Link to="/Games">Games</Link>
+  //       </li>
+  //       <li>
+  //         <Link to="/Promo">Promo</Link>
+  //       </li>
+  //       <li>
+  //         <Link to="/AboutUs">About Us</Link>
+  //       </li>
+  //       <li>
+  //         <Link to="/Training">Training</Link>
+  //       </li>
+  //     </ul>
+  //     <Switch>
+  //       <Route path="/Statistic">
+  //         <Statistic />
+  //       </Route>
+  //       <Route path="/Dictionary">
+  //         <Dictionary />
+  //       </Route>
+  //       <Route path="/Games">
+  //         <Games />
+  //       </Route>
+  //       <Route path="/Promo">
+  //         <Promo />
+  //       </Route>
+  //       <Route path="/AboutUs">
+  //         <AboutUs />
+  //       </Route>
+  //       <Route path="/Training">
+  //         <Training />
+  //       </Route>
+  //     </Switch>
+  //   </div>
+  // </Router>
 );
 
 export default Main;

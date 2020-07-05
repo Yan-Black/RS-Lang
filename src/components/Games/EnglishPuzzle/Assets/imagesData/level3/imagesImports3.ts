@@ -38,11 +38,6 @@ import IceLandscape from '../../level3/cut/3_37.jpg';
 import ArabsOnHorseback from '../../level3/cut/3_38.jpg';
 import ShipsInDistressOffArockyCoast from '../../level3/cut/3_39.jpg';
 import AfishingPink from '../../level3/cut/3_40.jpg';
-import ShippingByTheDutchCoast from '../../level1/cut/distress.jpg';
-import ViewFromTheNieuweMaasRiverTowardsTheCityOfVlaardingen from '../../level1/cut/fishing.jpg';
-import DutchVesselsOffAcoastlineOnAbreezyDay from '../../level1/cut/shipping_1.jpg';
-import WinterAndlandscape from '../../level1/cut/viewvlaa.jpg';
-import Cypresses from '../../level1/cut/vessels1.jpg';
 
 export const levelThreeDatabase = {
   '3_01': StagHunt,
@@ -85,24 +80,24 @@ export const levelThreeDatabase = {
   '3_38': ArabsOnHorseback,
   '3_39': ShipsInDistressOffArockyCoast,
   '3_40': AfishingPink,
-  '1_41': ShippingByTheDutchCoast,
-  '1_42': ViewFromTheNieuweMaasRiverTowardsTheCityOfVlaardingen,
-  '1_43': DutchVesselsOffAcoastlineOnAbreezyDay,
-  '1_44': WinterAndlandscape,
-  '1_45': Cypresses,
-  '1_46': ItalianateLandscapeWithPeasantsAndAnimalsFordingAriver,
-  '1_47': ItalianateLandscapeWithPeasantsAndAnimalsFordingAriver,
-  '1_48': LandscapeWithFrozenRiver,
-  '1_49': ArabsOnHorseback,
-  '1_50': ViewFromTheNieuweMaasRiverTowardsTheCityOfVlaardingen,
-  '1_51': Cypresses,
-  '1_52': LandscapeWithFrozenRiver,
-  '1_53': CoastalSceneWithRestingRiders,
-  '1_54': WoodedLandscape,
-  '1_55': TheWesternRailwayLeavingParis,
-  '1_56': LandscapeWithAmusician,
-  '1_57': EdgeOfAwood,
-  '1_58': AnExtensiveWoodedLandscapeWithTravellersOnApath,
-  '1_59': TheDelftCityWallWithTheHouttuinen,
-  '1_60': RiverAndLandscape,
+  '3_41': ViewOfTheRomanCampagna,
+  '3_42': HarbourScene,
+  '3_43': ViewOfTivoliAndTheRomanCampagna,
+  '3_44': TheWesternRailwayLeavingParis,
+  '3_45': LandscapeWithAmusician,
+  '3_46': EdgeOfAwood,
+  '3_47': AnExtensiveWoodedLandscapeWithTravellersOnApath,
+  '3_48': WoodedLandscape,
+  '3_49': TheDelftCityWallWithTheHouttuinen,
+  '3_50': RiverAndLandscape,
+  '3_51': ViewOfKillarney,
+  '3_52': LandscapeWithWaterfallAndFarm,
+  '3_53': WinterLandscape,
+  '3_54': CoastalSceneWithRestingRiders,
+  '3_55': ItalianateLandscapeWithAriverAndAnArchedBridge,
+  '3_56': ItalianateLandscapeWithPeasantsAndAnimalsFordingAriver,
+  '3_57': LandscapeWithFrozenRiver,
+  '3_58': IceLandscape,
+  '3_59': ArabsOnHorseback,
+  '3_60': ShipsInDistressOffArockyCoast,
 };

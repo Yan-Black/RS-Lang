@@ -4,7 +4,7 @@ import Main from 'components/Main';
 import './index.scss';
 
 const App: React.FC = () => (
-  <div className="app">
+  <div>
     <Authorization />
     <Main />
   </div>

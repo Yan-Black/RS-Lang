@@ -3,10 +3,10 @@ import { useSelector } from 'react-redux';
 import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
 import { State } from 'models/state';
-import { InitialStateStatisticInfo } from 'containers/Games/EnglishPuzzle/Models';
+import { InitialStateStatisticInfo } from 'containers/Games/EnglishPuzzle/GameBlock/GameBoard/Statistic/models';
+import { StatisticProps } from 'components/Games/EnglishPuzzle/models';
 import ContinueBtn from '../HelpButtons/ContinueBut';
 import './index.scss';
-import { StatisticProps } from '../Models';
 
 const Statistic: React.FC<StatisticProps> = ({
   wordsToApply, setDragging, setCheckedStateToCards,
@@ -20,10 +20,10 @@ const Statistic: React.FC<StatisticProps> = ({
       <div className="eng-puzzle-statistic">
         <div className="eng-puzzle-statistic-content">
           <Accordion>
-            {statInfo.playedDates.map((date, i) => (
-              <Card key={date}>
+            {statInfo.playedDates.map((info, i) => (
+              <Card key={info.date}>
                 <Accordion.Toggle as={Card.Header} eventKey={`${i}`}>
-                  {date}
+                  {info.date}
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey={`${i}`}>
                   <Card.Body>
@@ -35,13 +35,13 @@ const Statistic: React.FC<StatisticProps> = ({
                           <th>Success:</th>
                           <th>Failed:</th>
                         </tr>
-                        {statInfo.playedTimes.map((info, idx) => (
-                          info.date === statInfo.playedDates[i] ? (
-                            <tr key={info.time}>
-                              <td>{statInfo.playedTimes[idx].time}</td>
-                              <td>{statInfo.playedLevels[idx].level}</td>
-                              <td>{statInfo.success[idx].success}</td>
-                              <td>{statInfo.failed[idx].failed}</td>
+                        {statInfo.playedTimes.map((stat, idx) => (
+                          stat.date === statInfo.playedDates[i].date ? (
+                            <tr key={stat.payload}>
+                              <td>{statInfo.playedTimes[idx].payload}</td>
+                              <td>{statInfo.playedLevels[idx].payload}</td>
+                              <td>{statInfo.success[idx].payload}</td>
+                              <td>{statInfo.failed[idx].payload}</td>
                             </tr>
                           ) : (null)
                         ))}

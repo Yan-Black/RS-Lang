@@ -3,13 +3,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVolumeUp } from '@fortawesome/free-solid-svg-icons';
 import { State } from 'models/state';
-import { speakerEnable, speakerDisable } from 'containers/Games/EnglishPuzzle/HintButtons/actions';
-import { SavedResult } from 'containers/Games/EnglishPuzzle/Models';
+import { speakerEnable, speakerDisable } from 'containers/Games/EnglishPuzzle/HeaderBlock/HintButtons/actions';
+import { SavedResult } from 'containers/Games/EnglishPuzzle/GameBlock/GameBoard/Results/models';
+import { ResultsProps } from 'components/Games/EnglishPuzzle/models';
+import { pronounceAudio } from 'components/Games/EnglishPuzzle/Constants';
 import ContinueBtn from '../HelpButtons/ContinueBut';
 import StatisticBtn from '../HelpButtons/StatisticBut';
-import { pronounceAudio } from '../../Constants';
 import './index.scss';
-import { ResultsProps } from '../Models';
 
 const Results: React.FC<ResultsProps> = ({
   back, description, setCheckedStateToCards,

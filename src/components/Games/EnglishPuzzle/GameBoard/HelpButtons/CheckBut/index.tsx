@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { enableContinueBtn, enableDontKnowBtn } from 'containers/Games/EnglishPuzzle/GameBoard/HelpButtons/actions';
+import { State } from 'models/state';
+import { enableContinueBtn, enableDontKnowBtn } from 'containers/Games/EnglishPuzzle/GameBlock/GameBoard/HelpButtons/actions';
 import {
   audioEnabled, translateEnable, backgroundEnable, speakerEnable, speakerDisable,
-} from 'containers/Games/EnglishPuzzle/HintButtons/actions';
-import { State } from 'models/state';
+} from 'containers/Games/EnglishPuzzle/HeaderBlock/HintButtons/actions';
+import { addSuccess } from 'containers/Games/EnglishPuzzle/GameBlock/GameBoard/Results/actions';
+import { CheckBtnProps } from 'components/Games/EnglishPuzzle/models';
+import { pronounceAudio } from 'components/Games/EnglishPuzzle/Constants';
 import '../index.scss';
-import { addSuccess } from 'containers/Games/EnglishPuzzle/GameBoard/Results/actions';
-import { CheckBtnProps } from '../../Models';
-import { pronounceAudio } from '../../../Constants';
 
 const CheckBtn: React.FC<CheckBtnProps> = ({
   setCheckedStateToCards, wordsToApply, wordsToCheck, setDragging, phrase, learningWord,
@@ -27,7 +27,7 @@ const CheckBtn: React.FC<CheckBtnProps> = ({
       dispatch(translateEnable());
       dispatch(backgroundEnable());
       dispatch(enableContinueBtn());
-      dispatch(addSuccess({sentence: phraseToSpeak.join(' '), learning: learningWord}));
+      dispatch(addSuccess({ sentence: phraseToSpeak.join(' '), learning: learningWord }));
       pronounceAudio(true, phraseToSpeak.join(' '), dispatch, speakerEnable, speakerDisable);
       setCheckedStateToCards(checkedCssState.fill('start-word true', 0, checkedCssState.length));
     } else {

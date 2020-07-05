@@ -3,16 +3,15 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { State } from 'models/state';
-import { enableCheckBtn, enableDontKnowBtn } from 'containers/Games/EnglishPuzzle/GameBoard/HelpButtons/actions';
-import { reorder, move, shuffle } from '../Constants';
+import { enableCheckBtn, enableDontKnowBtn } from 'containers/Games/EnglishPuzzle/GameBlock/GameBoard/HelpButtons/actions';
+import { BoardProps, Card } from 'components/Games/EnglishPuzzle/models';
+import { reorder, move, shuffle } from 'components/Games/EnglishPuzzle/Constants';
 import HelpButtons from './HelpButtons';
 import Results from './Results';
 import Statistic from './Statistic';
-import './index.scss';
-import { Card } from '../GameBlock/types';
 import DroppableBoard from './DroppableBoard';
 import DroppableBase from './DroppableBase';
-import { BoardProps } from './Models';
+import './index.scss';
 
 const GameBoard: React.FC<BoardProps> = ({ gameData, background, description }) => {
   const rows = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -34,6 +33,10 @@ const GameBoard: React.FC<BoardProps> = ({ gameData, background, description }) 
   const [basicStyle, setBasicStyle] = useState(basicStyleCards);
   const [backImg, setBackImg] = useState(background);
   const [state, setState] = useState(wordsMap);
+  const canvasSizes = {
+    width: 972.8,
+    height: 480,
+  };
 
   useEffect(() => {
     const shuffledArr = shuffle(wordsMap.selected);
@@ -151,7 +154,7 @@ const GameBoard: React.FC<BoardProps> = ({ gameData, background, description }) 
           className={isSolved ? 'canvas' : 'canvas cover'}
           style={{
             backgroundImage: `url(${backImg})`,
-            backgroundSize: `${972.8}px ${480}px`,
+            backgroundSize: `${canvasSizes.width}px ${canvasSizes.height}px`,
           }}
         >
           {rows.map((row, i) => (
@@ -184,7 +187,7 @@ const GameBoard: React.FC<BoardProps> = ({ gameData, background, description }) 
                           className={isSolved ? 'start-word hide' : 'start-word'}
                           style={{
                             backgroundImage: `url(${backImg})`,
-                            backgroundSize: `${972.8}px ${480}px`,
+                            backgroundSize: `${canvasSizes.width}px ${canvasSizes.height}px`,
                             backgroundPositionY: `${yOffset[row - 1]}%`,
                             backgroundPositionX: `-${xOffset[row - 1][index]}px`,
                           }}

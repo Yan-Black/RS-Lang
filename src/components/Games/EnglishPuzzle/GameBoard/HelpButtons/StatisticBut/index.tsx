@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { disableStatisticBtn } from 'containers/Games/EnglishPuzzle/GameBoard/HelpButtons/actions';
+import { disableStatisticBtn } from 'containers/Games/EnglishPuzzle/GameBlock/GameBoard/HelpButtons/actions';
 import { State } from 'models/state';
 import '../index.scss';
-import { openStatistic } from 'containers/Games/EnglishPuzzle/GameBoard/Statistic/actions';
-import { closeResults } from 'containers/Games/EnglishPuzzle/GameBoard/Results/actions';
+import { openStatistic } from 'containers/Games/EnglishPuzzle/GameBlock/GameBoard/Statistic/actions';
+import { closeResults } from 'containers/Games/EnglishPuzzle/GameBlock/GameBoard/Results/actions';
 
 const StatisticBtn: React.FC = () => {
   const statisticBtnState = useSelector((state: State) => state.engPuzzleControlBtns.statisticBtn);

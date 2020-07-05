@@ -4,13 +4,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMusic } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from 'models';
-import { speakerEnable, speakerDisable } from 'containers/Games/EnglishPuzzle/HintButtons/actions';
+import { speakerEnable, speakerDisable } from 'containers/Games/EnglishPuzzle/HeaderBlock/HintButtons/actions';
+import { AudioBtnProps } from '../../models';
 
-interface Props {
-  phrase: string;
-}
-
-const Audio: React.FC<Props> = ({ phrase }) => {
+const Audio: React.FC<AudioBtnProps> = ({ phrase }) => {
   const audioBtnState = useSelector((state: State) => state.engPuzzleBtns.audioHintActive);
   const dispatch = useDispatch();
   const audioBtnStyle = audioBtnState ? 'hint-button' : 'hint-button off';

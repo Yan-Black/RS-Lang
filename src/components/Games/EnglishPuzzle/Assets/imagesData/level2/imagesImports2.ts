@@ -39,10 +39,6 @@ import ArabsOnHorseback from '../../level2/cut/2_38.jpg';
 import ShipsInDistressOffArockyCoast from '../../level2/cut/2_39.jpg';
 import AfishingPink from '../../level2/cut/2_40.jpg';
 import ShippingByTheDutchCoast from '../../level2/cut/2_41.jpg';
-import ViewFromTheNieuweMaasRiverTowardsTheCityOfVlaardingen from '../../level1/cut/fishing.jpg';
-import DutchVesselsOffAcoastlineOnAbreezyDay from '../../level1/cut/shipping_1.jpg';
-import WinterAndlandscape from '../../level1/cut/viewvlaa.jpg';
-import Cypresses from '../../level1/cut/vessels1.jpg';
 
 export const levelTwoDatabase = {
   '2_01': StagHunt,
@@ -86,23 +82,23 @@ export const levelTwoDatabase = {
   '2_39': ShipsInDistressOffArockyCoast,
   '2_40': AfishingPink,
   '2_41': ShippingByTheDutchCoast,
-  '1_42': ViewFromTheNieuweMaasRiverTowardsTheCityOfVlaardingen,
-  '1_43': DutchVesselsOffAcoastlineOnAbreezyDay,
-  '1_44': WinterAndlandscape,
-  '1_45': Cypresses,
-  '1_46': ItalianateLandscapeWithPeasantsAndAnimalsFordingAriver,
-  '1_47': ItalianateLandscapeWithPeasantsAndAnimalsFordingAriver,
-  '1_48': LandscapeWithFrozenRiver,
-  '1_49': ArabsOnHorseback,
-  '1_50': ViewFromTheNieuweMaasRiverTowardsTheCityOfVlaardingen,
-  '1_51': Cypresses,
-  '1_52': LandscapeWithFrozenRiver,
-  '1_53': CoastalSceneWithRestingRiders,
-  '1_54': WoodedLandscape,
-  '1_55': TheWesternRailwayLeavingParis,
-  '1_56': LandscapeWithAmusician,
-  '1_57': EdgeOfAwood,
-  '1_58': AnExtensiveWoodedLandscapeWithTravellersOnApath,
-  '1_59': TheDelftCityWallWithTheHouttuinen,
-  '1_60': RiverAndLandscape,
+  '2_42': TheWesternRailwayLeavingParis,
+  '2_43': LandscapeWithAmusician,
+  '2_44': EdgeOfAwood,
+  '2_45': AnExtensiveWoodedLandscapeWithTravellersOnApath,
+  '2_46': WoodedLandscape,
+  '2_47': TheDelftCityWallWithTheHouttuinen,
+  '2_48': RiverAndLandscape,
+  '2_49': ViewOfKillarney,
+  '2_50': LandscapeWithWaterfallAndFarm,
+  '2_51': WinterLandscape,
+  '2_52': CoastalSceneWithRestingRiders,
+  '2_53': ItalianateLandscapeWithAriverAndAnArchedBridge,
+  '2_54': ItalianateLandscapeWithPeasantsAndAnimalsFordingAriver,
+  '2_55': LandscapeWithFrozenRiver,
+  '2_56': IceLandscape,
+  '2_57': ArabsOnHorseback,
+  '2_58': ShipsInDistressOffArockyCoast,
+  '2_59': AfishingPink,
+  '2_60': ShippingByTheDutchCoast,
 };
