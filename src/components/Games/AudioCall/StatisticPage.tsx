@@ -4,9 +4,9 @@ import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { State } from 'models';
+import { Json } from 'containers/Games/AudioCall/models';
 import { startPage, resetCurrStatistic } from '../../../containers/Games/AudioCall/actions';
 import StatisticItem from './StatisticItem';
-import { Json } from './utils';
 import backgroundImage from '../../../assets/pattern-369543.svg';
 
 function StatisticPage(): JSX.Element {

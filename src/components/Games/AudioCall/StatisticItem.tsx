@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import * as React from 'react';
-import { Json } from './utils';
+import { Json } from 'containers/Games/AudioCall/models';
 
 function StatisticItem(currWord: {item: Json}): JSX.Element {
   if (!currWord) {

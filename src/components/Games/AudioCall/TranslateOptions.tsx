@@ -6,7 +6,8 @@ import { State } from 'models';
 import {
   correctAnswer, wrongAnswer, checkAnswer, progressGame, knowWords, notKnowWords,
 } from 'containers/Games/AudioCall/actions';
-import { playSound, Json } from './utils';
+import { Json } from 'containers/Games/AudioCall/models';
+import { playSound } from './utils';
 
 function TranslateOptions(): JSX.Element {
   const dispatch = useDispatch();

@@ -41,3 +41,48 @@ export namespace ActionCreator {
   export type ResetCurrStatistic = () => Action.ResetCurrStatistic;
   export type ToggleModal = (messageType: string) => Action.ToggleModal;
 }
+
+export interface Json {
+  audio: string,
+  audioExample: string,
+  audioMeaning: string,
+  group: number,
+  id: string,
+  image: string,
+  page: number,
+  textExample: string,
+  textExampleTranslate: string,
+  textMeaning: string,
+  textMeaningTranslate: string,
+  transcription: string,
+  word: string,
+  wordTranslate: string,
+  wordsPerExampleSentence: number,
+  translateOptions: string[],
+}
+
+export interface WordsFromAPI {
+  id: number,
+  text: string,
+  meanings: Array<unknown>
+}
+
+export interface WordInfo {
+  alternativeTranslations: Array<unknown>
+  definition: {text: string, soundUrl: string}
+  difficultyLevel: number
+  examples: Array<unknown>
+  id: string
+  images: Array<unknown>
+  meaningsWithSimilarTranslation: Array<unknown>
+  mnemonics: null
+  partOfSpeechCode: string
+  prefix: string
+  properties: unknown
+  soundUrl: string
+  text: string
+  transcription: string
+  translation: {text: string, note: string}
+  updatedAt: string
+  wordId: number
+}
