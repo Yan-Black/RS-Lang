@@ -1,5 +1,5 @@
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .start-words {
@@ -52,11 +52,11 @@
 }
 
 .description-disabled {
-    visibility: hidden;
+  visibility: hidden;
 }
 
 .cover {
-    background-image: none !important;
+  background-image: none !important;
 }
 
 .hide {
@@ -67,9 +67,9 @@
 }
 
 @keyframes hide {
-    from {
-        opacity: 1;
-    } to {
-        opacity: 0;
-    }
+  from {
+      opacity: 1;
+  } to {
+      opacity: 0;
+  }
 }
