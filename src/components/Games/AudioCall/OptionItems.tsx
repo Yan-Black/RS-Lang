@@ -1,12 +1,10 @@
 import * as React from 'react';
 import { useDispatch } from 'react-redux';
-// import { State } from 'models';
 import { lvl, rnd } from 'containers/Games/AudioCall/actions';
 import Option from './Option';
 
 interface Options {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  options: any[],
+  options: Array<number>,
   currLvl: string,
   isLevelOption: boolean,
 }
@@ -14,9 +12,6 @@ interface Options {
 function OptionItems({ options, currLvl, isLevelOption }: Options): JSX.Element {
   const dispatch = useDispatch();
   const actionToDispatch = isLevelOption ? lvl : rnd;
-  // const page = useSelector((state: State) => state.audioCallPage);
-  // const level = useSelector((state: State) => state.audioCallLevel);
-  // const round = useSelector((state: State) => state.audioCallRound);
 
   // eslint-disable-next-line max-len
   const selectChangeHandler = (event: React.ChangeEvent<HTMLSelectElement>) => dispatch(actionToDispatch(event.currentTarget.value));

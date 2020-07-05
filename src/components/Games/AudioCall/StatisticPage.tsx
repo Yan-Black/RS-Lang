@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -30,9 +31,7 @@ function StatisticPage(): JSX.Element {
   }
 
   const dispatch = useDispatch();
-  // eslint-disable-next-line max-len
   const knowWords: Array<Json> = useSelector((state: State) => state.audioCallStatistic.correctAnswers);
-  // eslint-disable-next-line max-len
   const notKnowWords: Array<Json> = useSelector((state: State) => state.audioCallStatistic.wrongAnswers);
   const statisticTitle = getTitle(knowWords.length, notKnowWords.length);
   const btnClickHandler = () => {
@@ -51,7 +50,7 @@ function StatisticPage(): JSX.Element {
               {notKnowWords.length}
             </p>
             {
-              notKnowWords.map((word) => <StatisticItem currWord={word} key={word.word} />)
+              notKnowWords.map((word) => <StatisticItem item={word} key={word.word} />)
             }
           </div>
           <div className="d-flex bg-light text-dark flex-column">
@@ -59,7 +58,7 @@ function StatisticPage(): JSX.Element {
               ЗНАЮ:&nbsp;
               {knowWords.length}
             </p>
-            { knowWords.map((word) => <StatisticItem currWord={word} key={word.word} />)}
+            { knowWords.map((word) => <StatisticItem item={word} key={word.word} />)}
           </div>
         </div>
         <div className="d-flex bg-light justify-content-center mt-5">

@@ -2,17 +2,13 @@
 import * as Models from 'models';
 import { Json } from 'components/Games/AudioCall/utils';
 import { ActionType } from './constants';
-// import { knowWords } from './actions';
 
 const initialState = {
   page: 'START_PAGE',
   level: '1',
   round: '1',
-  // vocabWords: [],
-  // fetchedWords: [],
   currentWords: [],
   translateOptions: [],
-  // isOpen: false,
 };
 
 interface ModalInitState {
@@ -68,7 +64,6 @@ const modalReducer: Models.Reducer<unknown> = (state: ModalInitState = modalInit
   }
 };
 
-// eslint-disable-next-line max-len
 const pageReducer: Models.Reducer<unknown> = (state = initialState.page, { type /* payload */ }) => {
   switch (type) {
     case ActionType.START_PAGE:
@@ -100,7 +95,6 @@ const roundReducer: Models.Reducer<unknown> = (state = initialState.round, { typ
   }
 };
 
-// eslint-disable-next-line max-len
 const currWordsReducer: Models.Reducer<unknown> = (state = initialState.currentWords, { type, payload }) => {
   switch (type) {
     case ActionType.INIT_WORDS:
@@ -116,7 +110,6 @@ const answerReducer: Models.Reducer<unknown> = (state: AnswerInitState = answerI
   switch (type) {
     case ActionType.CHECK_ANSWER:
       return {
-        // eslint-disable-next-line max-len
         ...state, isChecked: !state.isChecked, isCorrect: false, isWrong: false, selectedWord: payload,
       };
     case ActionType.CORRECT_ANSWER:

@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable max-len */
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -23,13 +22,10 @@ function StartPage(): JSX.Element {
   const [isLoading, setIsLoading] = useState(false);
 
   const loaderClass = isLoading ? 'visible position-absolute' : 'invisible';
-  // let modalMessage = 'exit';
 
   const exitClickHandler = () => { dispatch(toggleModal('exit')); };
   const btnMyWordsClickHandler = () => {
     dispatch(gamePage());
-    // const translateOption = await getTranslates('sharp', 'острый');
-    // console.log(translateOption);
   };
   const btnFreeGameClickHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     setIsLoading(true);
@@ -38,12 +34,10 @@ function StartPage(): JSX.Element {
       const jsonObj: Array<Json> = await getWordsForGame(level, round);
       const wordsList = round % 2 === 0 ? jsonObj.slice(0, 10) : jsonObj.slice(10);
       const gameData = await getTranslateOptions(wordsList);
-      // console.log(gameData);
       dispatch(fetchWords(gameData));
       setIsLoading(false);
       dispatch(gamePage());
     } catch (err) {
-      // console.log(err);
       setIsLoading(false);
       dispatch(toggleModal('error'));
     }
@@ -64,8 +58,7 @@ function StartPage(): JSX.Element {
         </div>
       </div>
       <div className="p-4 mb-2 text-right">
-        <i className="fas fa-times text-white" style={{ cursor: 'pointer' }} role="button" tabIndex={0} onClick={exitClickHandler} onKeyPress={keyPressHandler} />
-        {/* <Link to="/Main" onClick={exitClickHandler}><i className="fas fa-times text-white" /></Link> */}
+        <i className="fas fa-times text-white" style={{ cursor: 'pointer' }} role="button" aria-label="Times icon" tabIndex={0} onClick={exitClickHandler} onKeyPress={keyPressHandler} />
       </div>
       <div className="d-flex flex-column justify-content-center px-3" style={{ height: '70%' }}>
         <h1 className="mb-5">АУДИОВЫЗОВ</h1>
