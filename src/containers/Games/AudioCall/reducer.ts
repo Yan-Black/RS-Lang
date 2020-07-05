@@ -1,6 +1,6 @@
 import * as Models from 'models';
-import { Json } from 'components/Games/AudioCall/utils';
 import { ActionType } from './constants';
+import { ModalInitState, AnswerInitState, StatisticInitState } from './models';
 
 const initialState = {
   page: 'START_PAGE',
@@ -10,26 +10,11 @@ const initialState = {
   translateOptions: [],
 };
 
-interface ModalInitState {
-  isOpen: boolean,
-  title: string,
-  message: string,
-}
-
 const modalInitState = <ModalInitState> {
   isOpen: false,
   title: '',
   message: '',
 };
-
-interface AnswerInitState {
-  btnTitle: string,
-  selectedWord: string,
-  isChecked: boolean,
-  isCorrect: boolean,
-  isWrong: boolean,
-  progress: number,
-}
 
 const answerInitState = <AnswerInitState> {
   btnTitle: ' НЕ ЗНАЮ',
@@ -39,11 +24,6 @@ const answerInitState = <AnswerInitState> {
   isWrong: false,
   progress: 0,
 };
-
-interface StatisticInitState {
-  wrongAnswers: Array<Json>,
-  correctAnswers: Array<Json>,
-}
 
 const statisticInitState = <StatisticInitState> {
   wrongAnswers: [],

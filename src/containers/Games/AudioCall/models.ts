@@ -86,3 +86,23 @@ export interface WordInfo {
   updatedAt: string
   wordId: number
 }
+
+export interface ModalInitState {
+  isOpen: boolean,
+  title: string,
+  message: string,
+}
+
+export interface AnswerInitState {
+  btnTitle: string,
+  selectedWord: string,
+  isChecked: boolean,
+  isCorrect: boolean,
+  isWrong: boolean,
+  progress: number,
+}
+
+export interface StatisticInitState {
+  wrongAnswers: Array<Json>,
+  correctAnswers: Array<Json>,
+}
