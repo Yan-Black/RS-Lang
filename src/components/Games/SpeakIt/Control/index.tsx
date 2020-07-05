@@ -12,7 +12,7 @@ import { State } from '../../../../models/state';
 import { mistake, resetStatistics } from '../../../../containers/Games/SpeakIt/FetchGroup/actions';
 import { activeWord } from '../../../../containers/Games/SpeakIt/CardsGroup/actions';
 
-const Control = () => {
+const Control = (): JSX.Element => {
   const dispatch = useDispatch();
   const game = useSelector((state: State) => state.speakItButtons.startGame);
   const gameWord = useSelector((state: State) => state.speakItButtons.gameWord);

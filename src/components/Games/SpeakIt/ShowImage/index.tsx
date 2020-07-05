@@ -4,7 +4,7 @@ import './index.scss';
 import { useSelector } from 'react-redux';
 import { State } from '../../../../models/state';
 
-const ShowImage = () => {
+const ShowImage = (): JSX.Element => {
   const background = useSelector((state: State) => state.speakItFetch.background);
   const translate = useSelector((state: State) => state.speakItFetch.translate);
 

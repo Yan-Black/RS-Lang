@@ -8,7 +8,7 @@ import { State } from '../../../../models/state';
 import { nextCard } from '../../../../containers/Games/SpeakIt/ControlButtons/actions';
 import { win } from '../../../../containers/Games/SpeakIt/FetchGroup/actions';
 
-const Cards = () => {
+const Cards = (): JSX.Element => {
   const dispatch = useDispatch();
   const statistics = useSelector((state: State) => state.speakItFetch.statistics);
   const game = useSelector((state: State) => state.speakItButtons.startGame);

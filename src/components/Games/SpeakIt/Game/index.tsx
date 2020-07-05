@@ -11,7 +11,7 @@ import Control from '../Control';
 import Result from '../Result';
 import { State } from '../../../../models/state';
 
-const Game = () => {
+const Game = (): JSX.Element => {
   const result = useSelector((state: State) => state.speakItButtons.result);
   return (
     <Container className="speakit-app">

@@ -22,10 +22,10 @@ const SpeakIt = () : JSX.Element => {
     <div>
       {game
         ? (
-          <Game/>
+          <Game />
         )
         : (
-          <Container className="text-center intro" fluid >
+          <Container className="text-center intro" fluid>
             <Row style={{ position: 'relative', top: '30%' }}>
               <Col>
                 <h2 className="title">SPEAKIT</h2>

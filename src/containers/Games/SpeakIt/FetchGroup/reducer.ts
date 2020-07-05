@@ -6,7 +6,7 @@ import {
   MISTAKE,
   RESET_STATISTICS,
   TRANSLATE_WORD,
-  WIN
+  WIN,
 } from './types';
 
 interface FetchedWordData {
@@ -48,17 +48,28 @@ const fetchReducer = (state = initialState, action): InitialStateWords => {
     case FETCH_WORDS:
       return update(state, { dataWords: { $set: action.payload } });
     case TRANSLATE_WORD:
-      return {...state, translate: action.payload}
+      return { ...state, translate: action.payload };
     case BACKGROUND_WORD:
-      return  {...state, background: action.payload}
+      return { ...state, background: action.payload };
     case INIT_WORD_STATISTICS:
       return update(state, { statistics: { $set: action.payload } });
     case RESET_STATISTICS:
-      return {...state, statistics: state.statistics.map(el => el = {...el, win: false, mistake: false})}
+      return {
+        ...state,
+        statistics: state.statistics.map((el) => ({ ...el, win: false, mistake: false })),
+      };
     case WIN:
-      return {...state, statistics: state.statistics.map((el, index) => el.word === action.payload ? {...el, win: true} : el) }
+      return {
+        ...state,
+        statistics: state.statistics.map((el) => (el.word === action.payload
+          ? { ...el, win: true } : el)),
+      };
     case MISTAKE:
-      return {...state, statistics: state.statistics.map((el, index) => el.word === action.payload ? {...el, mistake: true} : el) }
+      return {
+        ...state,
+        statistics: state.statistics.map((el) => (el.word === action.payload
+          ? { ...el, mistake: true } : el)),
+      };
     default:
       return state;
   }

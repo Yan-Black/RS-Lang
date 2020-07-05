@@ -12,8 +12,8 @@ import { resetGame, resultGame, selectedWord } from '../../../../containers/Game
 
 const Card = ({ data, index, next }) => {
   const dispatch = useDispatch();
-  const pagination = useSelector((state: State) => state.speakItButtons.pagination);
-  const game = useSelector((state: State) => state.speakItButtons.startGame);
+  const pagination :number = useSelector((state: State) => state.speakItButtons.pagination);
+  const game :boolean = useSelector((state: State) => state.speakItButtons.startGame);
 
   useEffect(() => {
     if (pagination > 9) {
@@ -28,8 +28,9 @@ const Card = ({ data, index, next }) => {
 
   const active = useSelector((state: State) => state.speakItWord.activeWord);
   const statistics = useSelector((state: State) => state.speakItFetch.statistics);
-  const winCard = statistics.find((elem) => elem.word === data.word).win;
-  const mistakeCard = statistics.find((elem) => elem.word === data.word).mistake;
+
+  const winCard :boolean = statistics.find((elem) => elem.word === data.word).win;
+  const mistakeCard :boolean = statistics.find((elem) => elem.word === data.word).mistake;
 
   const cardData = () => {
     dispatch(activeWord(index));
