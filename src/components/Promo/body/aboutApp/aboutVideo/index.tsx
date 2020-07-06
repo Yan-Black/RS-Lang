@@ -6,9 +6,9 @@ interface Props {
   videoLink
 }
 
-const DemoVideo: React.FC<Props> = (videoLink) => (
+const DemoVideo: React.FC<Props> = ({ videoLink }) => (
   <div className="player-wrapper">
-    <ReactPlayer url={videoLink.videoLink} />
+    <ReactPlayer url={videoLink} />
   </div>
 );
 

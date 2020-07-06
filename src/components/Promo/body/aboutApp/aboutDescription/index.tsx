@@ -1,33 +1,33 @@
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import * as React from 'react';
-import GameTab from './gamesAbout/gameTab';
+import GameTab from './gamesAbout';
 import './index.scss';
 
 interface Props {
   tabsInfo
 }
 
-const DescriptionTabsContainer: React.FC<Props> = (tabsProps) => (
+const DescriptionTabsContainer: React.FC<Props> = ({ tabsInfo }) => (
   <div className="game-tab-wrapper">
     <Tabs defaultActiveKey="home" id="uncontrolled-tab-example">
       <Tab eventKey="home" title="Overview">
-        <GameTab tabInfo={tabsProps.tabsInfo.overview} />
+        <GameTab tabInfo={tabsInfo.overview} />
       </Tab>
       <Tab eventKey="Audio Call" title="AudioCall">
-        <GameTab tabInfo={tabsProps.tabsInfo.audioCall} />
+        <GameTab tabInfo={tabsInfo.audioCall} />
       </Tab>
       <Tab eventKey="English Puzzle" title="EnglishPuzzle">
-        <GameTab tabInfo={tabsProps.tabsInfo.englishBricks} />
+        <GameTab tabInfo={tabsInfo.englishBricks} />
       </Tab>
       <Tab eventKey="Savannah" title="Savannah">
-        <GameTab tabInfo={tabsProps.tabsInfo.savannah} />
+        <GameTab tabInfo={tabsInfo.savannah} />
       </Tab>
       <Tab eventKey="Speak it" title="SpeakIt">
-        <GameTab tabInfo={tabsProps.tabsInfo.speakIt} />
+        <GameTab tabInfo={tabsInfo.speakIt} />
       </Tab>
       <Tab eventKey="Sprint" title="Sprint">
-        <GameTab tabInfo={tabsProps.tabsInfo.sprint} />
+        <GameTab tabInfo={tabsInfo.sprint} />
       </Tab>
     </Tabs>
 

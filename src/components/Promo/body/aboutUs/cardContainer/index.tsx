@@ -6,15 +6,15 @@ interface Props {
   devCardSInfo
 }
 
-const CardContainer: React.FC<Props> = (devCards) => (
+const CardContainer: React.FC<Props> = ({ devCardSInfo }) => (
   <div className="card-container">
-    <DevCard cardInfo={devCards.devCardSInfo.artemDrushchyts} />
-    <DevCard cardInfo={devCards.devCardSInfo.lactivka} />
-    <DevCard cardInfo={devCards.devCardSInfo.paxom4ik4} />
-    <DevCard cardInfo={devCards.devCardSInfo.zzh0c} />
-    <DevCard cardInfo={devCards.devCardSInfo.yanBlack} />
-    <DevCard cardInfo={devCards.devCardSInfo.oksanaHulyaeva} />
-    <DevCard cardInfo={devCards.devCardSInfo.ilichka} />
+    <DevCard cardInfo={devCardSInfo.artemDrushchyts} />
+    <DevCard cardInfo={devCardSInfo.lactivka} />
+    <DevCard cardInfo={devCardSInfo.paxom4ik4} />
+    <DevCard cardInfo={devCardSInfo.zzh0c} />
+    <DevCard cardInfo={devCardSInfo.yanBlack} />
+    <DevCard cardInfo={devCardSInfo.oksanaHulyaeva} />
+    <DevCard cardInfo={devCardSInfo.ilichka} />
   </div>
 
 );

@@ -8,10 +8,10 @@ interface Props {
   aboutGames
 }
 
-const AboutApp: React.FC<Props> = (aboutGames) => (
+const AboutApp: React.FC<Props> = ({ aboutGames }) => (
   <div>
-    <DemoVideo videoLink={aboutGames.aboutGames.promoVideoHref} />
-    <DescriptionTabsContainer tabsInfo={aboutGames.aboutGames.gameTabs} />
+    <DemoVideo videoLink={aboutGames.promoVideoHref} />
+    <DescriptionTabsContainer tabsInfo={aboutGames.gameTabs} />
   </div>
 
 );

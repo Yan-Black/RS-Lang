@@ -7,13 +7,13 @@ interface Props {
   cardInfo
 }
 
-const DevCard: React.FC<Props> = (info) => (
+const DevCard: React.FC<Props> = ({ cardInfo }) => (
   <Card className="dev-card">
-    <Card.Img variant="top" src={info.cardInfo.imagePath} />
+    <Card.Img variant="top" src={cardInfo.imagePath} />
     <Card.Body>
-      <Card.Title>{info.cardInfo.name}</Card.Title>
-      <Card.Text>{info.cardInfo.text}</Card.Text>
-      <Button variant="light" href={info.cardInfo.linkToGit}>Git</Button>
+      <Card.Title>{cardInfo.name}</Card.Title>
+      <Card.Text>{cardInfo.text}</Card.Text>
+      <Button variant="light" href={cardInfo.linkToGit}>Git</Button>
     </Card.Body>
   </Card>
 );
