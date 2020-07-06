@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVolumeUp } from '@fortawesome/free-solid-svg-icons';
-import { State } from 'models/state';
+import { State } from 'models';
 import { speakerEnable, speakerDisable } from 'containers/Games/EnglishPuzzle/HeaderBlock/HintButtons/actions';
 import { SavedResult } from 'containers/Games/EnglishPuzzle/GameBlock/GameBoard/Results/models';
 import { ResultsProps } from 'components/Games/EnglishPuzzle/models';

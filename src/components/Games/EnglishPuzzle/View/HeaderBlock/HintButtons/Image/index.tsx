@@ -10,7 +10,7 @@ const Image: React.FC = () => {
   const backBtnState = useSelector((state: State) => state.engPuzzleBtns.backgroundHintActive);
   const speakerBtnState = useSelector((state: State) => state.engPuzzleBtns.audioHintActive);
   const translateBtnState = useSelector((state: State) => state.engPuzzleBtns.translateHintActive);
-  const initialBtnsState = { ...JSON.parse(localStorage.getItem('hintsState')) };
+  const initialBtnsState = JSON.parse(localStorage.getItem('hintsState'));
   const stateSwitcher = () => {
     if (backBtnState) {
       dispatch(backgroundDisable());

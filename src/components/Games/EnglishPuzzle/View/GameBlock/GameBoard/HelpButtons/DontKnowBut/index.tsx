@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { enableContinueBtn } from 'containers/Games/EnglishPuzzle/GameBlock/GameBoard/HelpButtons/actions';
-import { State } from 'models/state';
-import '../index.scss';
+import { State } from 'models';
 import {
   audioEnabled, translateEnable, backgroundEnable, speakerEnable, speakerDisable,
 } from 'containers/Games/EnglishPuzzle/HeaderBlock/HintButtons/actions';
@@ -20,7 +19,7 @@ const DontKnowBtn: React.FC<DontKnowBtnProps> = ({
   const pushWordsToBoard = () => {
     onClickFn();
     setDragging(true);
-    setCheckedStateToCards(new Array(length).fill('eng-puzzle-start-word eng-puzzle-true', 0, length));
+    setCheckedStateToCards(new Array(length).fill('eng-puzzle-start-word eng-puzzle-true'));
     dispatch(audioEnabled());
     dispatch(translateEnable());
     dispatch(backgroundEnable());

@@ -5,7 +5,7 @@ import { faMusic } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from 'models';
 import { speakerEnable, speakerDisable } from 'containers/Games/EnglishPuzzle/HeaderBlock/HintButtons/actions';
-import { AudioBtnProps } from '../../../../models';
+import { AudioBtnProps } from 'components/Games/EnglishPuzzle/models';
 
 const Audio: React.FC<AudioBtnProps> = ({ phrase }) => {
   const audioBtnState = useSelector((state: State) => state.engPuzzleBtns.audioHintActive);

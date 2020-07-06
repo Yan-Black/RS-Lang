@@ -3,7 +3,7 @@ import { Reducer } from 'react';
 import { ActionType } from './constants';
 import { InitialStateIndex } from './models';
 
-const initialState = <InitialStateIndex>{
+const initialState: InitialStateIndex = {
   currentIdx: 0,
 };
 

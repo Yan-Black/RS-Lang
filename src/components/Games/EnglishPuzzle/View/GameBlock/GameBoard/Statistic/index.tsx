@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useSelector } from 'react-redux';
 import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
-import { State } from 'models/state';
+import { State } from 'models';
 import { InitialStateStatisticInfo } from 'containers/Games/EnglishPuzzle/GameBlock/GameBoard/Statistic/models';
 import { StatisticProps } from 'components/Games/EnglishPuzzle/models';
 import ContinueBtn from '../HelpButtons/ContinueBut';

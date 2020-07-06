@@ -2,10 +2,12 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { DragDropContext } from 'react-beautiful-dnd';
-import { State } from 'models/state';
+import { State } from 'models';
 import { enableCheckBtn, enableDontKnowBtn } from 'containers/Games/EnglishPuzzle/GameBlock/GameBoard/HelpButtons/actions';
 import { BoardProps, Card } from 'components/Games/EnglishPuzzle/models';
-import { reorder, move, shuffle } from 'constants/english-puzzle-constants';
+import {
+  reorder, move, shuffle, canvasSizes,
+} from 'constants/english-puzzle-constants';
 import HelpButtons from './HelpButtons';
 import Results from './Results';
 import Statistic from './Statistic';
@@ -29,18 +31,14 @@ const GameBoard: React.FC<BoardProps> = ({ gameData, background, description }) 
   const dispatch = useDispatch();
   const [wordsMap, rowLength, learningWord] = gameData;
   const [isDragPrevented, setDragging] = useState(false);
-  const basicStyleCards = new Array(rowLength).fill('eng-puzzle-start-word', 0, rowLength);
+  const basicStyleCards = new Array(rowLength).fill('eng-puzzle-start-word');
   const [basicStyle, setBasicStyle] = useState(basicStyleCards);
   const [backImg, setBackImg] = useState(background);
   const [state, setState] = useState(wordsMap);
-  const canvasSizes = {
-    width: 972.8,
-    height: 480,
-  };
 
   useEffect(() => {
     const shuffledArr = shuffle(wordsMap.selected);
-    setBasicStyle(new Array(rowLength).fill('eng-puzzle-start-word', 0, rowLength));
+    setBasicStyle(new Array(rowLength).fill('eng-puzzle-start-word'));
     setBackImg(background);
     setState({
       cards: wordsMap.cards,

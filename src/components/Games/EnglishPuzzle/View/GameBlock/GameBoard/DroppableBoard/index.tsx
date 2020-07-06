@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useSelector } from 'react-redux';
-import { State } from 'models/state';
+import { State } from 'models';
 import { Droppable } from 'react-beautiful-dnd';
 import { DroppableProps } from 'components/Games/EnglishPuzzle/models';
 import Word from '../DroppableBase/DraggableWords/Word';

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { disableStatisticBtn } from 'containers/Games/EnglishPuzzle/GameBlock/GameBoard/HelpButtons/actions';
-import { State } from 'models/state';
+import { State } from 'models';
 import { openStatistic } from 'containers/Games/EnglishPuzzle/GameBlock/GameBoard/Statistic/actions';
 import { closeResults } from 'containers/Games/EnglishPuzzle/GameBlock/GameBoard/Results/actions';
 

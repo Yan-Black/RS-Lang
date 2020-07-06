@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVolumeUp } from '@fortawesome/free-solid-svg-icons';
-import { State } from 'models/state';
+import { State } from 'models';
 import { audioEnabled, audioDisabled } from 'containers/Games/EnglishPuzzle/HeaderBlock/HintButtons/actions';
 
 const Speaker: React.FC = () => {
@@ -10,7 +10,7 @@ const Speaker: React.FC = () => {
   const speakerBtnState = useSelector((state: State) => state.engPuzzleBtns.audioHintActive);
   const backBtnState = useSelector((state: State) => state.engPuzzleBtns.backgroundHintActive);
   const translateBtnState = useSelector((state: State) => state.engPuzzleBtns.translateHintActive);
-  const initialBtnsState = { ...JSON.parse(localStorage.getItem('hintsState')) };
+  const initialBtnsState = JSON.parse(localStorage.getItem('hintsState'));
   const stateSwitcher = () => {
     if (speakerBtnState) {
       dispatch(audioDisabled());

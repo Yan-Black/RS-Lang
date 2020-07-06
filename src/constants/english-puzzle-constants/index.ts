@@ -100,9 +100,14 @@ export const pronounceAudio = (
   }
 };
 
+export const canvasSizes = {
+  width: 972.8,
+  height: 480,
+};
+
 export const countXOffsets = (length: number): number[] => {
   const offsetsX = [];
-  const width = 972.8;
+  const { width } = canvasSizes;
   const step = width / length;
   let cardOffset = 0;
   for (let i = 0; i <= length; i++) {

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useSelector } from 'react-redux';
-import { State } from 'models/state';
+import { State } from 'models';
 import { wordsExtractor } from 'constants/english-puzzle-constants';
 import paintings1 from 'constants/english-puzzle-constants/images-imports/level1/levelData/level1';
 import paintings2 from 'constants/english-puzzle-constants/images-imports/level2/levelData/level2';

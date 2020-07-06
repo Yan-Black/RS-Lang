@@ -1,7 +1,3 @@
-* {
-  box-sizing: border-box;
-}
-
 .eng-puzzle-game-board {
   display: flex;
   justify-content: space-between;
@@ -19,11 +15,6 @@
   box-shadow: inset 0px 0px 5px rgba(0,0,0,0.9);
   z-index: 2;
   user-select: none;
-}
-
-.eng-puzzle-cover {
-  background: none;
-  background-color: #b1d2db;
 }
 
 .eng-puzzle-active-sentence {

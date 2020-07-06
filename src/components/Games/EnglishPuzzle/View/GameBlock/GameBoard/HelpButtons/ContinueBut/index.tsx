@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { State } from 'models/state';
+import { State } from 'models';
 import {
   updateCollection, removeCollection, updateOffsetX, removeOffsetX, setToSolved, setToNewGame,
 } from 'containers/Games/EnglishPuzzle/GameBlock/GameBoard/actions';
@@ -39,7 +39,7 @@ const ContinueBtn: React.FC<ContinueBtnProps> = ({
     dispatch(setToInitial());
   };
   const clickHandler = () => {
-    setCheckedStateToCards(new Array(wordsToApply.length).fill('eng-puzzle-start-word', 0, wordsToApply.length));
+    setCheckedStateToCards(new Array(wordsToApply.length).fill('eng-puzzle-start-word'));
     setDragging(false);
     dispatch(setToUserPreferencies());
     if (isSolved || isStatOpen) {

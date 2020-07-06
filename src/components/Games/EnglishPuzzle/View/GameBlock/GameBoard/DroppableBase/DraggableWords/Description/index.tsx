@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useSelector } from 'react-redux';
-import { State } from 'models/state';
+import { State } from 'models';
 import '../index.scss';
 import { DescProps } from 'components/Games/EnglishPuzzle/models';
 

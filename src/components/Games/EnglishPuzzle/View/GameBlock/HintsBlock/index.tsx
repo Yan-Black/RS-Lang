@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVolumeUp, faVolumeMute } from '@fortawesome/free-solid-svg-icons';
-import { State } from 'models/state';
+import { State } from 'models';
 import { translateExtractor } from 'constants/english-puzzle-constants';
 import './index.scss';
 
