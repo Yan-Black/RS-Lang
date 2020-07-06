@@ -55,6 +55,7 @@ function TranslateOptions(): JSX.Element {
       const isAnswerCorrect = event.currentTarget.id === targetTranslate;
       const sound = isAnswerCorrect ? 'correct' : 'error';
       const funcToDispatch = isAnswerCorrect ? knowWords : notKnowWords;
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       playSound(sound);
       dispatch(funcToDispatch(currWords[currActiveId]));
       dispatch(checkAnswer(event.currentTarget.id));

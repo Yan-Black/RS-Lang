@@ -28,7 +28,7 @@ const config: webpack.Configuration = {
         ],
       },
       {
-        test: /\.(svg|ogg|mp3|wav|mpe?g)$/,
+        test: /\.(png|jpe?g|gif|svg|ogg|mp3|wav|mpe?g)$/i,
         use: [
           {
             loader: 'file-loader',

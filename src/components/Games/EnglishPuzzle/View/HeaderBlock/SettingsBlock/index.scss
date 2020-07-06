@@ -1,0 +1,28 @@
+.english-puzzle-settings, .english-puzzle-settings-group, .english-puzzle-settings-page {
+  display: flex;
+  justify-content: space-between;
+}
+
+.english-puzzle-settings {
+  width: 20%;
+  font-size: 1vw;
+}
+
+.english-puzzle-settings-group, .english-puzzle-settings-page {
+  display: flex;
+  width: 50%;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+
+#page, #group {
+  text-align: center;
+  height: max-content;
+  font-size: .7vw;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-left: 1vw;
+}
+
+
