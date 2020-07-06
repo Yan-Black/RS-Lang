@@ -37,6 +37,12 @@ function DictionaryItem({ item }: {item: WordObj}): JSX.Element {
         <p dangerouslySetInnerHTML={{ __html: `${item.textExample}` }} />
         <p dangerouslySetInnerHTML={{ __html: `${item.textMeaning}` }} />
       </div>
+      <div className="word-statistic d-flex flex-wrap justify-content-between mb-2 px-1" style={{ width: '100%' }}>
+        <span className="px-1">Progress: 1 2 3 4 5</span>
+        <span className="px-1">repeats count: 125</span>
+        <span className="px-1">last repeat: 20/05/2020</span>
+        <span className="px-1">next repeat: 10/10/2020</span>
+      </div>
     </div>
   );
 }
