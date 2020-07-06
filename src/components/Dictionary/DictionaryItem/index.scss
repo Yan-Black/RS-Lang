@@ -1,0 +1,19 @@
+.example-meaning-block {
+  width: 40%;
+}
+
+.word-translate-transcription-block {
+  width: 10vw;
+}
+
+@media (max-width: 990px) {
+  .example-meaning-block {
+    width: 100%;
+  }
+}
+
+@media (max-width: 550px) {
+  .word-translate-transcription-block {
+    width: 30vw;
+  }
+}
