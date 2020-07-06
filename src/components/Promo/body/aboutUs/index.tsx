@@ -12,7 +12,6 @@ const AboutUs: React.FC<Props> = ({ aboutUs }) => (
     <AboutUsText text={aboutUs.text} />
     <CardContainer devCardSInfo={aboutUs.devCards} />
   </div>
-
 );
 
 export default AboutUs;

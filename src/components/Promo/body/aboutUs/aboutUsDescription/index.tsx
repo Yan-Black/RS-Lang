@@ -10,7 +10,6 @@ const AboutUsText: React.FC<Props> = ({ text }) => (
     <h1>About US</h1>
     <p>{text}</p>
   </div>
-
 );
 
 export default AboutUsText;

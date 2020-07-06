@@ -16,7 +16,6 @@ const CardContainer: React.FC<Props> = ({ devCardSInfo }) => (
     <DevCard cardInfo={devCardSInfo.oksanaHulyaeva} />
     <DevCard cardInfo={devCardSInfo.ilichka} />
   </div>
-
 );
 
 export default CardContainer;

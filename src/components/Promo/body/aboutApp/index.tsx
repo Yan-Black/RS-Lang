@@ -13,7 +13,6 @@ const AboutApp: React.FC<Props> = ({ aboutGames }) => (
     <DemoVideo videoLink={aboutGames.promoVideoHref} />
     <DescriptionTabsContainer tabsInfo={aboutGames.gameTabs} />
   </div>
-
 );
 
 export default AboutApp;

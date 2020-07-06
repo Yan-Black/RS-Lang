@@ -12,7 +12,6 @@ const Body: React.FC = () => (
     <AboutApp aboutGames={devData.aboutGames} />
     <AboutUs aboutUs={devData.aboutUs} />
   </div>
-
 );
 
 export default Body;

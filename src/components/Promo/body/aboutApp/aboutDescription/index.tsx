@@ -30,7 +30,6 @@ const DescriptionTabsContainer: React.FC<Props> = ({ tabsInfo }) => (
         <GameTab tabInfo={tabsInfo.sprint} />
       </Tab>
     </Tabs>
-
   </div>
 );
 

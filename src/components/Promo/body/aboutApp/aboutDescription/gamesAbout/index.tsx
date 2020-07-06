@@ -13,7 +13,6 @@ const GameTab: React.FC<Props> = ({ tabInfo }) => (
     <p>{tabInfo.text}</p>
     <Button className="game-tab-button" variant="outline-primary" href={tabInfo.linkToGame}>PLay it now!</Button>
   </div>
-
 );
 
 export default GameTab;
