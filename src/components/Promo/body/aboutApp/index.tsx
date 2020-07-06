@@ -1,12 +1,17 @@
 import * as React from 'react';
 import './index.scss';
 import DemoVideo from './aboutVideo';
-import AppDescription from './aboutDescription';
 
-const AboutApp: React.FC = () => (
+import DescriptionTabsContainer from './aboutDescription';
+
+interface Props {
+  aboutGames
+}
+
+const AboutApp: React.FC<Props> = (aboutGames) => (
   <div>
-    <DemoVideo />
-    <AppDescription />
+    <DemoVideo videoLink={aboutGames.aboutGames.promoVideoHref} />
+    <DescriptionTabsContainer tabsInfo={aboutGames.aboutGames.gameTabs} />
   </div>
 
 );

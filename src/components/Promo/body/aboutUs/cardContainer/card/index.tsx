@@ -3,20 +3,17 @@ import './index.scss';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 
-const DevCard: React.FC = () => (
+interface Props {
+  cardInfo
+}
+
+const DevCard: React.FC<Props> = (info) => (
   <Card className="dev-card">
-    <Card.Img variant="top" src="https://pic.mysku-st.ru/uploads/pictures/06/81/37/2018/07/22/b76793.jpg" />
+    <Card.Img variant="top" src={info.cardInfo.imagePath} />
     <Card.Body>
-      <Card.Title>KONO DIO DA!</Card.Title>
-      <Card.Text>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-        ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-        ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-        mollit anim id est laborum.
-      </Card.Text>
-      <Button variant="light" href="https://github.com/Yan-Black/RS-Lang">Git</Button>
+      <Card.Title>{info.cardInfo.name}</Card.Title>
+      <Card.Text>{info.cardInfo.text}</Card.Text>
+      <Button variant="light" href={info.cardInfo.linkToGit}>Git</Button>
     </Card.Body>
   </Card>
 );
