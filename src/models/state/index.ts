@@ -1,9 +1,14 @@
 export interface State {
   app;
+  audioCallPage;
+  audioCallLevel;
+  audioCallRound;
+  audioCallCurrWords;
+  audioCallAnswer;
+  audioCallStatistic;
+  audioCallModal;
   engPuzzleBtns;
   engPuzzleActiveIdx;
-  fetchedWords;
-  loading;
   engPuzzleControlBtns;
   engPuzzleCards;
   engPuzzlePage;
