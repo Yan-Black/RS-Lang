@@ -15,5 +15,8 @@ export interface State {
   engPuzzleResults;
   engPuzzleStatistic;
   engPuzzleStatisticInfo;
+  engPuzzleFetchedWords;
+  engPuzzleLoading;
+  engPuzzleStartPage;
   // add more fields according rootReducer
 }

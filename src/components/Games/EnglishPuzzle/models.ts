@@ -107,3 +107,7 @@ export interface StatisticProps {
 export interface AudioBtnProps {
   phrase: string;
 }
+
+export interface HintBtnsProps {
+  phrase: string;
+}

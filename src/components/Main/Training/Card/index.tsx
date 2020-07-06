@@ -1,7 +1,7 @@
 import * as React from 'react';
 // import image from 'assets/files/01_0001.jpg';
 import { FetchedWordData } from 'containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/models';
-import book1 from '../../../../assets/WordsData';
+import book1 from 'constants/words-constants';
 import './index.scss';
 
 const Card: React.FC = () => {

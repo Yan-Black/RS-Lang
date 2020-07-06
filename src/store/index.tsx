@@ -10,11 +10,12 @@ import knowReducer from 'containers/Games/EnglishPuzzle/GameBlock/GameBoard/Resu
 import openResultsReducer from 'containers/Games/EnglishPuzzle/GameBlock/GameBoard/Results/openResultsReducer';
 import statisticReducer from 'containers/Games/EnglishPuzzle/GameBlock/GameBoard/Statistic/statisticReducer';
 import statisticInfoReducer from 'containers/Games/EnglishPuzzle/GameBlock/GameBoard/Statistic/statisticInfoReducer';
+import startPageReducer from 'containers/Games/EnglishPuzzle/StartPage/startPageReducer';
 import appReducer from '../containers/App/reducer';
 import btnsReducer from '../containers/Games/EnglishPuzzle/HeaderBlock/HintButtons/btnsReducer';
 import wordsReducer from '../containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/wordsReducer';
 import loaderReducer from '../containers/Games/EnglishPuzzle/GameBlock/GameBoard/Loader/loaderReducer';
-import activeIndexReducer from '../containers/Games/EnglishPuzzle/GameIndex/activeIndexReducer';
+import activeIndexReducer from '../containers/Games/EnglishPuzzle/GameController/activeIndexReducer';
 import helpBtnsReducer from '../containers/Games/EnglishPuzzle/GameBlock/GameBoard/HelpButtons/reducer';
 import collectionReducer from '../containers/Games/EnglishPuzzle/GameBlock/GameBoard/collectionReducer';
 
@@ -33,8 +34,9 @@ const rootReducer = combineReducers({
   engPuzzleResults: openResultsReducer,
   engPuzzleStatistic: statisticReducer,
   engPuzzleStatisticInfo: statisticInfoReducer,
-  fetchedWords: wordsReducer,
-  loading: loaderReducer,
+  engPuzzleFetchedWords: wordsReducer,
+  engPuzzleLoading: loaderReducer,
+  engPuzzleStartPage: startPageReducer,
 });
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
