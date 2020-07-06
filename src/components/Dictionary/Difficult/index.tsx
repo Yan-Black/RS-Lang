@@ -7,7 +7,7 @@ import DictionaryItem from '../DictionaryItem';
 function Difficult(): JSX.Element {
   const difficultWords: Array<WordObj> = difficultList;
   return (
-    <div className="dictionary-content bg-light rounded container py-2 my-3">
+    <div className="dictionary-content bg-light rounded container py-2 my-3" style={{ minHeight: '90vh' }}>
       <p className="font-weight-bold border-bottom py-2">СЛОЖНЫЕ СЛОВА</p>
       {difficultWords.map((element) => (
         <div className="d-flex align-items-center" key={element.id}>
