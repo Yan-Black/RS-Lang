@@ -24,7 +24,7 @@ function DictionaryItem({ item }: {item: WordObj}): JSX.Element {
       </button>
       <div className="word-translate-transcription-block d-flex flex-column justify-content-around align-items-center m-1" style={{ height: '130px' }}>
         <span className="text-primary">{item.word}</span>
-        <span>{item.wordTranslate}</span>
+        <span className="text-center">{item.wordTranslate}</span>
         <span className="text-danger">{item.transcription}</span>
       </div>
       <div
