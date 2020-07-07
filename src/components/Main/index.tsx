@@ -1,12 +1,11 @@
 import * as React from 'react';
-import Navigation from '../Main/mainComponents/navigation';
+import Navigation from './mainComponents/navigation';
 
-
-function Main() {
+function Main():JSX.Element {
   return (
-      <div id="main" className="main-content">
-        <Navigation />
-      </div>
+    <div id="main" className="main-content">
+      <Navigation />
+    </div>
   );
 }
 

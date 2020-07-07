@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-function mainStat() {
-  return(
+function mainStat():JSX.Element {
+  return (
     <div className="main-stat">
       <div>
         <p id="learned-words">Learned new words: 0</p>
@@ -16,7 +16,7 @@ function mainStat() {
         <p id="correct-repeats">Correct Repeats: 0</p>
       </div>
     </div>
-  )
+  );
 }
 
 export default mainStat;
