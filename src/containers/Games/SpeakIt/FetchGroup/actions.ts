@@ -1,4 +1,4 @@
-import { ActionType } from './types';
+import { ActionType } from './constants';
 
 export const fetchWords = (group: number) => async (dispatch: any) => {
   const maxPages = 30;

@@ -1,4 +1,4 @@
-import { ActionType } from './types';
+import { ActionType } from './constants';
 
 export interface InitialState {
   startGame: boolean;

@@ -5,5 +5,4 @@ export enum ActionType {
   SELECTED_GAME_WORD = 'SELECTED_GAME_WORD',
   RESET = 'RESET',
   RESULT_GAME = 'RESULT_GAME'
-  // other action types
 }

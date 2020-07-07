@@ -1,5 +1,5 @@
 import update from 'immutability-helper';
-import { ActionType } from './types';
+import { ActionType } from './constants';
 
 interface FetchedWordData {
   audio: string;

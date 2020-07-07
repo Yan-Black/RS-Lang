@@ -1,4 +1,4 @@
-import { ActionType } from './types';
+import { ActionType } from './constants';
 
 export const startGame = () => ({
   type: ActionType.START_GAME,
