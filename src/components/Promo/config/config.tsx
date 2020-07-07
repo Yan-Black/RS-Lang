@@ -5,32 +5,32 @@ const devData = {
       overview: {
         imagePath: 'src/assets/promo/Promo-game-pic1.jpg',
         text: '1',
-        linkToGame: '#',
+        linkToGame: '/Games',
       },
       audioCall: {
         imagePath: 'src/assets/promo/Promo-game-pic2.jpg',
         text: '2',
-        linkToGame: '#',
+        linkToGame: '/Games',
       },
       englishBricks: {
         imagePath: 'src/assets/promo/Promo-game-pic3.jpg',
         text: '3',
-        linkToGame: '#',
+        linkToGame: '/Games',
       },
       savannah: {
         imagePath: 'src/assets/promo/Promo-game-pic4.jpg',
         text: '4',
-        linkToGame: '#',
+        linkToGame: '/Games',
       },
       speakIt: {
         imagePath: 'src/assets/promo/Promo-game-pic5.jpg',
         text: '5',
-        linkToGame: '#',
+        linkToGame: '/Games',
       },
       sprint: {
         imagePath: 'src/assets/promo/Promo-game-pic6.jpg',
         text: '6',
-        linkToGame: '#',
+        linkToGame: '/Games',
       },
     },
   },
