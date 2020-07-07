@@ -1,9 +1,7 @@
 import * as React from 'react';
 
-function Savannah() {
-  return (
-    <div />
-  );
-}
+const Savannah: React.FC = () => (
+  <div />
+);
 
 export default Savannah;
