@@ -7,10 +7,10 @@ import {
   resetGame, resultGame,
   startGame,
   stopGame,
-} from '../../../../containers/Games/SpeakIt/ControlButtons/actions';
-import { State } from '../../../../models/state';
-import { mistake, resetStatistics } from '../../../../containers/Games/SpeakIt/FetchGroup/actions';
-import { activeWord } from '../../../../containers/Games/SpeakIt/CardsGroup/actions';
+} from 'containers/Games/SpeakIt/ControlButtons/actions';
+import { State } from 'models';
+import { mistake, resetStatistics } from 'containers/Games/SpeakIt/FetchGroup/actions';
+import { activeWord } from 'containers/Games/SpeakIt/CardsGroup/actions';
 
 const Control = (): JSX.Element => {
   const dispatch = useDispatch();

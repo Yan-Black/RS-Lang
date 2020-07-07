@@ -9,7 +9,7 @@ const initialState = {
   activeWord: null,
 };
 
-const cardsReducer = (state = initialState, action: Action) :InitialState => {
+const cardsReducer = (state = initialState, action: Action): InitialState => {
   switch (action.type) {
     case ACTIVE_WORD:
       return { ...state, activeWord: action.payload };

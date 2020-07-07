@@ -8,7 +8,7 @@ const initialState = {
   group: 1,
 };
 
-const groupReducer = (state = initialState, action : Action) :InitialState => {
+const groupReducer = (state = initialState, action : Action): InitialState => {
   switch (action.type) {
     case 'UPDATE_GROUP':
       return { ...state, group: action.payload };

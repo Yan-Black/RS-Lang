@@ -1,8 +1,7 @@
-/* eslint-disable jsx-a11y/img-redundant-alt */
 import * as React from 'react';
 import './index.scss';
 import { useSelector } from 'react-redux';
-import { State } from '../../../../models/state';
+import { State } from 'models';
 
 const ShowImage = (): JSX.Element => {
   const background = useSelector((state: State) => state.speakItFetch.background);
@@ -10,7 +9,7 @@ const ShowImage = (): JSX.Element => {
 
   return (
     <div className="img-wrapper">
-      <img src={background} alt="image" className="card-img" />
+      <img src={background} alt={background} className="card-img" />
       <p className="translation">{translate}</p>
     </div>
   );

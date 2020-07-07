@@ -5,10 +5,10 @@ import classNames from 'classnames';
 import './index.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { backgroundWord, translateWord } from '../../../../containers/Games/SpeakIt/FetchGroup/actions';
-import { State } from '../../../../models/state';
-import { activeWord } from '../../../../containers/Games/SpeakIt/CardsGroup/actions';
-import { resetGame, resultGame, selectedWord } from '../../../../containers/Games/SpeakIt/ControlButtons/actions';
+import { backgroundWord, translateWord } from 'containers/Games/SpeakIt/FetchGroup/actions';
+import { State } from 'models';
+import { activeWord } from 'containers/Games/SpeakIt/CardsGroup/actions';
+import { resetGame, resultGame, selectedWord } from 'containers/Games/SpeakIt/ControlButtons/actions';
 
 const Card = ({ data, index, next }) => {
   const dispatch = useDispatch();

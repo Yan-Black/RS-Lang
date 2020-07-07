@@ -2,10 +2,10 @@ import * as React from 'react';
 import { Button } from 'react-bootstrap';
 import './index.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { State } from '../../../../models/state';
+import { State } from 'models';
+import { resetGame, resultGame, stopGame } from 'containers/Games/SpeakIt/ControlButtons/actions';
+import { resetStatistics } from 'containers/Games/SpeakIt/FetchGroup/actions';
 import ResultItem from '../Result-item';
-import { resetGame, resultGame, stopGame } from '../../../../containers/Games/SpeakIt/ControlButtons/actions';
-import { resetStatistics } from '../../../../containers/Games/SpeakIt/FetchGroup/actions';
 
 const Result = (): JSX.Element => {
   const dispatch = useDispatch();

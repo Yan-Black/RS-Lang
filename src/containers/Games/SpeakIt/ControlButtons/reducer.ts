@@ -1,6 +1,4 @@
-import {
-  NEXT, RESET, RESULT_GAME, SELECTED_GAME_WORD, START_GAME, STOP_GAME,
-} from './types';
+import { ActionType } from './types';
 
 export interface InitialState {
   startGame: boolean;
@@ -18,20 +16,20 @@ const initialState = {
 
 const startGameReducer = (state = initialState, action): InitialState => {
   switch (action.type) {
-    case START_GAME:
+    case ActionType.START_GAME:
       return { ...state, startGame: action.payload };
-    case STOP_GAME:
+    case ActionType.STOP_GAME:
       return { ...state, startGame: action.payload };
-    case NEXT: {
+    case ActionType.NEXT: {
       return { ...state, pagination: state.pagination + 1 };
     }
-    case RESET:
+    case ActionType.RESET:
       return {
         ...state, pagination: 0, gameWord: null, startGame: false,
       };
-    case SELECTED_GAME_WORD:
+    case ActionType.SELECTED_GAME_WORD:
       return { ...state, gameWord: action.payload };
-    case RESULT_GAME:
+    case ActionType.RESULT_GAME:
       return { ...state, result: action.payload };
     default:
       return state;

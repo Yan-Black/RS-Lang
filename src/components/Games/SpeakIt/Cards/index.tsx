@@ -3,10 +3,10 @@ import { useSpeechRecognition } from 'react-speech-kit';
 import './index.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
+import { State } from 'models';
+import { nextCard } from 'containers/Games/SpeakIt/ControlButtons/actions';
+import { win } from 'containers/Games/SpeakIt/FetchGroup/actions';
 import Card from '../Card';
-import { State } from '../../../../models/state';
-import { nextCard } from '../../../../containers/Games/SpeakIt/ControlButtons/actions';
-import { win } from '../../../../containers/Games/SpeakIt/FetchGroup/actions';
 
 const Cards = (): JSX.Element => {
   const dispatch = useDispatch();

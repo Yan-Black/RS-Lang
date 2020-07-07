@@ -1,33 +1,31 @@
-import {
-  NEXT, RESET, RESULT_GAME, SELECTED_GAME_WORD, START_GAME, STOP_GAME,
-} from './types';
+import { ActionType } from './types';
 
 export const startGame = () => ({
-  type: START_GAME,
+  type: ActionType.START_GAME,
   payload: true,
 });
 
 export const stopGame = () => ({
-  type: STOP_GAME,
+  type: ActionType.STOP_GAME,
   payload: false,
 });
 
 export const nextCard = () => ({
-  type: NEXT,
+  type: ActionType.NEXT,
   payload: 0,
 });
 
 export const selectedWord = (value: string) => ({
-  type: SELECTED_GAME_WORD,
+  type: ActionType.SELECTED_GAME_WORD,
   payload: value,
 });
 
 export const resetGame = () => ({
-  type: RESET,
+  type: ActionType.RESET,
   payload: null,
 });
 
 export const resultGame = (value: boolean) => ({
-  type: RESULT_GAME,
+  type: ActionType.RESULT_GAME,
   payload: value,
 });
