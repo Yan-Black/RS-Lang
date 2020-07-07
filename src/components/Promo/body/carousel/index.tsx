@@ -8,7 +8,7 @@ const BodyCarousel: React.FC = () => (
       <Carousel.Item>
         <img
           className="carousel-img"
-          src="https://news.cgtn.com/news/77416a4e3145544d326b544d354d444d3355444f31457a6333566d54/img/37d598e5a04344da81c76621ba273915/37d598e5a04344da81c76621ba273915.jpg"
+          src="/src/assets/promo/carouselPic1.jpg"
           alt="First slide"
         />
         <Carousel.Caption>
@@ -19,19 +19,19 @@ const BodyCarousel: React.FC = () => (
       <Carousel.Item>
         <img
           className="carousel-img"
-          src="https://miro.medium.com/max/975/1*OHf_jiSmv0r363mUeIFAaA.jpeg"
+          src="/src/assets/promo/carouselPic2.jpg"
           alt="Third slide"
         />
 
         <Carousel.Caption>
-          <h3>Rikroll</h3>
+          <h3>Random Hasselhoff</h3>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
         <img
           className="carousel-img"
-          src="https://sun9-72.userapi.com/c855320/v855320927/244843/PFJQrFAkjN0.jpg"
+          src="/src/assets/promo/carouselPic3.jpg"
           alt="Third slide"
         />
 
