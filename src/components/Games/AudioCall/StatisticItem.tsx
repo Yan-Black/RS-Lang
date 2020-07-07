@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Json } from 'containers/Games/AudioCall/models';
 import { useSelector, useDispatch } from 'react-redux';
 import { State } from 'models';
+import { addToDeleted, difficultToDeleted } from 'containers/Dictionary/actions';
 
 function StatisticItem(currWord: {item: Json}): JSX.Element {
   if (!currWord) {
@@ -48,9 +49,8 @@ function StatisticItem(currWord: {item: Json}): JSX.Element {
   ) => unHovered(event);
   const trashFocusHandler = (event: React.FocusEvent<HTMLElement>) => hovered(event);
   const trashClickHandler = () => {
-    learningWords.includes(currWord.item);
-    // if (learningWords.includes(currWord.item)) dispatch()
-    // ; difficultWords.includes(currWord.item);
+    if (learningWords.includes(currWord.item)) dispatch(addToDeleted([currWord.item]));
+    if (difficultWords.includes(currWord.item)) dispatch(difficultToDeleted([currWord.item]));
   };
 
   return (
