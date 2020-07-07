@@ -33,8 +33,24 @@ const statisticInitState = <StatisticInitState> {
 const modalReducer: Models.Reducer<unknown> = (
   state: ModalInitState = modalInitState, { type, payload },
 ) => {
-  const messageTitle = payload === 'exit' ? 'Вы уверены? Тренировка не закончена!' : 'Ой! Ошибка!';
-  const messageBody = payload === 'exit' ? 'Если вы выйдете из игры, ваш прогресс не будет сохранен' : 'Что-то пошло не так. Попробуйте, пожалуйста, позже';
+  let messageTitle = '';
+  let messageBody = '';
+
+  switch (payload) {
+    case 'exit':
+      messageTitle = 'Вы уверены? Тренировка не закончена!';
+      messageBody = 'Если вы выйдете из игры, ваш прогресс не будет сохранен.';
+      break;
+    case 'not enough words':
+      messageTitle = 'Недостаточно слов в словаре.';
+      messageBody = 'Кажется, в словаре недостаточно слов для игры. Но Вы можете играть в режиме свободной игры. Хотите выйти из игры?';
+      break;
+    default:
+      messageTitle = 'Ой! Ошибка!';
+      messageBody = 'Что-то пошло не так. Попробуйте, пожалуйста, позже. Выйти из игры?';
+      break;
+  }
+
   switch (type) {
     case ActionType.TOGGLE_MODAL:
       return {

@@ -7,7 +7,9 @@ import {
   gamePage, fetchWords, toggleModal,
 } from 'containers/Games/AudioCall/actions';
 import OptionItems from './OptionItems';
-import { getWordsForGame, Json, getTranslateOptions } from './utils';
+import {
+  getWordsForGame, Json, getTranslateOptions, shuffleArray,
+} from './utils';
 import ModalMessage from './ModalMessage';
 
 function makeArray(length) {
@@ -18,14 +20,35 @@ function StartPage(): JSX.Element {
   const dispatch = useDispatch();
   const level = useSelector((state: State) => state.audioCallLevel);
   const round = useSelector((state: State) => state.audioCallRound);
+  const myLearningWords: Array<Json> = useSelector(
+    (state: State) => state.dictionaryState.learningWords,
+  );
+  const myDifficultWords = useSelector((state: State) => state.dictionaryState.difficultWords);
+  const myWords = myLearningWords.concat(myDifficultWords);
   const [isLoading, setIsLoading] = useState(false);
 
   const loaderClass = isLoading ? 'visible position-absolute' : 'invisible';
 
   const exitClickHandler = () => { dispatch(toggleModal('exit')); };
-  const btnMyWordsClickHandler = () => {
-    dispatch(gamePage());
+  const btnMyWordsClickHandler = async () => {
+    setIsLoading(true);
+    if (myWords.length < 10) {
+      setIsLoading(false);
+      dispatch(toggleModal('not enough words'));
+    }
+    try {
+      shuffleArray(myWords);
+      const wordsForGame = myWords.slice(0, 10);
+      const gameData = await getTranslateOptions(wordsForGame);
+      dispatch(fetchWords(gameData));
+      setIsLoading(false);
+      dispatch(gamePage());
+    } catch (err) {
+      setIsLoading(false);
+      dispatch(toggleModal('error'));
+    }
   };
+
   const btnFreeGameClickHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     setIsLoading(true);
     try {
