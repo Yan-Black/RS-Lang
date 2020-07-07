@@ -1,0 +1,5 @@
+export enum ActionType {
+  SET_TOKEN = 'SET_TOKEN',
+  SET_REFRESH_TOKEN = 'SET_REFRESH_TOKEN',
+  REMOVE_TOKEN = 'REMOVE_TOKEN',
+}

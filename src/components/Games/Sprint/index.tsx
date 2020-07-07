@@ -1,9 +1,7 @@
 import * as React from 'react';
 
-function Sprint() {
-  return (
-    <div />
-  );
-}
+const Sprint: React.FC = () => (
+  <div />
+);
 
 export default Sprint;
