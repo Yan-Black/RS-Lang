@@ -18,7 +18,7 @@ function DictionaryItem({ item }: {item: WordObj}): JSX.Element {
     <div className="dictionary-item container shadow d-flex flex-wrap justify-content-between align-items-center my-1 py-1">
       <button className="btn btn-outline-primary shadow rounded-circle p-1 m-1" type="button" style={{ width: '55px', height: '55px' }} onClick={speakerIconClickHandler}>
         <div style={{
-          width: '40px', height: '40px', background: `url(${colorSpeaker})`, backgroundSize: 'contain',
+          width: '40px', height: '40px', background: `url(${colorSpeaker.toString()})`, backgroundSize: 'contain',
         }}
         />
       </button>
@@ -38,10 +38,10 @@ function DictionaryItem({ item }: {item: WordObj}): JSX.Element {
         <p dangerouslySetInnerHTML={{ __html: `${item.textMeaning}` }} />
       </div>
       <div className="word-statistic d-flex flex-wrap justify-content-between mb-2 px-1" style={{ width: '100%' }}>
-        <span className="px-1">Progress: 1 2 3 4 5</span>
-        <span className="px-1">repeats count: 125</span>
-        <span className="px-1">last repeat: 20/05/2020</span>
-        <span className="px-1">next repeat: 10/10/2020</span>
+        <span className="px-1">Прогресс: 1 2 3 4 5</span>
+        <span className="px-1">Повторений: 125</span>
+        <span className="px-1">Последнее повторение: 2д назад</span>
+        <span className="px-1">Следующее повторение: через 1мес</span>
       </div>
     </div>
   );

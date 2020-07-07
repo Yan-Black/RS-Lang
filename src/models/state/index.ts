@@ -23,5 +23,6 @@ export interface State {
   engPuzzleFetchedWords;
   engPuzzleLoading;
   engPuzzleStartPage;
+  dictionaryState;
   // add more fields according rootReducer
 }
