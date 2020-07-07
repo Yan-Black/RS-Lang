@@ -1,5 +1,5 @@
 import { Action } from 'models';
-import { ACTIVE_WORD } from './types';
+import { ACTIVE_WORD } from './constants';
 
 interface InitialState {
   activeWord: number;
