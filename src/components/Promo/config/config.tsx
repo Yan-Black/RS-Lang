@@ -3,32 +3,32 @@ const devData = {
     promoVideoHref: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
     gameTabs: {
       overview: {
-        imagePath: 'https://sun9-51.userapi.com/c855320/v855320802/2486c9/cEqoR_JtF2Y.jpg',
+        imagePath: 'src/assets/promo/Promo-game-pic1.jpg',
         text: '1',
         linkToGame: '#',
       },
       audioCall: {
-        imagePath: 'https://sun9-51.userapi.com/c855320/v855320802/2486c9/cEqoR_JtF2Y.jpg',
+        imagePath: 'src/assets/promo/Promo-game-pic2.jpg',
         text: '2',
         linkToGame: '#',
       },
       englishBricks: {
-        imagePath: 'https://sun9-51.userapi.com/c855320/v855320802/2486c9/cEqoR_JtF2Y.jpg',
+        imagePath: 'src/assets/promo/Promo-game-pic3.jpg',
         text: '3',
         linkToGame: '#',
       },
       savannah: {
-        imagePath: 'https://sun9-51.userapi.com/c855320/v855320802/2486c9/cEqoR_JtF2Y.jpg',
+        imagePath: 'src/assets/promo/Promo-game-pic4.jpg',
         text: '4',
         linkToGame: '#',
       },
       speakIt: {
-        imagePath: 'https://sun9-51.userapi.com/c855320/v855320802/2486c9/cEqoR_JtF2Y.jpg',
+        imagePath: 'src/assets/promo/Promo-game-pic5.jpg',
         text: '5',
         linkToGame: '#',
       },
       sprint: {
-        imagePath: 'https://sun9-51.userapi.com/c855320/v855320802/2486c9/cEqoR_JtF2Y.jpg',
+        imagePath: 'src/assets/promo/Promo-game-pic6.jpg',
         text: '6',
         linkToGame: '#',
       },
@@ -46,43 +46,43 @@ const devData = {
 
     devCards: {
       artemDrushchyts: {
-        imagePath: 'https://pic.mysku-st.ru/uploads/pictures/06/81/37/2018/07/22/b76793.jpg',
+        imagePath: 'src/assets/promo/devCardPic1.jpg',
         name: 'Artem',
         text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
         linkToGit: 'https://github.com/ArtemDrushchyts',
       },
       lactivka: {
-        imagePath: 'https://pic.mysku-st.ru/uploads/pictures/06/81/37/2018/07/22/b76793.jpg',
+        imagePath: 'src/assets/promo/devCardPic2.jpg',
         name: 'lactivka',
         text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
         linkToGit: 'https://github.com/lactivka',
       },
       paxom4ik4: {
-        imagePath: 'https://pic.mysku-st.ru/uploads/pictures/06/81/37/2018/07/22/b76793.jpg',
+        imagePath: 'src/assets/promo/devCardPic3.jpg',
         name: 'Pavel Zelenko',
         text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
         linkToGit: 'https://github.com/paxom4ik4',
       },
       zzh0c: {
-        imagePath: 'https://pic.mysku-st.ru/uploads/pictures/06/81/37/2018/07/22/b76793.jpg',
+        imagePath: 'src/assets/promo/devCardPic6.jpg',
         name: 'Stas Lutsevich',
         text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
         linkToGit: 'https://github.com/ZZH0C',
       },
       yanBlack: {
-        imagePath: 'https://pic.mysku-st.ru/uploads/pictures/06/81/37/2018/07/22/b76793.jpg',
+        imagePath: 'src/assets/promo/devCardPic5.jpg',
         name: 'Yan',
         text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
         linkToGit: 'https://github.com/Yan-Black',
       },
       oksanaHulyaeva: {
-        imagePath: 'https://pic.mysku-st.ru/uploads/pictures/06/81/37/2018/07/22/b76793.jpg',
+        imagePath: 'src/assets/promo/devCardPic4.jpg',
         name: 'Oksana Hulyaeva',
         text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
         linkToGit: 'https://github.com/oksanaHulyaeva',
       },
       ilichka: {
-        imagePath: 'https://pic.mysku-st.ru/uploads/pictures/06/81/37/2018/07/22/b76793.jpg',
+        imagePath: 'src/assets/promo/devCardPic7.jpg',
         name: 'ilichka',
         text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
         linkToGit: 'https://github.com/ilichka',
