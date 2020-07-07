@@ -7,6 +7,7 @@ export namespace Payload {
 export namespace Action {
   export interface DifficultToLearning extends Models.Action<Payload.SetDocumentTypes> { }
   export interface DeletedToLearning extends Models.Action<Payload.SetDocumentTypes> { }
+  export interface DifficultToDeleted extends Models.Action<Payload.SetDocumentTypes> { }
   export interface AddToLearning extends Models.Action<Payload.SetDocumentTypes> { }
   export interface AddToDifficult extends Models.Action<Payload.SetDocumentTypes> { }
   export interface AddToDeleted extends Models.Action<Payload.SetDocumentTypes> { }
@@ -15,6 +16,8 @@ export namespace Action {
 export namespace ActionCreator {
   export type DifficultToLearning = (
     payload: Array<WordObj>) => Action.DifficultToLearning;
+  export type DifficultToDeleted = (
+    payload: Array<WordObj>) => Action.DifficultToDeleted;
   export type DeletedToLearning = (
     payload: Array<WordObj>) => Action.DeletedToLearning;
   export type AddToLearning = (

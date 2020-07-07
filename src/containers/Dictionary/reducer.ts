@@ -19,6 +19,12 @@ const dictionaryReducer: Models.Reducer<unknown> = (
         learningWords: state.learningWords.concat(payload),
         difficultWords: state.difficultWords.filter((el) => el !== payload[0]),
       };
+    case ActionType.DIFFICULT_TO_DELETED:
+      return {
+        ...state,
+        difficultWords: state.difficultWords.filter((el) => el !== payload[0]),
+        deletedWords: state.deletedWords.concat(payload),
+      };
     case ActionType.DELETED_TO_LEARNING:
       return {
         ...state,
@@ -28,9 +34,17 @@ const dictionaryReducer: Models.Reducer<unknown> = (
     case ActionType.ADD_TO_LEARNING:
       return { ...state, learningWords: state.learningWords.concat(payload) };
     case ActionType.ADD_TO_DIFFICULT:
-      return { ...state, difficultWords: state.difficultWords.concat(payload) };
+      return {
+        ...state,
+        learningWords: state.learningWords.filter((el) => el !== payload[0]),
+        difficultWords: state.difficultWords.concat(payload),
+      };
     case ActionType.ADD_TO_DELETED:
-      return { ...state, deletedWords: state.deletedWords.concat(payload) };
+      return {
+        ...state,
+        learningWords: state.learningWords.filter((el) => el !== payload[0]),
+        deletedWords: state.deletedWords.concat(payload),
+      };
     default:
       return state;
   }
