@@ -27,6 +27,17 @@ const config: webpack.Configuration = {
           'sass-loader',
         ],
       },
+      {
+        test: /\.(png|jpe?g|gif|svg|ogg|mp3|wav|mpe?g)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[path][name].[ext]',
+            },
+          },
+        ],
+      },
     ],
   },
   plugins: [htmlPlugin],

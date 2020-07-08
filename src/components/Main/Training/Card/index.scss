@@ -1,0 +1,32 @@
+* {
+  box-sizing: border-box;
+}
+
+.training-card-wrapper {
+  width: 60vw;
+  height: 25vw;
+  background: #fff;
+  border-radius: 5px;
+  margin: 5vw auto;
+  .training-card-content {
+    display: flex;
+    padding: 1vw 1vw;
+    height: 90%;
+    justify-content: space-around;
+    .training-card-info {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+    }
+    .training-card-image {
+      width: 50%;
+      height: auto;
+    }
+  }
+  .training-card-footer {
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

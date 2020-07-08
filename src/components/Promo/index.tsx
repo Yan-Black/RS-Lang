@@ -1,9 +1,7 @@
 import * as React from 'react';
 
-function Promo() {
-  return (
-    <div />
-  );
-}
+const Promo: React.FC = () => (
+  <div />
+);
 
 export default Promo;
