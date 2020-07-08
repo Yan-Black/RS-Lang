@@ -2,7 +2,6 @@ import * as React from 'react';
 import Footer from './footer';
 import Body from './body';
 import Header from './header';
-import './index.scss';
 
 const Promo: React.FC = () => (
   <div className="promo-wrapper">

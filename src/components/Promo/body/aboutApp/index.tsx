@@ -1,5 +1,4 @@
 import * as React from 'react';
-import './index.scss';
 import DemoVideo from './aboutVideo';
 
 import DescriptionTabsContainer from './aboutDescription';
