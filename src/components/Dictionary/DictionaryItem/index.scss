@@ -6,6 +6,33 @@
   width: 10vw;
 }
 
+.btn-speaker {
+  width: 55px;
+  height: 55px;
+}
+
+.speaker-icon {
+  width: 40px;
+  height: 40px;
+  background-image: url('../../../assets/colored_speaker.svg');
+  background-size: contain;
+}
+
+.image-block {
+  width: 195px;
+  height: 130px;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.word-translate-transcription-block {
+  height: 130px;
+}
+
+.word-statistic {
+  width: 100%;
+}
+
 @media (max-width: 990px) {
   .example-meaning-block {
     width: 100%;

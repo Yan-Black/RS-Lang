@@ -6,7 +6,7 @@ export const difficultToLearning: ActionCreator.DifficultToLearning = (words) =>
   payload: words,
 });
 
-export const difficultToDeleted: ActionCreator.difficultToDeleted = (words) => ({
+export const difficultToDeleted: ActionCreator.DifficultToDeleted = (words) => ({
   type: ActionType.DIFFICULT_TO_DELETED,
   payload: words,
 });
