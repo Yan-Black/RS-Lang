@@ -16,7 +16,12 @@ function DictionaryItem({ item }: {item: WordObj}): JSX.Element {
 
   return (
     <div className="dictionary-item container shadow d-flex flex-wrap justify-content-between align-items-center my-1 py-1">
-      <button className="btn btn-outline-primary shadow rounded-circle p-1 m-1" type="button" style={{ width: '55px', height: '55px' }} onClick={speakerIconClickHandler}>
+      <button
+        className="btn btn-outline-primary shadow rounded-circle p-1 m-1"
+        type="button"
+        style={{ width: '55px', height: '55px' }}
+        onClick={speakerIconClickHandler}
+      >
         <div style={{
           width: '40px', height: '40px', background: `url(${colorSpeaker.toString()})`, backgroundSize: 'contain',
         }}

@@ -28,7 +28,16 @@ function Deleted(): JSX.Element {
       {deletedWords.map((element) => (
         <div className="d-flex align-items-center" key={element.id}>
           <DictionaryItem item={element} key={element.word} />
-          <button className="btn btn-outline-primary shadow rounded-circle p-1 m-1" type="button" style={{ width: '55px', height: '55px' }} data-toggle="tooltip" data-placement="left" title="Вернуть в изучаемые" id={element.id} onClick={btnClickHandler}>
+          <button
+            className="btn btn-outline-primary shadow rounded-circle p-1 m-1"
+            type="button"
+            style={{ width: '55px', height: '55px' }}
+            data-toggle="tooltip"
+            data-placement="left"
+            title="Вернуть в изучаемые"
+            id={element.id}
+            onClick={btnClickHandler}
+          >
             <div style={{
               width: '40px', height: '40px', background: `url(${unDelete})`, backgroundSize: 'contain',
             }}
