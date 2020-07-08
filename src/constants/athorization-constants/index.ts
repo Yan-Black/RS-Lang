@@ -1,39 +1,68 @@
 import { User } from 'components/Authorization/models';
-import { setUserToken } from 'containers/Authorisation/actions';
+import { setUserToken, addApiError } from 'containers/Authorisation/actions';
 import { ActionAuth } from 'containers/Authorisation/models';
+import { showLoader, hideLoader } from 'containers/Games/EnglishPuzzle/GameBlock/GameBoard/Loader/actions';
 
-export const passRegex = /^[^\\s](?=.{8,}$)(?=[^_]*[A-Z])(?=.*[a-z])(?=.*[0-9])/;
+export const passRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+export const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+export const nameErrorMessage = 'Поле Name не должно быть пустым';
+export const emailErrorMessage = 'Введите корректный email';
 export const passErrorMessage = 'Пароль должен содержать не менее 8 символов, как минимум одну прописную букву, одну заглавную букву, одну цифру и один спецсимвол из +-_@$!%*?&#.,;:[]{}';
 const regUrl = 'https://afternoon-falls-25894.herokuapp.com/users';
 const tokenUrl = 'https://afternoon-falls-25894.herokuapp.com/signin';
 
-export const createUser = async (
+export const createUser = (
   user: User,
+  dispatch: React.Dispatch<ActionAuth>,
   setLogged: React.Dispatch<React.SetStateAction<boolean>>,
-): Promise<void> => {
-  await fetch(regUrl, {
+): void => {
+  dispatch(showLoader());
+  fetch(regUrl, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(user),
-  });
-  setLogged(true);
+  })
+    .then((res) => {
+      if (res.ok) {
+        setLogged(true);
+        dispatch(hideLoader());
+        return res.json();
+      }
+      return Promise.reject(res);
+    })
+    .catch((e) => {
+      dispatch(hideLoader());
+      switch (e.status) {
+        case 417: dispatch(addApiError('user with this e-mail exists'));
+          break;
+        case 422: dispatch(addApiError('password contains invalid value'));
+          break;
+        case 404: dispatch(addApiError('Couldnt find a(an) user with current email'));
+          break;
+        default: dispatch(addApiError('some server error occures'));
+      }
+    });
 };
 
 export const loginUser = async (
   user: User,
   dispatch: React.Dispatch<ActionAuth>,
 ): Promise<void> => {
-  const rawResponse = await fetch(tokenUrl, {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(user),
-  });
-  const resp = await rawResponse.json();
-  dispatch(setUserToken(resp.token));
+  try {
+    const rawResponse = await fetch(tokenUrl, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(user),
+    });
+    const resp = await rawResponse.json();
+    dispatch(setUserToken(resp.token));
+  } catch (e) {
+    dispatch(addApiError(e));
+  }
 };

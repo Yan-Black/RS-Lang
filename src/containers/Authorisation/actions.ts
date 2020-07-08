@@ -14,3 +14,8 @@ export const setUserRefreshToken = (refreshToken: string): ActionAuth => ({
 export const removeUserToken = (): ActionAuth => ({
   type: ActionType.REMOVE_TOKEN,
 });
+
+export const addApiError = (unregistred: string): ActionAuth => ({
+  type: ActionType.ADD_API_ERROR_MESSAGE,
+  payload: unregistred,
+});

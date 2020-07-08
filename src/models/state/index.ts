@@ -1,6 +1,7 @@
 export interface State {
   app;
   authToken;
+  authErrors;
   audioCallPage;
   audioCallLevel;
   audioCallRound;

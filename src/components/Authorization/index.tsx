@@ -5,15 +5,24 @@ import { useForm } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import {
-  passRegex, passErrorMessage, createUser, loginUser,
+  passRegex,
+  emailRegex,
+  nameErrorMessage,
+  emailErrorMessage,
+  passErrorMessage,
+  createUser,
+  loginUser,
 } from 'constants/athorization-constants';
 import { State } from 'models';
 import { User } from './models';
+import Loader from './Loader';
 import './index.scss';
 
 const Authorization: React.FC = () => {
   const { register, handleSubmit, errors } = useForm();
+  const loading = useSelector((state: State) => state.engPuzzleLoading.isLoading);
   const token = useSelector((state: State) => state.authToken.token);
+  const apiError = useSelector((state: State) => state.authErrors.error);
   const [logged, setLogged] = useState(false);
   const [open, setOpen] = useState(true);
   const [type, setType] = useState('password');
@@ -22,7 +31,7 @@ const Authorization: React.FC = () => {
   const onSubmit = (user: User) => (
     logged
       ? loginUser(user, dispatch)
-      : createUser(user, setLogged)
+      : createUser(user, dispatch, setLogged)
   );
   const inputTypeHandler = () => (type === 'password' ? setType('text') : setType('password'));
   return (
@@ -64,14 +73,20 @@ const Authorization: React.FC = () => {
                 name="name"
                 id="name"
                 placeholder="Name"
-                ref={register({ required: true })}
+                ref={register({
+                  required: true,
+                  minLength: 3,
+                })}
               />
               <input
                 type="email"
                 name="email"
                 id="email"
                 placeholder="Email"
-                ref={register({ required: true })}
+                ref={register({
+                  required: true,
+                  pattern: emailRegex,
+                })}
               />
               <div className="auth-password">
                 <input
@@ -79,7 +94,10 @@ const Authorization: React.FC = () => {
                   name="password"
                   id="password"
                   placeholder="Password"
-                  ref={register({ pattern: passRegex })}
+                  ref={register({
+                    required: true,
+                    pattern: passRegex,
+                  })}
                 />
                 <button
                   type="button"
@@ -91,15 +109,22 @@ const Authorization: React.FC = () => {
                   ) : (
                     <FontAwesomeIcon icon={faEye} />
                   )}
-                  &nbsp;&nbsp;
-                  <span>show</span>
                 </button>
               </div>
             </form>
           </div>
         </div>
         <div className="auth-error">
-          <p>{errors.password && passErrorMessage}</p>
+          {loading ? (
+            <Loader />
+          ) : (
+            <ul className="auth-error-list">
+              <li>{errors.name && nameErrorMessage}</li>
+              <li>{errors.email && emailErrorMessage}</li>
+              <li>{errors.password && passErrorMessage}</li>
+              <li>{apiError}</li>
+            </ul>
+          )}
         </div>
         <div className="auth-footer">
           <button
