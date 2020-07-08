@@ -1,6 +1,8 @@
 import * as Models from 'models';
 import { ActionType } from './constants';
-import { ModalInitState, AnswerInitState, StatisticInitState } from './models';
+import {
+  ModalInitState, AnswerInitState, StatisticInitState, LongStatisticState,
+} from './models';
 
 const initialState = {
   page: 'START_PAGE',
@@ -26,8 +28,17 @@ const answerInitState = <AnswerInitState> {
 };
 
 const statisticInitState = <StatisticInitState> {
+  isLongStatistic: false,
   wrongAnswers: [],
   correctAnswers: [],
+};
+
+const longStatisticInitState = <LongStatisticState> {
+  playedDates: [],
+  playedTimes: [],
+  playedLevels: [],
+  failed: [],
+  success: [],
 };
 
 const modalReducer: Models.Reducer<unknown> = (
@@ -146,6 +157,8 @@ const statisticReducer: Models.Reducer<unknown> = (
       return { ...state, correctAnswers: state.correctAnswers.concat(payload) };
     case ActionType.NOT_KNOW:
       return { ...state, wrongAnswers: state.wrongAnswers.concat(payload) };
+    case ActionType.TOGGLE_STATISTIC:
+      return { ...state, isLongStatistic: !state.isLongStatistic };
     case ActionType.RESET_CURR_STATISTIC:
       return statisticInitState;
     default:
@@ -153,7 +166,26 @@ const statisticReducer: Models.Reducer<unknown> = (
   }
 };
 
+const longStatisticReducer: Models.Reducer<unknown> = (
+  state: LongStatisticState = longStatisticInitState,
+  action,
+) => {
+  switch (action.type) {
+    case ActionType.UPDATE_DATE:
+      return { ...state, playedDates: state.playedDates.concat(action.payload) };
+    case ActionType.UPDATE_TIME:
+      return { ...state, playedTimes: state.playedTimes.concat(action.payload) };
+    case ActionType.UPDATE_LEVELS:
+      return { ...state, playedLevels: state.playedLevels.concat(action.payload) };
+    case ActionType.UPDATE_FAILED:
+      return { ...state, failed: state.failed.concat(action.payload) };
+    case ActionType.UPDATE_SUCCESS:
+      return { ...state, success: state.success.concat(action.payload) };
+    default: return state;
+  }
+};
+
 export {
   pageReducer, levelReducer, roundReducer, currWordsReducer,
-  answerReducer, statisticReducer, modalReducer,
+  answerReducer, statisticReducer, modalReducer, longStatisticReducer,
 };

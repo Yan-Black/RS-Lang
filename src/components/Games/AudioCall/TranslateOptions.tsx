@@ -95,7 +95,7 @@ function TranslateOptions(): JSX.Element {
           <h4 className="my-2">
             {+idx + 1}
             &nbsp;&nbsp;
-            {word}
+            {word.length > 0 ? word : 'неизвестно'}
           </h4>
         </div>
       )) }

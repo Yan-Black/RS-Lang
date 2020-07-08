@@ -15,7 +15,7 @@ import statisticInfoReducer from 'containers/Games/EnglishPuzzle/GameBlock/GameB
 import startPageReducer from 'containers/Games/EnglishPuzzle/StartPage/startPageReducer';
 import {
   pageReducer, levelReducer, roundReducer,
-  currWordsReducer, answerReducer, statisticReducer, modalReducer,
+  currWordsReducer, answerReducer, statisticReducer, modalReducer, longStatisticReducer,
 } from 'containers/Games/AudioCall/reducer';
 import authTokenReducer from 'containers/Authorisation/authReducer';
 import authErrorsReducer from 'containers/Authorisation/authErrorsReducer';
@@ -68,6 +68,7 @@ const rootReducer = combineReducers({
   audioCallAnswer: answerReducer,
   audioCallStatistic: statisticReducer,
   audioCallModal: modalReducer,
+  audioCallLongStatistic: longStatisticReducer,
   engPuzzleBtns: btnsReducer,
   engPuzzleControlBtns: helpBtnsReducer,
   engPuzzleActiveIdx: activeIndexReducer,

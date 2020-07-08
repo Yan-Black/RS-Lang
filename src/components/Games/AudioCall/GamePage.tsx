@@ -3,10 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { State } from 'models';
 import {
   toggleModal, resetGame, statisticPage, checkAnswer, notKnowWords, progressGame,
-  knowWords, correctAnswer, wrongAnswer,
+  knowWords, correctAnswer, wrongAnswer, updateLongStatDate, updateLongStatTime,
+  updateLongStatLevels, updateLongStatFailed, updateLongStatSuccess,
 } from 'containers/Games/AudioCall/actions';
 import { useEffect } from 'react';
 import backgroundImage from 'assets/pattern-369543.svg';
+import { Json } from 'containers/Games/AudioCall/models';
 import TranslateOptions from './translateOptions';
 import GameButton from './GameButton';
 import TargetWordBlock from './TargetWordBlock';
@@ -20,6 +22,17 @@ function GamePage(): JSX.Element {
   const currWords = useSelector((state: State) => state.audioCallCurrWords);
   const currActiveId: number = useSelector((state: State) => state.audioCallAnswer.progress);
   const currGameProgress: number = currActiveId * 10;
+  const failedWords = useSelector((state: State) => state.audioCallStatistic.wrongAnswers);
+  const successWords = useSelector((state: State) => state.audioCallStatistic.correctAnswers);
+  const savedDate = useSelector((state: State) => state.audioCallLongStatistic.playedDates[0]);
+  const learningWords: Array<Json> = useSelector(
+    (state: State) => state.dictionaryState.learningWords,
+  );
+  const difficultWords: Array<Json> = useSelector(
+    (state: State) => state.dictionaryState.difficultWords,
+  );
+  const level: string = (learningWords.includes(currWords[0]) || difficultWords.includes(currWords[0])) ? 'My words' : useSelector((state: State) => state.audioCallLevel);
+  const round: string = (learningWords.includes(currWords[0]) || difficultWords.includes(currWords[0])) ? '-' : useSelector((state: State) => state.audioCallRound);
 
   let textInput: HTMLDivElement = null;
   useEffect(() => {
@@ -41,6 +54,22 @@ function GamePage(): JSX.Element {
       if (currActiveId >= 10) {
         dispatch(resetGame());
         dispatch(statisticPage());
+        if (!savedDate || savedDate.date !== new Date().toDateString()) {
+          dispatch(updateLongStatDate({ date: new Date().toDateString() }));
+        }
+        dispatch(updateLongStatTime(
+          {
+            date: new Date().toDateString(),
+            payload: new Date().toTimeString().slice(0, 9),
+          },
+        ));
+        dispatch(updateLongStatLevels({ date: new Date().toDateString(), payload: `Group: ${level} - Page: ${round}` }));
+        dispatch(updateLongStatFailed(
+          { date: new Date().toDateString(), payload: failedWords.length },
+        ));
+        dispatch(updateLongStatSuccess(
+          { date: new Date().toDateString(), payload: successWords.length },
+        ));
       } else dispatch(checkAnswer('null'));
     }
     if (event.key === 'Enter' && !isChecked) {

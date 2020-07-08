@@ -35,6 +35,7 @@ function StartPage(): JSX.Element {
     if (myWords.length < 10) {
       setIsLoading(false);
       dispatch(toggleModal('not enough words'));
+      return;
     }
     try {
       shuffleArray(myWords);
