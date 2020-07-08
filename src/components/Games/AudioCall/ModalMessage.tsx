@@ -2,7 +2,9 @@ import * as React from 'react';
 import './index.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import { State } from 'models';
-import { toggleModal, startPage, resetGame } from 'containers/Games/AudioCall/actions';
+import {
+  toggleModal, startPage, resetGame, resetCurrStatistic,
+} from 'containers/Games/AudioCall/actions';
 import { Link } from 'react-router-dom';
 
 function ModalMessage(): JSX.Element {
@@ -12,7 +14,8 @@ function ModalMessage(): JSX.Element {
   const messageBody = useSelector((state: State) => state.audioCallModal.message);
   const stayBtnClickHandler = () => dispatch(toggleModal(null));
   const exitBtnClickHandler = () => {
-    dispatch(toggleModal(null)); dispatch(resetGame()); dispatch(startPage());
+    dispatch(toggleModal(null)); dispatch(resetGame());
+    dispatch(startPage()); dispatch(resetCurrStatistic());
   };
 
   const stayKeyPressHandler = (event: React.KeyboardEvent<HTMLElement>) => {
@@ -26,6 +29,7 @@ function ModalMessage(): JSX.Element {
       dispatch(toggleModal(null));
       dispatch(resetGame());
       dispatch(startPage());
+      dispatch(resetCurrStatistic());
     }
   };
 
