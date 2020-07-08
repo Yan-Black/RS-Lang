@@ -1,15 +1,13 @@
 import * as React from 'react';
-import { Provider } from 'react-redux';
-import * as ReactDOM from 'react-dom';
+import Navigation from './mainComponents/navigation';
 
-import App from 'components/App';
-import store from 'store';
+function Main():JSX.Element {
+  return (
+    <div id="main" className="main-content">
+      <Navigation />
+    </div>
+  );
+}
 
-const Index = () => (
-  <Provider store={store}>
-    <App />
-  </Provider>
-);
-
-ReactDOM.render(<Index />, document.getElementById('root'));
+export default Main;
 
