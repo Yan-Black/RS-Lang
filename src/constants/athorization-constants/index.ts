@@ -3,14 +3,13 @@ import { setUserToken, addApiError, removeApiError } from 'containers/Authorisat
 import { ActionAuth } from 'containers/Authorisation/models';
 import { showLoader, hideLoader } from 'containers/Games/EnglishPuzzle/GameBlock/GameBoard/Loader/actions';
 
+const regUrl = 'https://afternoon-falls-25894.herokuapp.com/users';
+const tokenUrl = 'https://afternoon-falls-25894.herokuapp.com/signin';
 export const passRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
 export const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 export const nameErrorMessage = 'Поле Name не должно быть пустым';
 export const emailErrorMessage = 'Введите корректный email';
 export const passErrorMessage = 'Пароль должен содержать не менее 8 символов, как минимум одну прописную букву, одну заглавную букву, одну цифру и один спецсимвол из +-_@$!%*?&#.,;:[]{}';
-const regUrl = 'https://afternoon-falls-25894.herokuapp.com/users';
-const tokenUrl = 'https://afternoon-falls-25894.herokuapp.com/signin';
-
 export const createUser = (
   user: User,
   dispatch: React.Dispatch<ActionAuth>,
@@ -81,7 +80,7 @@ export const loginUser = (
           break;
         case 422: dispatch(addApiError('password contains invalid value'));
           break;
-        case 404: dispatch(addApiError('Couldnt find a(an) user with current email'));
+        case 404: dispatch(addApiError('couldnt find a(an) user with current email'));
           break;
         case 403: dispatch(addApiError('password or login incorrect'));
           break;

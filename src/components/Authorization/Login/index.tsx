@@ -134,7 +134,7 @@ const LoginForm: React.FC<LogProps> = ({ isOpen, setOpen, setRegOpen }) => {
           )}
         </div>
         <div className="auth-footer">
-          {apiError.includes('Couldnt find') ? (
+          {apiError.includes('couldnt find') ? (
             <button
               type="submit"
               className="auth-reg-but"
