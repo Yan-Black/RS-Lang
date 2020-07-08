@@ -28,9 +28,14 @@ function DictionaryItem({ item }: {item: WordObj}): JSX.Element {
         <span className="text-danger">{item.transcription}</span>
       </div>
       <div
-        className="image-block shadow rounded m-1"
-        style={{ background: `url(https://raw.githubusercontent.com/lactivka/rslang-data/master/${item.image})` }}
-      />
+        className="image-block shadow m-1"
+      >
+        <img
+          className="word-image rounded"
+          src={`https://raw.githubusercontent.com/lactivka/rslang-data/master/${item.image}`}
+          alt="Illustration to word"
+        />
+      </div>
       <div className="example-meaning-block d-flex flex-column m-1">
         <p dangerouslySetInnerHTML={{ __html: `${item.textExample}` }} />
         <p dangerouslySetInnerHTML={{ __html: `${item.textMeaning}` }} />
