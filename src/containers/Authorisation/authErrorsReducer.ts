@@ -15,6 +15,9 @@ const authErrorsReducer: Reducer<InitialStateApiErrors, ActionAuth> = (
     case ActionType.ADD_API_ERROR_MESSAGE: return update(state, {
       error: { $set: action.payload },
     });
+    case ActionType.REMOVE_API_ERROR_MESSAGE: return update(state, {
+      error: { $set: action.payload },
+    });
     default: return state;
   }
 };

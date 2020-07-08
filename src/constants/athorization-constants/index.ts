@@ -1,5 +1,5 @@
 import { User } from 'components/Authorization/models';
-import { setUserToken, addApiError } from 'containers/Authorisation/actions';
+import { setUserToken, addApiError, removeApiError } from 'containers/Authorisation/actions';
 import { ActionAuth } from 'containers/Authorisation/models';
 import { showLoader, hideLoader } from 'containers/Games/EnglishPuzzle/GameBlock/GameBoard/Loader/actions';
 
@@ -14,7 +14,7 @@ const tokenUrl = 'https://afternoon-falls-25894.herokuapp.com/signin';
 export const createUser = (
   user: User,
   dispatch: React.Dispatch<ActionAuth>,
-  setLogged: React.Dispatch<React.SetStateAction<boolean>>,
+  setRegistred: React.Dispatch<React.SetStateAction<boolean>>,
 ): void => {
   dispatch(showLoader());
   fetch(regUrl, {
@@ -27,8 +27,9 @@ export const createUser = (
   })
     .then((res) => {
       if (res.ok) {
-        setLogged(true);
+        setRegistred(true);
         dispatch(hideLoader());
+        dispatch(removeApiError());
         return res.json();
       }
       return Promise.reject(res);
@@ -47,22 +48,44 @@ export const createUser = (
     });
 };
 
-export const loginUser = async (
+export const loginUser = (
   user: User,
   dispatch: React.Dispatch<ActionAuth>,
-): Promise<void> => {
-  try {
-    const rawResponse = await fetch(tokenUrl, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(user),
+  setLogged: React.Dispatch<React.SetStateAction<boolean>>,
+): void => {
+  dispatch(showLoader());
+  fetch(tokenUrl, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(user),
+  })
+    .then((res) => {
+      if (res.ok) {
+        setLogged(true);
+        return res.json();
+      }
+      return Promise.reject(res);
+    })
+    .then((res) => {
+      dispatch(hideLoader());
+      dispatch(removeApiError());
+      dispatch(setUserToken(res.token));
+    })
+    .catch((e) => {
+      dispatch(hideLoader());
+      switch (e.status) {
+        case 417: dispatch(addApiError('user with this e-mail exists'));
+          break;
+        case 422: dispatch(addApiError('password contains invalid value'));
+          break;
+        case 404: dispatch(addApiError('Couldnt find a(an) user with current email'));
+          break;
+        case 403: dispatch(addApiError('password or login incorrect'));
+          break;
+        default: dispatch(addApiError('some server error occures'));
+      }
     });
-    const resp = await rawResponse.json();
-    dispatch(setUserToken(resp.token));
-  } catch (e) {
-    dispatch(addApiError(e));
-  }
 };

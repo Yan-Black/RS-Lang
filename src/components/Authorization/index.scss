@@ -5,17 +5,22 @@ $labels-background: #F4F6F7;
 $inputs-background: #FBFCFC;
 $inputs-border: #D0D3D4;
 $header-buttons: #85929E;
+$error: #F1948A;
 $drop-shadow: #17202A;
 
 .auth-wrapper {
   width: 100%;
   height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
   background-color: $wrapper;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   user-select: none;
+  z-index: 4;
 }
 
 .auth-form-block-wrapper {
@@ -35,7 +40,8 @@ $drop-shadow: #17202A;
   padding: 0 2vw;
 }
 
-.auth-close, .auth-reg-but {
+.auth-close, .auth-reg-but,
+.auth-open-reg, .auth-open-log {
   border: none;
   background: none;
   outline: none;
@@ -65,13 +71,17 @@ $drop-shadow: #17202A;
   padding: 1vw 0;
 }
 
+.auth-error-mes {
+  color: $error;
+}
+
 .auth-error-list {
   list-style: none;
   text-align: center;
   padding: 0;
 }
 
-.auth-reg-but {
+.auth-reg-but, .auth-open-reg, .auth-open-log {
   background-color: $header-buttons;
   color: $font;
   border-radius: 5px;
@@ -79,6 +89,14 @@ $drop-shadow: #17202A;
   height: 2vw;
   width: 20%;
   padding: 0 1vw;
+}
+
+.auth-reg-but {
+  margin-right: .5vw;
+}
+
+.auth-open-reg, .auth-open-log {
+  width: 8vw;
 }
 
 .auth-form-wrapper {

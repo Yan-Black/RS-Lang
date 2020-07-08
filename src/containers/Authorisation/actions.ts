@@ -19,3 +19,8 @@ export const addApiError = (unregistred: string): ActionAuth => ({
   type: ActionType.ADD_API_ERROR_MESSAGE,
   payload: unregistred,
 });
+
+export const removeApiError = (): ActionAuth => ({
+  type: ActionType.REMOVE_API_ERROR_MESSAGE,
+  payload: '',
+});
