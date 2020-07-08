@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { faSun, faMoon, faFont } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function setDarkMode() {
   const sun = document.getElementById('sun');
@@ -62,9 +64,10 @@ class MainControlCenter extends React.Component {
           <span>Dark Mode / Тёмный режим</span>
           <div className="modes">
             {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
-            <i onClick={setLightMode} id="sun" className="far fa-sun sun active" tabIndex={0} role="button" aria-label="Set Light Mode" />
+            <FontAwesomeIcon icon={faSun} id="sun" onClick={setLightMode} className="sun active" tabIndex={0} role="button" aria-label="Set Light Mode" />
+            {' | '}
             {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
-            <i onClick={setDarkMode} id="moon" className="far fa-moon moon" tabIndex={0} role="button" aria-label="Set Dark Mode" />
+            <FontAwesomeIcon icon={faMoon} id="moon" onClick={setDarkMode} className="moon " tabIndex={0} role="button" aria-label="Set Dark Mode" />
           </div>
         </div>
         <div>
@@ -81,13 +84,13 @@ class MainControlCenter extends React.Component {
           <div className="font-switch">
             {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
             <span onClick={plusFontSize} tabIndex={0} role="button" aria-label="Font+">
-              <i className="fas fa-font font-switcher font-plus" />
+              <FontAwesomeIcon icon={faFont} />
               +
             </span>
             <span> | </span>
             {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
             <span onClick={minusFontSize} tabIndex={0} role="button" aria-label="Font-">
-              <i className="fas fa-font font-switcher font-minus" />
+              <FontAwesomeIcon icon={faFont} />
               -
             </span>
           </div>

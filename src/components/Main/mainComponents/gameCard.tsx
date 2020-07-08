@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import * as React from 'react';
+import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function showModal(event) {
   const cardId = event.target.closest('DIV').getAttribute('id');
@@ -163,7 +165,7 @@ function GameCard(
       <p className="game-name">{name}</p>
       <img src={imgSrc} alt="Game Card" />
       {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
-      <i className="far fa-question-circle about-game" onClick={showModal} tabIndex={0} role="button" aria-label="Show modal" />
+      <FontAwesomeIcon icon={faQuestionCircle} className="about-game" onClick={showModal} tabIndex={0} role="button" aria-label="Show modal" />
       <div style={{ display: 'none' }} id={modalId} className="modal-main">
         <div className="modal-hint">
           <div className="hint-title">{name}</div>

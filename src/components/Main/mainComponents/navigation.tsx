@@ -5,6 +5,10 @@ import {
   Route,
   Link,
 } from 'react-router-dom';
+import {
+  faVideo, faBook, faUsers, faAngleRight, faAngleLeft, faUserCircle,
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Statistic from '../../Statistic';
 import Dictionary from '../../Dictionary';
 import Games from '../../Games';
@@ -132,7 +136,7 @@ function Navigation():JSX.Element {
           <li>
             <Link to="/Statistic">
               {/* eslint-disable-next-line jsx-a11y/mouse-events-have-key-events */}
-              <i onMouseOver={showStat} onMouseOut={hideStat} className="far fa-chart-bar" aria-label="Menu" />
+              <FontAwesomeIcon icon={faVideo} onMouseOver={showStat} onMouseOut={hideStat} aria-label="Menu" />
               {' '}
               <span id="statistic" className="statistic side-menu"> Statistic</span>
             </Link>
@@ -140,7 +144,7 @@ function Navigation():JSX.Element {
           <li>
             <Link to="/Dictionary">
               {/* eslint-disable-next-line jsx-a11y/mouse-events-have-key-events */}
-              <i onMouseOver={showDict} onMouseOut={hideDict} className="fas fa-book dict" aria-label="Menu" />
+              <FontAwesomeIcon icon={faBook} onMouseOver={showDict} onMouseOut={hideDict} aria-label="Menu" />
               {' '}
               <span id="dictionary" className="dictionary side-menu"> Dictionary</span>
             </Link>
@@ -148,7 +152,7 @@ function Navigation():JSX.Element {
           <li>
             <Link to="/Promo">
               {/* eslint-disable-next-line jsx-a11y/mouse-events-have-key-events */}
-              <i onMouseOver={showPromo} onMouseOut={hidePromo} className="fas fa-video promo" aria-label="Menu" />
+              <FontAwesomeIcon icon={faVideo} onMouseOver={showPromo} onMouseOut={hidePromo} aria-label="Menu" />
               {' '}
               <span id="promo" className="promo side-menu"> Promo</span>
             </Link>
@@ -156,20 +160,20 @@ function Navigation():JSX.Element {
           <li>
             <Link to="/AboutUs">
               {/* eslint-disable-next-line jsx-a11y/mouse-events-have-key-events */}
-              <i onMouseOver={showAbout} onMouseOut={hideAbout} className="fas fa-users about" aria-label="Menu" />
+              <FontAwesomeIcon icon={faUsers} onMouseOver={showAbout} onMouseOut={hideAbout} aria-label="Menu" />
               {' '}
               <span id="about" className="about side-menu"> About Us</span>
             </Link>
           </li>
           <li>
             {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
-            <i onClick={showSideMenu} id="right" className="fas fa-angle-right arrow-right" role="button" tabIndex={0} aria-label="Menu" />
+            <FontAwesomeIcon icon={faAngleRight} onClick={showSideMenu} id="right" role="button" tabIndex={0} aria-label="Menu" />
             {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
-            <i onClick={hideSideMenu} id="left" style={{ display: 'none', cursor: 'pointer' }} className="fas fa-angle-left" role="button" tabIndex={0} aria-label="Menu" />
+            <FontAwesomeIcon icon={faAngleLeft} onClick={hideSideMenu} style={{ display: 'none' }} id="left" role="button" tabIndex={0} aria-label="Menu" />
           </li>
         </ul>
         <div id="profile" className="profile">
-          <i className="far fa-user-circle" />
+          <FontAwesomeIcon icon={faUserCircle} style={{ fontSize: '40px' }} />
         </div>
         <span className="sign" id="sign">Sign out</span>
         <Switch>
