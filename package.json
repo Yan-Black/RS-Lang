@@ -30,6 +30,7 @@
     "@fortawesome/react-fontawesome": "^0.1.11",
     "@types/react-bootstrap": "^1.0.1",
     "bootstrap": "^4.5.0",
+    "classnames": "^2.2.6",
     "immutability-helper": "^3.1.1",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
@@ -39,8 +40,10 @@
     "react-player": "^2.4.0",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.2.0",
+    "react-speech-kit": "^3.0.0",
     "redux": "^4.0.5",
     "video-react": "^0.14.1",
+    "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
