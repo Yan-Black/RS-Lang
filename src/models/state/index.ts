@@ -24,5 +24,9 @@ export interface State {
   engPuzzleLoading;
   engPuzzleStartPage;
   dictionaryState;
+  speakItControl;
+  speakItFetch;
+  speakItWord;
+  speakItButtons;
   // add more fields according rootReducer
 }
