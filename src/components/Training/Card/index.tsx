@@ -11,15 +11,16 @@ import {
 import { FetchedWordData } from 'containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/models';
 import book1 from 'constants/words-constants/book1';
 import { setInputWord, toggleAnswerCorrect, toggleMoveToNext, progressTraining } from 'containers/Main/Training/actions';
-import CheckedAnswer from 'components/Main/Training/Card/CheckedAnswer';
+import TrainingCardFields from 'components/TrainingCard/Card/TrainingCardFields';
+import CheckedAnswer from 'components/TrainingCard/Card/CheckedAnswer';
 
 const Card: React.FC = () => {
+  const dispatch = useDispatch();
   const index = useSelector((state: State) => state.training.currIndex);
   const data: FetchedWordData = book1[0][index];
   const inputWidth = data.word.length * 12;
   const [inputData, setInputData] = useState('');
   const inputRef: React.LegacyRef<HTMLInputElement> = useRef(null);
-  const dispatch = useDispatch();
 
   const isAnswerChecked = useSelector((state: State) => state.training.isChecked);
 
@@ -31,27 +32,9 @@ const Card: React.FC = () => {
     }
   });
 
-  const showWordTranslate = useSelector((state: State) => state.trainingSettings.showWordTranslate);
-  const translateClass = showWordTranslate ? 'training-card-translate' : 'invisible';
-
-  const showWordExample = useSelector((state: State) => state.trainingSettings.showWordExample);
-  const exampleClass = showWordExample ? 'training-card-example' : 'invisible';
-
-  const showWordMeaning = useSelector((state: State) => state.trainingSettings.showWordMeaning);
-  const meaningClass = showWordMeaning ? 'training-card-meaning' : 'invisible';
-
-  const showWordTranscription = useSelector(
-    (state: State) => state.trainingSettings.showWordTranscription,
-  );
-  const transcriptionClass = showWordTranscription ? 'training-card-transcript' : 'invisible';
-
   const showWordImage = useSelector((state: State) => state.trainingSettings.showWordImage);
 
   const imgURL = !isAnswerChecked ? questionMarkImage : (showWordImage ? `https://raw.githubusercontent.com/lactivka/rslang-data/master/${data.image}` : checkMarkImage);
-  // const imageClass = showWordImage ? 'training-card-image' : 'invisible';
-
-  const showAllTranslates = useSelector((state: State) => state.trainingSettings.showAllTranslates);
-  const translatesClass = showAllTranslates ? 'translate' : 'invisible';
 
   const canMoveToNext = useSelector((state: State) => state.training.moveToNext);
   const nextCardBTNClass = canMoveToNext ? 'next-card-btn btn btn-success shadow my-2' : 'btn invisible my-2';
@@ -66,11 +49,13 @@ const Card: React.FC = () => {
   const difficultBTNClass = showDifficultBTN ? 'btn btn-info shadow my-1' : 'd-none';
 
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputData(event.target.value);
+    if (!canMoveToNext) {
+      setInputData(event.target.value);
+    }
   };
 
   const checkAnswerBTNHandler = () => {
-    if (!canMoveToNext && !isAnswerChecked) {
+    if (!canMoveToNext && !isAnswerChecked && inputData.length > 0) {
       dispatch(setInputWord(inputData));
       if (inputData === data.word) {
         dispatch(toggleAnswerCorrect());
@@ -101,27 +86,7 @@ const Card: React.FC = () => {
     <div className="training-card-wrapper shadow">
       <div className="training-card-content">
         <div className="training-card-info">
-          <span className="training-card-word">
-            {data.word}
-          </span>
-          <span className={translateClass}>
-            {data.wordTranslate}
-          </span>
-          <span className={transcriptionClass}>
-            {data.transcription}
-          </span>
-          <span className={meaningClass}>
-            {data.textMeaning}
-          </span>
-          <span className={translatesClass}>
-            {data.textMeaningTranslate}
-          </span>
-          <span className={exampleClass}>
-            {data.textExample}
-          </span>
-          <span className={translatesClass}>
-            {data.textExampleTranslate}
-          </span>
+          <TrainingCardFields />
           <form action="" className="checking-form" id="checking-form" onSubmit={formSubmitHandler}>
             <input
               className="mx-auto"

@@ -10,6 +10,7 @@ function CheckedAnswer(): JSX.Element {
   const dispatch = useDispatch();
   const isAnswerChecked = useSelector((state: State) => state.training.isChecked);
   const isAnswerCorrect = useSelector((state: State) => state.training.isCorrect);
+  const canMoveToNext = useSelector((state: State) => state.training.moveToNext);
   const index = useSelector((state: State) => state.training.currIndex);
   const data: FetchedWordData = book1[0][index];
   const [checkedAnswerClass, setCheckedAnswerClass] = useState('checked-answer');
@@ -32,8 +33,10 @@ function CheckedAnswer(): JSX.Element {
   }
 
   const clickHandler = () => {
-    dispatch(toggleAnswerChecked());
-    setCheckedAnswerClass('checked-answer');
+    if (!canMoveToNext) {
+      dispatch(toggleAnswerChecked());
+      setCheckedAnswerClass('checked-answer');
+    }
   };
 
   const keyPressHandler = (event: React.KeyboardEvent<HTMLDivElement>) => event.preventDefault();
