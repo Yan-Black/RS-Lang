@@ -17,8 +17,9 @@ const Hard: React.FC = () => {
   return (
     <div className="d-flex flex-column">
       {/* to do add not static period to next repeating */}
-      <span>4 дня</span>
+      <span className="text-center">4 дня</span>
       <button
+        className="btn btn-outline-info"
         type="button"
         id="hard-btn"
         onClick={btnClickHandler}

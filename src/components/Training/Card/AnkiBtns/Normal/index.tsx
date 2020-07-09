@@ -17,8 +17,9 @@ const Normal: React.FC = () => {
   return (
     <div className="d-flex flex-column">
       {/* to do add not static period to next repeating */}
-      <span>18 дней</span>
+      <span className="text-center">18 дней</span>
       <button
+        className="btn btn-outline-info"
         type="button"
         id="normal-btn"
         onClick={btnClickHandler}

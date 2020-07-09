@@ -1,5 +1,6 @@
 import * as React from 'react';
 import questionMarkImage from 'assets/question.svg';
+import checkMarkImage from 'assets/checkbox.svg';
 import { useSelector, useDispatch } from 'react-redux';
 import { State } from 'models';
 
@@ -45,7 +46,8 @@ const Card: React.FC = () => {
   const transcriptionClass = showWordTranscription ? 'training-card-transcript' : 'invisible';
 
   const showWordImage = useSelector((state: State) => state.trainingSettings.showWordImage);
-  const imgURL = showWordImage ? `https://raw.githubusercontent.com/lactivka/rslang-data/master/${data.image}` : questionMarkImage;
+
+  const imgURL = !isAnswerChecked ? questionMarkImage : (showWordImage ? `https://raw.githubusercontent.com/lactivka/rslang-data/master/${data.image}` : checkMarkImage);
   // const imageClass = showWordImage ? 'training-card-image' : 'invisible';
 
   const showAllTranslates = useSelector((state: State) => state.trainingSettings.showAllTranslates);
@@ -55,13 +57,13 @@ const Card: React.FC = () => {
   const nextCardBTNClass = canMoveToNext ? 'next-card-btn btn btn-success shadow my-2' : 'btn invisible my-2';
 
   const showHelpBTN = useSelector((state: State) => state.trainingSettings.showHelpBTN);
-  const helpBTNClass = showHelpBTN ? 'btn btn-info shadow' : 'd-none';
+  const helpBTNClass = showHelpBTN ? 'btn btn-info shadow my-1' : 'd-none';
 
   const showDeleteBTN = useSelector((state: State) => state.trainingSettings.showDeleteBTN);
-  const deleteBTNClass = showDeleteBTN ? 'btn btn-info shadow' : 'd-none';
+  const deleteBTNClass = showDeleteBTN ? 'btn btn-info shadow my-1' : 'd-none';
 
   const showDifficultBTN = useSelector((state: State) => state.trainingSettings.showDifficultBTN);
-  const difficultBTNClass = showDifficultBTN ? 'btn btn-info shadow' : 'd-none';
+  const difficultBTNClass = showDifficultBTN ? 'btn btn-info shadow my-1' : 'd-none';
 
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputData(event.target.value);
@@ -137,7 +139,7 @@ const Card: React.FC = () => {
           <img className="training-card-image rounded" alt="hint" src={imgURL} />
         </div>
       </div>
-      <div className="training-card-footer">
+      <div className="training-card-footer px-1">
         <div className="btn-block-one">
           <button
             type="button"
@@ -147,7 +149,7 @@ const Card: React.FC = () => {
             Показать ответ
           </button>
           <button
-            className="btn btn-info shadow"
+            className="btn btn-info shadow my-1"
             type="button"
             onClick={checkAnswerBTNHandler}
           >

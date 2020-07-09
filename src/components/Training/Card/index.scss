@@ -4,7 +4,6 @@
 
 .training-card-wrapper {
   width: 60vw;
-  // height: 30vw;
   background: #fff;
   border-radius: 5px;
   margin: 4vw auto;
@@ -64,21 +63,30 @@
     .training-card-image-container {
       width: 50%;
       height: auto;
+      margin: auto;
       .training-card-image {
         width: 100%;
         height: auto;
+        max-height: 215px;
       }
     }
   }
   .training-card-footer {
     display: flex;
     flex-direction: column;
+    & button {
+      width: 141px;
+    }
     & .btn-block-one {
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-around;
     }
     & .btn-block-two {
       text-align: center;
+      & .next-card-btn {
+        width: auto;
+      }
     }
   }
 }
@@ -90,3 +98,35 @@
   }
 }
 
+@media (max-width: 900px) {
+  .training-card-wrapper {
+    width: 65vw;
+    .training-card-content {
+      flex-direction: column;
+      & .training-card-info {
+        width: auto;
+      }
+      & .training-card-image-container {
+        width: 60%;
+        margin: auto;
+        & .training-card-image  {
+          max-height: 155px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .training-card-wrapper {
+    width: 75vw;
+    & .training-card-content {
+      & .training-card-image-container {
+        width: 80%;
+        & .training-card-image  {
+          max-height: 215px;
+        }
+      }
+    }
+  }
+}

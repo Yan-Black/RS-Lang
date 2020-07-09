@@ -17,8 +17,9 @@ const Repeat: React.FC = () => {
   return (
     <div className="d-flex flex-column">
       {/* to do add not static period to next repeating */}
-      <span>&gt; 10 мин</span>
+      <span className="text-center">&gt; 10 мин</span>
       <button
+        className="btn btn-outline-info"
         type="button"
         id="repeat-btn"
         onClick={btnClickHandler}

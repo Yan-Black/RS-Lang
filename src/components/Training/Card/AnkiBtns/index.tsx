@@ -15,7 +15,7 @@ const AnkiBtns: React.FC = () => {
   }
 
   return (
-    <div className="anki-btns-wrapper d-flex justify-content-around mx-auto" style={{ width: '70%' }}>
+    <div className="anki-btns-wrapper d-flex justify-content-around flex-wrap mx-auto" style={{ width: '70%' }}>
       <Repeat />
       <Easy />
       <Normal />
