@@ -17,6 +17,7 @@ import {
   pageReducer, levelReducer, roundReducer,
   currWordsReducer, answerReducer, statisticReducer, modalReducer,
 } from 'containers/Games/AudioCall/reducer';
+import { dictionaryReducer } from 'containers/Dictionary/reducer';
 import appReducer from '../containers/App/reducer';
 import btnsReducer from '../containers/Games/EnglishPuzzle/HeaderBlock/HintButtons/btnsReducer';
 import wordsReducer from '../containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/wordsReducer';
@@ -54,6 +55,7 @@ const rootReducer = combineReducers({
   engPuzzleFetchedWords: wordsReducer,
   engPuzzleLoading: loaderReducer,
   engPuzzleStartPage: startPageReducer,
+  dictionaryState: dictionaryReducer,
   speakItControl: levelControlReducer,
   speakItFetch: fetchReducer,
   speakItWord: cardsReducer,
