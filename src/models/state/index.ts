@@ -1,5 +1,6 @@
 export interface State {
   trainingSettings;
+  training;
   app;
   authToken;
   authErrors;

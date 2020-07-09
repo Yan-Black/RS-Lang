@@ -34,7 +34,11 @@ const config: webpack.Configuration = {
         ],
       },
       {
+<<<<<<< HEAD
         test: /\.(png|jpe?g|gif|svg|ogg|mp3|wav|mpe?g)$/i,
+=======
+        test: /\.(svg|mp3|png|jpe?g|gif)$/i,
+>>>>>>> feat: implement input field behavior according to task, implement input word checking, create reducer and actions for training card
         use: [
           {
             loader: 'file-loader',
