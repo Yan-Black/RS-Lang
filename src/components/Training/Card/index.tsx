@@ -7,9 +7,9 @@ import './index.scss';
 import {
   useState, useEffect, useRef,
 } from 'react';
-import { toggleAnswerCorrect, setInputWord } from 'containers/Main/Training/actions';
 import { FetchedWordData } from 'containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/models';
 import book1 from 'constants/words-constants/book1';
+import { setInputWord, toggleAnswerCorrect, toggleMoveToNext, progressTraining } from 'containers/Main/Training/actions';
 import CheckedAnswer from 'components/Main/Training/Card/CheckedAnswer';
 
 const Card: React.FC = () => {
@@ -51,25 +51,44 @@ const Card: React.FC = () => {
   const showAllTranslates = useSelector((state: State) => state.trainingSettings.showAllTranslates);
   const translatesClass = showAllTranslates ? 'translate' : 'invisible';
 
+  const canMoveToNext = useSelector((state: State) => state.training.moveToNext);
+  const nextCardBTNClass = canMoveToNext ? 'next-card-btn btn btn-success shadow my-2' : 'btn invisible my-2';
+
   const showHelpBTN = useSelector((state: State) => state.trainingSettings.showHelpBTN);
-  const helpBTNClass = showHelpBTN ? null : 'd-none';
+  const helpBTNClass = showHelpBTN ? 'btn btn-info shadow' : 'd-none';
 
   const showDeleteBTN = useSelector((state: State) => state.trainingSettings.showDeleteBTN);
-  const deleteBTNClass = showDeleteBTN ? null : 'd-none';
+  const deleteBTNClass = showDeleteBTN ? 'btn btn-info shadow' : 'd-none';
 
   const showDifficultBTN = useSelector((state: State) => state.trainingSettings.showDifficultBTN);
-  const difficultBTNClass = showDifficultBTN ? null : 'd-none';
+  const difficultBTNClass = showDifficultBTN ? 'btn btn-info shadow' : 'd-none';
 
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputData(event.target.value);
   };
 
   const checkAnswerBTNHandler = () => {
-    dispatch(setInputWord(inputData));
-    if (inputData === data.word) {
-      dispatch(toggleAnswerCorrect());
+    if (!canMoveToNext && !isAnswerChecked) {
+      dispatch(setInputWord(inputData));
+      if (inputData === data.word) {
+        dispatch(toggleAnswerCorrect());
+        dispatch(toggleMoveToNext());
+      }
+      setInputData('');
     }
-    setInputData('');
+  };
+
+  const helpBTNHandler = () => {
+    if (!canMoveToNext && !isAnswerChecked) {
+      dispatch(setInputWord(data.word));
+      dispatch(toggleAnswerCorrect());
+      dispatch(toggleMoveToNext());
+      setInputData('');
+    }
+  };
+
+  const nextCardBTNHandler = () => {
+    dispatch(progressTraining());
   };
 
   const formSubmitHandler = (
@@ -77,7 +96,7 @@ const Card: React.FC = () => {
   ) => { event.preventDefault(); checkAnswerBTNHandler(); };
 
   return (
-    <div className="training-card-wrapper">
+    <div className="training-card-wrapper shadow">
       <div className="training-card-content">
         <div className="training-card-info">
           <span className="training-card-word">
@@ -119,36 +138,46 @@ const Card: React.FC = () => {
         </div>
       </div>
       <div className="training-card-footer">
-        <button
-          type="button"
-          className={helpBTNClass}
-        >
-          Показать ответ
-        </button>
-        <button
-          type="button"
-          onClick={checkAnswerBTNHandler}
-        >
-          Проверить
-        </button>
-        <button
-          type="button"
-        >
-          Следующая карточка
-        </button>
-        <button
-          type="button"
-          className={deleteBTNClass}
-        >
-          Удалить слово
-        </button>
-        <button
-          type="button"
-          className={difficultBTNClass}
-        >
-          Сложное слово
-        </button>
+        <div className="btn-block-one">
+          <button
+            type="button"
+            className={helpBTNClass}
+            onClick={helpBTNHandler}
+          >
+            Показать ответ
+          </button>
+          <button
+            className="btn btn-info shadow"
+            type="button"
+            onClick={checkAnswerBTNHandler}
+          >
+            Проверить
+          </button>
+
+          <button
+            type="button"
+            className={deleteBTNClass}
+          >
+            Удалить слово
+          </button>
+          <button
+            type="button"
+            className={difficultBTNClass}
+          >
+            Сложное слово
+          </button>
+        </div>
+        <div className="btn-block-two">
+          <button
+            className={nextCardBTNClass}
+            type="button"
+            onClick={nextCardBTNHandler}
+          >
+            Следующая карточка
+          </button>
+        </div>
       </div>
+
     </div>
   );
 };

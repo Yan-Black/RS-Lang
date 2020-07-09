@@ -4,7 +4,7 @@
 
 .training-card-wrapper {
   width: 60vw;
-  height: 30vw;
+  // height: 30vw;
   background: #fff;
   border-radius: 5px;
   margin: 4vw auto;
@@ -70,10 +70,18 @@
     }
   }
   .training-card-footer {
-    height: 10%;
+    // height: 10%;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    // justify-content: space-around;
+    // align-items: center;
+    & .btn-block-one {
+      display: flex;
+      justify-content: space-around;
+    }
+    & .btn-block-two {
+      text-align: center;
+    }
   }
 }
 
@@ -83,3 +91,4 @@
     font-size: 20px;
   }
 }
+
