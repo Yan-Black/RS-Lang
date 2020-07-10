@@ -1,22 +1,30 @@
 import * as React from 'react';
-import { Component, Fragment } from 'react';
-import LoadingImg from './components/loadingImg/loadingImg';
-import Tips from './components/tips/tips';
+import { connect } from 'react-redux';
 import Sound from './components/sound/sound';
 import HealthBar from './components/healthBar/healthBar';
-import FallingWord from "./components/fallingWord/fallingWord";
-import RawOfWords from "./components/rawOfWords/rawOfWords";
-import Indicator from "./components/Indicator/Indicator";
+import RawOfWordsComponent1 from './components/rawOfWords/rawOfWords';
+import Indicator from './components/Indicator/Indicator';
 
-// eslint-disable-next-line react/prefer-stateless-function
-class GameScreen extends Component {
-  render() {
+const GameScreenComponent = (props) => {
+  const { mode } = props;
+  if (mode === 'SETGAMEMODE') {
     return (
       <>
-        <LoadingImg/>
+        <HealthBar />
+        <Sound />
+        <RawOfWordsComponent1 />
+        <Indicator />
       </>
     );
   }
-}
+  return <div />;
+};
+
+// eslint-disable-next-line react/prefer-stateless-function
+const mapStateToPropsForCounter = (state) => ({
+  mode: state.mode,
+});
+
+const GameScreen = connect(mapStateToPropsForCounter, null)(GameScreenComponent);
 
 export default GameScreen;

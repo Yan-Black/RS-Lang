@@ -1,16 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react';
-
-const sound = {
-  width: '23px',
-  height: '24px',
-  backgroundImage: 'url(src/components/Games/Savannah/gameScreen/components/sound/sound.svg)',
-  backgroundPosition: 0,
-  backgroundRepeat: 'no-repeat',
-  backgroundSize: 'contain',
-  cursor: 'pointer',
-  position: 'relative',
-};
+import './sound.scss';
 
 class Sound extends Component {
   // eslint-disable-next-line react/state-in-constructor
@@ -27,7 +17,9 @@ class Sound extends Component {
 
   render() {
     return (
-      <div className="sound" onClick={this.soundStateHandler} style={sound} />
+      // eslint-disable-next-line max-len
+      // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
+      <div className="sound" onClick={this.soundStateHandler} />
     );
   }
 }
