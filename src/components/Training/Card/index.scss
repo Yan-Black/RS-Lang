@@ -43,7 +43,7 @@
             outline: none;
           }
         }
-        & .checked-answer-half-transparent {
+        & .half-transparent {
           position: absolute;
           width: 100%;
           height: 100%;
@@ -92,6 +92,8 @@
 }
 
 #checked-answer {
+    text-align: left;
+    padding: 2px;
   & span {
     font-family: monospace;
     font-size: 20px;

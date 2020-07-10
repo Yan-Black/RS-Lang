@@ -8,7 +8,7 @@ const settingsInitState = <SettingsState> {
   showWordMeaning: true,
   showWordTranscription: true,
   showWordImage: true,
-  playAudio: true,
+  playAudio: false,
   showAllTranslates: true,
   showHelpBTN: true,
   showDeleteBTN: true,

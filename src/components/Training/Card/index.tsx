@@ -23,6 +23,43 @@ const Card: React.FC = () => {
   const inputRef: React.LegacyRef<HTMLInputElement> = useRef(null);
 
   const isAnswerChecked = useSelector((state: State) => state.training.isChecked);
+  const isAnswerCorrect = useSelector((state: State) => state.training.isCorrect);
+  const showWordExample = useSelector((state: State) => state.trainingSettings.showWordExample);
+  const showWordMeaning = useSelector((state: State) => state.trainingSettings.showWordMeaning);
+  const showWordImage = useSelector((state: State) => state.trainingSettings.showWordImage);
+  const canMoveToNext = useSelector((state: State) => state.training.moveToNext);
+  const showHelpBTN = useSelector((state: State) => state.trainingSettings.showHelpBTN);
+  const showDeleteBTN = useSelector((state: State) => state.trainingSettings.showDeleteBTN);
+  const showDifficultBTN = useSelector((state: State) => state.trainingSettings.showDifficultBTN);
+  const playAudioSetting = useSelector((state: State) => state.trainingSettings.playAudio);
+  const wordAudioURL = `https://raw.githubusercontent.com/lactivka/rslang-data/master/${data.audio}`;
+  const meaningAudioURL = `https://raw.githubusercontent.com/lactivka/rslang-data/master/${data.audioMeaning}`;
+  const exampleAudioURL = `https://raw.githubusercontent.com/lactivka/rslang-data/master/${data.audioExample}`;
+
+  const wordAudio = new Audio(wordAudioURL);
+  const meaningAudio = new Audio(meaningAudioURL);
+  const exampleAudio = new Audio(exampleAudioURL);
+
+  const playAllAudio = async () => {
+    await wordAudio.play();
+    wordAudio.onended = async () => {
+      if (showWordMeaning && showWordExample) {
+        await meaningAudio.play();
+        meaningAudio.onended = async () => {
+          await exampleAudio.play();
+          exampleAudio.onended = () => dispatch(toggleMoveToNext());
+        };
+      }
+      if (showWordMeaning && !showWordExample) {
+        await meaningAudio.play();
+        meaningAudio.onended = () => dispatch(toggleMoveToNext());
+      }
+      if (!showWordMeaning && showWordExample) {
+        await exampleAudio.play();
+        exampleAudio.onended = () => dispatch(toggleMoveToNext());
+      }
+    };
+  };
 
   useEffect(() => {
     if (!isAnswerChecked) {
@@ -32,20 +69,16 @@ const Card: React.FC = () => {
     }
   });
 
-  const showWordImage = useSelector((state: State) => state.trainingSettings.showWordImage);
+  const getUrl = () => {
+    if (showWordImage && isAnswerCorrect) return `https://raw.githubusercontent.com/lactivka/rslang-data/master/${data.image}`;
+    if (!showWordImage && isAnswerChecked) return checkMarkImage;
+    return questionMarkImage;
+  };
 
-  const imgURL = !isAnswerChecked ? questionMarkImage : (showWordImage ? `https://raw.githubusercontent.com/lactivka/rslang-data/master/${data.image}` : checkMarkImage);
-
-  const canMoveToNext = useSelector((state: State) => state.training.moveToNext);
+  const imgURL = getUrl();
   const nextCardBTNClass = canMoveToNext ? 'next-card-btn btn btn-success shadow my-2' : 'btn invisible my-2';
-
-  const showHelpBTN = useSelector((state: State) => state.trainingSettings.showHelpBTN);
   const helpBTNClass = showHelpBTN ? 'btn btn-info shadow my-1' : 'd-none';
-
-  const showDeleteBTN = useSelector((state: State) => state.trainingSettings.showDeleteBTN);
   const deleteBTNClass = showDeleteBTN ? 'btn btn-info shadow my-1' : 'd-none';
-
-  const showDifficultBTN = useSelector((state: State) => state.trainingSettings.showDifficultBTN);
   const difficultBTNClass = showDifficultBTN ? 'btn btn-info shadow my-1' : 'd-none';
 
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,23 +87,31 @@ const Card: React.FC = () => {
     }
   };
 
-  const checkAnswerBTNHandler = () => {
+  const checkAnswerBTNHandler = async () => {
     if (!canMoveToNext && !isAnswerChecked && inputData.length > 0) {
       dispatch(setInputWord(inputData));
+      setInputData('');
       if (inputData === data.word) {
         dispatch(toggleAnswerCorrect());
-        dispatch(toggleMoveToNext());
+        if (playAudioSetting) {
+          await playAllAudio();
+        } else {
+          dispatch(toggleMoveToNext());
+        }
       }
-      setInputData('');
     }
   };
 
-  const helpBTNHandler = () => {
-    if (!canMoveToNext && !isAnswerChecked) {
+  const helpBTNHandler = async () => {
+    if (!isAnswerCorrect) {
       dispatch(setInputWord(data.word));
       dispatch(toggleAnswerCorrect());
-      dispatch(toggleMoveToNext());
       setInputData('');
+      if (playAudioSetting) {
+        await playAllAudio();
+      } else {
+        dispatch(toggleMoveToNext());
+      }
     }
   };
 
@@ -78,16 +119,16 @@ const Card: React.FC = () => {
     dispatch(progressTraining());
   };
 
-  const formSubmitHandler = (
+  const formSubmitHandler = async (
     event: React.FormEvent<HTMLFormElement>,
-  ) => { event.preventDefault(); checkAnswerBTNHandler(); };
+  ) => { event.preventDefault(); await checkAnswerBTNHandler(); };
 
   return (
     <div className="training-card-wrapper shadow">
       <div className="training-card-content">
         <div className="training-card-info">
           <TrainingCardFields />
-          <form action="" className="checking-form" id="checking-form" onSubmit={formSubmitHandler}>
+          <form action="" className="checking-form m-auto" id="checking-form" style={{ width: `${inputWidth}px` }} onSubmit={formSubmitHandler}>
             <input
               className="mx-auto"
               type="text"
@@ -144,7 +185,6 @@ const Card: React.FC = () => {
           </button>
         </div>
       </div>
-
     </div>
   );
 };

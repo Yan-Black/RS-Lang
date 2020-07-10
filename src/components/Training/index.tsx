@@ -15,7 +15,7 @@ import AppSettings from './Card/AppSettings';
 
 const Training: React.FC = () => {
   const index = useSelector((state: State) => state.training.currIndex);
-  const cardsToTrain = 40;
+  const cardsToTrain = 10;
   const done = Math.ceil((index * 100) / cardsToTrain);
   return (
     <div className="training-page-wrapper">

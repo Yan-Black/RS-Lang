@@ -26,9 +26,9 @@ function CheckedAnswer(): JSX.Element {
   const correctColor = 'text-success';
   const wrongColor = mistakes < 3 ? 'text-warning' : 'text-danger';
 
-  if (checkedAnswerClass === 'checked-answer' && !isAnswerCorrect) {
+  if (checkedAnswerClass === 'checked-answer' && !isAnswerCorrect && !canMoveToNext) {
     setTimeout(() => {
-      setCheckedAnswerClass('checked-answer-half-transparent');
+      setCheckedAnswerClass('half-transparent');
     }, 1000);
   }
 
