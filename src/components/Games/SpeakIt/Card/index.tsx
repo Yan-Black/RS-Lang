@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import * as React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVolumeUp } from '@fortawesome/free-solid-svg-icons';
@@ -45,8 +46,8 @@ const Card = ({ data, index, next }) => {
     <div
       className={
         game
-          ? classNames('card', { 'card-selected': pagination === Number(next), 'card-win': winCard, 'card-mistake': mistakeCard })
-          : classNames('card', { 'active-card': index === active })
+          ? classNames('card-game', { 'card-selected': pagination === Number(next), 'card-win': winCard, 'card-mistake': mistakeCard })
+          : classNames('card-game', { 'active-card': index === active })
         }
       id={next}
       onClick={game ? null : cardData}

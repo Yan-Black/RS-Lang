@@ -38,3 +38,11 @@ export const mistake = (gameWord: string) => ({
   type: ActionType.MISTAKE,
   payload: gameWord,
 });
+
+export const succesWord = () => ({
+  type: ActionType.SUCCES_WORD,
+});
+
+export const failedWord = () => ({
+  type: ActionType.FAILED_WORD,
+});
