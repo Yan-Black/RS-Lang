@@ -23,6 +23,7 @@ export interface State {
   engPuzzleFetchedWords;
   engPuzzleLoading;
   engPuzzleStartPage;
+  dictionaryState;
   speakItControl;
   speakItFetch;
   speakItWord;
