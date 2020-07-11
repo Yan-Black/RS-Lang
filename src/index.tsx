@@ -6,7 +6,7 @@ import * as ReactDOM from 'react-dom';
 import store from 'store';
 import SpeakIt from 'components/Games/SpeakIt';
 
-const Index = () => (
+const Index: React.FC = () => (
   <Provider store={store}>
     {/* <App /> */}
     <SpeakIt />
