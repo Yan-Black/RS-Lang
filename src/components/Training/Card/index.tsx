@@ -40,32 +40,57 @@ const Card: React.FC = () => {
   const meaningAudio = new Audio(meaningAudioURL);
   const exampleAudio = new Audio(exampleAudioURL);
 
-  const playAllAudio = async () => {
-    await wordAudio.play();
-    wordAudio.onended = async () => {
-      if (showWordMeaning && showWordExample) {
-        await meaningAudio.play();
-        meaningAudio.onended = async () => {
-          await exampleAudio.play();
-          exampleAudio.onended = () => dispatch(toggleMoveToNext());
-        };
-      }
-      if (showWordMeaning && !showWordExample) {
-        await meaningAudio.play();
-        meaningAudio.onended = () => dispatch(toggleMoveToNext());
-      }
-      if (!showWordMeaning && showWordExample) {
-        await exampleAudio.play();
-        exampleAudio.onended = () => dispatch(toggleMoveToNext());
-      }
-    };
-  };
+  // const playAllAudio = async () => {
+  //   await wordAudio.play();
+  //   wordAudio.onended = async () => {
+  //     if (showWordMeaning && showWordExample) {
+  //       await meaningAudio.play();
+  //       meaningAudio.onended = async () => {
+  //         await exampleAudio.play();
+  //         exampleAudio.onended = () => dispatch(toggleMoveToNext());
+  //       };
+  //     }
+  //     if (showWordMeaning && !showWordExample) {
+  //       await meaningAudio.play();
+  //       meaningAudio.onended = () => dispatch(toggleMoveToNext());
+  //     }
+  //     if (!showWordMeaning && showWordExample) {
+  //       await exampleAudio.play();
+  //       exampleAudio.onended = () => dispatch(toggleMoveToNext());
+  //     }
+  //   };
+  // };
 
   useEffect(() => {
     if (!isAnswerChecked) {
       inputRef.current.focus();
     } else {
       inputRef.current.blur();
+      if (isAnswerCorrect && playAudioSetting) {
+        const handleAudio = async () => {
+          try {
+            wordAudio.onclick = () => wordAudio.pause();
+            meaningAudio.onclick = () => meaningAudio.pause();
+            exampleAudio.onclick = () => exampleAudio.pause();
+
+            await wordAudio.play();
+            wordAudio.onended = async () => {
+              if (showWordMeaning && showWordExample) {
+                await meaningAudio.play();
+                meaningAudio.onended = async () => {
+                  await exampleAudio.play();
+                  exampleAudio.onended = () => {
+                  };
+                };
+              }
+            };
+          } catch (error) {
+            throw new Error('Cannot load the audio files');
+          }
+        };
+        // eslint-disable-next-line no-void
+        void handleAudio();
+      }
     }
   });
 
@@ -87,41 +112,37 @@ const Card: React.FC = () => {
     }
   };
 
-  const checkAnswerBTNHandler = async () => {
+  const checkAnswerBTNHandler = () => {
     if (!canMoveToNext && !isAnswerChecked && inputData.length > 0) {
       dispatch(setInputWord(inputData));
       setInputData('');
       if (inputData === data.word) {
         dispatch(toggleAnswerCorrect());
-        if (playAudioSetting) {
-          await playAllAudio();
-        } else {
-          dispatch(toggleMoveToNext());
-        }
-      }
-    }
-  };
-
-  const helpBTNHandler = async () => {
-    if (!isAnswerCorrect) {
-      dispatch(setInputWord(data.word));
-      dispatch(toggleAnswerCorrect());
-      setInputData('');
-      if (playAudioSetting) {
-        await playAllAudio();
-      } else {
         dispatch(toggleMoveToNext());
       }
     }
   };
 
+  const helpBTNHandler = () => {
+    if (!isAnswerCorrect) {
+      dispatch(setInputWord(data.word));
+      dispatch(toggleAnswerCorrect());
+      setInputData('');
+      dispatch(toggleMoveToNext());
+    }
+  };
+
   const nextCardBTNHandler = () => {
+    const event = new Event('click');
+    wordAudio.dispatchEvent(event);
+    meaningAudio.dispatchEvent(event);
+    exampleAudio.dispatchEvent(event);
     dispatch(progressTraining());
   };
 
-  const formSubmitHandler = async (
+  const formSubmitHandler = (
     event: React.FormEvent<HTMLFormElement>,
-  ) => { event.preventDefault(); await checkAnswerBTNHandler(); };
+  ) => { event.preventDefault(); checkAnswerBTNHandler(); };
 
   return (
     <div className="training-card-wrapper shadow">

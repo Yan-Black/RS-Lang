@@ -14,6 +14,7 @@ function CheckedAnswer(): JSX.Element {
   const index = useSelector((state: State) => state.training.currIndex);
   const data: FetchedWordData = book1[0][index];
   const [checkedAnswerClass, setCheckedAnswerClass] = useState('checked-answer');
+  // let checkedAnswerClass = 'checked-answer';
   const inputWord: string = useSelector((state: State) => state.training.inputWord);
   const correctWord = data.word;
   if (!isAnswerChecked) return null;
@@ -26,7 +27,7 @@ function CheckedAnswer(): JSX.Element {
   const correctColor = 'text-success';
   const wrongColor = mistakes < 3 ? 'text-warning' : 'text-danger';
 
-  if (checkedAnswerClass === 'checked-answer' && !isAnswerCorrect && !canMoveToNext) {
+  if (checkedAnswerClass === 'checked-answer' && isAnswerChecked && !isAnswerCorrect) {
     setTimeout(() => {
       setCheckedAnswerClass('half-transparent');
     }, 1000);
