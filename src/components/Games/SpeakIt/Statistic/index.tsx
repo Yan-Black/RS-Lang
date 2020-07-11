@@ -23,39 +23,42 @@ const Statistic = () => {
     <div className={isStatOpen ? 'speakit-statistic-wrapper' : 'disabled'}>
       <div className="speakit-statistic">
         <div className="speakit-statistic-content">
-          <Accordion>
-            {statInfo.playedDates.map((info, i) => (
-              <Card key={info.date}>
-                <Accordion.Toggle as={Card.Header} eventKey={`${i}`}>
-                  {info.date}
-                </Accordion.Toggle>
-                <Accordion.Collapse eventKey={`${i}`}>
-                  <Card.Body>
-                    <table className="speakit-stat-table">
-                      <tbody>
-                        <tr>
-                          <th>Time:</th>
-                          <th>Level:</th>
-                          <th>Success:</th>
-                          <th>Failed:</th>
-                        </tr>
-                        {statInfo.playedTimes.map((stat, idx) => (
-                          stat.date === statInfo.playedDates[i].date ? (
-                            <tr key={stat.payload}>
-                              <td>{statInfo.playedTimes[idx].payload}</td>
-                              <td>{statInfo.playedLevels[idx].payload}</td>
-                              <td>{statInfo.success[idx].payload}</td>
-                              <td>{statInfo.failed[idx].payload}</td>
+          {statInfo.playedDates.length > 0
+            ? (
+              <Accordion>
+                {statInfo.playedDates.map((info, i) => (
+                  <Card key={info.date}>
+                    <Accordion.Toggle as={Card.Header} eventKey={`${i}`}>
+                      {info.date}
+                    </Accordion.Toggle>
+                    <Accordion.Collapse eventKey={`${i}`}>
+                      <Card.Body>
+                        <table className="speakit-stat-table">
+                          <tbody>
+                            <tr>
+                              <th>Time:</th>
+                              <th>Level:</th>
+                              <th>Success:</th>
+                              <th>Failed:</th>
                             </tr>
-                          ) : (null)
-                        ))}
-                      </tbody>
-                    </table>
-                  </Card.Body>
-                </Accordion.Collapse>
-              </Card>
-            ))}
-          </Accordion>
+                            {statInfo.playedTimes.map((stat, idx) => (
+                              stat.date === statInfo.playedDates[i].date ? (
+                                <tr key={stat.payload}>
+                                  <td>{statInfo.playedTimes[idx].payload}</td>
+                                  <td>{statInfo.playedLevels[idx].payload}</td>
+                                  <td>{statInfo.success[idx].payload}</td>
+                                  <td>{statInfo.failed[idx].payload}</td>
+                                </tr>
+                              ) : (null)
+                            ))}
+                          </tbody>
+                        </table>
+                      </Card.Body>
+                    </Accordion.Collapse>
+                  </Card>
+                ))}
+              </Accordion>
+            ) : 'У Вас нету сыграных игр!' }
         </div>
         <div className="speakit-statistic-footer">
           <Button variant="success" className="btn" onClick={close}>Close</Button>

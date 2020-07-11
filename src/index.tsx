@@ -2,14 +2,12 @@ import * as React from 'react';
 import { Provider } from 'react-redux';
 import * as ReactDOM from 'react-dom';
 
-// import App from 'components/App';
+import App from 'components/App';
 import store from 'store';
-import SpeakIt from 'components/Games/SpeakIt';
 
 const Index: React.FC = () => (
   <Provider store={store}>
-    {/* <App /> */}
-    <SpeakIt />
+    <App />
   </Provider>
 );
 
