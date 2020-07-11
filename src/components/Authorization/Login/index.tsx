@@ -20,8 +20,8 @@ import Loader from '../Loader';
 const LoginForm: React.FC<LogProps> = ({ isOpen, setOpen, setRegOpen }) => {
   const { register, handleSubmit, errors } = useForm();
   const dispatch = useDispatch();
-  const [logged, setLogged] = useState(false);
-  const onSubmit = (user: User) => loginUser(user, dispatch, setLogged);
+  const logged = useSelector((state: State) => state.authLog.isLogged);
+  const onSubmit = (user: User) => loginUser(user, dispatch);
   const [type, setType] = useState('password');
   const clickHandler = () => {
     dispatch(removeApiError());
@@ -129,7 +129,7 @@ const LoginForm: React.FC<LogProps> = ({ isOpen, setOpen, setRegOpen }) => {
               <li>{errors.email && emailErrorMessage}</li>
               <li>{errors.password && passErrorMessage}</li>
               <li className="auth-error-mes">{apiError}</li>
-              {logged ? (<span>Logged</span>) : (null)}
+              {logged ? (<span>Authenticated</span>) : (null)}
             </ul>
           )}
         </div>

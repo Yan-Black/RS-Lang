@@ -7,10 +7,18 @@ $inputs-border: #D0D3D4;
 $header-buttons: #85929E;
 $error: #F1948A;
 $drop-shadow: #17202A;
+$main-reg-btn: #90A5D0;
+$main-reg-btn-hover: #6d7e9e;
+$app-name: #84cca7;
+
+.auth-page {
+  width: 100%;
+  height: 100%;
+}
 
 .auth-wrapper {
   width: 100%;
-  height: 100vh;
+  height: 100%;
   position: fixed;
   top: 0;
   left: 0;
@@ -24,7 +32,7 @@ $drop-shadow: #17202A;
 }
 
 .auth-form-block-wrapper {
-  width: 50%;
+  width: 100%;
   border-radius: 5px;
   background-color: $form-wrapper;
   padding: 5px;
@@ -81,7 +89,35 @@ $drop-shadow: #17202A;
   padding: 0;
 }
 
-.auth-reg-but, .auth-open-reg, .auth-open-log {
+.auth-reg-btns {
+  display: flex;
+  justify-content: space-around;
+  width: 30%;
+  height: 10%;
+  margin: 10% auto;
+}
+
+.auth-main-but {
+  border: none;
+  outline: none;
+  width: max-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  background-color: $app-name;
+  color: $font;
+  transition: .1s;
+  font-size: 1vw;
+  &:focus {
+    outline: none;
+  }
+  &:hover {
+    background-color: $main-reg-btn-hover;
+  }
+}
+
+.auth-reg-but {
   background-color: $header-buttons;
   color: $font;
   border-radius: 5px;

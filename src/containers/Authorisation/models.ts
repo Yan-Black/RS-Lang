@@ -1,10 +1,13 @@
 export interface InitialStateAuth {
-  token: string;
-  refreshToken: string;
+  currentUser: string;
 }
 
 export interface InitialStateApiErrors {
   error: string;
+}
+
+export interface InitialStateLog {
+  isLogged: boolean;
 }
 
 export interface ActionAuth {

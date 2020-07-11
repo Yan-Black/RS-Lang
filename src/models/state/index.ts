@@ -2,6 +2,13 @@ export interface State {
   app;
   authToken;
   authErrors;
+  authLog;
+  mainModal;
+  mainModalInfo;
+  mainTheme;
+  mainSettings;
+  mainSetEnabled;
+  mainCardsWords;
   audioCallPage;
   audioCallLevel;
   audioCallRound;

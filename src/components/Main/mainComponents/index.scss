@@ -1,25 +1,33 @@
+$aside-color: rgb(124, 166, 222);
+$light-theme: #F8F2EE;
+$dark-theme: #242525;
+$font: #fff;
+$card: #84cca7;
+$card-font-hover: #fbf1cf;
+
 #main {
   color: white;
 }
+
 .main-content {
   width: 100%;
   height: 100%;
   background-color: #F8F2EE;
   user-select: none;
 }
+
 .header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100px;
   height: 100vh;
-  background-color: rgb(124, 166, 222);
+  background-color: $aside-color;
   display: flex;
   z-index: 9;
   box-shadow: 3px 0 10px rgba(58, 58, 58, 0.589);
   border-right: 1px solid rgba(68, 68, 68, 0.24);
   transition: .3s;
-
   ul {
     list-style: none;
   }
@@ -67,10 +75,6 @@
     cursor: pointer;
     margin-left: 10px;
   }
-  // ul li:hover {
-  //   font-size: 1.2em;
-  //   transition: .3s;
-
     .header-nav {
       position: relative;
       margin-left: 30px;
@@ -83,12 +87,91 @@
     }
 }
 
-// main content
+.open {
+  width: 300px;
+}
+
+.main-aside-btn {
+  background-color: $aside-color;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  color: $font;
+  outline: none;
+  position: relative;
+  cursor: pointer;
+  &:focus {
+    outline: none;
+  }
+  &:hover {
+    opacity: 0.8;
+    .aside-menu-tooltip {
+      visibility: visible;
+    }
+  }
+  &:active {
+    opacity: 0.5;
+  }
+}
+
+.aside-menu-tooltip {
+  visibility: hidden;
+  font-size: 1.2vw;
+  height: 2vw;
+  background-color: $aside-color;
+  color: $font;
+  border-radius: 5px;
+  padding: 0 5px;
+  position: absolute;
+  top: calc(50% - (2vw / 2));
+  left: 150%;
+  z-index: 1;
+}
+
+.aside-tooltip-visible {
+  visibility: visible;
+  opacity: 0;
+  animation: reveal .3s linear;
+  animation-delay: .2s;
+  animation-fill-mode: both;
+}
+
+.aside-logout:hover {
+  opacity: 0.7;
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+  } to {
+    opacity: 1;
+  }
+}
+
+.theme-btn {
+  border: none;
+  background: none;
+  outline: none;
+  color: $font;
+  &:focus {
+    outline: none;
+  }
+}
+
+.sun {
+  color: yellow
+}
+
+.moon {
+  color: lightblue;
+}
+
 .main-wrapper {
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  transition: .3s;
 }
 .header-text {
   margin-top: 50px;
@@ -125,20 +208,18 @@
 
   .main-control-center {
     padding: 20px;
-    cursor: pointer;
     display: flex;
     flex-direction: column;
     width: 100%;
     background-color: #90A5D0;
     border-radius: 5px;
     border: 1px solid rgba(68, 68, 68, 0.068);
-    border-bottom: 4px solid rgba(68, 68, 68, 0.24);
+    filter: drop-shadow(0 0 4px rgba(0,0,0,0.5));
     transition: .3s;
-    box-shadow: 5px 0 10px rgba(0,0,0,0.5);
   }
 
   .main-control-center:hover{
-    box-shadow: 0 5px 10px rgba(0,0,0,0.5);
+    filter: drop-shadow(0 0 10px rgba(0,0,0,0.5));
     transition: .2s;
   }
 
@@ -185,10 +266,35 @@
     transition: .2s;
   }
 }
+
+.main-dark {
+  background-color: $dark-theme;
+}
+
+.main-light {
+  background-color: $light-theme;
+}
+
+.main-font-btn {
+  background: none;
+  outline: none;
+  border: none;
+  color: $font;
+  &:focus {
+    outline: none;
+  }
+  &:hover {
+    color: $card-font-hover;
+  }
+  &:active {
+    opacity: .5;
+  }
+}
+
 .header-text-2 {
   text-align: center;
   font-size: 2em;
-  color: #84cca7;
+  color: $card;
 }
 .games-container {
   margin-left: 15%;
@@ -211,82 +317,57 @@
 .game-card {
   position: relative;
   box-sizing: border-box;
-  background-color: #84cca7;
+  background-color: $card;
+  color: $font;
   border-radius: 5px;
   width: 100%;
   padding: 20px;
   border: 1px solid rgba(68, 68, 68, 0.068);
-  border-bottom: 4px solid rgba(0, 0, 0, 0.24);
   transition: .5s;
-  box-shadow: 0 0 10px rgba(47, 47, 47, 0.5);
+  filter: drop-shadow(0 0 4px rgba(0,0,0,0.5));
   user-select: none;
 }
 .game-name {
   text-align: right;
+  color: $font;
   font-size: 2em;
+  transition: .1s;
 }
+
+.game-link:hover {
+  text-decoration: none;
+  .game-name {
+    cursor: pointer;
+    color: $card-font-hover;
+  }
+}
+
 .game-card:hover {
-  cursor: pointer;
-  box-shadow: 0 5px 10px rgba(0,0,0,0.5);
+  filter: drop-shadow(0 0 10px rgba(0,0,0,0.5));
   transition: .2s;
 }
 .about-game {
   position: absolute;
   bottom: 20px;
   right: 20px;
+  cursor: pointer;
   transition: .3s;
-}
-.about-game:hover {
-  opacity: 0.8;
-  transition: .3s;
-}
-
-.modal-main {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  background-color: rgba(47, 47, 47, 0.5);
-  backdrop-filter: blur(3px);
-  z-index: 10;
-  transition: .3s;
-}
-
-.modal-hint {
-  position: relative;
-  padding: 20px;
-  margin: 30vh auto;
-  width: 30%;
-  height: 30vh;
-  background-color: #84cca7;
-  border: 1px solid rgba(68, 68, 68, 0.068);
-  box-shadow: 0 5px 15px rgba(47, 47, 47, 0.5);
-  border-bottom: 7px solid rgba(0, 0, 0, 0.24);
-  border-radius: 15px;
-  transition: .3s;
-}
-.modal-close-button {
-  outline: 0;
-  border: 0;
+  border: none;
   border-radius: 50%;
-  position: absolute;
-  box-sizing: border-box;
-  bottom: 5px;
-  right: 5px;
-  width: 30px;
-  height: 30px;
-  transition: .2s;
+  outline: none;
+  color: $card;
+  background-color: none;
+  &:focus {
+    outline: none;
+  }
+  &:hover {
+    color: $aside-color;
+  }
+  &:active {
+    opacity: 0.5;
+  }
 }
-.modal-close-button:hover {
-  opacity: 0.8;
-  outline: 0;
-}
-.modal-close-button:active {
-  outline: 0;
-  background-color: #ccc;
-  transition: .2s;
-}
+
 .main-control-center div {
   margin-bottom: 15px;
 }
@@ -314,7 +395,7 @@
   margin-right: 12px;
 }
 .active-lang {
-  color: #242525;
+  color: $card-font-hover;
 }
 .font-switch {
   float: right;
@@ -418,58 +499,6 @@
 }
 .cards-game-words-setting ul {
   list-style: none;
-}
-.setting-main {
-  box-sizing: border-box;
-  justify-content: center;
-  align-items: center;
-  justify-items: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  background-color: rgba(47, 47, 47, 0.5);
-  backdrop-filter: blur(3px);
-  z-index: 10;
-
-  .setting-content {
-    position: relative;
-    padding: 20px;
-    width: 50vw;
-    height: 70%;
-    background-color: #84cca7;
-    border: 1px solid rgba(68, 68, 68, 0.068);
-    box-shadow: 0 5px 15px rgba(47, 47, 47, 0.5);
-    border-radius: 15px 15px 0 0;
-    transition: .3s;
-    text-align: left;
-
-    .setting-save {
-      position: absolute;
-      width: 100%;
-      top: 100%;
-      left: 0;
-      font-size: 1cm;
-      background-color: rgb(255, 168, 87);
-      border: 1px solid rgba(68, 68, 68, 0.068);
-      border-bottom: 7px solid rgba(0, 0, 0, 0.24);
-      box-shadow: 0 5px 15px rgba(47, 47, 47, 0.5);
-      border-radius: 0 0 15px 15px;
-      transition: .3s;
-      text-align: center;
-    }
-  }
-}
-#settingMistakes {
-  color: black;
-  font-size: 1.4em;
-}
-.inputCardsGame {
-  text-align: right;
-}
-.item-true::before {
-  content: "✔ ";
 }
 
 @media(max-width: 1600px) {

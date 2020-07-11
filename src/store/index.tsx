@@ -20,6 +20,13 @@ import {
 import authTokenReducer from 'containers/Authorisation/authReducer';
 import authErrorsReducer from 'containers/Authorisation/authErrorsReducer';
 import { dictionaryReducer } from 'containers/Dictionary/reducer';
+import logReducer from 'containers/Authorisation/logReducer';
+import modalMainReducer from 'containers/Main/modalMainReducer';
+import modalInfoReducer from 'containers/Main/modalInfoReducer';
+import cardsWordsAmountReducer from 'containers/Main/cardsWordsAmountReducer';
+import settingsOpenReducer from 'containers/Main/settingsOpenReducer';
+import themeReducer from 'containers/Main/themeReducer';
+import settingsEnabledReducer from 'containers/Main/settingsEnabledReducer';
 import appReducer from '../containers/App/reducer';
 import btnsReducer from '../containers/Games/EnglishPuzzle/HeaderBlock/HintButtons/btnsReducer';
 import wordsReducer from '../containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/wordsReducer';
@@ -36,6 +43,13 @@ const rootReducer = combineReducers({
   app: appReducer,
   authToken: authTokenReducer,
   authErrors: authErrorsReducer,
+  authLog: logReducer,
+  mainModal: modalMainReducer,
+  mainModalInfo: modalInfoReducer,
+  mainTheme: themeReducer,
+  mainCardsWords: cardsWordsAmountReducer,
+  mainSettings: settingsOpenReducer,
+  mainSetEnabled: settingsEnabledReducer,
   audioCallPage: pageReducer,
   audioCallLevel: levelReducer,
   audioCallRound: roundReducer,

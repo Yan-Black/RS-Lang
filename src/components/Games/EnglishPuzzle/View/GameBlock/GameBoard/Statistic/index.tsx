@@ -21,7 +21,7 @@ const Statistic: React.FC<StatisticProps> = ({
         <div className="eng-puzzle-statistic-content">
           <Accordion>
             {statInfo.playedDates.map((info, i) => (
-              <Card key={info.date}>
+              <Card key={info.date} className="eng-puzzle-statistic-card">
                 <Accordion.Toggle as={Card.Header} eventKey={`${i}`}>
                   {info.date}
                 </Accordion.Toggle>
@@ -36,14 +36,14 @@ const Statistic: React.FC<StatisticProps> = ({
                           <th>Failed:</th>
                         </tr>
                         {statInfo.playedTimes.map((stat, idx) => (
-                          stat.date === statInfo.playedDates[i].date ? (
+                          stat.date === statInfo.playedDates[i].date && (
                             <tr key={stat.payload}>
                               <td>{statInfo.playedTimes[idx].payload}</td>
                               <td>{statInfo.playedLevels[idx].payload}</td>
                               <td>{statInfo.success[idx].payload}</td>
                               <td>{statInfo.failed[idx].payload}</td>
                             </tr>
-                          ) : (null)
+                          )
                         ))}
                       </tbody>
                     </table>

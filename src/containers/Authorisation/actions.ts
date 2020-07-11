@@ -1,9 +1,17 @@
 import { ActionAuth } from './models';
 import { ActionType } from './constants';
 
-export const setUserToken = (token: string): ActionAuth => ({
-  type: ActionType.SET_TOKEN,
-  payload: token,
+export const setNewUser = (userId: string): ActionAuth => ({
+  type: ActionType.SET_NEW_USER,
+  payload: userId,
+});
+
+export const setLogged = (): ActionAuth => ({
+  type: ActionType.SET_LOGGED,
+});
+
+export const setUnLogged = (): ActionAuth => ({
+  type: ActionType.SET_UNLOGGED,
 });
 
 export const setUserRefreshToken = (refreshToken: string): ActionAuth => ({

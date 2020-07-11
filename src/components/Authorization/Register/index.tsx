@@ -21,7 +21,6 @@ import '../index.scss';
 const RegisterForm: React.FC<RegProps> = ({ isOpen, setOpen }) => {
   const { register, handleSubmit, errors } = useForm();
   const loading = useSelector((state: State) => state.engPuzzleLoading.isLoading);
-  const token = useSelector((state: State) => state.authToken.token);
   const apiError = useSelector((state: State) => state.authErrors.error);
   const [registred, setRegistred] = useState(false);
   const [type, setType] = useState('password');

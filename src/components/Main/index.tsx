@@ -1,5 +1,6 @@
 import * as React from 'react';
-import Navigation from './mainComponents/navigation';
+import { withRouter } from 'react-router-dom';
+import Navigation from './mainComponents/AsideBar';
 import './mainComponents/index.scss';
 
 const Main: React.FC = () => (
@@ -8,4 +9,4 @@ const Main: React.FC = () => (
   </div>
 );
 
-export default Main;
+export default withRouter(Main);

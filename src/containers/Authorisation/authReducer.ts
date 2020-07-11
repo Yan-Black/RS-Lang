@@ -1,11 +1,9 @@
 import { Reducer } from 'react';
-import update from 'immutability-helper';
 import { InitialStateAuth, ActionAuth } from './models';
 import { ActionType } from './constants';
 
 const initalState: InitialStateAuth = {
-  token: '',
-  refreshToken: '',
+  currentUser: '',
 };
 
 const authTokenReducer: Reducer<InitialStateAuth, ActionAuth> = (
@@ -13,17 +11,8 @@ const authTokenReducer: Reducer<InitialStateAuth, ActionAuth> = (
   action,
 ) => {
   switch (action.type) {
-    case ActionType.SET_TOKEN: return update(state, {
-      token: { $set: action.payload },
-    });
-    case ActionType.SET_REFRESH_TOKEN: return update(state, {
-      refreshToken: { $set: action.payload },
-    });
-    case ActionType.REMOVE_TOKEN: return {
-      ...state,
-      token: '',
-      refreshToken: '',
-    };
+    case ActionType.SET_NEW_USER:
+      return { ...state, currentUser: action.payload };
     default: return state;
   }
 };
