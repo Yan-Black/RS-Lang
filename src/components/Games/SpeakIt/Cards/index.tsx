@@ -18,7 +18,7 @@ const Cards = (): JSX.Element => {
   const arr = [1, 3, 4, 5, 2, 6, 0, 7, 9, 8];
   const gameWord = useSelector((state: State) => state.speakItButtons.gameWord);
   const [value, setValue] = useState('');
-  const pagination :number = useSelector((state: State) => state.speakItButtons.pagination);
+  const pagination: number = useSelector((state: State) => state.speakItButtons.pagination);
   const savedDate = useSelector((state: State) => state.speakItStatisticInfo.playedDates[0]);
   const group = useSelector((state: State) => state.speakItControl.group);
   const succes = useSelector((state: State) => state.speakItFetch.succes);
