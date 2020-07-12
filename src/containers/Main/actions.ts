@@ -1,7 +1,7 @@
 import { Action } from 'redux';
 import { ActionType } from './constants';
 import {
-  ActionModalInfo, InitialStateModalInfo, ActionTheme, InitialStateHintsState, ActionSettings,
+  ActionModalInfo, InitialStateModalInfo, ActionTheme, ActionSettings,
 } from './models';
 
 export const openModal = (): Action => ({
