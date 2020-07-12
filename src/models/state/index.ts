@@ -11,6 +11,8 @@ export interface State {
   mainSetEnabled;
   mainCardsWords;
   mainLang;
+  mainReg;
+  mainLog;
   audioCallPage;
   audioCallLevel;
   audioCallRound;

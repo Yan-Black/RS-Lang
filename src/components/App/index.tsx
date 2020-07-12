@@ -23,15 +23,16 @@ import Loader from '../Authorization/Loader';
 import './index.scss';
 
 const App: React.FC = () => {
-  const logged = useSelector((state: State) => state.authLog.isLogged);
   const loading = useSelector((state: State) => state.engPuzzleLoading.isLoading);
+  const regOpen = useSelector((state: State) => state.mainReg.regOpen);
+  const logOpen = useSelector((state: State) => state.mainLog.logOpen);
   const { userId } = localStorage;
   const dispatch = useDispatch();
   useEffect(() => {
     userId && getUserStatistic();
     userId && getProfileFetch(dispatch);
   }, []);
-  if (loading) {
+  if (loading && !regOpen && !logOpen) {
     return (
       <div className="app-loader-wrapper">
         <Loader />

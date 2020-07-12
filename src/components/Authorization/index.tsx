@@ -1,44 +1,40 @@
 import * as React from 'react';
-import { useState } from 'react';
-import RegisterForm from './Register';
-import LoginForm from './Login';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { State } from 'models';
+import { eng, ru } from 'constants/main-page-constants';
+import { openRegForm, openLogForm } from 'containers/Authorisation/actions';
 import './index.scss';
 
 const Authorization: React.FC = () => {
-  const [openReg, setRegOpen] = useState(false);
-  const [openLog, setLogOpen] = useState(false);
-  const clickRegHandler = () => setRegOpen(!openReg);
-  const clickLogHandler = () => setLogOpen(!openLog);
+  const dispatch = useDispatch();
+  const clickRegHandler = () => dispatch(openRegForm());
+  const clickLogHandler = () => dispatch(openLogForm());
+  const lang = useSelector((state: State) => state.mainLang.lang);
+  const [usedLang, setUsedLang] = lang === 'eng' ? useState(eng) : useState(ru);
+  useEffect(() => (lang === 'eng' ? setUsedLang(eng) : setUsedLang(ru)), [lang]);
   return (
     <div className="auth-page">
+      <div className="auth-app-information">
+        <p className="auth-info">
+          {usedLang.unregistred}
+        </p>
+      </div>
       <div className="auth-reg-btns">
         <button
           type="button"
           className="auth-main-but"
           onClick={clickRegHandler}
         >
-          Register
+          {lang === 'eng' ? 'Register' : 'Зарегистрироваться'}
         </button>
         <button
           type="button"
           className="auth-main-but"
           onClick={clickLogHandler}
         >
-          Log&nbsp;in
+          {lang === 'eng' ? 'Login' : 'Войти'}
         </button>
-        {openReg ? (
-          <RegisterForm
-            isOpen={openReg}
-            setOpen={setRegOpen}
-          />
-        ) : (null)}
-        {openLog ? (
-          <LoginForm
-            isOpen={openLog}
-            setOpen={setLogOpen}
-            setRegOpen={setRegOpen}
-          />
-        ) : (null)}
       </div>
     </div>
   );

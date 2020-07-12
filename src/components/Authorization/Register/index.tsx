@@ -13,12 +13,12 @@ import {
   createUser,
 } from 'constants/athorization-constants';
 import { State } from 'models';
-import { removeApiError } from 'containers/Authorisation/actions';
-import { User, RegProps } from '../models';
+import { removeApiError, closeRegForm } from 'containers/Authorisation/actions';
+import { User } from '../models';
 import Loader from '../Loader';
 import '../index.scss';
 
-const RegisterForm: React.FC<RegProps> = ({ isOpen, setOpen }) => {
+const RegisterForm: React.FC = () => {
   const { register, handleSubmit, errors } = useForm();
   const loading = useSelector((state: State) => state.engPuzzleLoading.isLoading);
   const apiError = useSelector((state: State) => state.authErrors.error);
@@ -27,13 +27,13 @@ const RegisterForm: React.FC<RegProps> = ({ isOpen, setOpen }) => {
   const dispatch = useDispatch();
   const clickHandler = () => {
     dispatch(removeApiError());
-    setOpen(false);
+    dispatch(closeRegForm());
   };
   const changeHandler = () => dispatch(removeApiError());
   const onSubmit = (user: User) => createUser(user, dispatch, setRegistred);
   const inputTypeHandler = () => (type === 'password' ? setType('text') : setType('password'));
   return (
-    <div className={isOpen ? 'auth-wrapper' : 'disabled'}>
+    <div className="auth-wrapper">
       <div className="auth-form-block-wrapper">
         <div className="auth-header">
           <h1>Register</h1>

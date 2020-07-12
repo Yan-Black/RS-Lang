@@ -140,3 +140,57 @@ $card-font-hover: #f0e3b8;
   width: 75%;
   text-align: center;
 }
+
+@media (max-width: 1024px) {
+  .settings-content {
+    width: 70vw;
+  }
+}
+
+@media (max-width: 768px) {
+  .settings-content {
+    width: 90vw;
+    font-size: 3.5vw;
+  }
+  .settings-field {
+    height: 6vw;
+    margin-bottom: 1vw
+  }
+  .settings-options {
+    margin-bottom: 1vw;
+    .set-check {
+      height: 4vw;
+      width: 4vw;
+    }
+    .checkmark {
+      height: 3vw;
+      width: 3vw;
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .settings-content {
+    padding: 2vw;
+    font-size: 4.5vw;
+  }
+  .settings-field {
+    height: 8vw;
+    margin-bottom: 2vw
+  }
+  #inputWords, #inputCards {
+    height: 6vw;
+  }
+  .settings-options {
+    margin-bottom: 2vw;
+    .set-check {
+      height: 5vw;
+      width: 5vw;
+    }
+    .checkmark {
+      height: 4vw;
+      width: 4vw;
+    }
+  }
+}
+

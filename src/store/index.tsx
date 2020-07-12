@@ -29,6 +29,8 @@ import themeReducer from 'containers/Main/themeReducer';
 import settingsEnabledReducer from 'containers/Main/settingsEnabledReducer';
 import userNameReducer from 'containers/Authorisation/userNameReducer';
 import mainLangReducer from 'containers/Main/mainLangReducer';
+import regFormReducer from 'containers/Authorisation/regFormReducer';
+import logFormReducer from 'containers/Authorisation/logFormReducer';
 import appReducer from '../containers/App/reducer';
 import btnsReducer from '../containers/Games/EnglishPuzzle/HeaderBlock/HintButtons/btnsReducer';
 import wordsReducer from '../containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/wordsReducer';
@@ -54,6 +56,8 @@ const rootReducer = combineReducers({
   mainSettings: settingsOpenReducer,
   mainSetEnabled: settingsEnabledReducer,
   mainLang: mainLangReducer,
+  mainLog: logFormReducer,
+  mainReg: regFormReducer,
   audioCallPage: pageReducer,
   audioCallLevel: levelReducer,
   audioCallRound: roundReducer,

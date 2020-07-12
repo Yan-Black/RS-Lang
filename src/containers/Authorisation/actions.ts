@@ -37,3 +37,19 @@ export const setUserName = (name: string): ActionUserName => ({
   type: ActionType.SET_USER_NAME,
   payload: name,
 });
+
+export const openRegForm = () => ({
+  type: ActionType.OPEN_REG_FORM,
+});
+
+export const closeRegForm = () => ({
+  type: ActionType.CLOSE_REG_FORM,
+});
+
+export const openLogForm = () => ({
+  type: ActionType.OPEN_LOG_FORM,
+});
+
+export const closeLogForm = () => ({
+  type: ActionType.CLOSE_LOG_FORM,
+});

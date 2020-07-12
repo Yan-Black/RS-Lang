@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { State } from 'models';
 import { eng, ru } from 'constants/main-page-constants';
+import LoginForm from 'components/Authorization/Login';
+import RegisterForm from 'components/Authorization/Register';
 import UserInfo from './UserInfo';
 import GameCard from './GameCard';
 import CardGame from './CardState';
@@ -16,6 +18,8 @@ const MainInformation: React.FC = () => {
   const isOpen = useSelector((state: State) => state.mainModal.isOpen);
   const theme = useSelector((state: State) => state.mainTheme.theme);
   const lang = useSelector((state: State) => state.mainLang.lang);
+  const regOpen = useSelector((state: State) => state.mainReg.regOpen);
+  const logOpen = useSelector((state: State) => state.mainLog.logOpen);
   const [usedLang, setUsedLang] = lang === 'eng' ? useState(eng) : useState(ru);
   useEffect(() => (lang === 'eng' ? setUsedLang(eng) : setUsedLang(ru)), [lang]);
   return (
@@ -55,6 +59,8 @@ const MainInformation: React.FC = () => {
         </div>
         {settingOpen && <CardSettings />}
         {isOpen && <ModalMain />}
+        {regOpen && <RegisterForm />}
+        {logOpen && <LoginForm />}
       </div>
     </div>
   );

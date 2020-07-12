@@ -13,11 +13,11 @@ import {
   loginUser,
 } from 'constants/athorization-constants';
 import { useForm } from 'react-hook-form';
-import { removeApiError } from 'containers/Authorisation/actions';
-import { User, LogProps } from '../models';
+import { removeApiError, closeLogForm, openRegForm } from 'containers/Authorisation/actions';
+import { User } from '../models';
 import Loader from '../Loader';
 
-const LoginForm: React.FC<LogProps> = ({ isOpen, setOpen, setRegOpen }) => {
+const LoginForm: React.FC = () => {
   const { register, handleSubmit, errors } = useForm();
   const dispatch = useDispatch();
   const logged = useSelector((state: State) => state.authLog.isLogged);
@@ -25,20 +25,20 @@ const LoginForm: React.FC<LogProps> = ({ isOpen, setOpen, setRegOpen }) => {
   const [type, setType] = useState('password');
   const clickHandler = () => {
     dispatch(removeApiError());
-    setOpen(false);
+    dispatch(closeLogForm());
   };
   const inputTypeHandler = () => (type === 'password' ? setType('text') : setType('password'));
   const removeError = () => dispatch(removeApiError());
   const openRegister = () => {
-    setOpen(false);
-    setRegOpen(true);
+    dispatch(closeLogForm());
+    dispatch(openRegForm());
     dispatch(removeApiError());
   };
   const changeHandler = () => dispatch(removeApiError());
   const loading = useSelector((state: State) => state.engPuzzleLoading.isLoading);
   const apiError: string = useSelector((state: State) => state.authErrors.error);
   return (
-    <div className={isOpen ? 'auth-wrapper' : 'disabled'}>
+    <div className="auth-wrapper">
       <div className="auth-form-block-wrapper">
         <div className="auth-header">
           <h1>Log in</h1>

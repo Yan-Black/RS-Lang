@@ -6,6 +6,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 export const eng = {
+  unregistred: 'As an anonymous user, you can test our mini-games, but long-term statistics will not be saved. Setting up training cards as well as the training process itself is available only to registered users.',
   pageNames: {
     statistic: 'Statistic',
     dictionary: 'Dictionary',
@@ -71,6 +72,7 @@ export const eng = {
 };
 
 export const ru = {
+  unregistred: 'Будучи анонимным пользователем вы можете протестировать наши мини игры, однако долгосрочная статистика не будет соxранена. Настройка карточек обучения, а также сам процеесс обучения доступен только зарегестрированным пользователям. ',
   pageNames: {
     statistic: 'Статистика',
     dictionary: 'Словарь',
@@ -80,7 +82,7 @@ export const ru = {
   logout: 'Выйти',
   userProgress: {
     learned: 'Выученные новые слова:',
-    played: 'Игры которые ты сыграл:',
+    played: 'Игры которые вы сыграли:',
     rightInARow: 'Правильно слов без ошибок:',
     correctRepeats: 'Правильные повторения:',
   },
