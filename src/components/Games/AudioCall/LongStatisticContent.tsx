@@ -4,8 +4,10 @@ import { State } from 'models';
 import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
 import { LongStatisticState } from 'containers/Games/AudioCall/models';
+import { usedLang } from 'constants/audio-call-constants';
 
 function LongStatisticContent(): JSX.Element {
+  // to do use lang from store
   const isLongStatistic = useSelector(
     (state: State) => state.audioCallStatistic.isLongStatistic,
   );
@@ -31,10 +33,10 @@ function LongStatisticContent(): JSX.Element {
                   <table className="eng-puzzle-stat-table">
                     <tbody>
                       <tr>
-                        <th>Time:</th>
-                        <th>Level:</th>
-                        <th>Success:</th>
-                        <th>Failed:</th>
+                        <th>{usedLang.longStatistic.time}</th>
+                        <th>{usedLang.longStatistic.level}</th>
+                        <th>{usedLang.longStatistic.success}</th>
+                        <th>{usedLang.longStatistic.failed}</th>
                       </tr>
                       {statInfo.playedTimes.map((stat, idx) => (
                         stat.date === statInfo.playedDates[i].date ? (

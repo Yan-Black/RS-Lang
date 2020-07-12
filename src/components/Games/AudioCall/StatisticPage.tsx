@@ -5,27 +5,29 @@ import { State } from 'models';
 import { Json } from 'containers/Games/AudioCall/models';
 import { startPage, resetCurrStatistic, toggleStatistic } from 'containers/Games/AudioCall/actions';
 import backgroundImage from 'assets/pattern-369543.svg';
+import { usedLang } from 'constants/audio-call-constants';
 import ShortStatisticContent from './ShortStatisticContent';
 import LongStatisticContent from './LongStatisticContent';
 
 function StatisticPage(): JSX.Element {
+  // to do use lang from store
   function getTitle(first: number, second: number): string {
     const diff = first - second;
     switch (diff) {
       case 0:
       case 2:
       case -2:
-        return 'Неплохо, но нужно больше усилий';
+        return usedLang.shortStatistic.titleNotBad;
       case 10:
-        return 'Великолепно! Так держать!';
+        return usedLang.shortStatistic.titleKeepItUp;
       case 8:
       case 6:
       case 4:
-        return 'Хорошо, но есть над чем поработать';
+        return usedLang.shortStatistic.titleGood;
       case -10:
-        return 'Неудача, продолжайте тренироваться';
+        return usedLang.shortStatistic.titleFailure;
       default:
-        return 'Нужно чаще повторять слова';
+        return usedLang.shortStatistic.titleNeedRepeat;
     }
   }
 
@@ -64,17 +66,15 @@ function StatisticPage(): JSX.Element {
             className="btn btn-light border text-primary mr-5 mb-1"
             onClick={btnClickHandler}
           >
-            ИГРАТЬ СНОВА
+            {usedLang.buttons.playAgain}
           </button>
-          <Link to="/">
-            <button
-              type="button"
-              className={statisticBTNClass}
-              onClick={statisticBtnClickHandler}
-            >
-              СТАТИСТИКА
-            </button>
-          </Link>
+          <button
+            type="button"
+            className={statisticBTNClass}
+            onClick={statisticBtnClickHandler}
+          >
+            {usedLang.buttons.statistic}
+          </button>
           <Link to="/Main">
             <button
               type="button"
@@ -82,7 +82,7 @@ function StatisticPage(): JSX.Element {
               style={{ cursor: 'pointer' }}
               onClick={btnClickHandler}
             >
-              НА ГЛАВНУЮ
+              {usedLang.buttons.toMain}
             </button>
           </Link>
         </div>

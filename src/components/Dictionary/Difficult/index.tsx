@@ -4,9 +4,12 @@ import { WordObj } from 'containers/Dictionary/models';
 import { useSelector, useDispatch } from 'react-redux';
 import { State } from 'models';
 import { difficultToLearning } from 'containers/Dictionary/actions';
+import { ru } from 'constants/dictionary-constants';
 import DictionaryItem from '../DictionaryItem';
 
 function Difficult(): JSX.Element {
+  // to do use lang from store
+  const usedLang = ru;
   const dispatch = useDispatch();
   const difficultWords: Array<WordObj> = useSelector(
     (state: State) => state.dictionaryState.difficultWords,
@@ -19,9 +22,11 @@ function Difficult(): JSX.Element {
   };
 
   return (
-    <div className="dictionary-content bg-light rounded container py-2 my-3">
-      <p className="font-weight-bold border-bottom py-2">
-        СЛОЖНЫЕ СЛОВА (
+    <div className="dictionary-content bg-light rounded container py-2 my-3" style={{ minHeight: '90vh' }}>
+      <p className="font-weight-bold border-bottom text-uppercase py-2">
+        {usedLang.difficultWords}
+        {' '}
+        (
         {difficultWords.length}
         )
       </p>
@@ -33,7 +38,7 @@ function Difficult(): JSX.Element {
             type="button"
             data-toggle="tooltip"
             data-placement="left"
-            title="Вернуть в изучаемые"
+            title={usedLang.returnToLearning}
             id={element.id}
             onClick={btnClickHandler}
           >

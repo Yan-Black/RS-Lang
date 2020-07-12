@@ -3,8 +3,10 @@ import { Json } from 'containers/Games/AudioCall/models';
 import { useSelector, useDispatch } from 'react-redux';
 import { State } from 'models';
 import { addToDeleted, difficultToDeleted } from 'containers/Dictionary/actions';
+import { usedLang } from 'constants/audio-call-constants';
 
 function StatisticItem(currWord: {item: Json}): JSX.Element {
+  // to do use lang from store
   if (!currWord) {
     return null;
   }
@@ -55,7 +57,15 @@ function StatisticItem(currWord: {item: Json}): JSX.Element {
 
   return (
     <div className="d-flex bg-light my-2 align-items-baseline">
-      <i className="fas fa-volume-down mr-3" role="button" aria-label="Speaker icon" tabIndex={-1} style={{ cursor: 'pointer' }} onClick={speakerIconClickHandler} onKeyPress={keyPressHandler} />
+      <i
+        className="fas fa-volume-down mr-3"
+        role="button"
+        aria-label="Speaker icon"
+        tabIndex={-1}
+        style={{ cursor: 'pointer' }}
+        onClick={speakerIconClickHandler}
+        onKeyPress={keyPressHandler}
+      />
       <span className="bg-light d-inline-block text-truncate" style={{ width: '70%' }}>
         <span className="text-primary">{currWord.item.word}</span>
         {' '}
@@ -63,7 +73,21 @@ function StatisticItem(currWord: {item: Json}): JSX.Element {
         {' '}
         {currWord.item.wordTranslate}
       </span>
-      <i className={trashIconClass} style={{ cursor: 'pointer' }} data-toggle="tooltip" data-placement="left" title="Удалить из словаря" tabIndex={-1} role="button" aria-label="Trash icon" onMouseOver={trashMouseOverHandler} onMouseLeave={trashMouseLeaveHandler} onFocus={trashFocusHandler} onClick={trashClickHandler} onKeyPress={keyPressHandler} />
+      <i
+        className={trashIconClass}
+        style={{ cursor: 'pointer' }}
+        data-toggle="tooltip"
+        data-placement="left"
+        title={usedLang.shortStatistic.deleteHint}
+        tabIndex={-1}
+        role="button"
+        aria-label="Trash icon"
+        onMouseOver={trashMouseOverHandler}
+        onMouseLeave={trashMouseLeaveHandler}
+        onFocus={trashFocusHandler}
+        onClick={trashClickHandler}
+        onKeyPress={keyPressHandler}
+      />
     </div>
   );
 }

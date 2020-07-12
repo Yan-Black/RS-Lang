@@ -7,8 +7,10 @@ import {
 } from 'containers/Games/AudioCall/actions';
 import { State } from 'models';
 import { Json } from 'containers/Games/AudioCall/models';
+import { usedLang } from 'constants/audio-call-constants';
 
 function GameButton(): JSX.Element {
+  // to do use lang from store
   const dispatch = useDispatch();
   const currWords = useSelector((state: State) => state.audioCallCurrWords);
   const isChecked = useSelector((state: State) => state.audioCallAnswer.isChecked);
@@ -22,7 +24,9 @@ function GameButton(): JSX.Element {
   const failedWords = useSelector((state: State) => state.audioCallStatistic.wrongAnswers);
   const successWords = useSelector((state: State) => state.audioCallStatistic.correctAnswers);
   const savedDate = useSelector((state: State) => state.audioCallLongStatistic.playedDates[0]);
-  const level: string = (learningWords.includes(currWords[0]) || difficultWords.includes(currWords[0])) ? 'My words' : useSelector((state: State) => state.audioCallLevel);
+  const level: string = (
+    learningWords.includes(currWords[0]) || difficultWords.includes(currWords[0]))
+    ? usedLang.longStatistic.myWords : useSelector((state: State) => state.audioCallLevel);
   const round: string = (learningWords.includes(currWords[0]) || difficultWords.includes(currWords[0])) ? '-' : useSelector((state: State) => state.audioCallRound);
 
   const btnNextClickHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -39,7 +43,7 @@ function GameButton(): JSX.Element {
           payload: new Date().toTimeString().slice(0, 9),
         },
       ));
-      dispatch(updateLongStatLevels({ date: new Date().toDateString(), payload: `Group: ${level} - Page: ${round}` }));
+      dispatch(updateLongStatLevels({ date: new Date().toDateString(), payload: `${usedLang.longStatistic.group} ${level} - ${usedLang.longStatistic.page} ${round}` }));
       dispatch(updateLongStatFailed(
         { date: new Date().toDateString(), payload: failedWords.length },
       ));
@@ -78,7 +82,7 @@ function GameButton(): JSX.Element {
       type="button"
       onClick={btnDoNotKnowClickHandler}
     >
-      НЕ ЗНАЮ
+      {usedLang.buttons.notKnow}
     </button>
   );
 }

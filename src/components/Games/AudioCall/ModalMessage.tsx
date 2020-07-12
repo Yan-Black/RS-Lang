@@ -6,8 +6,10 @@ import {
   toggleModal, startPage, resetGame, resetCurrStatistic,
 } from 'containers/Games/AudioCall/actions';
 import { Link } from 'react-router-dom';
+import { usedLang } from 'constants/audio-call-constants';
 
 function ModalMessage(): JSX.Element {
+  // to do use lang from store
   const dispatch = useDispatch();
   const isOpen = useSelector((state: State) => state.audioCallModal.isOpen);
   const messageTitle = useSelector((state: State) => state.audioCallModal.title);
@@ -52,9 +54,9 @@ function ModalMessage(): JSX.Element {
           </div>
           <div className="modal-footer">
             <Link to="/" onClick={exitBtnClickHandler} onKeyPress={exitKeyPressHandler}>
-              <button tabIndex={-1} type="button" className="btn btn-secondary">Да, уйти</button>
+              <button tabIndex={-1} type="button" className="btn btn-secondary">{usedLang.buttons.leave}</button>
             </Link>
-            <button type="button" className="btn btn-primary" onClick={stayBtnClickHandler} onKeyPress={stayKeyPressHandler}>Нет, я продолжу</button>
+            <button type="button" className="btn btn-primary" onClick={stayBtnClickHandler} onKeyPress={stayKeyPressHandler}>{usedLang.buttons.stay}</button>
           </div>
         </div>
       </div>

@@ -9,6 +9,7 @@ import {
 import { useEffect } from 'react';
 import backgroundImage from 'assets/pattern-369543.svg';
 import { Json } from 'containers/Games/AudioCall/models';
+import { usedLang } from 'constants/audio-call-constants';
 import TranslateOptions from './translateOptions';
 import GameButton from './GameButton';
 import TargetWordBlock from './TargetWordBlock';
@@ -16,6 +17,7 @@ import ModalMessage from './ModalMessage';
 import { playSound } from './utils';
 
 function GamePage(): JSX.Element {
+  // to do use lang from store
   const dispatch = useDispatch();
 
   const isChecked = useSelector((state: State) => state.audioCallAnswer.isChecked);
@@ -31,7 +33,9 @@ function GamePage(): JSX.Element {
   const difficultWords: Array<Json> = useSelector(
     (state: State) => state.dictionaryState.difficultWords,
   );
-  const level: string = (learningWords.includes(currWords[0]) || difficultWords.includes(currWords[0])) ? 'My words' : useSelector((state: State) => state.audioCallLevel);
+  const level: string = (
+    learningWords.includes(currWords[0]) || difficultWords.includes(currWords[0]))
+    ? usedLang.longStatistic.myWords : useSelector((state: State) => state.audioCallLevel);
   const round: string = (learningWords.includes(currWords[0]) || difficultWords.includes(currWords[0])) ? '-' : useSelector((state: State) => state.audioCallRound);
 
   let textInput: HTMLDivElement = null;
@@ -63,7 +67,7 @@ function GamePage(): JSX.Element {
             payload: new Date().toTimeString().slice(0, 9),
           },
         ));
-        dispatch(updateLongStatLevels({ date: new Date().toDateString(), payload: `Group: ${level} - Page: ${round}` }));
+        dispatch(updateLongStatLevels({ date: new Date().toDateString(), payload: `${usedLang.longStatistic.group} ${level} - ${usedLang.longStatistic.page} ${round}` }));
         dispatch(updateLongStatFailed(
           { date: new Date().toDateString(), payload: failedWords.length },
         ));

@@ -2,9 +2,12 @@ import * as React from 'react';
 import './index.scss';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { ru } from 'constants/dictionary-constants';
 import View from './View.tsx';
 
 function Dictionary(): JSX.Element {
+  // to do use lang from store
+  const usedLang = ru;
   const [currPage, setCurrPage] = useState('learning');
 
   const btnClickHandler = (
@@ -15,7 +18,7 @@ function Dictionary(): JSX.Element {
     <div className="dictionary-wrapper p-2">
       <div className="dictionary-header bg-light rounded container py-2">
         <div className="title-container d-flex justify-content-between">
-          <h4 className="dictionary-title text-uppercase display-4">мой словарь</h4>
+          <h4 className="dictionary-title text-uppercase display-4">{usedLang.title}</h4>
           <Link to="/"><i className="fas fa-times" role="button" aria-label="Times icon" tabIndex={-1} /></Link>
         </div>
         <div className="dictionary-btn-container d-flex">
@@ -25,7 +28,7 @@ function Dictionary(): JSX.Element {
             id="learning"
             onClick={btnClickHandler}
           >
-            Изучаемые слова
+            {usedLang.learningWords}
           </button>
           <button
             type="submit"
@@ -33,7 +36,7 @@ function Dictionary(): JSX.Element {
             id="difficult"
             onClick={btnClickHandler}
           >
-            Сложные слова
+            {usedLang.difficultWords}
           </button>
           <button
             type="submit"
@@ -41,7 +44,7 @@ function Dictionary(): JSX.Element {
             id="deleted"
             onClick={btnClickHandler}
           >
-            Удаленные слова
+            {usedLang.deletedWords}
           </button>
         </div>
       </div>

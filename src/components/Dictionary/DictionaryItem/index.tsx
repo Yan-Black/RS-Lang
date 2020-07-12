@@ -2,8 +2,12 @@
 import * as React from 'react';
 import './index.scss';
 import { WordObj } from 'containers/Dictionary/models';
+import colorSpeaker from 'assets/colored_speaker.svg';
+import { ru } from 'constants/dictionary-constants';
 
 function DictionaryItem({ item }: {item: WordObj}): JSX.Element {
+  // to do use lang from store
+  const usedLang = ru;
   const url = `https://raw.githubusercontent.com/lactivka/rslang-data/master/${item.audio}`;
   const audio = new Audio(url);
 
@@ -41,10 +45,30 @@ function DictionaryItem({ item }: {item: WordObj}): JSX.Element {
         <p dangerouslySetInnerHTML={{ __html: `${item.textMeaning}` }} />
       </div>
       <div className="word-statistic d-flex flex-wrap justify-content-between mb-2 px-1">
-        <span className="px-1">Прогресс: 1 2 3 4 5</span>
-        <span className="px-1">Повторений: 125</span>
-        <span className="px-1">Последнее повторение: 2д назад</span>
-        <span className="px-1">Следующее повторение: через 1мес</span>
+        <span className="px-1">
+          {usedLang.wordProgress}
+          {' '}
+          1 2 3 4 5
+        </span>
+        <span className="px-1">
+          {usedLang.repeats}
+          {' '}
+          125
+        </span>
+        <span className="px-1">
+          {usedLang.lastRepeat}
+          {' '}
+          2d
+          {' '}
+          {usedLang.before}
+        </span>
+        <span className="px-1">
+          {usedLang.nextRepeat}
+          {' '}
+          {usedLang.in}
+          {' '}
+          1m
+        </span>
       </div>
     </div>
   );

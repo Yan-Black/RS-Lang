@@ -1,10 +1,12 @@
 import * as React from 'react';
 import { useSelector } from 'react-redux';
 import { State } from 'models';
+import { usedLang } from 'constants/audio-call-constants';
 import { Json } from './utils';
 import StatisticItem from './StatisticItem';
 
 function ShortStatisticContent(): JSX.Element {
+  // to do use lang from store
   const knowWords: Array<Json> = useSelector(
     (state: State) => state.audioCallStatistic.correctAnswers,
   );
@@ -23,7 +25,8 @@ function ShortStatisticContent(): JSX.Element {
     <div className="short-statistic bg-light mx-5 text-dark" style={{ overflowY: 'scroll', maxHeight: '50vh' }}>
       <div className="d-flex pb-3 bg-light text-dark flex-column border-bottom">
         <p className="text-danger my-1">
-          ОШИБОК:&nbsp;
+          {usedLang.shortStatistic.errors}
+          &nbsp;
           {notKnowWords.length}
         </p>
         {
@@ -32,7 +35,8 @@ function ShortStatisticContent(): JSX.Element {
       </div>
       <div className="d-flex bg-light text-dark flex-column">
         <p className="text-success mb-1 mt-3">
-          ЗНАЮ:&nbsp;
+          {usedLang.shortStatistic.know}
+          &nbsp;
           {knowWords.length}
         </p>
         { knowWords.map((word) => <StatisticItem item={word} key={word.word} />)}

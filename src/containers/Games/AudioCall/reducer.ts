@@ -1,4 +1,5 @@
 import * as Models from 'models';
+import { usedLang } from 'constants/audio-call-constants';
 import { ActionType } from './constants';
 import {
   ModalInitState, AnswerInitState, StatisticInitState, LongStatisticState,
@@ -49,16 +50,16 @@ const modalReducer: Models.Reducer<unknown> = (
 
   switch (payload) {
     case 'exit':
-      messageTitle = 'Вы уверены? Тренировка не закончена!';
-      messageBody = 'Если вы выйдете из игры, ваш прогресс не будет сохранен.';
+      messageTitle = usedLang.modalMessage.titleNotOver;
+      messageBody = usedLang.modalMessage.contentNotOver;
       break;
     case 'not enough words':
-      messageTitle = 'Недостаточно слов в словаре.';
-      messageBody = 'Кажется, в словаре недостаточно слов для игры. Но Вы можете играть в режиме свободной игры. Хотите выйти из игры?';
+      messageTitle = usedLang.modalMessage.titleNotEnough;
+      messageBody = usedLang.modalMessage.contentNotEnough;
       break;
     default:
-      messageTitle = 'Ой! Ошибка!';
-      messageBody = 'Что-то пошло не так. Попробуйте, пожалуйста, позже. Выйти из игры?';
+      messageTitle = usedLang.modalMessage.titleError;
+      messageBody = usedLang.modalMessage.contentError;
       break;
   }
 

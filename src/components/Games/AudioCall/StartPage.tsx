@@ -6,6 +6,7 @@ import backgroundImage from 'assets/pattern-369543.svg';
 import {
   gamePage, fetchWords, toggleModal,
 } from 'containers/Games/AudioCall/actions';
+import { usedLang } from 'constants/audio-call-constants';
 import OptionItems from './OptionItems';
 import {
   getWordsForGame, Json, getTranslateOptions, shuffleArray,
@@ -17,6 +18,7 @@ function makeArray(length) {
 }
 
 function StartPage(): JSX.Element {
+  // to do use lang from store
   const dispatch = useDispatch();
   const level = useSelector((state: State) => state.audioCallLevel);
   const round = useSelector((state: State) => state.audioCallRound);
@@ -84,12 +86,11 @@ function StartPage(): JSX.Element {
         <i className="fas fa-times text-white" style={{ cursor: 'pointer' }} role="button" aria-label="Times icon" tabIndex={0} onClick={exitClickHandler} onKeyPress={keyPressHandler} />
       </div>
       <div className="d-flex flex-column justify-content-center px-3" style={{ height: '70%' }}>
-        <h1 className="mb-5">АУДИОВЫЗОВ</h1>
-        <p>Выбери правильный перевод услышанного слова из 5 вариантов.</p>
-        <p>В режиме &quot;Мои слова&quot; будут звучать слова из Вашего словаря</p>
+        <h1 className="mb-5">{usedLang.title}</h1>
+        <p>{usedLang.description}</p>
+        <p>{usedLang.myWordsMode}</p>
         <p>
-          В режиме &quot;Свободная игра&quot; будут часто употребляемые слова
-          выбранной сложности
+          {usedLang.freeGameMode}
         </p>
         <div className="d-flex justify-content-center mt-5 text-white">
           <button
@@ -97,16 +98,16 @@ function StartPage(): JSX.Element {
             className="btn btn-success mr-5 mb-2"
             onClick={btnMyWordsClickHandler}
           >
-            Мои слова
+            {usedLang.buttons.myWords}
           </button>
           <form onSubmit={btnFreeGameClickHandler}>
             <div className="form-row align-items-center pl-5">
               <div className="col-auto mr-3">
-                <button type="submit" className="btn btn-success mb-2">Свободная игра</button>
+                <button type="submit" className="btn btn-success mb-2">{usedLang.buttons.freeGame}</button>
               </div>
               <div className="d-flex">
                 <span>
-                  Уровень
+                  {usedLang.level}
                   {}
                 </span>
                 <div className="col-auto mb-2">
@@ -114,7 +115,7 @@ function StartPage(): JSX.Element {
                 </div>
               </div>
               <div className="d-flex">
-                <span>Раунд</span>
+                <span>{usedLang.round}</span>
                 <div className="col-auto mb-2">
                   <OptionItems options={makeArray(60)} currLvl={round} isLevelOption={false} />
                 </div>
