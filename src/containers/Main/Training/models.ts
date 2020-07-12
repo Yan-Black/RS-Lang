@@ -17,6 +17,7 @@ export namespace Action {
   export interface AddToFailedTraining extends Models.Action<Payload.SetDocumentTypes> { }
   export interface AddToSuccessTraining extends Models.Action<Payload.SetDocumentTypes> { }
   export interface AddRowOfSuccess extends Models.Action<Payload.SetDocumentTypes> { }
+  export interface ResetTrainingStatistic extends Models.Action<Payload.SetDocumentTypes> { }
 }
 
 export namespace ActionCreator {
@@ -31,6 +32,7 @@ export namespace ActionCreator {
   export type AddToFailedTraining = (wordObj: FetchedWordData) => Action.AddToFailedTraining;
   export type AddToSuccessTraining = (wordObj: FetchedWordData) => Action.AddToSuccessTraining;
   export type AddRowOfSuccess = (success: number) => Action.AddRowOfSuccess;
+  export type ResetTrainingStatistic = () => Action.ResetTrainingStatistic;
 }
 
 export interface SettingsState {

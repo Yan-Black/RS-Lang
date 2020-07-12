@@ -103,6 +103,8 @@ const trainingStatisticReducer: Models.Reducer<unknown> = (
     case ActionType.ADD_ROW_OF_SUCCESS:
       return state.correctAnswersInRow > payload
         ? state : { ...state, correctAnswersInRow: payload };
+    case ActionType.RESET_TRAINING_STATISTIC:
+      return trainingStatisticInitState;
     default:
       return state;
   }

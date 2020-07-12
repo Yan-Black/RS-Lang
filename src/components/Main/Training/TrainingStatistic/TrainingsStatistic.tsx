@@ -3,7 +3,7 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import { State } from 'models';
 import { useSelector, useDispatch } from 'react-redux';
-import { toggleTrainingStatistic } from 'containers/Main/Training/actions';
+import { toggleTrainingStatistic, resetTrainingStatistic } from 'containers/Main/Training/actions';
 // import { Link } from 'react-router-dom';
 
 function TrainingStatistic(): JSX.Element {
@@ -25,6 +25,7 @@ function TrainingStatistic(): JSX.Element {
   const correctPersent = Math.ceil((successWords.length * 100) / cardsCount);
 
   const btnClickHandler = () => {
+    dispatch(resetTrainingStatistic());
     dispatch(toggleTrainingStatistic(false));
   };
   return (

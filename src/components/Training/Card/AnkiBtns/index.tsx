@@ -9,8 +9,9 @@ import Easy from './Easy';
 
 const AnkiBtns: React.FC = () => {
   const showIntervalBTNS = useSelector((state: State) => state.trainingSettings.showIntervalBTNS);
+  const isAnswerCorrect = useSelector((state: State) => state.training.isCorrect);
 
-  if (!showIntervalBTNS) {
+  if (!showIntervalBTNS || !isAnswerCorrect) {
     return null;
   }
 

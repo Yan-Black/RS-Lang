@@ -50,3 +50,7 @@ export const addRowOfSuccess: ActionCreator.AddRowOfSuccess = (number) => ({
   type: ActionType.ADD_ROW_OF_SUCCESS,
   payload: number,
 });
+
+export const resetTrainingStatistic: ActionCreator.ResetTrainingStatistic = () => ({
+  type: ActionType.RESET_TRAINING_STATISTIC,
+});

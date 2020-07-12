@@ -21,7 +21,7 @@ function CheckedAnswer(): JSX.Element {
   if (!isAnswerChecked) return null;
 
   let mistakes = 0;
-  for (let i = 0; i < correctWord.length; i += 1) {
+  for (let i = 0; i < inputWord.length; i += 1) {
     if (correctWord[i].toLowerCase() !== inputWord[i].toLowerCase()) mistakes += 1;
   }
 
