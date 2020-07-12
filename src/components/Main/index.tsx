@@ -1,7 +1,16 @@
 import * as React from 'react';
-import { withRouter } from 'react-router-dom';
-import Navigation from './Aside';
-import './index.scss';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+} from 'react-router-dom';
+import Statistic from '../Statistic';
+import Dictionary from '../Dictionary';
+import Games from '../Games';
+import Promo from '../Promo';
+import AboutUs from '../AboutUs';
+import Training from '../Training';
 
 const Main: React.FC = () => (
   <div id="main" className="main-content">

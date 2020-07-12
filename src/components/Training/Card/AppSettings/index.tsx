@@ -1,15 +1,18 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { changeSetting } from 'containers/Main/Training/actions';
+
 import { State } from 'models';
+import { changeSetting } from 'containers/Training/actions';
 
 const AppSettings: React.FC = () => {
   const dispatch = useDispatch();
   const showWordTranslate = useSelector((state: State) => state.trainingSettings.showWordTranslate);
   const showWordExample = useSelector((state: State) => state.trainingSettings.showWordExample);
   const showWordMeaning = useSelector((state: State) => state.trainingSettings.showWordMeaning);
-  const showWordTranscription = useSelector((state: State) => state.trainingSettings.showWordTranscription);
+  const showWordTranscription = useSelector(
+    (state: State) => state.trainingSettings.showWordTranscription,
+  );
   const showWordImage = useSelector((state: State) => state.trainingSettings.showWordImage);
   const playAudio = useSelector((state: State) => state.trainingSettings.playAudio);
   const showAllTranslates = useSelector((state: State) => state.trainingSettings.showAllTranslates);
@@ -19,7 +22,6 @@ const AppSettings: React.FC = () => {
   const showIntervalBTNS = useSelector((state: State) => state.trainingSettings.showIntervalBTNS);
 
   const checkboxChangeHandler = (event) => {
-    console.log(event.currentTarget.id);
     dispatch(changeSetting(event.currentTarget.id));
   };
 
@@ -64,15 +66,15 @@ const AppSettings: React.FC = () => {
           <div className="secont-column d-flex flex-column">
             <div className="answer-card-setting">
               <input type="checkbox" name="help-btn" id="showHelpBTN" onChange={checkboxChangeHandler} checked={showHelpBTN} />
-              <label htmlFor="showHelpBTN">Показывать кнопку "Показать ответ"</label>
+              <label htmlFor="showHelpBTN">Показывать кнопку Показать ответ</label>
             </div>
             <div className="answer-card-setting">
               <input type="checkbox" name="delete-btn" id="showDeleteBTN" onChange={checkboxChangeHandler} checked={showDeleteBTN} />
-              <label htmlFor="showDeleteBTN">Показывать кнопку "Удалить слово"</label>
+              <label htmlFor="showDeleteBTN">Показывать кнопку Удалить слово</label>
             </div>
             <div className="answer-card-setting">
               <input type="checkbox" name="difficult-btn" id="showDifficultBTN" onChange={checkboxChangeHandler} checked={showDifficultBTN} />
-              <label htmlFor="showDifficultBTN">Показывать кнопку "Сложное слово"</label>
+              <label htmlFor="showDifficultBTN">Показывать кнопку Сложное слово</label>
             </div>
             <div className="answer-card-setting">
               <input type="checkbox" name="repeat-interval-btn" id="showIntervalBTNS" onChange={checkboxChangeHandler} checked={showIntervalBTNS} />

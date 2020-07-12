@@ -16,6 +16,8 @@ import CheckedAnswer from 'components/TrainingCard/Card/CheckedAnswer';
 
 
 const Card: React.FC = () => {
+  // to do use lang, current progress and daily cards limit from store
+  const usedLang = ru;
   const dispatch = useDispatch();
   const index = useSelector((state: State) => state.training.currIndex);
   const data: FetchedWordData = book1[0][index];
@@ -177,27 +179,27 @@ const Card: React.FC = () => {
             className={helpBTNClass}
             onClick={helpBTNHandler}
           >
-            Показать ответ
+            {usedLang.buttons.showAnswerBTN}
           </button>
           <button
             className="btn btn-info shadow my-1"
             type="button"
             onClick={checkAnswerBTNHandler}
           >
-            Проверить
+            {usedLang.buttons.checkBTN}
           </button>
 
           <button
             type="button"
             className={deleteBTNClass}
           >
-            Удалить слово
+            {usedLang.buttons.deleteBTN}
           </button>
           <button
             type="button"
             className={difficultBTNClass}
           >
-            Сложное слово
+            {usedLang.buttons.difficultBTN}
           </button>
         </div>
         <div className="btn-block-two">
@@ -206,7 +208,7 @@ const Card: React.FC = () => {
             type="button"
             onClick={nextCardBTNHandler}
           >
-            {index < cardsToTrain - 1 ? 'Следующая карточка' : 'Закончить'}
+            {index < cardsToTrain - 1 ? usedLang.buttons.nextCardBTN : usedLang.buttons.finishBTN}
           </button>
         </div>
       </div>

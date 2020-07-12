@@ -1,9 +1,12 @@
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from 'models';
-import { progressTraining } from 'containers/Main/Training/actions';
+import { progressTraining } from 'containers/Training/actions';
+import { ru } from 'constants/training-constants';
 
 const Normal: React.FC = () => {
+  // to do use lang, current progress and daily cards limit from store
+  const usedLang = ru;
   const dispatch = useDispatch();
   const canMoveToNext = useSelector((state: State) => state.training.moveToNext);
 
@@ -17,14 +20,14 @@ const Normal: React.FC = () => {
   return (
     <div className="d-flex flex-column">
       {/* to do add not static period to next repeating */}
-      <span className="text-center">18 дней</span>
+      <span className="text-center">18 d</span>
       <button
         className="btn btn-outline-info"
         type="button"
         id="normal-btn"
         onClick={btnClickHandler}
       >
-        Помню
+        {usedLang.buttons.rememberBTN}
       </button>
     </div>
   );

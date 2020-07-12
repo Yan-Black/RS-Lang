@@ -3,10 +3,14 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import { State } from 'models';
 import { useSelector, useDispatch } from 'react-redux';
-import { toggleTrainingStatistic, resetTrainingStatistic } from 'containers/Main/Training/actions';
+import { resetTrainingStatistic, toggleTrainingStatistic } from 'containers/Training/actions';
+import { eng, ru } from 'constants/training-constants';
+
 // import { Link } from 'react-router-dom';
 
 function TrainingStatistic(): JSX.Element {
+  // to do use lang, current progress and daily cards limit from store
+  const usedLang = ru;
   const dispatch = useDispatch();
   const isStatisticOpen = useSelector((
     state: State,
@@ -28,30 +32,34 @@ function TrainingStatistic(): JSX.Element {
     dispatch(resetTrainingStatistic());
     dispatch(toggleTrainingStatistic(false));
   };
+
   return (
     <Modal show={isStatisticOpen} dialogClassName="mt-5 pt-5" onHide={btnClickHandler}>
       <Modal.Header>
-        <Modal.Title>Дневная норма выполнена</Modal.Title>
+        <Modal.Title>
+          {usedLang === eng
+            ? usedLang.statistic.titleDailyRate : usedLang.statistic.titleSeries}
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <div className="training-statistic-fields d-flex flex-column my-2">
           <div className="d-flex justify-content-between border-bottom my-2">
-            <span className="text-primary">Карточек пройдено:</span>
+            <span className="text-primary">{usedLang.statistic.cardsCompleted}</span>
             <span className="font-weight-bold">{cardsCount}</span>
           </div>
           <div className="d-flex justify-content-between border-bottom my-2">
-            <span className="text-success">Правильные ответы:</span>
+            <span className="text-success">{usedLang.statistic.correctAnswers}</span>
             <span className="font-weight-bold">
               {correctPersent}
               %
             </span>
           </div>
           <div className="d-flex justify-content-between border-bottom my-2">
-            <span className="text-warning">Новые слова:</span>
+            <span className="text-warning">{usedLang.statistic.newWords}</span>
             <span className="font-weight-bold">25</span>
           </div>
           <div className="d-flex justify-content-between border-bottom my-2">
-            <span className="text-info">Самая длинная серия правильных ответов:</span>
+            <span className="text-info">{usedLang.statistic.longestCorrectSeries}</span>
             <span className="font-weight-bold">{successRow}</span>
           </div>
         </div>
@@ -59,7 +67,7 @@ function TrainingStatistic(): JSX.Element {
       <Modal.Footer>
         {/* <Link to="/Main"> */}
         <Button variant="primary" onClick={btnClickHandler}>
-          На главную
+          {usedLang.buttons.toMain}
         </Button>
         {/* </Link> */}
       </Modal.Footer>
