@@ -31,10 +31,6 @@ import loaderReducer from '../containers/Games/EnglishPuzzle/GameBlock/GameBoard
 import activeIndexReducer from '../containers/Games/EnglishPuzzle/GameController/activeIndexReducer';
 import helpBtnsReducer from '../containers/Games/EnglishPuzzle/GameBlock/GameBoard/HelpButtons/reducer';
 import collectionReducer from '../containers/Games/EnglishPuzzle/GameBlock/GameBoard/collectionReducer';
-import levelControlReducer from '../containers/Games/SpeakIt/ControlLevel/reducer';
-import fetchReducer from '../containers/Games/SpeakIt/FetchGroup/reducer';
-import cardsReducer from '../containers/Games/SpeakIt/CardsGroup/reducer';
-import startGameReducer from '../containers/Games/SpeakIt/ControlButtons/reducer';
 
 const rootReducer = combineReducers({
   app: appReducer,
