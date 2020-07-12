@@ -17,11 +17,12 @@ function CheckedAnswer(): JSX.Element {
   // let checkedAnswerClass = 'checked-answer';
   const inputWord: string = useSelector((state: State) => state.training.inputWord);
   const correctWord = data.word;
+
   if (!isAnswerChecked) return null;
 
   let mistakes = 0;
   for (let i = 0; i < correctWord.length; i += 1) {
-    if (correctWord[i] !== inputWord[i]) mistakes += 1;
+    if (correctWord[i].toLowerCase() !== inputWord[i].toLowerCase()) mistakes += 1;
   }
 
   const correctColor = 'text-success';
@@ -54,7 +55,9 @@ function CheckedAnswer(): JSX.Element {
       {
         inputWord.split('').map((el: string, id) => (
           <span
-            className={el === correctWord[id] ? correctColor : wrongColor}
+            className={
+              el.toLowerCase() === correctWord[id].toLowerCase() ? correctColor : wrongColor
+            }
             key={(new Date()).toDateString() + id.toString()}
           >
             {el}

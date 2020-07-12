@@ -12,11 +12,14 @@ import Card from './Card';
 import './index.scss';
 import AnkiBtns from './Card/AnkiBtns';
 import AppSettings from './Card/AppSettings';
+import TrainingStatistic from './TrainingStatistic/TrainingsStatistic';
 
 const Training: React.FC = () => {
   const index = useSelector((state: State) => state.training.currIndex);
+  const isAnswerCorrect = useSelector((state: State) => state.training.isCorrect);
   const cardsToTrain = 10;
-  const done = Math.ceil((index * 100) / cardsToTrain);
+  const done = isAnswerCorrect
+    ? Math.ceil(((+index + 1) * 100) / cardsToTrain) : Math.ceil((index * 100) / cardsToTrain);
   return (
     <div className="training-page-wrapper">
       {/* <Link to="/Main"> */}
@@ -30,6 +33,7 @@ const Training: React.FC = () => {
       <Card />
       <ProgressBar className="training-progress" now={done} label={`${done}%`} />
       <AnkiBtns />
+      <TrainingStatistic />
     </div>
   );
 };

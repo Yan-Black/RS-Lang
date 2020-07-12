@@ -1,6 +1,6 @@
 import * as Models from 'models';
 import { ActionType } from './constants';
-import { SettingsState, TrainingState } from './models';
+import { SettingsState, TrainingState, TrainingStatistic } from './models';
 
 const settingsInitState = <SettingsState> {
   showWordTranslate: true,
@@ -22,6 +22,13 @@ const trainingInitState = <TrainingState> {
   isCorrect: false,
   inputWord: '',
   moveToNext: false,
+};
+
+const trainingStatisticInitState = <TrainingStatistic> {
+  isTrainingStatisticOpen: false,
+  failedWordsTraining: [],
+  successWordTraining: [],
+  correctAnswersInRow: 0,
 };
 
 const settingsReducer: Models.Reducer<unknown> = (
@@ -83,4 +90,22 @@ const trainingReducer: Models.Reducer<unknown> = (
   }
 };
 
-export { settingsReducer, trainingReducer };
+const trainingStatisticReducer: Models.Reducer<unknown> = (
+  state: TrainingStatistic = trainingStatisticInitState, { type, payload },
+) => {
+  switch (type) {
+    case ActionType.TOGGLE_TRAINING_STATISTIC:
+      return { ...state, isTrainingStatisticOpen: payload };
+    case ActionType.ADD_TO_FAILED_TRAINING:
+      return { ...state, failedWordsTraining: state.failedWordsTraining.concat(payload) };
+    case ActionType.ADD_TO_SUCCESS_TRAINING:
+      return { ...state, successWordTraining: state.successWordTraining.concat(payload) };
+    case ActionType.ADD_ROW_OF_SUCCESS:
+      return state.correctAnswersInRow > payload
+        ? state : { ...state, correctAnswersInRow: payload };
+    default:
+      return state;
+  }
+};
+
+export { settingsReducer, trainingReducer, trainingStatisticReducer };

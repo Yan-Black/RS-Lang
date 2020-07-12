@@ -1,4 +1,5 @@
 import thunk from 'redux-thunk';
+<<<<<<< HEAD
 import {
   createStore, combineReducers, compose, applyMiddleware,
 } from 'redux';
@@ -33,6 +34,19 @@ import regFormReducer from 'containers/Authorisation/regFormReducer';
 import logFormReducer from 'containers/Authorisation/logFormReducer';
 import studyModesReducer from 'containers/Main/studyModesReducer.';
 import { settingsReducer, trainingReducer } from 'containers/Main/Training/reducers';
+=======
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import pageReducer from 'containers/Games/EnglishPuzzle/SettingsBlock/pageReducer';
+import groupReducer from 'containers/Games/EnglishPuzzle/SettingsBlock/groupReducer';
+import offsetXReducer from 'containers/Games/EnglishPuzzle/GameBoard/offsetReducer';
+import solvedReducer from 'containers/Games/EnglishPuzzle/GameBoard/solvedReducer';
+import dontKnowReducer from 'containers/Games/EnglishPuzzle/GameBoard/Results/dontKnowReduser';
+import knowReducer from 'containers/Games/EnglishPuzzle/GameBoard/Results/knowReducer';
+import openResultsReducer from 'containers/Games/EnglishPuzzle/GameBoard/Results/openResultsReducer';
+import statisticReducer from 'containers/Games/EnglishPuzzle/GameBoard/Statistic/statisticReducer';
+import statisticInfoReducer from 'containers/Games/EnglishPuzzle/GameBoard/Statistic/statisticInfoReducer';
+import { settingsReducer, trainingReducer, trainingStatisticReducer } from 'containers/Main/Training/reducers';
+>>>>>>> feat: implement collect training statistic and render it when training finished
 import appReducer from '../containers/App/reducer';
 import btnsReducer from '../containers/Games/EnglishPuzzle/HeaderBlock/HintButtons/btnsReducer';
 import wordsReducer from '../containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/wordsReducer';
@@ -93,12 +107,13 @@ const rootReducer = combineReducers({
   loading: loaderReducer,
   trainingSettings: settingsReducer,
   training: trainingReducer,
+  trainingStatistic: trainingStatisticReducer,
 });
 
 const store = createStore(rootReducer, compose(applyMiddleware(thunk)));
 
 store.subscribe(() => {
-  console.log(store.getState().training);
+  // console.log(store.getState().trainingStatistic);
 });
 
 export default store;

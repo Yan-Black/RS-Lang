@@ -14,12 +14,20 @@ import { setInputWord, toggleAnswerCorrect, toggleMoveToNext, progressTraining }
 import TrainingCardFields from 'components/TrainingCard/Card/TrainingCardFields';
 import CheckedAnswer from 'components/TrainingCard/Card/CheckedAnswer';
 
+
 const Card: React.FC = () => {
   const dispatch = useDispatch();
   const index = useSelector((state: State) => state.training.currIndex);
   const data: FetchedWordData = book1[0][index];
+  const prevData: FetchedWordData = book1[0][index - 1];
+  const cardsToTrain = 10;
   const inputWidth = data.word.length * 12;
+  const isStatisticOpen = useSelector((
+    state: State,
+  ) => state.trainingStatistic.isTrainingStatisticOpen);
   const [inputData, setInputData] = useState('');
+  const [isSuccess, setIsSuccess] = useState(true);
+  const [successRow, setSuccessRow] = useState(0);
   const inputRef: React.LegacyRef<HTMLInputElement> = useRef(null);
 
   const isAnswerChecked = useSelector((state: State) => state.training.isChecked);
@@ -39,27 +47,6 @@ const Card: React.FC = () => {
   const wordAudio = new Audio(wordAudioURL);
   const meaningAudio = new Audio(meaningAudioURL);
   const exampleAudio = new Audio(exampleAudioURL);
-
-  // const playAllAudio = async () => {
-  //   await wordAudio.play();
-  //   wordAudio.onended = async () => {
-  //     if (showWordMeaning && showWordExample) {
-  //       await meaningAudio.play();
-  //       meaningAudio.onended = async () => {
-  //         await exampleAudio.play();
-  //         exampleAudio.onended = () => dispatch(toggleMoveToNext());
-  //       };
-  //     }
-  //     if (showWordMeaning && !showWordExample) {
-  //       await meaningAudio.play();
-  //       meaningAudio.onended = () => dispatch(toggleMoveToNext());
-  //     }
-  //     if (!showWordMeaning && showWordExample) {
-  //       await exampleAudio.play();
-  //       exampleAudio.onended = () => dispatch(toggleMoveToNext());
-  //     }
-  //   };
-  // };
 
   useEffect(() => {
     if (!isAnswerChecked) {
@@ -95,8 +82,9 @@ const Card: React.FC = () => {
   });
 
   const getUrl = () => {
-    if (showWordImage && isAnswerCorrect) return `https://raw.githubusercontent.com/lactivka/rslang-data/master/${data.image}`;
-    if (!showWordImage && isAnswerChecked) return checkMarkImage;
+    if (showWordImage && (isAnswerCorrect || index < cardsToTrain)) return `https://raw.githubusercontent.com/lactivka/rslang-data/master/${data.image}`;
+    if (!showWordImage && (isAnswerChecked || index >= cardsToTrain)) return checkMarkImage;
+    if (showWordImage && (isAnswerCorrect || index >= cardsToTrain)) return `https://raw.githubusercontent.com/lactivka/rslang-data/master/${prevData.image}`;
     return questionMarkImage;
   };
 
@@ -116,15 +104,21 @@ const Card: React.FC = () => {
     if (!canMoveToNext && !isAnswerChecked && inputData.length > 0) {
       dispatch(setInputWord(inputData));
       setInputData('');
-      if (inputData === data.word) {
+      if (inputData.toLowerCase() === data.word.toLowerCase()) {
+        if (isSuccess) setSuccessRow(successRow + 1);
         dispatch(toggleAnswerCorrect());
         dispatch(toggleMoveToNext());
+      } else {
+        setSuccessRow(0);
+        setIsSuccess(false);
       }
     }
   };
 
   const helpBTNHandler = () => {
     if (!isAnswerCorrect) {
+      setIsSuccess(false);
+      setSuccessRow(0);
       dispatch(setInputWord(data.word));
       dispatch(toggleAnswerCorrect());
       setInputData('');
@@ -134,10 +128,20 @@ const Card: React.FC = () => {
 
   const nextCardBTNHandler = () => {
     const event = new Event('click');
+    if (isSuccess) {
+      dispatch(addToSuccessTraining(data));
+    } else {
+      dispatch(addToFailedTraining(data));
+    }
     wordAudio.dispatchEvent(event);
     meaningAudio.dispatchEvent(event);
     exampleAudio.dispatchEvent(event);
+    setIsSuccess(true);
     dispatch(progressTraining());
+    dispatch(addRowOfSuccess(successRow));
+    if (index === cardsToTrain - 1 && !isStatisticOpen) {
+      dispatch(toggleTrainingStatistic(true));
+    }
   };
 
   const formSubmitHandler = (
@@ -202,11 +206,12 @@ const Card: React.FC = () => {
             type="button"
             onClick={nextCardBTNHandler}
           >
-            Следующая карточка
+            {index < cardsToTrain - 1 ? 'Следующая карточка' : 'Закончить'}
           </button>
         </div>
       </div>
     </div>
   );
 };
+
 export default Card;
