@@ -38,9 +38,18 @@ export interface InitialStateAmountCW {
   amount: InitialAmountState;
 }
 
+export interface InitialStateMainLang {
+  lang: string;
+}
+
 export interface ActionModalInfo {
   type: string;
   payload?: InitialStateModalInfo;
+}
+
+export interface ActionLang {
+  type: string;
+  payload: string;
 }
 
 export interface ActionTheme {

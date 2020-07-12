@@ -3,12 +3,14 @@ export interface State {
   authToken;
   authErrors;
   authLog;
+  authName;
   mainModal;
   mainModalInfo;
   mainTheme;
   mainSettings;
   mainSetEnabled;
   mainCardsWords;
+  mainLang;
   audioCallPage;
   audioCallLevel;
   audioCallRound;

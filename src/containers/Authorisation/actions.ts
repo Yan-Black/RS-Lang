@@ -1,4 +1,4 @@
-import { ActionAuth } from './models';
+import { ActionAuth, ActionUserName } from './models';
 import { ActionType } from './constants';
 
 export const setNewUser = (userId: string): ActionAuth => ({
@@ -31,4 +31,9 @@ export const addApiError = (mes: string): ActionAuth => ({
 export const removeApiError = (): ActionAuth => ({
   type: ActionType.REMOVE_API_ERROR_MESSAGE,
   payload: '',
+});
+
+export const setUserName = (name: string): ActionUserName => ({
+  type: ActionType.SET_USER_NAME,
+  payload: name,
 });

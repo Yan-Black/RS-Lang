@@ -1,20 +1,25 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import './index.scss';
 import { handleSettings, updateSettings, updateAmount } from 'containers/Main/actions';
-import { checkBoxes } from 'constants/main-page-constants';
+import {
+  checkBoxesRu, checkBoxesEng, eng, ru,
+} from 'constants/main-page-constants';
 import { State } from 'models';
 
 const CardSettings: React.FC = () => {
   const dispatch = useDispatch();
   const amount = useSelector((state: State) => state.mainCardsWords.amount);
+  const lang = useSelector((state: State) => state.mainLang.lang);
   const [err, setErr] = useState(false);
   const [errMes, setErrMes] = useState('');
   const [selectedHints, setSelected] = useState([]);
   const [cardsWordsAmount, setCardsWordsAmount] = useState([amount.words, amount.cards]);
+  const [usedLang, setUsedLang] = lang === 'eng' ? useState(eng) : useState(ru);
+  const [usedCheckboxes, setUsedCheckboxes] = lang === 'eng' ? useState(checkBoxesEng) : useState(checkBoxesRu);
   const setiingsModalHandler = () => dispatch(handleSettings(false));
   const collectProps = (e: React.MouseEvent<HTMLInputElement>) => {
     setErr(false);
@@ -43,7 +48,7 @@ const CardSettings: React.FC = () => {
       setErr(true);
       setErrMes('Количество карточек не должно превышать 50');
     } else {
-      checkBoxes.forEach((prop) => {
+      usedCheckboxes.forEach((prop) => {
         selectedHints.indexOf(prop.id) !== -1
           ? newSettingsState[prop.id] = true
           : newSettingsState[prop.id] = false;
@@ -59,12 +64,22 @@ const CardSettings: React.FC = () => {
     }
   };
 
+  useEffect(() => {
+    if (lang === 'eng') {
+      setUsedCheckboxes(checkBoxesEng);
+      setUsedLang(eng);
+    } else {
+      setUsedCheckboxes(checkBoxesRu);
+      setUsedLang(ru);
+    }
+  }, [lang]);
+
   return (
     <div className="settings-main-wrapper">
       <div className="settings-content">
         <div className="cards-words-amount">
           <div className="settings-field">
-            <span>Количество новых слов:</span>
+            <span>{usedLang.cardSettings.amountNewWords}</span>
             <input
               id="inputWords"
               type="number"
@@ -75,7 +90,7 @@ const CardSettings: React.FC = () => {
             />
           </div>
           <div className="settings-field">
-            <span>Количество карточек:</span>
+            <span>{usedLang.cardSettings.amountNewCards}</span>
             <input
               id="inputCards"
               type="number"
@@ -88,7 +103,7 @@ const CardSettings: React.FC = () => {
         </div>
         <div>
           <div className="settings-options">
-            {checkBoxes.map((data) => (
+            {usedCheckboxes.map((data) => (
               <div className="settings-option" key={data.name}>
                 <span>{data.name}</span>
                 <label
@@ -112,7 +127,9 @@ const CardSettings: React.FC = () => {
               className="settings-btn"
               onClick={save}
             >
-              save
+              {lang === 'eng'
+                ? 'save'
+                : 'cохранить'}
             </button>
             {err
             && (

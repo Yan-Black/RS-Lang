@@ -2,74 +2,22 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { State } from 'models';
-import { rusValues, engValues } from 'constants/main-page-constants';
+import { eng, ru } from 'constants/main-page-constants';
 import UserInfo from './UserInfo';
-import GameCard from './gameCard';
+import GameCard from './GameCard';
 import CardGame from './CardState';
-import Settings from './Settings';
+import Settings from './MainSettings';
 import ModalMain from './Modal';
 import CardSettings from './CardSettings';
 
 const MainInformation: React.FC = () => {
-  const [gameCardsValues, setCardsValues] = useState([...engValues]);
   const settingOpen = useSelector((state: State) => state.mainSettings.isOpen);
-  function fRusValues() {
-    const engLangSwitchButton = document.getElementById('eng-button');
-    const rusLangSwitchButton = document.getElementById('rus-button');
-    engLangSwitchButton.classList.remove('active-lang');
-    rusLangSwitchButton.classList.add('active-lang');
-
-    const mainCardText = document.getElementById('mainCardText');
-    const learnedWords = document.getElementById('learned-words');
-    const playedGames = document.getElementById('played-games');
-    const rightsWords = document.getElementById('rights-words');
-    const correctRepeats = document.getElementById('correct-repeats');
-
-    learnedWords.innerText = 'Выучено новых слов: 0';
-    playedGames.innerText = 'Сыграно игры: 0';
-    rightsWords.innerText = 'Правильных слов: 0';
-    correctRepeats.innerText = 'Правильных повторов: 0';
-    mainCardText.innerText = 'Настройки';
-    setCardsValues([...rusValues]);
-    localStorage.setItem('lang', 'rus');
-  }
-
-  function fEngValues() {
-    const rusLangSwitchButton = document.getElementById('rus-button');
-    const engLangSwitchButton = document.getElementById('eng-button');
-    rusLangSwitchButton.classList.remove('active-lang');
-    engLangSwitchButton.classList.add('active-lang');
-
-    const mainCardText = document.getElementById('mainCardText');
-    const learnedWords = document.getElementById('learned-words');
-    const playedGames = document.getElementById('played-games');
-    const rightsWords = document.getElementById('rights-words');
-    const correctRepeats = document.getElementById('correct-repeats');
-
-    learnedWords.innerText = 'Learned new words: 0';
-    playedGames.innerText = 'Games you played: 0';
-    rightsWords.innerText = 'Right words in a row: 0';
-    correctRepeats.innerText = 'Correct Repeats: 0';
-    mainCardText.innerText = 'Settings';
-
-    setCardsValues([...engValues]);
-    localStorage.setItem('lang', 'eng');
-  }
-
-  useEffect(() => {
-    const rusLangSwitchButton = document.getElementById('rus-button');
-    const engLangSwitchButton = document.getElementById('eng-button');
-    rusLangSwitchButton.addEventListener('click', fRusValues);
-    engLangSwitchButton.addEventListener('click', fEngValues);
-    return function cleanUp() {
-      rusLangSwitchButton.removeEventListener('click', fRusValues);
-      engLangSwitchButton.removeEventListener('click', fEngValues);
-    };
-  });
-
-  const cards = ['AudioCall', 'EnglishPuzzle', 'OurGame', 'Savannah', 'SpeakIt', 'Sprint'];
+  const cards = ['audioCall', 'englishPuzzle', 'ourGame', 'savannah', 'speakIt', 'sprint'];
   const isOpen = useSelector((state: State) => state.mainModal.isOpen);
   const theme = useSelector((state: State) => state.mainTheme.theme);
+  const lang = useSelector((state: State) => state.mainLang.lang);
+  const [usedLang, setUsedLang] = lang === 'eng' ? useState(eng) : useState(ru);
+  useEffect(() => (lang === 'eng' ? setUsedLang(eng) : setUsedLang(ru)), [lang]);
   return (
     <div>
       <div
@@ -79,8 +27,8 @@ const MainInformation: React.FC = () => {
             : 'main-wrapper main-dark'
         }
       >
-        <p className="header-text" id="header-text-1">
-          {gameCardsValues[6].firstParagraph}
+        <p className="header-text">
+          {usedLang.mainSentence1}
         </p>
         <div className="main-stat-container">
           <UserInfo />
@@ -89,17 +37,17 @@ const MainInformation: React.FC = () => {
           <Settings />
           <CardGame />
         </div>
-        <p className="header-text-2" id="header-text-2">
-          {gameCardsValues[6].secondParagraph}
+        <p className="header-text-2">
+          {usedLang.mainSentence2}
         </p>
-        <div className="games-container" id="eng-cards">
+        <div className="games-container">
           {cards.map((card, idx) => (
             <GameCard
               key={card}
               route={card}
-              name={gameCardsValues[idx].cardName}
-              desc={gameCardsValues[idx].desc}
-              imgSrc={gameCardsValues[idx].imgSrc}
+              name={usedLang.games[card].name}
+              desc={usedLang.games[card].description}
+              imgSrc={usedLang.games[card].imgSrc}
               modalId={`modal-${7 + idx}`}
               cardId={`card-${7 + idx}`}
             />

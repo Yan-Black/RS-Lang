@@ -1,20 +1,28 @@
 import * as React from 'react';
+import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { State } from 'models';
+import { eng, ru } from 'constants/main-page-constants';
 
-const UserInfo: React.FC = () => (
-  <div className="main-stat">
-    <div>
-      <p id="learned-words">Learned new words: 0</p>
+const UserInfo: React.FC = () => {
+  const lang = useSelector((state: State) => state.mainLang.lang);
+  const [usedLang, setUsedLang] = lang === 'eng' ? useState(eng) : useState(ru);
+  useEffect(() => (lang === 'eng' ? setUsedLang(eng) : setUsedLang(ru)), [lang]);
+  return (
+    <div className="main-stat">
+      <div>
+        <p>{usedLang.userProgress.learned}</p>
+      </div>
+      <div>
+        <p>{usedLang.userProgress.played}</p>
+      </div>
+      <div>
+        <p>{usedLang.userProgress.rightInARow}</p>
+      </div>
+      <div>
+        <p>{usedLang.userProgress.correctRepeats}</p>
+      </div>
     </div>
-    <div>
-      <p id="played-games">Games you played: 0</p>
-    </div>
-    <div>
-      <p id="rights-words">Right words in a row: 0</p>
-    </div>
-    <div>
-      <p id="correct-repeats">Correct Repeats: 0</p>
-    </div>
-  </div>
-);
-
+  );
+};
 export default UserInfo;

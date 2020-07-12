@@ -1,11 +1,15 @@
 import * as React from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import ProgressBar from 'react-bootstrap/ProgressBar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faPlay, faCog, faCheckCircle, faTimesCircle,
 } from '@fortawesome/free-solid-svg-icons';
 import { State } from 'models';
-import { cardOptions } from 'constants/main-page-constants';
+import {
+  cardEngOptions, cardRuOptions, eng, ru,
+} from 'constants/main-page-constants';
 import { handleSettings } from 'containers/Main/actions';
 import Authorization from 'components/Authorization';
 import './index.scss';
@@ -16,22 +20,36 @@ const CardGame: React.FC = () => {
   const amount = useSelector((state: State) => state.mainCardsWords.amount);
   const clickHandler = () => dispatch(handleSettings(true));
   const logged = useSelector((state: State) => state.authLog.isLogged);
+  const lang = useSelector((state: State) => state.mainLang.lang);
+  const [usedLang, setUsedLang] = lang === 'eng' ? useState(eng) : useState(ru);
+  const [userCardLang, setUsedCardLang] = lang === 'eng' ? useState(cardEngOptions) : useState(cardRuOptions);
+
+  useEffect(() => {
+    if (lang === 'eng') {
+      setUsedCardLang(cardEngOptions);
+      setUsedLang(eng);
+    } else {
+      setUsedCardLang(cardRuOptions);
+      setUsedLang(ru);
+    }
+  }, [lang]);
+
   return (
     <div className="main-control-center">
       {logged ? (
         <div className="main-control-wrapper">
           <div className="cards-words-amount">
             <div className="main-control-field">
-              <span>Количество новых слов: </span>
+              <span>{usedLang.cardSettings.amountNewWords}</span>
               <span id="cardsGameWords">{amount.words}</span>
             </div>
             <div className="main-control-field">
-              <span>Количество карточек: </span>
+              <span>{usedLang.cardSettings.amountNewCards}</span>
               <span id="cardsGameCards">{amount.cards}</span>
             </div>
           </div>
           <div className="main-control-hints">
-            {cardOptions.map((data) => (
+            {userCardLang.map((data) => (
               <div
                 key={data.category}
                 className="main-control-info"
@@ -63,13 +81,24 @@ const CardGame: React.FC = () => {
               </div>
             ))}
           </div>
+          <div className="cards-game-progress">
+            <div className="card-game-progress-info">
+              <p>{usedLang.cardSettings.yourProgress}</p>
+              <span>
+                4/
+                {amount.words}
+              </span>
+            </div>
+            <ProgressBar variant="success" now={20} />
+          </div>
           <div className="cards-game-buttons">
             <button
               type="button"
               className="cards-game-play-button"
             >
               <FontAwesomeIcon icon={faPlay} />
-              &nbsp;Play
+              &nbsp;
+              {usedLang.cardSettings.buttons.learn}
             </button>
             <button
               type="button"
@@ -77,7 +106,8 @@ const CardGame: React.FC = () => {
               className="cards-game-setting-button"
             >
               <FontAwesomeIcon icon={faCog} />
-              &nbsp;Setting
+              &nbsp;
+              {usedLang.cardSettings.buttons.settings}
             </button>
           </div>
         </div>

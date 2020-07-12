@@ -26,3 +26,16 @@ $card: #84cca7;
 .main-control-disabled {
   color: $card-font-hover;
 }
+
+.progress-bar.bg-success {
+  margin-bottom: 0;
+}
+
+.cards-game-buttons {
+  padding: 1vw 0;
+}
+
+.card-game-progress-info {
+  display: flex;
+  justify-content: space-between;
+}

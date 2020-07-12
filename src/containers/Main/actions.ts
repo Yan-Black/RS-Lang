@@ -36,3 +36,8 @@ export const updateAmount = (obj: any) => ({
   type: ActionType.UPDATE_AMOUNT,
   payload: obj,
 });
+
+export const changeAppLang = (lang: string) => ({
+  type: ActionType.CHANGE_LANG,
+  payload: lang,
+});

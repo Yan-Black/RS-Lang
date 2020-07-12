@@ -27,6 +27,8 @@ import cardsWordsAmountReducer from 'containers/Main/cardsWordsAmountReducer';
 import settingsOpenReducer from 'containers/Main/settingsOpenReducer';
 import themeReducer from 'containers/Main/themeReducer';
 import settingsEnabledReducer from 'containers/Main/settingsEnabledReducer';
+import userNameReducer from 'containers/Authorisation/userNameReducer';
+import mainLangReducer from 'containers/Main/mainLangReducer';
 import appReducer from '../containers/App/reducer';
 import btnsReducer from '../containers/Games/EnglishPuzzle/HeaderBlock/HintButtons/btnsReducer';
 import wordsReducer from '../containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/wordsReducer';
@@ -44,12 +46,14 @@ const rootReducer = combineReducers({
   authToken: authTokenReducer,
   authErrors: authErrorsReducer,
   authLog: logReducer,
+  authName: userNameReducer,
   mainModal: modalMainReducer,
   mainModalInfo: modalInfoReducer,
   mainTheme: themeReducer,
   mainCardsWords: cardsWordsAmountReducer,
   mainSettings: settingsOpenReducer,
   mainSetEnabled: settingsEnabledReducer,
+  mainLang: mainLangReducer,
   audioCallPage: pageReducer,
   audioCallLevel: levelReducer,
   audioCallRound: roundReducer,

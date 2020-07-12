@@ -1,5 +1,7 @@
 import { User } from 'components/Authorization/models';
-import { addApiError, removeApiError, setLogged } from 'containers/Authorisation/actions';
+import {
+  addApiError, removeApiError, setLogged, setUserName,
+} from 'containers/Authorisation/actions';
 import { ActionAuth } from 'containers/Authorisation/models';
 import { showLoader, hideLoader } from 'containers/Games/EnglishPuzzle/GameBlock/GameBoard/Loader/actions';
 
@@ -69,6 +71,7 @@ export const loginUser = (
       dispatch(hideLoader());
       dispatch(removeApiError());
       dispatch(setLogged());
+      dispatch(setUserName(res.name));
       localStorage.setItem('userName', res.name);
       localStorage.setItem('token', res.token);
       localStorage.setItem('userId', res.userId);
