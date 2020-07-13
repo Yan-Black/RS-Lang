@@ -4,18 +4,15 @@ import './loadingScreen.scss';
 import LoadingImg from './components/loadingImg/loadingImg';
 import Tips from './components/tips/tips';
 
-const LoadingScreenComponent = (props) => {
-  const { mode } = props;
-  if (mode === 'SETLOADINGMODE') {
-    return (
+const LoadingScreenComponent = ({ mode }) => (
+  mode === 'SETLOADINGMODE'
+    ? (
       <div>
         <LoadingImg />
         <Tips />
       </div>
-    );
-  }
-  return <div />;
-};
+    ) : <div />
+);
 
 const mapStateToPropsForCounter = (state) => ({
   mode: state.mode,

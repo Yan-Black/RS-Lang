@@ -3,36 +3,36 @@ import { combineReducers, createStore } from 'redux';
 const initialState = {
   failedWords: [],
   trueWords: [],
-}
+};
 
 function addFailedWords(state = initialState, action) {
-  if(action.type==='ADD_FAILED_WORD') {
-    return {...state, failedWords: state.failedWords.concat(action.payload)}
+  if (action.type === 'ADD_FAILED_WORD') {
+    return { ...state, failedWords: state.failedWords.concat(action.payload) };
   }
   return state;
 }
 
 function addTrueWords(state = initialState, action) {
-  if(action.type==='ADD_TRUE_WORD') {
-    return {...state, trueWords: state.trueWords.concat(action.payload)}
+  if (action.type === 'ADD_TRUE_WORD') {
+    return { ...state, trueWords: state.trueWords.concat(action.payload) };
   }
   return state;
 }
 
 function modeReducer(state = '', action) {
   if (action.type === 'SETGAMEMODE' || action.type === 'SETLOADINGMODE' || action.type === 'SETENDMODE') {
-    state=action.type;
+    state = action.type;
     return state;
   }
   return state;
 }
 
 function modalReducer(state = false, action) {
-  if(action.type === 'OPENMODALWINDOW') {
-    state = true
+  if (action.type === 'OPENMODALWINDOW') {
+    state = true;
     return state;
   }
-  if(action.type === 'CLOSEMODALWINDOW') {
+  if (action.type === 'CLOSEMODALWINDOW') {
     state = false;
     return state;
   }
@@ -40,41 +40,41 @@ function modalReducer(state = false, action) {
 }
 
 function buttonAccess(state = true, action) {
-  if(action.type === 'TOGGLEBUTTONACCESS') {
+  if (action.type === 'TOGGLEBUTTONACCESS') {
     return !state;
   }
   return state;
 }
 
 function fallingWord(state = '', action) {
-  if(action.type === 'SETFALLINGWORD') {
+  if (action.type === 'SETFALLINGWORD') {
 
   }
 }
 
 function fallingWordToggle(state = false, action) {
-  if(action.type === 'TOGGLEFALLINGWORDACTIVE') {
+  if (action.type === 'TOGGLEFALLINGWORDACTIVE') {
     return !state;
   }
   return state;
 }
 
 function showAnswerToggle(state = false, action) {
-  if(action.type === 'SHOWANSWER') {
+  if (action.type === 'SHOWANSWER') {
     return !state;
   }
   return state;
 }
 
 function showWordsToggle(state = false, action) {
-  if(action.type === 'SHOWWORDS') {
+  if (action.type === 'SHOWWORDS') {
     return !state;
   }
   return state;
 }
 
 function setFallingWord(state = null, action) {
-  if(action.type === 'SET_FALLING_WORD') {
+  if (action.type === 'SET_FALLING_WORD') {
     return action.payload;
   }
   return state;

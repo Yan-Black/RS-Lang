@@ -2,7 +2,7 @@ import * as React from 'react';
 import './showWords.scss';
 import { Component } from 'react';
 import { connect } from 'react-redux';
-import { showWords } from '../../../../../../containers/Games/Savannah/actions';
+import { showWords } from 'containers/Games/Savannah/actions';
 
 class ShowWordsComponent extends Component {
   onClickHandler = () => {

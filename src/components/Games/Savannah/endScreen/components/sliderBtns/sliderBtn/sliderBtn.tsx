@@ -1,8 +1,7 @@
 import * as React from 'react';
 import './sliderBtn.scss';
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const SliderBtn = () => (
+const SliderBtn: React.FC = () => (
   <div className="sliderBtn" />
 );
 

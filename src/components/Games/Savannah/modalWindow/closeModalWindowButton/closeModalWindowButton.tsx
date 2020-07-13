@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Component } from 'react';
-import { closeModalWindow } from '../../../../../containers/Games/Savannah/actions';
+import { closeModalWindow } from 'containers/Games/Savannah/actions';
 import './closeModalWindowButton.scss';
 
 class CloseModalWindowButtonComponent extends Component {

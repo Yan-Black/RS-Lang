@@ -6,8 +6,7 @@ import CloseModalWindowButtons from '../closeModalWindowButton/closeModalWindowB
 import './innerModal.scss';
 import ModalCross from '../modalCross/modalCross';
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const InnerModal = () => (
+const InnerModal: React.FC = () => (
   <div className="modal-wrapper">
     <div className="inner-modal">
       <ModalCross />

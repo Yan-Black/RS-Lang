@@ -13,13 +13,13 @@ const setLoadingMode = (dispatch) => {
 const openModalWindow = (dispatch) => {
   dispatch({
     type: 'OPENMODALWINDOW',
-  })
+  });
 };
 
 const closeModalWindow = (dispatch) => {
   dispatch({
     type: 'CLOSEMODALWINDOW',
-  })
+  });
 };
 
 const toggleButtonAccess = () => ({
@@ -32,7 +32,7 @@ const toggleFallingWordActive = () => ({
 
 const toggleShowAnswer = () => ({
   type: 'SHOWANSWER',
-})
+});
 
 const setEndMode = () => ({
   type: 'SETENDMODE',
@@ -51,21 +51,21 @@ const addTrueWord = (word) => ({
 const setFallingWordAction = (word) => ({
   type: 'SET_FALLING_WORD',
   payload: word,
-})
+});
 
 const showWords = (dispatch) => {
   dispatch({
     type: 'SHOWWORDS',
-  })
+  });
 };
 
-/*const setFallingWord = (word) => {
+/* const setFallingWord = (word) => {
   console.log('INSIDE_ACTION', word)
   return ({
     type: 'SETFALLINGWORD',
     payload: word,
   })
-};*/
+}; */
 
 export {
   setGameMode,

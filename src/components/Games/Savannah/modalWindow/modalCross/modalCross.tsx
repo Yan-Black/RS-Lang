@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import * as React from 'react';
 import { Component } from 'react';
-import { closeModalWindow } from '../../../../../containers/Games/Savannah/actions';
+import { closeModalWindow } from 'containers/Games/Savannah/actions';
 import './modalCross.scss';
 
 class ModalCrossComponent extends Component {

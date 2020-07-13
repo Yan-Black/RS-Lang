@@ -1,8 +1,7 @@
 import * as React from 'react';
 import './warningText.scss';
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const WarningText = () => (
+const WarningText: React.FC = () => (
   <div className="warning-text">Тренировка не закончена!</div>
 );
 

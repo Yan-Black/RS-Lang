@@ -92,7 +92,7 @@ const RawOfWordsComponent1 = () => {
     const heartArr = document.querySelectorAll('.heart');
     heartArr[0].classList.replace('heart', 'heart-dead');
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    setTimeout(() => { getNewWordss(); }, 1700);
+    setTimeout(() => { getNewWordss().catch(() => console.log('Error')); }, 1700);
     setTimeout(() => {
       console.log(Answer);
 
@@ -162,7 +162,7 @@ const RawOfWordsComponent1 = () => {
 
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    getNewWordss();
+    getNewWordss().catch(() => console.log('Error'));
     dispatch(toggleFallingWordActive());
   }, []);
 
@@ -206,7 +206,7 @@ const RawOfWordsComponent1 = () => {
       }
       // set new Answer and new words
       // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      setTimeout(() => { getNewWordss(); }, 1800);
+      setTimeout(() => { getNewWordss().catch(() => console.log('Error')); }, 1800);
       setTimeout(() => {
         if (document.querySelectorAll('.heart').length === 0) {
           dispatch(setEndMode());

@@ -1,13 +1,13 @@
 import * as React from 'react';
+import { Component } from 'react';
+import { connect } from 'react-redux';
 import MainScreen from './mainScreen/mainScreen';
 import GameScreen from './gameScreen/gameScreen';
-import Cross from './cross/cross';
+import CrossComponent from './Cross/cross';
 import LoadingScreen from './loadingScreen/loadingScreen';
-import {setGameMode, setLoadingMode} from "../../../containers/Games/Savannah/actions";
-import {Component} from "react";
-import {connect} from "react-redux";
-import ModalWindow from "./modalWindow/modalWindow";
-import EndScreen from "./endScreen/endScreen";
+import { openModalWindow, setGameMode, setLoadingMode } from '../../../containers/Games/Savannah/actions';
+import ModalWindow from './modalWindow/modalWindow';
+import EndScreen from './endScreen/endScreen';
 
 class SavannahComponent extends Component {
   setMode = () => {
@@ -19,7 +19,8 @@ class SavannahComponent extends Component {
     console.log(startGame);
   };
 
-  render(): React.ReactElement<any, string | React.JSXElementConstructor<any>> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
+  // eslint-disable-next-line max-len
+  render() {
     return (
       <div onAnimationEnd={this.setMode}>
         <Cross />
@@ -33,12 +34,21 @@ class SavannahComponent extends Component {
   }
 }
 
+const mapStateToPropsForCounter = (state) => ({
+  mode: state.mode,
+});
+
 const mapDispatchToPropsForButton = (dispatch) => ({
   startGame: () => {
     setGameMode(dispatch);
   },
+  modalWindow: () => {
+    openModalWindow(dispatch);
+  },
 });
 
-const Savannah = connect(null, mapDispatchToPropsForButton)(SavannahComponent)
+const Cross = connect(mapStateToPropsForCounter, mapDispatchToPropsForButton)(CrossComponent);
+
+const Savannah = connect(null, mapDispatchToPropsForButton)(SavannahComponent);
 
 export default Savannah;

@@ -2,8 +2,7 @@ import * as React from 'react';
 import './startButton.scss';
 import { Component } from 'react';
 import { connect } from 'react-redux';
-// eslint-disable-next-line import/named
-import { setLoadingMode } from '../../../../../../containers/Games/Savannah/actions';
+import { setLoadingMode } from 'containers/Games/Savannah/actions';
 
 class ButtonComponent extends Component {
   setMode = () => {

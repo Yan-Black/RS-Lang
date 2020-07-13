@@ -1,10 +1,8 @@
 import * as React from 'react';
 import './translation.scss';
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const Translation = ({ word3 }) => (
-  // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-  <div className="translation">{`${word3}`}</div>
+const Translation: React.FC<{word3: string}> = ({ word3 }) => (
+  <div className="translation">{word3}</div>
 );
 
 export default Translation;

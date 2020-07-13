@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "webpack-dev-server --open --config webpack.dev.ts",
     "build": "webpack --config webpack.prod.ts",
-    "lint": "eslint"
+    "lint": "eslint --fix"
   },
   "keywords": [],
   "author": "",
