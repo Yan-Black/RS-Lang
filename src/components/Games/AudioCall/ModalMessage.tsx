@@ -47,7 +47,7 @@ function ModalMessage(): JSX.Element {
             {messageBody}
           </div>
           <div className="modal-footer">
-            <Link to="/Main" onClick={exitBtnClickHandler} onKeyPress={exitKeyPressHandler}>
+            <Link to="/" onClick={exitBtnClickHandler} onKeyPress={exitKeyPressHandler}>
               <button tabIndex={-1} type="button" className="btn btn-secondary">Да, уйти</button>
             </Link>
             <button type="button" className="btn btn-primary" onClick={stayBtnClickHandler} onKeyPress={stayKeyPressHandler}>Нет, я продолжу</button>

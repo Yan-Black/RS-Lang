@@ -1,13 +1,15 @@
 import * as React from 'react';
-import Navigation from './mainComponents/navigation';
+import {
+  withRouter,
+} from 'react-router-dom';
 
-function Main():JSX.Element {
-  return (
-    <div id="main" className="main-content">
-      <Navigation />
-    </div>
-  );
-}
+import Navigation from './Aside';
+import './index.scss';
 
-export default Main;
+const Main: React.FC = () => (
+  <div id="main" className="main-content">
+    <Navigation />
+  </div>
+);
 
+export default withRouter(Main);

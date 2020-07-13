@@ -22,13 +22,19 @@ const config: webpack.Configuration = {
       {
         test: /\.s[ac]ss$/i,
         use: [
-          'style-loader',
-          'css-loader',
-          'sass-loader',
+          {
+            loader: 'style-loader',
+          },
+          {
+            loader: 'css-loader',
+          },
+          {
+            loader: 'sass-loader',
+          },
         ],
       },
       {
-        test: /\.(png|jpe?g|gif|svg|ogg|mp3|wav|mpe?g)$/i,
+        test: /\.(svg|mp3|png|jpe?g|gif)$/i,
         use: [
           {
             loader: 'file-loader',

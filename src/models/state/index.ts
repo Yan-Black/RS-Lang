@@ -1,5 +1,22 @@
 export interface State {
+  trainingSettings;
+  trainingStatistic;
+  training;
   app;
+  authToken;
+  authErrors;
+  authLog;
+  authName;
+  mainModal;
+  mainModalInfo;
+  mainTheme;
+  mainSettings;
+  mainSetEnabled;
+  mainCardsWords;
+  mainLang;
+  mainReg;
+  mainLog;
+  mainStudyMode;
   audioCallPage;
   audioCallLevel;
   audioCallRound;

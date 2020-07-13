@@ -1,9 +1,7 @@
 import * as React from 'react';
 
-function Statistic() {
-  return (
-    <div />
-  );
-}
+const Statistic: React.FC = () => (
+  <div />
+);
 
 export default Statistic;
