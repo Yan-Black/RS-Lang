@@ -1,4 +1,5 @@
 import * as React from 'react';
+import './index.scss';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -15,12 +16,11 @@ import {
   pagesEng, pagesRu, eng, ru,
 } from 'constants/main-page-constants';
 import MainSection from '../MainSection';
-import './index.scss';
 
 const Navigation: React.FC = () => {
   const dispatch = useDispatch();
   const statInfo = useSelector((state: State) => state.engPuzzleStatisticInfo);
-  const logged = useSelector((state: State) => state.authLog.isLogged);
+  const isLogged = useSelector((state: State) => state.authLog.isLogged);
   const name = useSelector((state: State) => state.authName.name);
   const lang = useSelector((state: State) => state.mainLang.lang);
   const [usedLang, setUsedLang] = lang === 'eng' ? useState(eng) : useState(ru);
@@ -88,19 +88,20 @@ const Navigation: React.FC = () => {
             </button>
           </li>
         </ul>
-        {logged && (
-        <div className="profile">
-          <FontAwesomeIcon
-            icon={faUserCircle}
-            className="aside-logout"
-            onClick={logout}
-          />
-          <span className="aside-menu-tooltip">
-            {usedLang.logout}
-          </span>
-          <span>{name}</span>
-        </div>
-        )}
+        {isLogged
+          && (
+          <div className="profile">
+            <FontAwesomeIcon
+              icon={faUserCircle}
+              className="aside-logout"
+              onClick={logout}
+            />
+            <span className="aside-menu-tooltip">
+              {usedLang.logout}
+            </span>
+            <span>{name}</span>
+          </div>
+          )}
       </div>
       <MainSection />
     </div>

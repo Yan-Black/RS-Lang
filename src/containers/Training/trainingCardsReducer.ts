@@ -1,8 +1,8 @@
-import wordsData from 'constants/words-constants';
 import update from 'immutability-helper';
 import { Reducer } from 'react';
-import { ActionType } from './constants';
-import { IntialStateUserWords, ActionUserWords } from './models';
+import { ActionType } from 'containers/TrainingCard/constants';
+import wordsData from 'constants/words-constants';
+import { IntialStateUserWords, ActionUserWords } from '../TrainingCard/models';
 
 const initialState: IntialStateUserWords = {
   userWords: wordsData[0].slice(0, 20),

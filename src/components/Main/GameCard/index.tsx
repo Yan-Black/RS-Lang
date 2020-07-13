@@ -1,4 +1,5 @@
 import * as React from 'react';
+import './index.scss';
 import { useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
@@ -6,7 +7,6 @@ import { Link } from 'react-router-dom';
 import { openModal, setModalInfo } from 'containers/Main/actions';
 import { InitialStateModalInfo } from 'containers/Main/models';
 import { CardProps } from '../models';
-import './index.scss';
 
 const GameCard: React.FC<CardProps> = ({
   route, cardId, name, imgSrc, modalId, desc,
