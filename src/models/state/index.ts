@@ -45,5 +45,7 @@ export interface State {
   speakItFetch;
   speakItWord;
   speakItButtons;
+  speakItStatisticInfo;
+  speakItStatistic;
   // add more fields according rootReducer
 }
