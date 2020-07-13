@@ -1,7 +1,5 @@
 export enum ActionType {
-<<<<<<< HEAD
   UPDATE_USER_WORDS = 'UPDATE_USER_WORDS',
-=======
   CHANGE_SETTING = 'CHANGE_SETTING',
   TOGGLE_ANSWER_CHECKED = 'TOGGLE_ANSWER_CHECKED',
   TOGGLE_ANSWER_CORRECT = 'TOGGLE_ANSWER_CORRECT',
@@ -14,5 +12,4 @@ export enum ActionType {
   ADD_TO_SUCCESS_TRAINING = 'ADD_TO_SUCCESS_TRAINING',
   ADD_ROW_OF_SUCCESS = 'ADD_ROW_OF_SUCCESS',
   RESET_TRAINING_STATISTIC = 'RESET_TRAINING_STATISTIC',
->>>>>>> feat: move folder Training from Main folder to components, add ability to change page language according to user language setting
 }

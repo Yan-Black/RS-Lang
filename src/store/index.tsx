@@ -99,7 +99,7 @@ const rootReducer = combineReducers({
 const store = createStore(rootReducer, compose(applyMiddleware(thunk)));
 
 store.subscribe(() => {
-  // console.log(store.getState().trainingStatistic);
+  // console.log(store.getState());
 });
 
 export default store;

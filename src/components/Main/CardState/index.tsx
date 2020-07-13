@@ -1,4 +1,5 @@
 import * as React from 'react';
+import './index.scss';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import ProgressBar from 'react-bootstrap/ProgressBar';
@@ -12,7 +13,7 @@ import {
 } from 'constants/main-page-constants';
 import { handleSettings } from 'containers/Main/actions';
 import Authorization from 'components/Authorization';
-import './index.scss';
+import { Link } from 'react-router-dom';
 
 const CardGame: React.FC = () => {
   const dispatch = useDispatch();
@@ -92,14 +93,16 @@ const CardGame: React.FC = () => {
             <ProgressBar variant="success" now={20} />
           </div>
           <div className="cards-game-buttons">
-            <button
-              type="button"
-              className="cards-game-play-button"
-            >
-              <FontAwesomeIcon icon={faPlay} />
-              &nbsp;
-              {usedLang.cardSettings.buttons.learn}
-            </button>
+            <Link to="/Training">
+              <button
+                type="button"
+                className="cards-game-play-button"
+              >
+                <FontAwesomeIcon icon={faPlay} />
+                &nbsp;
+                {usedLang.cardSettings.buttons.learn}
+              </button>
+            </Link>
             <button
               type="button"
               onClick={clickHandler}

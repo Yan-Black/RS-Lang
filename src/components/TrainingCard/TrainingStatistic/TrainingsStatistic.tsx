@@ -3,14 +3,13 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import { State } from 'models';
 import { useSelector, useDispatch } from 'react-redux';
-import { resetTrainingStatistic, toggleTrainingStatistic } from 'containers/TrainingCard/actions';
+import { resetTrainingStatistic, toggleTrainingStatistic, resetTraining } from 'containers/TrainingCard/actions';
 import { eng, ru } from 'constants/training-constants';
-
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function TrainingStatistic(): JSX.Element {
-  // to do use lang, current progress and daily cards limit from store
-  const usedLang = ru;
+  const lang = useSelector((state: State) => state.mainLang.lang);
+  const usedLang = lang === 'eng' ? eng : ru;
   const dispatch = useDispatch();
   const isStatisticOpen = useSelector((
     state: State,
@@ -31,6 +30,7 @@ function TrainingStatistic(): JSX.Element {
   const btnClickHandler = () => {
     dispatch(resetTrainingStatistic());
     dispatch(toggleTrainingStatistic(false));
+    dispatch(resetTraining());
   };
 
   return (
@@ -65,11 +65,11 @@ function TrainingStatistic(): JSX.Element {
         </div>
       </Modal.Body>
       <Modal.Footer>
-        {/* <Link to="/Main"> */}
-        <Button variant="primary" onClick={btnClickHandler}>
-          {usedLang.buttons.toMain}
-        </Button>
-        {/* </Link> */}
+        <Link to="/">
+          <Button variant="primary" onClick={btnClickHandler}>
+            {usedLang.buttons.toMain}
+          </Button>
+        </Link>
       </Modal.Footer>
     </Modal>
   );

@@ -2,9 +2,9 @@ import * as React from 'react';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { State } from 'models';
-import { FetchedWordData } from 'containers/Games/EnglishPuzzle/Models';
-import book1 from 'assets/WordsData';
 import { toggleAnswerChecked } from 'containers/TrainingCard/actions';
+import { FetchedWordData } from 'containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/models';
+import book1 from 'constants/words-constants';
 
 function CheckedAnswer(): JSX.Element {
   const dispatch = useDispatch();

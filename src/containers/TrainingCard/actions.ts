@@ -1,6 +1,6 @@
 import { FetchedWordData } from 'containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/models';
 import { ActionType } from './constants';
-import { ActionUserWords } from './models';
+import { ActionUserWords, ActionCreator } from './models';
 
 export const updateUserWords = (words: FetchedWordData[]): ActionUserWords => ({
   type: ActionType.UPDATE_USER_WORDS,

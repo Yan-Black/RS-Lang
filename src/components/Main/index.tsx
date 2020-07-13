@@ -1,16 +1,10 @@
 import * as React from 'react';
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
+  withRouter,
 } from 'react-router-dom';
-import Training from 'components/TrainingCard';
-import Statistic from '../Statistic';
-import Dictionary from '../Dictionary';
-import Games from '../Games';
-import Promo from '../Promo';
-import AboutUs from '../AboutUs';
+
+import Navigation from './Aside';
+import './index.scss';
 
 const Main: React.FC = () => (
   <div id="main" className="main-content">

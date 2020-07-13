@@ -1,25 +1,22 @@
 import * as React from 'react';
 import { useSelector } from 'react-redux';
 import { State } from 'models';
-import { FetchedWordData } from 'containers/Games/EnglishPuzzle/Models';
-import book1 from 'assets/WordsData';
+import { FetchedWordData } from 'containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/models';
+import book1 from 'constants/words-constants';
 
 function TrainingCardFields(): JSX.Element {
   const cardsToTrain = 10;
   const index = useSelector((state: State) => state.training.currIndex);
+  const settingsState = useSelector((state: State) => state.mainSetEnabled.hintsState);
   // to do change data to data from dictionary
   const data: FetchedWordData = index > cardsToTrain - 1
     ? book1[0][cardsToTrain - 1] : book1[0][index];
-  // const data: FetchedWordData = book1[0][index];
-  const showWordTranslate = useSelector((state: State) => state.trainingSettings.showWordTranslate);
-  const showWordExample = useSelector((state: State) => state.trainingSettings.showWordExample);
-  const showWordMeaning = useSelector((state: State) => state.trainingSettings.showWordMeaning);
-  const showWordTranscription = useSelector(
-    (state: State) => state.trainingSettings.showWordTranscription,
-  );
-  const showAllTranslates = useSelector((state: State) => state.trainingSettings.showAllTranslates);
+  const showWordTranslate = settingsState.translate;
+  const showWordExample = settingsState.example;
+  const showWordMeaning = settingsState.wordMeaning;
+  const showWordTranscription = settingsState.showTranscription;
+  const showAllTranslates = settingsState.showTextTranslate;
   const isAnswerCorrect = useSelector((state: State) => state.training.isCorrect);
-  // const canMoveToNext = useSelector((state: State) => state.training.moveToNext);
 
   const translateClass = (showWordTranslate || (showAllTranslates && (isAnswerCorrect || index >= cardsToTrain))) ? 'training-card-translate' : 'invisible';
   const exampleClass = showWordExample ? 'training-card-example' : 'invisible';
@@ -29,7 +26,7 @@ function TrainingCardFields(): JSX.Element {
   const meaningTranslateClass = ((showWordMeaning && showAllTranslates) && (isAnswerCorrect || index >= cardsToTrain)) ? 'translate' : 'invisible';
   const wordClass = isAnswerCorrect || index >= cardsToTrain ? 'training-card-word text-primary' : 'training-card-word invisible';
 
-  // to do fix the next function: use filter to find word in triangle brackets and hide it
+  // to do fix the next function: change filter to find word
   function getInnerText(text: string, word: string) {
     const textField = [];
     text.split(' ').map((el) => {

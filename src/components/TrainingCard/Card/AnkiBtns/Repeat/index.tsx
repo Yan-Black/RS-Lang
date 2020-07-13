@@ -2,11 +2,11 @@ import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from 'models';
 import { progressTraining } from 'containers/TrainingCard/actions';
-import { ru } from 'constants/training-constants';
+import { ru, eng } from 'constants/training-constants';
 
 const Repeat: React.FC = () => {
-  // to do use lang, current progress and daily cards limit from store
-  const usedLang = ru;
+  const lang = useSelector((state: State) => state.mainLang.lang);
+  const usedLang = lang === 'eng' ? eng : ru;
   const dispatch = useDispatch();
   const canMoveToNext = useSelector((state: State) => state.training.moveToNext);
 
@@ -22,7 +22,7 @@ const Repeat: React.FC = () => {
       {/* to do add not static period to next repeating */}
       <span className="text-center">&gt; 10 min</span>
       <button
-        className="btn btn-outline-info"
+        className="btn btn-success"
         type="button"
         id="repeat-btn"
         onClick={btnClickHandler}

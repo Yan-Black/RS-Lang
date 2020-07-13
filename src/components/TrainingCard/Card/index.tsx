@@ -9,7 +9,7 @@ import {
   useState, useEffect, useRef,
 } from 'react';
 import { FetchedWordData } from 'containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/models';
-import book1 from 'constants/words-constants/book1';
+import book1 from 'constants/words-constants';
 import TrainingCardFields from 'components/TrainingCard/Card/TrainingCardFields';
 import CheckedAnswer from 'components/TrainingCard/Card/CheckedAnswer';
 import {
@@ -17,16 +17,18 @@ import {
   addToSuccessTraining, addToFailedTraining, progressTraining,
   addRowOfSuccess, toggleTrainingStatistic,
 } from 'containers/TrainingCard/actions';
-import { ru } from 'constants/training-constants';
+import { ru, eng } from 'constants/training-constants';
 
 const Card: React.FC = () => {
-  // to do use lang, current progress and daily cards limit from store
-  const usedLang = ru;
+  const lang = useSelector((state: State) => state.mainLang.lang);
+  const usedLang = lang === 'eng' ? eng : ru;
+  const amount = useSelector((state: State) => state.mainCardsWords.amount);
+  const settingsState = useSelector((state: State) => state.mainSetEnabled.hintsState);
   const dispatch = useDispatch();
   const index = useSelector((state: State) => state.training.currIndex);
   const data: FetchedWordData = book1[0][index];
   const prevData: FetchedWordData = book1[0][index - 1];
-  const cardsToTrain = 10;
+  const cardsToTrain = amount.words;
   const inputWidth = data.word.length * 12;
   const isStatisticOpen = useSelector((
     state: State,
@@ -38,14 +40,14 @@ const Card: React.FC = () => {
 
   const isAnswerChecked = useSelector((state: State) => state.training.isChecked);
   const isAnswerCorrect = useSelector((state: State) => state.training.isCorrect);
-  const showWordExample = useSelector((state: State) => state.trainingSettings.showWordExample);
-  const showWordMeaning = useSelector((state: State) => state.trainingSettings.showWordMeaning);
-  const showWordImage = useSelector((state: State) => state.trainingSettings.showWordImage);
+  const showWordExample = settingsState.example;
+  const showWordMeaning = settingsState.wordMeaning;
+  const showWordImage = settingsState.showImage;
   const canMoveToNext = useSelector((state: State) => state.training.moveToNext);
-  const showHelpBTN = useSelector((state: State) => state.trainingSettings.showHelpBTN);
-  const showDeleteBTN = useSelector((state: State) => state.trainingSettings.showDeleteBTN);
-  const showDifficultBTN = useSelector((state: State) => state.trainingSettings.showDifficultBTN);
-  const playAudioSetting = useSelector((state: State) => state.trainingSettings.playAudio);
+  const showHelpBTN = settingsState.showAnswerBtn;
+  const showDeleteBTN = settingsState.deleteWordBtn;
+  const showDifficultBTN = settingsState.diffucultWordBtn;
+  const playAudioSetting = settingsState.autoPronounce;
   const wordAudioURL = `https://raw.githubusercontent.com/lactivka/rslang-data/master/${data.audio}`;
   const meaningAudioURL = `https://raw.githubusercontent.com/lactivka/rslang-data/master/${data.audioMeaning}`;
   const exampleAudioURL = `https://raw.githubusercontent.com/lactivka/rslang-data/master/${data.audioExample}`;
@@ -89,7 +91,7 @@ const Card: React.FC = () => {
 
   const getUrl = () => {
     if (showWordImage && (isAnswerCorrect || index < cardsToTrain)) return `https://raw.githubusercontent.com/lactivka/rslang-data/master/${data.image}`;
-    if (!showWordImage && (isAnswerChecked || index >= cardsToTrain)) return checkMarkImage;
+    if (!showWordImage && (isAnswerCorrect || index >= cardsToTrain)) return checkMarkImage;
     if (showWordImage && (isAnswerCorrect || index >= cardsToTrain)) return `https://raw.githubusercontent.com/lactivka/rslang-data/master/${prevData.image}`;
     return questionMarkImage;
   };

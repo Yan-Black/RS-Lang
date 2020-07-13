@@ -4,19 +4,17 @@ import { useSelector, useDispatch } from 'react-redux';
 import { State } from 'models';
 import {
   updateCollection, removeCollection, updateOffsetX, removeOffsetX, setToSolved, setToNewGame,
-} from 'containers/Games/EnglishPuzzle/GameBoard/actions';
-import { updatePage, updateGrop } from 'containers/Games/EnglishPuzzle/SettingsBlock/actions';
-import { enableDontKnowBtn, enableResultsBtn } from 'containers/Games/EnglishPuzzle/GameBoard/HelpButtons/actions';
-import { incrementIdx, setToInitial } from 'containers/Games/EnglishPuzzle/StartPage/actions';
-import { State } from 'models/state';
-import '../index.scss';
-import { setToUserPreferencies } from 'containers/Games/EnglishPuzzle/HintButtons/actions';
-import { countXOffsets } from 'components/Games/EnglishPuzzle/Constants';
-import { reomveFailed, reomveSuccess, closeResults } from 'containers/Games/EnglishPuzzle/GameBoard/Results/actions';
+} from 'containers/Games/EnglishPuzzle/GameBlock/GameBoard/actions';
+import { updatePage, updateGrop } from 'containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/actions';
+import { enableDontKnowBtn, enableResultsBtn } from 'containers/Games/EnglishPuzzle/GameBlock/GameBoard/HelpButtons/actions';
+import { incrementIdx, setToInitial } from 'containers/Games/EnglishPuzzle/GameController/actions';
+import { setToUserPreferencies } from 'containers/Games/EnglishPuzzle/HeaderBlock/HintButtons/actions';
+import { reomveFailed, reomveSuccess, closeResults } from 'containers/Games/EnglishPuzzle/GameBlock/GameBoard/Results/actions';
 import {
   closeStatistic, updateDate, updateTime, updateLevels, updateFailed, updateSuccess,
-} from 'containers/Games/EnglishPuzzle/GameBoard/Statistic/actions';
-import { ContinueBtnProps } from '../../Models';
+} from 'containers/Games/EnglishPuzzle/GameBlock/GameBoard/Statistic/actions';
+import { countXOffsets } from 'constants/english-puzzle-constants';
+import { ContinueBtnProps } from 'components/Games/EnglishPuzzle/models';
 
 const ContinueBtn: React.FC<ContinueBtnProps> = ({
   wordsToApply, setCheckedStateToCards, setDragging,
@@ -65,11 +63,18 @@ const ContinueBtn: React.FC<ContinueBtnProps> = ({
     } else if (activeIdx === 9) {
       dispatch(setToSolved());
       dispatch(enableResultsBtn());
-      // dispatch(updateDate(new Date().toDateString()));
-      dispatch(updateTime({ date: new Date().toDateString(), time: new Date().toTimeString() }));
-      dispatch(updateLevels({ date: new Date().toDateString(), level: `Group: ${group} - Page: ${page}` }));
-      dispatch(updateFailed({ date: new Date().toDateString(), failed: failedWords.length }));
-      dispatch(updateSuccess({ date: new Date().toDateString(), success: successWords.length }));
+      if (!savedDate || savedDate.date !== new Date().toDateString()) {
+        dispatch(updateDate({ date: new Date().toDateString() }));
+      }
+      dispatch(updateTime(
+        {
+          date: new Date().toDateString(),
+          payload: new Date().toTimeString().slice(0, 9),
+        },
+      ));
+      dispatch(updateLevels({ date: new Date().toDateString(), payload: `Group: ${group} - Page: ${page}` }));
+      dispatch(updateFailed({ date: new Date().toDateString(), payload: failedWords.length }));
+      dispatch(updateSuccess({ date: new Date().toDateString(), payload: successWords.length }));
       setTimeout(() => dispatch(removeCollection()), 800);
     } else {
       updateCardsCollection();

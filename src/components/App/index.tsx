@@ -1,4 +1,5 @@
 import * as React from 'react';
+import './index.scss';
 import {
   BrowserRouter as Router,
   Switch,
@@ -19,8 +20,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { State } from 'models';
 import Main from 'components/Main';
 import { getProfileFetch, getUserStatistic } from 'constants/athorization-constants';
+import Training from 'components/TrainingCard';
 import Loader from '../Authorization/Loader';
-import './index.scss';
 
 const App: React.FC = () => {
   const loading = useSelector((state: State) => state.engPuzzleLoading.isLoading);
@@ -74,6 +75,9 @@ const App: React.FC = () => {
         </Route>
         <Route path="/OurGame">
           <OurGame />
+        </Route>
+        <Route path="/Training">
+          <Training />
         </Route>
       </Switch>
     </Router>
