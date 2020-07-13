@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from 'models';
-import { progressTraining } from 'containers/Training/actions';
+import { progressTraining } from 'containers/TrainingCard/actions';
 import { ru } from 'constants/training-constants';
 
-const Repeat: React.FC = () => {
+const Hard: React.FC = () => {
   // to do use lang, current progress and daily cards limit from store
   const usedLang = ru;
   const dispatch = useDispatch();
@@ -12,7 +12,7 @@ const Repeat: React.FC = () => {
 
   const btnClickHandler = () => {
     if (canMoveToNext) {
-      // to do  back word to current repeating words
+      // to do double decrease time to next repeating
       dispatch(progressTraining());
     }
   };
@@ -20,17 +20,17 @@ const Repeat: React.FC = () => {
   return (
     <div className="d-flex flex-column">
       {/* to do add not static period to next repeating */}
-      <span className="text-center">&gt; 10 min</span>
+      <span className="text-center">4 d</span>
       <button
         className="btn btn-outline-info"
         type="button"
-        id="repeat-btn"
+        id="hard-btn"
         onClick={btnClickHandler}
       >
-        {usedLang.buttons.againgBTN}
+        {usedLang.buttons.hardBTN}
       </button>
     </div>
   );
 };
 
-export default Repeat;
+export default Hard;

@@ -3,7 +3,7 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import { State } from 'models';
 import { useSelector, useDispatch } from 'react-redux';
-import { resetTrainingStatistic, toggleTrainingStatistic } from 'containers/Training/actions';
+import { resetTrainingStatistic, toggleTrainingStatistic } from 'containers/TrainingCard/actions';
 import { eng, ru } from 'constants/training-constants';
 
 // import { Link } from 'react-router-dom';

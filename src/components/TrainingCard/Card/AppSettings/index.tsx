@@ -3,7 +3,7 @@ import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { State } from 'models';
-import { changeSetting } from 'containers/Training/actions';
+import { changeSetting } from 'containers/TrainingCard/actions';
 
 const AppSettings: React.FC = () => {
   const dispatch = useDispatch();

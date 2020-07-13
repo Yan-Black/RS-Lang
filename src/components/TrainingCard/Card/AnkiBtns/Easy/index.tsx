@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { State } from 'models';
-import { progressTraining } from 'containers/Training/actions';
+import { progressTraining } from 'containers/TrainingCard/actions';
 import { ru } from 'constants/training-constants';
 
-const Normal: React.FC = () => {
+const Easy: React.FC = () => {
   // to do use lang, current progress and daily cards limit from store
   const usedLang = ru;
   const dispatch = useDispatch();
@@ -12,7 +12,7 @@ const Normal: React.FC = () => {
 
   const btnClickHandler = () => {
     if (canMoveToNext) {
-      // to do  stay time to next repeating without changes
+      // to do  increase time to next repeating
       dispatch(progressTraining());
     }
   };
@@ -20,17 +20,17 @@ const Normal: React.FC = () => {
   return (
     <div className="d-flex flex-column">
       {/* to do add not static period to next repeating */}
-      <span className="text-center">18 d</span>
+      <span className="text-center">1.5 m  </span>
       <button
         className="btn btn-outline-info"
         type="button"
-        id="normal-btn"
+        id="easy-btn"
         onClick={btnClickHandler}
       >
-        {usedLang.buttons.rememberBTN}
+        {usedLang.buttons.easyBTN}
       </button>
     </div>
   );
 };
 
-export default Normal;
+export default Easy;

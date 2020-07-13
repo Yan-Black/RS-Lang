@@ -5,12 +5,12 @@ import {
   Route,
   Link,
 } from 'react-router-dom';
+import Training from 'components/TrainingCard';
 import Statistic from '../Statistic';
 import Dictionary from '../Dictionary';
 import Games from '../Games';
 import Promo from '../Promo';
 import AboutUs from '../AboutUs';
-import Training from '../Training';
 
 const Main: React.FC = () => (
   <div id="main" className="main-content">

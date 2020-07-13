@@ -10,10 +10,14 @@ import {
 } from 'react';
 import { FetchedWordData } from 'containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/models';
 import book1 from 'constants/words-constants/book1';
-import { setInputWord, toggleAnswerCorrect, toggleMoveToNext, progressTraining } from 'containers/Main/Training/actions';
 import TrainingCardFields from 'components/TrainingCard/Card/TrainingCardFields';
 import CheckedAnswer from 'components/TrainingCard/Card/CheckedAnswer';
-
+import {
+  setInputWord, toggleAnswerCorrect, toggleMoveToNext,
+  addToSuccessTraining, addToFailedTraining, progressTraining,
+  addRowOfSuccess, toggleTrainingStatistic,
+} from 'containers/TrainingCard/actions';
+import { ru } from 'constants/training-constants';
 
 const Card: React.FC = () => {
   // to do use lang, current progress and daily cards limit from store
