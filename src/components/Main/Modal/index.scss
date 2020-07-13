@@ -1,0 +1,53 @@
+$card-color: #84cca7;
+$aside-color: rgb(124, 166, 222);
+
+.modal-main {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(47, 47, 47, 0.5);
+  backdrop-filter: blur(3px);
+  z-index: 10;
+  transition: .3s;
+}
+
+.modal-hint {
+  position: relative;
+  padding: 20px;
+  margin: 30vh auto;
+  width: 30%;
+  height: 30vh;
+  background-color: $card-color;
+  filter: drop-shadow(0 0 4px rgba(0,0,0,0.5));
+  border-radius: 15px;
+  transition: .3s;
+}
+
+.hint-title, .hint-descr {
+  font-size: 1.5vw;
+}
+
+.modal-close-button {
+  outline: 0;
+  border: 0;
+  border-radius: 50%;
+  position: absolute;
+  box-sizing: border-box;
+  color: $card-color;
+  bottom: 5px;
+  right: 5px;
+  width: 30px;
+  height: 30px;
+  transition: .2s;
+  &:focus {
+    outline: none;
+  }
+  &:hover{
+    color: $aside-color;
+  }
+  &:active {
+    opacity: .5;
+  }
+}

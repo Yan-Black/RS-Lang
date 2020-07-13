@@ -17,7 +17,20 @@ import {
   pageReducer, levelReducer, roundReducer,
   currWordsReducer, answerReducer, statisticReducer, modalReducer,
 } from 'containers/Games/AudioCall/reducer';
+import authTokenReducer from 'containers/Authorisation/authReducer';
+import authErrorsReducer from 'containers/Authorisation/authErrorsReducer';
 import { dictionaryReducer } from 'containers/Dictionary/reducer';
+import logReducer from 'containers/Authorisation/logReducer';
+import modalMainReducer from 'containers/Main/modalMainReducer';
+import modalInfoReducer from 'containers/Main/modalInfoReducer';
+import cardsWordsAmountReducer from 'containers/Main/cardsWordsAmountReducer';
+import settingsOpenReducer from 'containers/Main/settingsOpenReducer';
+import themeReducer from 'containers/Main/themeReducer';
+import settingsEnabledReducer from 'containers/Main/settingsEnabledReducer';
+import userNameReducer from 'containers/Authorisation/userNameReducer';
+import mainLangReducer from 'containers/Main/mainLangReducer';
+import regFormReducer from 'containers/Authorisation/regFormReducer';
+import logFormReducer from 'containers/Authorisation/logFormReducer';
 import appReducer from '../containers/App/reducer';
 import btnsReducer from '../containers/Games/EnglishPuzzle/HeaderBlock/HintButtons/btnsReducer';
 import wordsReducer from '../containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/wordsReducer';
@@ -32,6 +45,19 @@ import startGameReducer from '../containers/Games/SpeakIt/ControlButtons/reducer
 
 const rootReducer = combineReducers({
   app: appReducer,
+  authToken: authTokenReducer,
+  authErrors: authErrorsReducer,
+  authLog: logReducer,
+  authName: userNameReducer,
+  mainModal: modalMainReducer,
+  mainModalInfo: modalInfoReducer,
+  mainTheme: themeReducer,
+  mainCardsWords: cardsWordsAmountReducer,
+  mainSettings: settingsOpenReducer,
+  mainSetEnabled: settingsEnabledReducer,
+  mainLang: mainLangReducer,
+  mainLog: logFormReducer,
+  mainReg: regFormReducer,
   audioCallPage: pageReducer,
   audioCallLevel: levelReducer,
   audioCallRound: roundReducer,
