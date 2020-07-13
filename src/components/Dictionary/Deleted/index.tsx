@@ -4,12 +4,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { State } from 'models';
 import { WordObj } from 'containers/Dictionary/models';
 import { deletedToLearning } from 'containers/Dictionary/actions';
-import { ru } from 'constants/dictionary-constants';
+import { ru, eng } from 'constants/dictionary-constants';
 import DictionaryItem from '../DictionaryItem';
 
 function Deleted(): JSX.Element {
-  // to do use lang from store
-  const usedLang = ru;
+  const lang = useSelector((state: State) => state.mainLang.lang);
+  const usedLang = lang === 'eng' ? eng : ru;
   const dispatch = useDispatch();
   const deletedWords: Array<WordObj> = useSelector(
     (state: State) => state.dictionaryState.deletedWords,

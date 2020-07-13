@@ -2,12 +2,16 @@ import * as React from 'react';
 import './index.scss';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ru } from 'constants/dictionary-constants';
+import { ru, eng } from 'constants/dictionary-constants';
+import { State } from 'models';
+import { useSelector } from 'react-redux';
 import View from './View.tsx';
 
 function Dictionary(): JSX.Element {
-  // to do use lang from store
-  const usedLang = ru;
+  const settingsState = useSelector((state: State) => state.mainSetEnabled.hintsState);
+  console.log(settingsState);
+  const lang = useSelector((state: State) => state.mainLang.lang);
+  const usedLang = lang === 'eng' ? eng : ru;
   const [currPage, setCurrPage] = useState('learning');
 
   const btnClickHandler = (

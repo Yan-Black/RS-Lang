@@ -77,7 +77,7 @@ function StatisticPage(): JSX.Element {
           >
             {usedLang.buttons.statistic}
           </button>
-          <Link to="/Main">
+          <Link to="/">
             <button
               type="button"
               className="btn btn-light border text-primary mr-5"

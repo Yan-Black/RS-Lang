@@ -1,4 +1,5 @@
 import * as React from 'react';
+import './index.scss';
 import { useSelector } from 'react-redux';
 import { State } from 'models';
 import Accordion from 'react-bootstrap/Accordion';
@@ -25,7 +26,7 @@ function LongStatisticContent(): JSX.Element {
     <div className="long-statistic bg-light mx-5 text-dark">
       <Accordion>
         {statInfo.playedDates.map((info, i) => (
-          <Card key={info.date}>
+          <Card id="audio-call-statistic-card" key={info.date}>
             <Accordion.Toggle as={Card.Header} eventKey={`${i}`}>
               {info.date}
             </Accordion.Toggle>

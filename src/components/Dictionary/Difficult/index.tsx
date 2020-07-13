@@ -4,12 +4,12 @@ import { WordObj } from 'containers/Dictionary/models';
 import { useSelector, useDispatch } from 'react-redux';
 import { State } from 'models';
 import { difficultToLearning } from 'containers/Dictionary/actions';
-import { ru } from 'constants/dictionary-constants';
+import { ru, eng } from 'constants/dictionary-constants';
 import DictionaryItem from '../DictionaryItem';
 
 function Difficult(): JSX.Element {
-  // to do use lang from store
-  const usedLang = ru;
+  const lang = useSelector((state: State) => state.mainLang.lang);
+  const usedLang = lang === 'eng' ? eng : ru;
   const dispatch = useDispatch();
   const difficultWords: Array<WordObj> = useSelector(
     (state: State) => state.dictionaryState.difficultWords,

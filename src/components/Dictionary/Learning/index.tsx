@@ -2,12 +2,12 @@ import * as React from 'react';
 import { WordObj } from 'containers/Dictionary/models';
 import { useSelector } from 'react-redux';
 import { State } from 'models';
-import { ru } from 'constants/dictionary-constants';
+import { ru, eng } from 'constants/dictionary-constants';
 import DictionaryItem from '../DictionaryItem';
 
 function Learning(): JSX.Element {
-  // to do use lang from store
-  const usedLang = ru;
+  const lang = useSelector((state: State) => state.mainLang.lang);
+  const usedLang = lang === 'eng' ? eng : ru;
   const learningWords: Array<WordObj> = useSelector(
     (state: State) => state.dictionaryState.learningWords,
   );
