@@ -1,5 +1,19 @@
 export interface State {
   app;
+  authToken;
+  authErrors;
+  authLog;
+  authName;
+  mainModal;
+  mainModalInfo;
+  mainTheme;
+  mainSettings;
+  mainSetEnabled;
+  mainCardsWords;
+  mainLang;
+  mainReg;
+  mainLog;
+  mainStudyMode;
   audioCallPage;
   audioCallLevel;
   audioCallRound;
@@ -23,6 +37,7 @@ export interface State {
   engPuzzleFetchedWords;
   engPuzzleLoading;
   engPuzzleStartPage;
+  dictionaryState;
   speakItControl;
   speakItFetch;
   speakItWord;
