@@ -28,7 +28,7 @@ export const eng = {
   },
   cardSettings: {
     amountNewWords: 'New words amount:',
-    amountNewCards: 'New cards amount:',
+    amountNewCards: 'Cards amount:',
     yourProgress: 'Todays progress:',
     buttons: {
       learn: 'learn',
@@ -94,7 +94,7 @@ export const ru = {
   },
   cardSettings: {
     amountNewWords: 'Количество новых слов:',
-    amountNewCards: 'Количество новых карточек:',
+    amountNewCards: 'Количество карточек:',
     yourProgress: 'Прогресс за сегодня:',
     buttons: {
       learn: 'Учить',
@@ -156,19 +156,39 @@ export const cardRuOptions = [
     ],
   },
   {
-    category: 'Настройки слов:',
+    category: 'Настройки карточки слова:',
     sentencies: [
       {
-        str: 'Показать ответ',
-        val: 'showAnswer',
+        str: 'Показывать транскрипцию',
+        val: 'showTranscription',
       },
       {
-        str: 'Удалить слово',
-        val: 'deleteWord',
+        str: 'Показывать картинку',
+        val: 'showImage',
       },
       {
-        str: 'Сложное слово',
-        val: 'difficultWord',
+        str: 'Автопроизношение слова',
+        val: 'autoPronounce',
+      },
+      {
+        str: 'Показывать перевод текста',
+        val: 'showTextTranslate',
+      },
+      {
+        str: 'Кнопка "показать ответ"',
+        val: 'showAnswerBtn',
+      },
+      {
+        str: 'Кнопка "удалить слово"',
+        val: 'deleteWordBtn',
+      },
+      {
+        str: 'Кнопка "сложное слово"',
+        val: 'difficultWordBtn',
+      },
+      {
+        str: 'Кнопки интервального повторения',
+        val: 'repeatBtn',
       },
     ],
   },
@@ -193,19 +213,39 @@ export const cardEngOptions = [
     ],
   },
   {
-    category: 'Word settings:',
+    category: 'Word card settings:',
     sentencies: [
       {
-        str: 'Show answer',
-        val: 'showAnswer',
+        str: 'Show transcription',
+        val: 'showTranscription',
       },
       {
-        str: 'Delete word',
-        val: 'deleteWord',
+        str: 'Show image',
+        val: 'showImage',
       },
       {
-        str: 'Difficult word',
-        val: 'difficultWord',
+        str: 'Autoplay pronunciation',
+        val: 'autoPronounce',
+      },
+      {
+        str: 'Show text translate',
+        val: 'showTextTranslate',
+      },
+      {
+        str: 'Show answer button',
+        val: 'showAnswerBtn',
+      },
+      {
+        str: 'Delete word button',
+        val: 'deleteWordBtn',
+      },
+      {
+        str: 'Difficult word button',
+        val: 'difficultWordBtn',
+      },
+      {
+        str: 'Show repeat buttons',
+        val: 'repeatBtn',
       },
     ],
   },
@@ -213,25 +253,41 @@ export const cardEngOptions = [
 
 export const pagesEng = [
   {
-    page: eng.pageNames.statistic, icon: faChartBar,
+    page: eng.pageNames.statistic,
+    path: eng.pageNames.statistic,
+    icon: faChartBar,
   }, {
-    page: eng.pageNames.dictionary, icon: faBook,
+    page: eng.pageNames.dictionary,
+    path: eng.pageNames.dictionary,
+    icon: faBook,
   }, {
-    page: eng.pageNames.promo, icon: faVideo,
+    page: eng.pageNames.promo,
+    path: eng.pageNames.promo,
+    icon: faVideo,
   }, {
-    page: eng.pageNames.about, icon: faUsers,
+    page: eng.pageNames.about,
+    path: eng.pageNames.about,
+    icon: faUsers,
   },
 ];
 
 export const pagesRu = [
   {
-    page: ru.pageNames.statistic, icon: faChartBar,
+    page: ru.pageNames.statistic,
+    path: eng.pageNames.statistic,
+    icon: faChartBar,
   }, {
-    page: ru.pageNames.dictionary, icon: faBook,
+    page: ru.pageNames.dictionary,
+    path: eng.pageNames.dictionary,
+    icon: faBook,
   }, {
-    page: ru.pageNames.promo, icon: faVideo,
+    page: ru.pageNames.promo,
+    path: eng.pageNames.promo,
+    icon: faVideo,
   }, {
-    page: ru.pageNames.about, icon: faUsers,
+    page: ru.pageNames.about,
+    path: eng.pageNames.about,
+    icon: faUsers,
   },
 ];
 
@@ -239,16 +295,42 @@ export const checkBoxesRu = [
   { name: 'Перевод слова', id: 'translate' },
   { name: 'Предложение объясняющее значение слова', id: 'wordMeaning' },
   { name: 'Предложение - пример использования слова', id: 'example' },
-  { name: 'Показать ответ', id: 'showAnswer' },
-  { name: 'Удалить слово', id: 'deleteWord' },
-  { name: 'Сложное слово', id: 'difficultWord' },
+  { name: 'Показывать транскрипцию', id: 'showTranscription' },
+  { name: 'Показывать картинку', id: 'showImage' },
+  { name: 'Автопроизношение слова', id: 'autoPronounce' },
+  { name: 'Показывать перевод текста', id: 'showTextTranslate' },
+  { name: 'Кнопка "показать ответ"', id: 'showAnswerBtn' },
+  { name: 'Кнопка "удалить слово"', id: 'deleteWordBtn' },
+  { name: 'Кнопка "сложное слово"', id: 'difficultWordBtn' },
+  { name: 'Кнопки интервального повторения', id: 'repeatBtn' },
 ];
 
 export const checkBoxesEng = [
   { name: 'Word translate', id: 'translate' },
   { name: 'Sentence with word meaning explanation', id: 'wordMeaning' },
   { name: 'Sentence with examlple of word usage', id: 'example' },
-  { name: 'Show answer', id: 'showAnswer' },
-  { name: 'Delete word', id: 'deleteWord' },
-  { name: 'Difficult word', id: 'difficultWord' },
+  { name: 'Show transcription', id: 'showTranscription' },
+  { name: 'Show image', id: 'showImage' },
+  { name: 'Autoplay pronunciation', id: 'autoPronounce' },
+  { name: 'Show text translate', id: 'showTextTranslate' },
+  { name: 'Show answer button', id: 'showAnswerBtn' },
+  { name: 'Delete word button', id: 'deleteWordBtn' },
+  { name: 'Difficult word button', id: 'difficultWordBtn' },
+  { name: 'Show repeat buttons', id: 'repeatBtn' },
+];
+
+export const cardsNames = ['audioCall', 'englishPuzzle', 'ourGame', 'savannah', 'speakIt', 'sprint'];
+
+export const studyModesRu = [
+  { name: 'Учить все слова', id: 'trainAllWords' },
+  { name: 'Учить новые слова', id: 'onlyNew' },
+  { name: 'Повторять уже пройденные', id: 'onlyRepeat' },
+  { name: 'Учить трудные слова', id: 'onlyDifficult' },
+];
+
+export const studyModesEng = [
+  { name: 'Lear all words', id: 'trainAllWords' },
+  { name: 'Learn only new words', id: 'onlyNew' },
+  { name: 'Repeat known words', id: 'onlyRepeat' },
+  { name: 'Learn difficult words', id: 'onlyDifficult' },
 ];

@@ -17,14 +17,26 @@ export interface InitialStateStatOpen {
 }
 
 export interface InitialStateHintsState {
-  translate: boolean,
-  wordMeaning: boolean,
-  example: boolean,
-  showAnswer: boolean,
-  deleteWord: boolean,
-  difficultWord: boolean,
+  showTranscription: boolean;
+  showImage: boolean;
+  autoPronounce: boolean;
+  showTextTranslate: boolean;
+  showAnswerBtn: boolean;
+  deleteWordBtn: boolean;
+  difficultWordBtn: boolean;
+  repeatBtn: boolean;
 }
 
+export interface InitialStudyState {
+  trainAllWords: boolean;
+  onlyNew: boolean;
+  onlyRepeat: boolean;
+  onlyDifficult: boolean;
+}
+
+export interface InitialStateStudyMode {
+  studyModes: InitialStudyState;
+}
 export interface InitialStateHintsEnabled {
   hintsState: InitialStateHintsState,
 }
@@ -65,4 +77,9 @@ export interface ActionSettings {
 export interface ActionAmount {
   type: string;
   payload: InitialAmountState,
+}
+
+export interface ActionStudy {
+  type: string;
+  payload: InitialStudyState;
 }

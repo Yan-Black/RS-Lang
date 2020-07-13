@@ -13,6 +13,7 @@ export interface State {
   mainLang;
   mainReg;
   mainLog;
+  mainStudyMode;
   audioCallPage;
   audioCallLevel;
   audioCallRound;
