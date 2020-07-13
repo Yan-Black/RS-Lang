@@ -1,0 +1,12 @@
+.modal-cross {
+  position: absolute;
+  right: -30px;
+  top: 10px;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  background-image: url("/src/components/Games/Savannah/ModalWindow/ModalCross/cross.png");
+  background-position: 50%;
+  background-size: contain;
+  background-repeat: no-repeat
+}

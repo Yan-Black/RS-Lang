@@ -48,6 +48,10 @@
     "@typescript-eslint/no-unsafe-call": "warn",
     "linebreak-style": "warn",
     "no-param-reassign": "warn",
+    "max-len": "off",
+    "no-restricted-globals": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
+    "react/destructuring-assignment": "off",
     "jsx-a11y/label-has-associated-control": [
       "error",
       {
