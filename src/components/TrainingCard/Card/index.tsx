@@ -46,7 +46,7 @@ const Card: React.FC = () => {
   const canMoveToNext = useSelector((state: State) => state.training.moveToNext);
   const showHelpBTN = settingsState.showAnswerBtn;
   const showDeleteBTN = settingsState.deleteWordBtn;
-  const showDifficultBTN = settingsState.diffucultWordBtn;
+  const showDifficultBTN = settingsState.difficultWordBtn;
   const playAudioSetting = settingsState.autoPronounce;
   const wordAudioURL = `https://raw.githubusercontent.com/lactivka/rslang-data/master/${data.audio}`;
   const meaningAudioURL = `https://raw.githubusercontent.com/lactivka/rslang-data/master/${data.audioMeaning}`;
