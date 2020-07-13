@@ -1,8 +1,9 @@
 import * as React from 'react';
+import View from './View';
 
-function AudioCall() {
+function AudioCall(): JSX.Element {
   return (
-    <div />
+    <View />
   );
 }
 

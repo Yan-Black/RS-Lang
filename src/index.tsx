@@ -6,7 +6,7 @@ import App from 'components/App';
 import store from 'store';
 import SavannahIndex from './containers/Games/Savannah';
 
-const Index = () => (
+const Index: React.FC = () => (
   <Provider store={store}>
     <SavannahIndex />
   </Provider>
