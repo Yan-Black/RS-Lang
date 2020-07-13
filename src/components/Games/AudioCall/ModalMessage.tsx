@@ -6,11 +6,12 @@ import {
   toggleModal, startPage, resetGame, resetCurrStatistic,
 } from 'containers/Games/AudioCall/actions';
 import { Link } from 'react-router-dom';
-import { usedLang } from 'constants/audio-call-constants';
+import { eng, ru } from 'constants/audio-call-constants';
 
 function ModalMessage(): JSX.Element {
-  // to do use lang from store
   const dispatch = useDispatch();
+  const lang = useSelector((state: State) => state.mainLang.lang);
+  const usedLang = lang === 'eng' ? eng : ru;
   const isOpen = useSelector((state: State) => state.audioCallModal.isOpen);
   const messageTitle = useSelector((state: State) => state.audioCallModal.title);
   const messageBody = useSelector((state: State) => state.audioCallModal.message);

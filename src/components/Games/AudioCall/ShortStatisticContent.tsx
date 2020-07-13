@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { useSelector } from 'react-redux';
 import { State } from 'models';
-import { usedLang } from 'constants/audio-call-constants';
+import { eng, ru } from 'constants/audio-call-constants';
 import { Json } from './utils';
 import StatisticItem from './StatisticItem';
 
 function ShortStatisticContent(): JSX.Element {
-  // to do use lang from store
+  const lang = useSelector((state: State) => state.mainLang.lang);
+  const usedLang = lang === 'eng' ? eng : ru;
   const knowWords: Array<Json> = useSelector(
     (state: State) => state.audioCallStatistic.correctAnswers,
   );

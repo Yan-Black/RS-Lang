@@ -89,5 +89,3 @@ export const ru = {
     myWords: 'Мои слова',
   },
 };
-
-export const usedLang = eng;

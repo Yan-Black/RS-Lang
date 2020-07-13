@@ -9,7 +9,7 @@ import {
 import { useEffect } from 'react';
 import backgroundImage from 'assets/pattern-369543.svg';
 import { Json } from 'containers/Games/AudioCall/models';
-import { usedLang } from 'constants/audio-call-constants';
+import { eng, ru } from 'constants/audio-call-constants';
 import TranslateOptions from './translateOptions';
 import GameButton from './GameButton';
 import TargetWordBlock from './TargetWordBlock';
@@ -17,9 +17,9 @@ import ModalMessage from './ModalMessage';
 import { playSound } from './utils';
 
 function GamePage(): JSX.Element {
-  // to do use lang from store
   const dispatch = useDispatch();
-
+  const lang = useSelector((state: State) => state.mainLang.lang);
+  const usedLang = lang === 'eng' ? eng : ru;
   const isChecked = useSelector((state: State) => state.audioCallAnswer.isChecked);
   const currWords = useSelector((state: State) => state.audioCallCurrWords);
   const currActiveId: number = useSelector((state: State) => state.audioCallAnswer.progress);

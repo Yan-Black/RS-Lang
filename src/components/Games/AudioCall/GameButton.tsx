@@ -7,11 +7,12 @@ import {
 } from 'containers/Games/AudioCall/actions';
 import { State } from 'models';
 import { Json } from 'containers/Games/AudioCall/models';
-import { usedLang } from 'constants/audio-call-constants';
+import { eng, ru } from 'constants/audio-call-constants';
 
 function GameButton(): JSX.Element {
-  // to do use lang from store
   const dispatch = useDispatch();
+  const lang = useSelector((state: State) => state.mainLang.lang);
+  const usedLang = lang === 'eng' ? eng : ru;
   const currWords = useSelector((state: State) => state.audioCallCurrWords);
   const isChecked = useSelector((state: State) => state.audioCallAnswer.isChecked);
   const currActiveId = useSelector((state: State) => state.audioCallAnswer.progress);

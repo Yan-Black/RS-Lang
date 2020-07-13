@@ -6,7 +6,7 @@ import backgroundImage from 'assets/pattern-369543.svg';
 import {
   gamePage, fetchWords, toggleModal,
 } from 'containers/Games/AudioCall/actions';
-import { usedLang } from 'constants/audio-call-constants';
+import { eng, ru } from 'constants/audio-call-constants';
 import OptionItems from './OptionItems';
 import {
   getWordsForGame, Json, getTranslateOptions, shuffleArray,
@@ -18,8 +18,9 @@ function makeArray(length) {
 }
 
 function StartPage(): JSX.Element {
-  // to do use lang from store
   const dispatch = useDispatch();
+  const lang = useSelector((state: State) => state.mainLang.lang);
+  const usedLang = lang === 'eng' ? eng : ru;
   const level = useSelector((state: State) => state.audioCallLevel);
   const round = useSelector((state: State) => state.audioCallRound);
   const myLearningWords: Array<Json> = useSelector(

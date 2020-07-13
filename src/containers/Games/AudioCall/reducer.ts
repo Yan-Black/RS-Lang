@@ -1,9 +1,9 @@
 import * as Models from 'models';
-import { usedLang } from 'constants/audio-call-constants';
-import { ActionType } from './constants';
+import { eng, ru } from 'constants/audio-call-constants';
 import {
   ModalInitState, AnswerInitState, StatisticInitState, LongStatisticState,
 } from './models';
+import { ActionType } from './constants';
 
 const initialState = {
   page: 'START_PAGE',
@@ -47,7 +47,8 @@ const modalReducer: Models.Reducer<unknown> = (
 ) => {
   let messageTitle = '';
   let messageBody = '';
-
+  const lang = localStorage.getItem('lang') || 'ru';
+  const usedLang = lang === 'eng' ? eng : ru;
   switch (payload) {
     case 'exit':
       messageTitle = usedLang.modalMessage.titleNotOver;

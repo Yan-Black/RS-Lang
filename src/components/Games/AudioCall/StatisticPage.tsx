@@ -5,12 +5,14 @@ import { State } from 'models';
 import { Json } from 'containers/Games/AudioCall/models';
 import { startPage, resetCurrStatistic, toggleStatistic } from 'containers/Games/AudioCall/actions';
 import backgroundImage from 'assets/pattern-369543.svg';
-import { usedLang } from 'constants/audio-call-constants';
+import { eng, ru } from 'constants/audio-call-constants';
 import ShortStatisticContent from './ShortStatisticContent';
 import LongStatisticContent from './LongStatisticContent';
 
 function StatisticPage(): JSX.Element {
-  // to do use lang from store
+  const lang = useSelector((state: State) => state.mainLang.lang);
+  const usedLang = lang === 'eng' ? eng : ru;
+
   function getTitle(first: number, second: number): string {
     const diff = first - second;
     switch (diff) {

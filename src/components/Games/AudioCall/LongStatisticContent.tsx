@@ -4,10 +4,12 @@ import { State } from 'models';
 import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
 import { LongStatisticState } from 'containers/Games/AudioCall/models';
-import { usedLang } from 'constants/audio-call-constants';
+import { eng, ru } from 'constants/audio-call-constants';
 
 function LongStatisticContent(): JSX.Element {
-  // to do use lang from store
+  const lang = useSelector((state: State) => state.mainLang.lang);
+  const usedLang = lang === 'eng' ? eng : ru;
+
   const isLongStatistic = useSelector(
     (state: State) => state.audioCallStatistic.isLongStatistic,
   );

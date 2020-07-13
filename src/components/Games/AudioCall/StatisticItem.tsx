@@ -3,10 +3,12 @@ import { Json } from 'containers/Games/AudioCall/models';
 import { useSelector, useDispatch } from 'react-redux';
 import { State } from 'models';
 import { addToDeleted, difficultToDeleted } from 'containers/Dictionary/actions';
-import { usedLang } from 'constants/audio-call-constants';
+import { eng, ru } from 'constants/audio-call-constants';
 
 function StatisticItem(currWord: {item: Json}): JSX.Element {
-  // to do use lang from store
+  const lang = useSelector((state: State) => state.mainLang.lang);
+  const usedLang = lang === 'eng' ? eng : ru;
+
   if (!currWord) {
     return null;
   }
