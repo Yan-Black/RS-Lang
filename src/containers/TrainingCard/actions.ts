@@ -7,11 +7,6 @@ export const updateUserWords = (words: FetchedWordData[]): ActionUserWords => ({
   payload: words,
 });
 
-export const changeSetting: ActionCreator.ChangeSetting = (setting: boolean) => ({
-  type: ActionType.CHANGE_SETTING,
-  payload: setting,
-});
-
 export const toggleAnswerChecked: ActionCreator.ToggleAnswerChecked = () => ({
   type: ActionType.TOGGLE_ANSWER_CHECKED,
 });

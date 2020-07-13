@@ -20,11 +20,13 @@
       flex-direction: column;
       text-align: center;
       input {
+        height: auto;
         outline: none;
         border-radius: 5px;
         border: 1px solid #000000;
         font-family: monospace;
         font-size: 20px;
+        text-indent: unset;
         &:focus {
           outline: none;
           border-radius: 5px;
