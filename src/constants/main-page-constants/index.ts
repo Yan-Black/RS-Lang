@@ -28,7 +28,7 @@ export const eng = {
   },
   cardSettings: {
     amountNewWords: 'New words amount:',
-    amountNewCards: 'New cards amount:',
+    amountNewCards: 'Cards amount:',
     yourProgress: 'Todays progress:',
     buttons: {
       learn: 'learn',
@@ -94,7 +94,7 @@ export const ru = {
   },
   cardSettings: {
     amountNewWords: 'Количество новых слов:',
-    amountNewCards: 'Количество новых карточек:',
+    amountNewCards: 'Количество карточек:',
     yourProgress: 'Прогресс за сегодня:',
     buttons: {
       learn: 'Учить',
@@ -213,25 +213,41 @@ export const cardEngOptions = [
 
 export const pagesEng = [
   {
-    page: eng.pageNames.statistic, icon: faChartBar,
+    page: eng.pageNames.statistic,
+    path: eng.pageNames.statistic,
+    icon: faChartBar,
   }, {
-    page: eng.pageNames.dictionary, icon: faBook,
+    page: eng.pageNames.dictionary,
+    path: eng.pageNames.dictionary,
+    icon: faBook,
   }, {
-    page: eng.pageNames.promo, icon: faVideo,
+    page: eng.pageNames.promo,
+    path: eng.pageNames.promo,
+    icon: faVideo,
   }, {
-    page: eng.pageNames.about, icon: faUsers,
+    page: eng.pageNames.about,
+    path: eng.pageNames.about,
+    icon: faUsers,
   },
 ];
 
 export const pagesRu = [
   {
-    page: ru.pageNames.statistic, icon: faChartBar,
+    page: ru.pageNames.statistic,
+    path: eng.pageNames.statistic,
+    icon: faChartBar,
   }, {
-    page: ru.pageNames.dictionary, icon: faBook,
+    page: ru.pageNames.dictionary,
+    path: eng.pageNames.dictionary,
+    icon: faBook,
   }, {
-    page: ru.pageNames.promo, icon: faVideo,
+    page: ru.pageNames.promo,
+    path: eng.pageNames.promo,
+    icon: faVideo,
   }, {
-    page: ru.pageNames.about, icon: faUsers,
+    page: ru.pageNames.about,
+    path: eng.pageNames.about,
+    icon: faUsers,
   },
 ];
 
@@ -252,3 +268,5 @@ export const checkBoxesEng = [
   { name: 'Delete word', id: 'deleteWord' },
   { name: 'Difficult word', id: 'difficultWord' },
 ];
+
+export const cardsNames = ['audioCall', 'englishPuzzle', 'ourGame', 'savannah', 'speakIt', 'sprint'];

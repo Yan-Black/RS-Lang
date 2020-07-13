@@ -41,11 +41,8 @@ const App: React.FC = () => {
   }
   return (
     <Router>
-      <div className="app">
-        <Main />
-      </div>
       <Switch>
-        <Route path="/Main">
+        <Route path="/" exact>
           <Main />
         </Route>
         <Route path="/Statistic">

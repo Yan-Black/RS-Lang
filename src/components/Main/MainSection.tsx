@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { State } from 'models';
-import { eng, ru } from 'constants/main-page-constants';
+import { eng, ru, cardsNames } from 'constants/main-page-constants';
 import LoginForm from 'components/Authorization/Login';
 import RegisterForm from 'components/Authorization/Register';
 import UserInfo from './UserInfo';
@@ -14,7 +14,6 @@ import CardSettings from './CardSettings';
 
 const MainInformation: React.FC = () => {
   const settingOpen = useSelector((state: State) => state.mainSettings.isOpen);
-  const cards = ['audioCall', 'englishPuzzle', 'ourGame', 'savannah', 'speakIt', 'sprint'];
   const isOpen = useSelector((state: State) => state.mainModal.isOpen);
   const theme = useSelector((state: State) => state.mainTheme.theme);
   const lang = useSelector((state: State) => state.mainLang.lang);
@@ -45,7 +44,7 @@ const MainInformation: React.FC = () => {
           {usedLang.mainSentence2}
         </p>
         <div className="games-container">
-          {cards.map((card, idx) => (
+          {cardsNames.map((card, idx) => (
             <GameCard
               key={card}
               route={card}

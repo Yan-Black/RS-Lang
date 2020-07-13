@@ -16,7 +16,7 @@ function Dictionary(): JSX.Element {
       <div className="dictionary-header bg-light rounded container py-2">
         <div className="title-container d-flex justify-content-between">
           <h4 className="dictionary-title text-uppercase display-4">мой словарь</h4>
-          <Link to="/Main"><i className="fas fa-times" role="button" aria-label="Times icon" tabIndex={-1} /></Link>
+          <Link to="/"><i className="fas fa-times" role="button" aria-label="Times icon" tabIndex={-1} /></Link>
         </div>
         <div className="dictionary-btn-container d-flex">
           <button

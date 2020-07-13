@@ -52,7 +52,7 @@ const Navigation: React.FC = () => {
         <ul className="header-nav">
           {usedPages.map((pageData) => (
             <li key={pageData.page}>
-              <Link to={`/${pageData.page}`} onClick={closeAsideMenu}>
+              <Link to={`/${pageData.path}`} onClick={closeAsideMenu}>
                 <button
                   type="button"
                   className="main-aside-btn"
