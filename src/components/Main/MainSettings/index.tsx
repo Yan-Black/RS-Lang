@@ -4,8 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { State } from 'models';
 import { faSun, faMoon, faFont } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { setTheme, changeAppLang } from 'containers/Main/actions';
-import { eng, ru } from 'constants/main-page-constants';
+import { setTheme, changeAppLang, updateStudySettings } from 'containers/Main/actions';
+import {
+  eng, ru, studyModesRu, studyModesEng,
+} from 'constants/main-page-constants';
 import './index.scss';
 
 const Settings: React.FC = () => {
@@ -29,7 +31,9 @@ const Settings: React.FC = () => {
   const theme = useSelector((state: State) => state.mainTheme.theme);
   const dispatch = useDispatch();
   const lang = useSelector((state: State) => state.mainLang.lang);
+  const studyMode = useSelector((state: State) => state.mainStudyMode.studyModes);
   const [usedLang, setUsedLang] = lang === 'eng' ? useState(eng) : useState(ru);
+  const [usedModes, setModes] = lang === 'eng' ? useState(studyModesEng) : useState(studyModesRu);
   const changeToRus = () => dispatch(changeAppLang('ru'));
   const changeToEng = () => dispatch(changeAppLang('eng'));
   const langHandler = () => {
@@ -49,8 +53,32 @@ const Settings: React.FC = () => {
     dispatch(setTheme('light'));
     localStorage.setItem('theme', JSON.stringify({ theme: 'light' }));
   };
+  const [selected, setSelected] = useState('trainAllWords');
+  const modeHandler = (e: any) => {
+    const target = e.currentTarget;
+    setSelected(target.value);
+    studyMode[target.id] = true;
+    const modesToChange: [string, boolean][] = Object.entries(studyMode);
+    modesToChange.forEach((mode) => {
+      if (mode[0] === target.id) {
+        mode[1] = true;
+      } else {
+        mode[1] = false;
+      }
+    });
+    const newModes = Object.fromEntries(modesToChange);
+    dispatch(updateStudySettings(newModes));
+  };
 
-  useEffect(() => (lang === 'eng' ? setUsedLang(eng) : setUsedLang(ru)), [lang]);
+  useEffect(() => {
+    if (lang === 'eng') {
+      setUsedLang(eng);
+      setModes(studyModesEng);
+    } else {
+      setUsedLang(ru);
+      setModes(studyModesRu);
+    }
+  }, [lang]);
 
   return (
     <div className="main-control-center">
@@ -142,8 +170,24 @@ const Settings: React.FC = () => {
             </button>
           </div>
         </div>
+        <div className="settings-block-modes">
+          <ul className="settings-study-modes">
+            {usedModes.map((modes) => (
+              <li key={modes.name} className="study-option">
+                <span>{modes.name}</span>
+                <input
+                  type="radio"
+                  className="mode-check"
+                  value={modes.id}
+                  id={modes.id}
+                  checked={selected === modes.id}
+                  onChange={modeHandler}
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
-      <div />
     </div>
   );
 };

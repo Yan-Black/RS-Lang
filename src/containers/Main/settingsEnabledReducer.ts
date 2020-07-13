@@ -3,12 +3,14 @@ import { InitialStateHintsState, ActionSettings, InitialStateHintsEnabled } from
 import { ActionType } from './constants';
 
 const initialHintsState: InitialStateHintsState = {
-  translate: true,
-  wordMeaning: true,
-  example: true,
-  showAnswer: true,
-  deleteWord: true,
-  difficultWord: true,
+  showTranscription: true,
+  showImage: true,
+  autoPronounce: true,
+  showTextTranslate: true,
+  showAnswerBtn: true,
+  deleteWordBtn: true,
+  difficultWordBtn: true,
+  repeatBtn: true,
 };
 
 if (!localStorage.getItem('savedSettings')) {

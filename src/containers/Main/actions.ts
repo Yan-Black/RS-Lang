@@ -1,7 +1,7 @@
 import { Action } from 'redux';
 import { ActionType } from './constants';
 import {
-  ActionModalInfo, InitialStateModalInfo, ActionTheme, ActionSettings,
+  ActionModalInfo, InitialStateModalInfo, ActionTheme, ActionSettings, ActionStudy,
 } from './models';
 
 export const openModal = (): Action => ({
@@ -40,4 +40,9 @@ export const updateAmount = (obj: any) => ({
 export const changeAppLang = (lang: string) => ({
   type: ActionType.CHANGE_LANG,
   payload: lang,
+});
+
+export const updateStudySettings = (obj: any): ActionStudy => ({
+  type: ActionType.UPDATE_STUDY_SETTINGS,
+  payload: obj,
 });
