@@ -329,7 +329,7 @@ export const studyModesRu = [
 ];
 
 export const studyModesEng = [
-  { name: 'Lear all words', id: 'trainAllWords' },
+  { name: 'Learn all words', id: 'trainAllWords' },
   { name: 'Learn only new words', id: 'onlyNew' },
   { name: 'Repeat known words', id: 'onlyRepeat' },
   { name: 'Learn difficult words', id: 'onlyDifficult' },

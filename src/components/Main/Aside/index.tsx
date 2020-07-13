@@ -20,6 +20,7 @@ import './index.scss';
 const Navigation: React.FC = () => {
   const dispatch = useDispatch();
   const statInfo = useSelector((state: State) => state.engPuzzleStatisticInfo);
+  const logged = useSelector((state: State) => state.authLog.isLogged);
   const name = useSelector((state: State) => state.authName.name);
   const lang = useSelector((state: State) => state.mainLang.lang);
   const [usedLang, setUsedLang] = lang === 'eng' ? useState(eng) : useState(ru);
@@ -87,6 +88,7 @@ const Navigation: React.FC = () => {
             </button>
           </li>
         </ul>
+        {logged && (
         <div className="profile">
           <FontAwesomeIcon
             icon={faUserCircle}
@@ -98,6 +100,7 @@ const Navigation: React.FC = () => {
           </span>
           <span>{name}</span>
         </div>
+        )}
       </div>
       <MainSection />
     </div>
