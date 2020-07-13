@@ -42,6 +42,12 @@ $font: #fff;
   }
 }
 
+.main-header-menu-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
 .main-aside-point {
   &:hover {
     opacity: .7;
@@ -128,5 +134,92 @@ $font: #fff;
   margin-bottom: 1vw;
   &:hover {
     opacity: 0.7;
+  }
+}
+
+@media(max-width: 1024px) {
+  .header {
+    width: 8%;
+  }
+  .header-nav li {
+    font-size: 1.5em;
+  }
+  .header-nav li span {
+    font-size: 0.8em;
+  }
+  .aside-logout {
+    font-size: 5em;
+  }
+}
+
+@media(max-width: 768px) {
+  .header {
+    width: 10%;
+  }
+  .header-nav li {
+    font-size: 2em;
+  }
+  .header-nav li span {
+    font-size: 0.5em;
+  }
+  .profile span {
+    font-size: 2em;
+  }
+  .aside-logout {
+    font-size: 7em;
+  }
+}
+
+@media(max-width: 425px) {
+  .header {
+    width: 15%;
+  }
+  .header-nav li {
+    font-size: 2em;
+  }
+  .header-nav li span {
+    font-size: 0.5em;
+  }
+  .profile span {
+    font-size: 3em;
+  }
+  .aside-logout {
+    font-size: 12em;
+  }
+}
+
+@media(max-width: 375px) {
+  .header {
+    width: 18%;
+  }
+  .header-nav li {
+    font-size: 2em;
+  }
+  .header-nav li span {
+    font-size: 0.5em;
+  }
+  .profile span {
+    font-size: 3em;
+  }
+  .aside-logout {
+    font-size: 15em;
+  }
+}
+
+@media(max-width: 320px) {
+  .header {
+    width: 20%;
+  }
+  .header-nav li {
+    font-size: 2em;
+  }
+  .header-nav li span {
+    font-size: 0.5em;
+  }
+  .profile span {
+    font-size: 3em;
+  }
+  .aside-logout {
+    font-size: 17em;
   }
 }

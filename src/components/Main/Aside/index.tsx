@@ -51,7 +51,7 @@ const Navigation: React.FC = () => {
       <div id="header" className={isOpen ? 'header open' : 'header'}>
         <ul className="header-nav">
           {usedPages.map((pageData) => (
-            <li key={pageData.page}>
+            <li key={pageData.page} className="main-header-menu-item">
               <Link to={`/${pageData.path}`} onClick={closeAsideMenu}>
                 <button
                   type="button"

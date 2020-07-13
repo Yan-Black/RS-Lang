@@ -294,9 +294,6 @@ $card-font-hover: #fbf1cf;
     column-gap: 74px;
     margin-bottom: 50px;
   }
-  .main-control-center div {
-    margin-bottom: 40px;
-  }
   @media(max-width: 900px) {
     .main-stat-container {
       margin-left: 20%;
@@ -324,9 +321,6 @@ $card-font-hover: #fbf1cf;
       column-gap: 74px;
       margin-bottom: 50px;
       row-gap: 50px;
-    }
-    .main-control-center div {
-      margin-bottom: 40px;
     }
     .header-text-2 {
       font-size: 24px;
@@ -368,9 +362,6 @@ $card-font-hover: #fbf1cf;
         margin-bottom: 50px;
         row-gap: 50px;
       }
-      .main-control-center div {
-        margin-bottom: 40px;
-      }
       .header-text-2 {
         font-size: 22px;
         width: 80%;
@@ -380,9 +371,6 @@ $card-font-hover: #fbf1cf;
         font-size: 22px;
         width: 80%;
         margin-left: 20%;
-      }
-      .modal-hint {
-        width: 100%;
       }
       .setting-content {
         width: 100vw !important;
@@ -430,9 +418,6 @@ $card-font-hover: #fbf1cf;
           margin-bottom: 50px;
           row-gap: 50px;
         }
-        .main-control-center div {
-          margin-bottom: 40px;
-        }
         .header-text-2 {
           font-size: 22px;
           width: 70%;
@@ -442,9 +427,6 @@ $card-font-hover: #fbf1cf;
           font-size: 22px;
           width: 70%;
           margin-left: 30%;
-        }
-        .modal-hint {
-          width: 100%;
         }
         .setting-content {
           width: 100vw !important;
