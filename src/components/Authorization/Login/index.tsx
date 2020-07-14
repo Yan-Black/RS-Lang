@@ -37,6 +37,12 @@ const LoginForm: React.FC = () => {
   const changeHandler = () => dispatch(removeApiError());
   const loading = useSelector((state: State) => state.engPuzzleLoading.isLoading);
   const apiError: string = useSelector((state: State) => state.authErrors.error);
+  if (logged) {
+    setTimeout(() => {
+      dispatch(removeApiError());
+      dispatch(closeLogForm());
+    }, 500);
+  }
   return (
     <div className="auth-wrapper">
       <div className="auth-form-block-wrapper">

@@ -4,7 +4,7 @@ import { ActionType } from './constants';
 
 const initialAmountState: InitialAmountState = {
   words: 20,
-  cards: 50,
+  cards: 100,
 };
 
 if (!localStorage.getItem('savedAmount')) {

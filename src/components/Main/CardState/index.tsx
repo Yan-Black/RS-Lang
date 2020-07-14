@@ -87,13 +87,13 @@ const CardGame: React.FC = () => {
               <p>{usedLang.cardSettings.yourProgress}</p>
               <span>
                 4/
-                {amount.words}
+                {amount.cards}
               </span>
             </div>
             <ProgressBar variant="success" now={20} />
           </div>
           <div className="cards-game-buttons">
-            <Link to="/Training">
+            <Link to="/Training" className="cards-game-link">
               <button
                 type="button"
                 className="cards-game-play-button"

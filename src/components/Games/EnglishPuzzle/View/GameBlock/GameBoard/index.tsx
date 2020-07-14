@@ -216,13 +216,16 @@ const GameBoard: React.FC<BoardProps> = ({ gameData, background, description }) 
         phrase={wordsMap.selected}
         learningWord={learningWord}
       />
-      <Results
-        back={backImg}
-        description={description}
-        wordsToApply={wordsMap.selected}
-        setCheckedStateToCards={setBasicStyle}
-        setDragging={setDragging}
-      />
+      {isResultsOpen
+        && (
+        <Results
+          back={backImg}
+          description={description}
+          wordsToApply={wordsMap.selected}
+          setCheckedStateToCards={setBasicStyle}
+          setDragging={setDragging}
+        />
+        )}
       <Statistic
         wordsToApply={wordsMap.selected}
         setDragging={setDragging}

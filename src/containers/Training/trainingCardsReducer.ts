@@ -4,8 +4,10 @@ import { ActionType } from 'containers/TrainingCard/constants';
 import wordsData from 'constants/words-constants';
 import { IntialStateUserWords, ActionUserWords } from '../TrainingCard/models';
 
+const initialAmount = 50;
+
 const initialState: IntialStateUserWords = {
-  userWords: wordsData[0].slice(0, 20),
+  userWords: wordsData[0].slice(0, initialAmount),
 };
 
 const userWordsReducer: Reducer<IntialStateUserWords, ActionUserWords> = (

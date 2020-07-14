@@ -19,6 +19,7 @@ const MainInformation: React.FC = () => {
   const lang = useSelector((state: State) => state.mainLang.lang);
   const regOpen = useSelector((state: State) => state.mainReg.regOpen);
   const logOpen = useSelector((state: State) => state.mainLog.logOpen);
+  const logged = useSelector((state: State) => state.authLog.isLogged);
   const [usedLang, setUsedLang] = lang === 'eng' ? useState(eng) : useState(ru);
   useEffect(() => (lang === 'eng' ? setUsedLang(eng) : setUsedLang(ru)), [lang]);
   return (
@@ -30,11 +31,13 @@ const MainInformation: React.FC = () => {
             : 'main-wrapper main-dark'
         }
       >
+        {logged && (
         <p className="header-text">
           {usedLang.mainSentence1}
         </p>
+        )}
         <div className="main-stat-container">
-          <UserInfo />
+          {logged && <UserInfo />}
         </div>
         <div className="main-information">
           <Settings />
