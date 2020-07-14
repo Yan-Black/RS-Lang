@@ -20,6 +20,7 @@ import './index.scss';
 const Navigation: React.FC = () => {
   const dispatch = useDispatch();
   const statInfo = useSelector((state: State) => state.engPuzzleStatisticInfo);
+  const theme = useSelector((state: State) => state.mainTheme.theme);
   const name = useSelector((state: State) => state.authName.name);
   const lang = useSelector((state: State) => state.mainLang.lang);
   const [usedLang, setUsedLang] = lang === 'eng' ? useState(eng) : useState(ru);

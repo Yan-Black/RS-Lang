@@ -33,7 +33,7 @@ const MainInformation: React.FC = () => {
         <p className="header-text">
           {usedLang.mainSentence1}
         </p>
-        <div className="main-stat-container">
+        <div className={theme === 'light' ? 'main-stat-container' : 'main-stat-container main-stat-container-dark'}>
           <UserInfo />
         </div>
         <div className="main-information">

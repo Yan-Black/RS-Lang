@@ -80,9 +80,8 @@ const Settings: React.FC = () => {
       setModes(studyModesRu);
     }
   }, [lang]);
-
   return (
-    <div className="main-control-center">
+    <div className={theme === 'light' ? 'main-control-center' : 'main-control-center main-control-center-dark'}>
       <h1>{usedLang.settings.name}</h1>
       <div className="settings-block">
         <div className="settings-block-option">

@@ -25,6 +25,11 @@ $aside-color: rgb(124, 166, 222);
   transition: .3s;
 }
 
+.modal-hint-dark {
+  background-color: black;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
 .hint-title, .hint-descr {
   font-size: 1.5vw;
 }
@@ -50,6 +55,10 @@ $aside-color: rgb(124, 166, 222);
   &:active {
     opacity: .5;
   }
+}
+
+.modal-close-button-dark {
+  color: black;
 }
 
 @media(max-width: 1024px) {
