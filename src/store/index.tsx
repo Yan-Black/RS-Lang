@@ -17,6 +17,12 @@ import {
   pageReducer, levelReducer, roundReducer,
   currWordsReducer, answerReducer, statisticReducer, modalReducer,
 } from 'containers/Games/AudioCall/reducer';
+import levelControlReducer from 'containers/Games/SpeakIt/ControlLevel/reducer';
+import fetchReducer from 'containers/Games/SpeakIt/FetchGroup/reducer';
+import cardsReducer from 'containers/Games/SpeakIt/CardsGroup/reducer';
+import startGameReducer from 'containers/Games/SpeakIt/ControlButtons/reducer';
+import statisticInfo from 'containers/Games/SpeakIt/LongTermStatistic/statisticInfoReducer';
+import statisticGameReducer from 'containers/Games/SpeakIt/LongTermStatistic/statisticReducer';
 import authTokenReducer from 'containers/Authorisation/authReducer';
 import authErrorsReducer from 'containers/Authorisation/authErrorsReducer';
 import { dictionaryReducer } from 'containers/Dictionary/reducer';
@@ -32,6 +38,7 @@ import mainLangReducer from 'containers/Main/mainLangReducer';
 import regFormReducer from 'containers/Authorisation/regFormReducer';
 import logFormReducer from 'containers/Authorisation/logFormReducer';
 import studyModesReducer from 'containers/Main/studyModesReducer.';
+import { settingsReducer, trainingReducer, trainingStatisticReducer } from 'containers/TrainingCard/reducers';
 import appReducer from '../containers/App/reducer';
 import btnsReducer from '../containers/Games/EnglishPuzzle/HeaderBlock/HintButtons/btnsReducer';
 import wordsReducer from '../containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/wordsReducer';
@@ -39,10 +46,6 @@ import loaderReducer from '../containers/Games/EnglishPuzzle/GameBlock/GameBoard
 import activeIndexReducer from '../containers/Games/EnglishPuzzle/GameController/activeIndexReducer';
 import helpBtnsReducer from '../containers/Games/EnglishPuzzle/GameBlock/GameBoard/HelpButtons/reducer';
 import collectionReducer from '../containers/Games/EnglishPuzzle/GameBlock/GameBoard/collectionReducer';
-import levelControlReducer from '../containers/Games/SpeakIt/ControlLevel/reducer';
-import fetchReducer from '../containers/Games/SpeakIt/FetchGroup/reducer';
-import cardsReducer from '../containers/Games/SpeakIt/CardsGroup/reducer';
-import startGameReducer from '../containers/Games/SpeakIt/ControlButtons/reducer';
 
 const rootReducer = combineReducers({
   app: appReducer,
@@ -88,6 +91,13 @@ const rootReducer = combineReducers({
   speakItFetch: fetchReducer,
   speakItWord: cardsReducer,
   speakItButtons: startGameReducer,
+  speakItStatisticInfo: statisticInfo,
+  speakItStatistic: statisticGameReducer,
+  fetchedWords: wordsReducer,
+  loading: loaderReducer,
+  trainingSettings: settingsReducer,
+  training: trainingReducer,
+  trainingStatistic: trainingStatisticReducer,
 });
 
 const store = createStore(rootReducer, compose(applyMiddleware(thunk)));

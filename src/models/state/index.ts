@@ -1,4 +1,7 @@
 export interface State {
+  trainingSettings;
+  trainingStatistic;
+  training;
   app;
   authToken;
   authErrors;
@@ -42,5 +45,7 @@ export interface State {
   speakItFetch;
   speakItWord;
   speakItButtons;
+  speakItStatisticInfo;
+  speakItStatistic;
   // add more fields according rootReducer
 }

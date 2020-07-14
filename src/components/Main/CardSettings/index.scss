@@ -36,7 +36,7 @@ $card-font-hover: #f0e3b8;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  input {
+  #inputWords, #inputCards {
     width: 10%;
     box-shadow: inset 0 0 2px rgba(0,0,0,0.9);
   }

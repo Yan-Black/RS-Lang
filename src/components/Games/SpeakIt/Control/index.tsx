@@ -9,7 +9,7 @@ import {
   stopGame,
 } from 'containers/Games/SpeakIt/ControlButtons/actions';
 import { State } from 'models';
-import { mistake, resetStatistics } from 'containers/Games/SpeakIt/FetchGroup/actions';
+import { mistake, resetStatistics, failedWord } from 'containers/Games/SpeakIt/FetchGroup/actions';
 import { activeWord } from 'containers/Games/SpeakIt/CardsGroup/actions';
 
 const Control = (): JSX.Element => {
@@ -29,6 +29,7 @@ const Control = (): JSX.Element => {
   const next = () => {
     dispatch(nextCard());
     dispatch(mistake(gameWord));
+    dispatch(failedWord());
   };
 
   const result = () => {

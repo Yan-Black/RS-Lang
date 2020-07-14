@@ -26,6 +26,8 @@ export interface InitialStateWords {
   translate: string;
   background: string;
   statistics: Array<FetchedWordData>;
+  failed: number;
+  succes: number;
 }
 
 const initialState = {
@@ -33,6 +35,8 @@ const initialState = {
   translate: '',
   background: 'http://languagenow.co.uk/wp-content/uploads/2016/05/languagenow_english.jpg',
   statistics: [],
+  failed: 0,
+  succes: 0,
 };
 
 const fetchReducer = (state = initialState, action): InitialStateWords => {
@@ -49,6 +53,8 @@ const fetchReducer = (state = initialState, action): InitialStateWords => {
       return {
         ...state,
         statistics: state.statistics.map((el) => ({ ...el, win: false, mistake: false })),
+        failed: 0,
+        succes: 0,
       };
     case ActionType.WIN:
       return {
@@ -62,6 +68,10 @@ const fetchReducer = (state = initialState, action): InitialStateWords => {
         statistics: state.statistics.map((el) => (el.word === action.payload
           ? { ...el, mistake: true } : el)),
       };
+    case ActionType.SUCCES_WORD:
+      return { ...state, succes: state.succes + 1 };
+    case ActionType.FAILED_WORD:
+      return { ...state, failed: state.failed + 1 };
     default:
       return state;
   }
