@@ -16,6 +16,7 @@ import Authorization from 'components/Authorization';
 import { Link } from 'react-router-dom';
 
 const CardGame: React.FC = () => {
+  const theme = useSelector((state: State) => state.mainTheme.theme);
   const dispatch = useDispatch();
   const settingsState = useSelector((state: State) => state.mainSetEnabled.hintsState);
   const amount = useSelector((state: State) => state.mainCardsWords.amount);
@@ -36,7 +37,7 @@ const CardGame: React.FC = () => {
   }, [lang]);
 
   return (
-    <div className="main-control-center">
+    <div className={theme === 'light' ? 'main-control-center' : 'main-control-center main-control-center-dark'}>
       {logged ? (
         <div className="main-control-wrapper">
           <div className="cards-words-amount">

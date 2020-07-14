@@ -25,6 +25,11 @@ $aside-color: rgb(124, 166, 222);
   transition: .3s;
 }
 
+.modal-hint-dark {
+  background-color: black;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
 .hint-title, .hint-descr {
   font-size: 1.5vw;
 }
@@ -49,5 +54,38 @@ $aside-color: rgb(124, 166, 222);
   }
   &:active {
     opacity: .5;
+  }
+}
+
+.modal-close-button-dark {
+  color: black;
+}
+
+@media(max-width: 1024px) {
+  .modal-hint {
+    margin: 25vh auto;
+    width: 50%;
+    height: 50%;
+  }
+}
+
+@media(max-width: 1024px) {
+  .hint-title, .hint-descr {
+    font-size: 2.5vw;
+  }
+}
+
+@media(max-width: 425px) {
+  .modal-main {
+    width: 100%;
+    height: 100%;
+  }
+  .modal-hint {
+    margin: 10vh auto;
+    width: 70%;
+    height: 80vh;
+  }
+  .hint-title, .hint-descr {
+    font-size: 4.5vw;
   }
 }
