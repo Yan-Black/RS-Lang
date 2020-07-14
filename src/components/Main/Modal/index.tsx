@@ -7,15 +7,16 @@ import { State } from 'models';
 import './index.scss';
 
 const ModalMain: React.FC = () => {
+  const theme = useSelector((state: State) => state.mainTheme.theme);
   const dispatch = useDispatch();
   const modalInfo = useSelector((state: State) => state.mainModalInfo);
   const modalHandler = () => dispatch(closeModal());
   return (
     <div id={modalInfo.modalId} className="modal-main">
-      <div className="modal-hint">
+      <div className={theme === 'light' ? 'modal-hint' : 'modal-hint modal-hint-dark'}>
         <button
           type="button"
-          className="modal-close-button"
+          className={theme === 'light' ? 'modal-close-button' : 'modal-close-button modal-close-button-dark'}
           onClick={modalHandler}
         >
           <FontAwesomeIcon icon={faTimes} />

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import './index.scss';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -16,11 +15,11 @@ import {
   pagesEng, pagesRu, eng, ru,
 } from 'constants/main-page-constants';
 import MainSection from '../MainSection';
+import './index.scss';
 
 const Navigation: React.FC = () => {
   const dispatch = useDispatch();
   const statInfo = useSelector((state: State) => state.engPuzzleStatisticInfo);
-  const isLogged = useSelector((state: State) => state.authLog.isLogged);
   const name = useSelector((state: State) => state.authName.name);
   const lang = useSelector((state: State) => state.mainLang.lang);
   const [usedLang, setUsedLang] = lang === 'eng' ? useState(eng) : useState(ru);
@@ -52,7 +51,7 @@ const Navigation: React.FC = () => {
       <div id="header" className={isOpen ? 'header open' : 'header'}>
         <ul className="header-nav">
           {usedPages.map((pageData) => (
-            <li key={pageData.page}>
+            <li key={pageData.page} className="main-header-menu-item">
               <Link to={`/${pageData.path}`} onClick={closeAsideMenu}>
                 <button
                   type="button"
@@ -88,20 +87,17 @@ const Navigation: React.FC = () => {
             </button>
           </li>
         </ul>
-        {isLogged
-          && (
-          <div className="profile">
-            <FontAwesomeIcon
-              icon={faUserCircle}
-              className="aside-logout"
-              onClick={logout}
-            />
-            <span className="aside-menu-tooltip">
-              {usedLang.logout}
-            </span>
-            <span>{name}</span>
-          </div>
-          )}
+        <div className="profile">
+          <FontAwesomeIcon
+            icon={faUserCircle}
+            className="aside-logout"
+            onClick={logout}
+          />
+          <span className="aside-menu-tooltip">
+            {usedLang.logout}
+          </span>
+          <span>{name}</span>
+        </div>
       </div>
       <MainSection />
     </div>
@@ -109,3 +105,4 @@ const Navigation: React.FC = () => {
 };
 
 export default Navigation;
+

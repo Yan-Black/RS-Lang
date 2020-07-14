@@ -11,23 +11,23 @@ import {
 import './index.scss';
 
 const Settings: React.FC = () => {
-  let font = 1;
-  const plusFontSize = () => {
-    if (font < 1.2) {
-      font += 0.1;
-      document.body.style.fontSize = `${font}rem`;
-    }
-    localStorage.setItem('fontsize', `${font}`);
-  };
-  const minusFontSize = () => {
-    if (font > 0.8) {
-      font -= 0.1;
-      document.body.style.fontSize = `${font}rem`;
-    }
-    localStorage.setItem('fontsize', `${font}`);
-  };
-  const fontSize = localStorage.getItem('fontsize');
+  const [fontSize, setFontSize] = useState((Number(localStorage.getItem('font-size'))) || 1);
   document.body.style.fontSize = `${fontSize}rem`;
+  const increaseFontSize = () => {
+    if (fontSize >= 1.2) {
+      setFontSize(fontSize);
+    } else {
+      setFontSize(fontSize + 0.1);
+    }
+  };
+  const decreaseFontSize = () => {
+    if (fontSize <= 0.8) {
+      setFontSize(fontSize);
+    } else {
+      setFontSize(fontSize - 0.1);
+    }
+  };
+  localStorage.setItem('font-size', String(fontSize));
   const theme = useSelector((state: State) => state.mainTheme.theme);
   const dispatch = useDispatch();
   const lang = useSelector((state: State) => state.mainLang.lang);
@@ -45,6 +45,7 @@ const Settings: React.FC = () => {
       localStorage.setItem('lang', 'ru');
     }
   };
+
   const setDarkMode = () => {
     dispatch(setTheme('dark'));
     localStorage.setItem('theme', JSON.stringify({ theme: 'dark' }));
@@ -79,9 +80,8 @@ const Settings: React.FC = () => {
       setModes(studyModesRu);
     }
   }, [lang]);
-
   return (
-    <div className="main-control-center">
+    <div className={theme === 'light' ? 'main-control-center' : 'main-control-center main-control-center-dark'}>
       <h1>{usedLang.settings.name}</h1>
       <div className="settings-block">
         <div className="settings-block-option">
@@ -154,7 +154,7 @@ const Settings: React.FC = () => {
             <button
               type="button"
               className="main-font-btn"
-              onClick={plusFontSize}
+              onClick={increaseFontSize}
             >
               <FontAwesomeIcon icon={faFont} />
               +
@@ -163,7 +163,7 @@ const Settings: React.FC = () => {
             <button
               type="button"
               className="main-font-btn"
-              onClick={minusFontSize}
+              onClick={decreaseFontSize}
             >
               <FontAwesomeIcon icon={faFont} />
               -
