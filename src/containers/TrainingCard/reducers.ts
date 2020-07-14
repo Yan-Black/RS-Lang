@@ -3,6 +3,7 @@ import { ActionType } from './constants';
 import { TrainingState, TrainingStatistic } from './models';
 
 const trainingInitState = <TrainingState> {
+  totalProgress: 0,
   currIndex: 0,
   isChecked: false,
   isCorrect: false,
@@ -28,6 +29,7 @@ const trainingReducer: Models.Reducer<unknown> = (
     case ActionType.PROGRESS_TRAINING:
       return {
         ...state,
+        totalProgress: +state.totalProgress + 1,
         currIndex: +state.currIndex + 1,
         inputWord: '',
         isChecked: false,
@@ -39,7 +41,14 @@ const trainingReducer: Models.Reducer<unknown> = (
     case ActionType.TOGGLE_MOVE_TO_NEXT:
       return { ...state, moveToNext: !state.moveToNext };
     case ActionType.RESET_TRAINING:
-      return trainingInitState;
+      return {
+        ...state,
+        currIndex: 0,
+        inputWord: '',
+        isChecked: false,
+        isCorrect: false,
+        moveToNext: false,
+      };
     default:
       return state;
   }

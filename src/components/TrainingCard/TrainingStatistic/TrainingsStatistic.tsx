@@ -14,6 +14,12 @@ function TrainingStatistic(): JSX.Element {
   const isStatisticOpen = useSelector((
     state: State,
   ) => state.trainingStatistic.isTrainingStatisticOpen);
+  const amount = useSelector((state: State) => state.mainCardsWords.amount);
+  const totalIndex = useSelector((state: State) => state.training.totalProgress);
+  const totalCardsToTrain = amount.cards;
+  const modalTitle = totalIndex >= totalCardsToTrain
+    ? usedLang.statistic.titleDailyRate
+    : usedLang.statistic.titleSeries;
   const successWords = useSelector((
     state: State,
   ) => state.trainingStatistic.successWordTraining);
@@ -25,7 +31,7 @@ function TrainingStatistic(): JSX.Element {
   ) => state.trainingStatistic.correctAnswersInRow);
 
   const cardsCount = +successWords.length + +failedWords.length;
-  const correctPersent = Math.ceil((successWords.length * 100) / cardsCount);
+  const correctPercent = Math.ceil((successWords.length * 100) / cardsCount);
 
   const btnClickHandler = () => {
     dispatch(resetTrainingStatistic());
@@ -37,8 +43,7 @@ function TrainingStatistic(): JSX.Element {
     <Modal show={isStatisticOpen} dialogClassName="mt-5 pt-5" onHide={btnClickHandler}>
       <Modal.Header>
         <Modal.Title>
-          {usedLang === eng
-            ? usedLang.statistic.titleDailyRate : usedLang.statistic.titleSeries}
+          {modalTitle}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -50,7 +55,7 @@ function TrainingStatistic(): JSX.Element {
           <div className="d-flex justify-content-between border-bottom my-2">
             <span className="text-success">{usedLang.statistic.correctAnswers}</span>
             <span className="font-weight-bold">
-              {correctPersent}
+              {correctPercent}
               %
             </span>
           </div>

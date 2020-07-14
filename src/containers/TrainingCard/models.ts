@@ -43,6 +43,7 @@ export namespace ActionCreator {
 }
 
 export interface TrainingState {
+  totalProgress: number | string,
   currIndex: number | string,
   isChecked: boolean,
   isCorrect: boolean,
