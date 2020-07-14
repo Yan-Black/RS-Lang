@@ -65,8 +65,37 @@ export const notKnowWords: ActionCreator.NotKnowWords = (wordsObj) => ({
   payload: wordsObj,
 });
 
+export const toggleStatistic: ActionCreator.ToggleStatistic = () => ({
+  type: ActionType.TOGGLE_STATISTIC,
+});
+
 export const resetCurrStatistic: ActionCreator.ResetCurrStatistic = () => ({
   type: ActionType.RESET_CURR_STATISTIC,
+});
+
+export const updateLongStatDate: ActionCreator.UpdateLongStatDate = (info) => ({
+  type: ActionType.UPDATE_DATE,
+  payload: info,
+});
+
+export const updateLongStatTime: ActionCreator.UpdateLongStatTime = (info) => ({
+  type: ActionType.UPDATE_TIME,
+  payload: info,
+});
+
+export const updateLongStatLevels: ActionCreator.UpdateLongStatLevels = (info) => ({
+  type: ActionType.UPDATE_LEVELS,
+  payload: info,
+});
+
+export const updateLongStatFailed: ActionCreator.UpdateLongStatFailed = (info) => ({
+  type: ActionType.UPDATE_FAILED,
+  payload: info,
+});
+
+export const updateLongStatSuccess: ActionCreator.UpdateLongStatSuccess = (info) => ({
+  type: ActionType.UPDATE_SUCCESS,
+  payload: info,
 });
 
 export const toggleModal: ActionCreator.ToggleModal = (messageType) => ({

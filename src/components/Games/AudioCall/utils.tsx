@@ -142,7 +142,7 @@ async function getTranslateOptions(dataObj: Array<Json>): Promise<Array<Json>> {
   return dataWithOptions;
 }
 
-function shuffleArray(arr: Array<string>) {
+function shuffleArray(arr: Array<string> | Array<Json>): Array<string> | Array<Json> {
   const newArr = arr;
   for (let i = arr.length - 1; i > 0; i -= 1) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -152,5 +152,5 @@ function shuffleArray(arr: Array<string>) {
 }
 
 export {
-  getWordsForGame, Json, playSound, getTranslateOptions, getTranslates,
+  getWordsForGame, Json, playSound, getTranslateOptions, getTranslates, shuffleArray,
 };

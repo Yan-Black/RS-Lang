@@ -23,6 +23,7 @@ export interface State {
   audioCallCurrWords;
   audioCallAnswer;
   audioCallStatistic;
+  audioCallLongStatistic;
   audioCallModal;
   engPuzzleBtns;
   engPuzzleActiveIdx;

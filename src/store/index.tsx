@@ -15,7 +15,7 @@ import statisticInfoReducer from 'containers/Games/EnglishPuzzle/GameBlock/GameB
 import startPageReducer from 'containers/Games/EnglishPuzzle/StartPage/startPageReducer';
 import {
   pageReducer, levelReducer, roundReducer,
-  currWordsReducer, answerReducer, statisticReducer, modalReducer,
+  currWordsReducer, answerReducer, statisticReducer, modalReducer, longStatisticReducer,
 } from 'containers/Games/AudioCall/reducer';
 import levelControlReducer from 'containers/Games/SpeakIt/ControlLevel/reducer';
 import fetchReducer from 'containers/Games/SpeakIt/FetchGroup/reducer';
@@ -38,7 +38,7 @@ import mainLangReducer from 'containers/Main/mainLangReducer';
 import regFormReducer from 'containers/Authorisation/regFormReducer';
 import logFormReducer from 'containers/Authorisation/logFormReducer';
 import studyModesReducer from 'containers/Main/studyModesReducer.';
-import { settingsReducer, trainingReducer, trainingStatisticReducer } from 'containers/TrainingCard/reducers';
+import { trainingReducer, trainingStatisticReducer } from 'containers/TrainingCard/reducers';
 import appReducer from '../containers/App/reducer';
 import btnsReducer from '../containers/Games/EnglishPuzzle/HeaderBlock/HintButtons/btnsReducer';
 import wordsReducer from '../containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/wordsReducer';
@@ -70,6 +70,7 @@ const rootReducer = combineReducers({
   audioCallAnswer: answerReducer,
   audioCallStatistic: statisticReducer,
   audioCallModal: modalReducer,
+  audioCallLongStatistic: longStatisticReducer,
   engPuzzleBtns: btnsReducer,
   engPuzzleControlBtns: helpBtnsReducer,
   engPuzzleActiveIdx: activeIndexReducer,
@@ -95,7 +96,6 @@ const rootReducer = combineReducers({
   speakItStatistic: statisticGameReducer,
   fetchedWords: wordsReducer,
   loading: loaderReducer,
-  trainingSettings: settingsReducer,
   training: trainingReducer,
   trainingStatistic: trainingStatisticReducer,
 });

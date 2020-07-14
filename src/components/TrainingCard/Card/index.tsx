@@ -26,9 +26,11 @@ const Card: React.FC = () => {
   const settingsState = useSelector((state: State) => state.mainSetEnabled.hintsState);
   const dispatch = useDispatch();
   const index = useSelector((state: State) => state.training.currIndex);
+  const totalIndex = useSelector((state: State) => state.training.totalProgress);
   const data: FetchedWordData = book1[0][index];
   const prevData: FetchedWordData = book1[0][index - 1];
   const cardsToTrain = amount.words;
+  const totalCardsToTrain = amount.cards;
   const inputWidth = data.word.length * 12;
   const isStatisticOpen = useSelector((
     state: State,
@@ -46,7 +48,7 @@ const Card: React.FC = () => {
   const canMoveToNext = useSelector((state: State) => state.training.moveToNext);
   const showHelpBTN = settingsState.showAnswerBtn;
   const showDeleteBTN = settingsState.deleteWordBtn;
-  const showDifficultBTN = settingsState.diffucultWordBtn;
+  const showDifficultBTN = settingsState.difficultWordBtn;
   const playAudioSetting = settingsState.autoPronounce;
   const wordAudioURL = `https://raw.githubusercontent.com/lactivka/rslang-data/master/${data.audio}`;
   const meaningAudioURL = `https://raw.githubusercontent.com/lactivka/rslang-data/master/${data.audioMeaning}`;
@@ -147,7 +149,7 @@ const Card: React.FC = () => {
     setIsSuccess(true);
     dispatch(progressTraining());
     dispatch(addRowOfSuccess(successRow));
-    if (index === cardsToTrain - 1 && !isStatisticOpen) {
+    if ((index === cardsToTrain - 1 || totalIndex === totalCardsToTrain - 1) && !isStatisticOpen) {
       dispatch(toggleTrainingStatistic(true));
     }
   };

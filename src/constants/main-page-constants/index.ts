@@ -69,6 +69,9 @@ export const eng = {
       imgSrc: 'src/assets/main-page-images/sprint.png',
     },
   },
+  alert: {
+    dailyRate: 'Daily cards reached',
+  },
 };
 
 export const ru = {
@@ -134,6 +137,9 @@ export const ru = {
       description: 'Учит тебя переводить быстро. Игра использует слова из твоего словаря.',
       imgSrc: 'src/assets/main-page-images/sprint.png',
     },
+  },
+  alert: {
+    dailyRate: 'Дневная норма карточек достигнута',
   },
 };
 
