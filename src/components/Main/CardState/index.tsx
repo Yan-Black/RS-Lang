@@ -19,6 +19,8 @@ const CardGame: React.FC = () => {
   const dispatch = useDispatch();
   const settingsState = useSelector((state: State) => state.mainSetEnabled.hintsState);
   const amount = useSelector((state: State) => state.mainCardsWords.amount);
+  const totalIndex = useSelector((state: State) => state.training.totalProgress);
+  const totalCardsToTrain = amount.cards;
   const clickHandler = () => dispatch(handleSettings(true));
   const logged = useSelector((state: State) => state.authLog.isLogged);
   const lang = useSelector((state: State) => state.mainLang.lang);
@@ -34,6 +36,12 @@ const CardGame: React.FC = () => {
       setUsedLang(ru);
     }
   }, [lang]);
+
+  const learnBtnClickHandler = () => {
+    if (totalIndex >= totalCardsToTrain) {
+      alert(usedLang.alert.dailyRate);
+    }
+  };
 
   return (
     <div className="main-control-center">
@@ -93,10 +101,11 @@ const CardGame: React.FC = () => {
             <ProgressBar variant="success" now={20} />
           </div>
           <div className="cards-game-buttons">
-            <Link to="/Training">
+            <Link to={totalIndex >= totalCardsToTrain ? '/' : '/Training'}>
               <button
                 type="button"
                 className="cards-game-play-button"
+                onClick={learnBtnClickHandler}
               >
                 <FontAwesomeIcon icon={faPlay} />
                 &nbsp;

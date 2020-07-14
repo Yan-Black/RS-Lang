@@ -40,7 +40,7 @@ function TrainingStatistic(): JSX.Element {
   };
 
   return (
-    <Modal show={isStatisticOpen} dialogClassName="mt-5 pt-5" onHide={btnClickHandler}>
+    <Modal show={isStatisticOpen} dialogClassName="mt-5 pt-5">
       <Modal.Header>
         <Modal.Title>
           {modalTitle}
