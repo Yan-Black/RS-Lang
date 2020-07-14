@@ -1,5 +1,6 @@
 $card: #84cca7;
-$font: #fff;
+$font: #ffffff;
+$dark-font: #000000;
 $card-font-hover: #fbf1cf;
 $aside-color: rgb(124, 166, 222);
 
@@ -16,6 +17,12 @@ $aside-color: rgb(124, 166, 222);
   filter: drop-shadow(0 0 4px rgba(0,0,0,0.5));
   user-select: none;
 }
+
+.card-dark {
+  background-color: black;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
 .game-name {
   text-align: right;
   color: $font;
@@ -55,4 +62,8 @@ $aside-color: rgb(124, 166, 222);
   &:active {
     opacity: 0.5;
   }
+}
+
+.about-dark {
+  color: black;
 }

@@ -1,5 +1,8 @@
 import * as React from 'react';
-import { withRouter } from 'react-router-dom';
+import {
+  withRouter,
+} from 'react-router-dom';
+
 import Navigation from './Aside';
 import './index.scss';
 

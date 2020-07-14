@@ -4,9 +4,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { State } from 'models';
 import { WordObj } from 'containers/Dictionary/models';
 import { deletedToLearning } from 'containers/Dictionary/actions';
+import { ru, eng } from 'constants/dictionary-constants';
 import DictionaryItem from '../DictionaryItem';
 
 function Deleted(): JSX.Element {
+  const lang = useSelector((state: State) => state.mainLang.lang);
+  const usedLang = lang === 'eng' ? eng : ru;
   const dispatch = useDispatch();
   const deletedWords: Array<WordObj> = useSelector(
     (state: State) => state.dictionaryState.deletedWords,
@@ -20,8 +23,10 @@ function Deleted(): JSX.Element {
 
   return (
     <div className="dictionary-content bg-light rounded container py-2 my-3">
-      <p className="font-weight-bold border-bottom py-2">
-        УДАЛЕННЫЕ СЛОВА (
+      <p className="font-weight-bold border-bottom text-uppercase py-2">
+        {usedLang.deletedWords}
+        {' '}
+        (
         {deletedWords.length}
         )
       </p>
@@ -33,7 +38,7 @@ function Deleted(): JSX.Element {
             type="button"
             data-toggle="tooltip"
             data-placement="left"
-            title="Вернуть в изучаемые"
+            title={usedLang.returnToLearning}
             id={element.id}
             onClick={btnClickHandler}
           >

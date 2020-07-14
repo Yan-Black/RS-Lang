@@ -19,7 +19,13 @@ export namespace Action {
   export interface ResetGame extends Models.Action<Payload.SetDocumentTypes> { }
   export interface KnowWords extends Models.Action<Payload.SetDocumentTypes> { }
   export interface NotKnowWords extends Models.Action<Payload.SetDocumentTypes> { }
+  export interface ToggleStatistic extends Models.Action<Payload.SetDocumentTypes> { }
   export interface ResetCurrStatistic extends Models.Action<Payload.SetDocumentTypes> { }
+  export interface UpdateLongStatDate extends Models.Action<Payload.SetDocumentTypes> { }
+  export interface UpdateLongStatTime extends Models.Action<Payload.SetDocumentTypes> { }
+  export interface UpdateLongStatLevels extends Models.Action<Payload.SetDocumentTypes> { }
+  export interface UpdateLongStatFailed extends Models.Action<Payload.SetDocumentTypes> { }
+  export interface UpdateLongStatSuccess extends Models.Action<Payload.SetDocumentTypes> { }
   export interface ToggleModal extends Models.Action<Payload.SetDocumentTypes> { }
 }
 
@@ -38,7 +44,13 @@ export namespace ActionCreator {
   export type ResetGame = () => Action.ResetGame;
   export type KnowWords = (wordObj: unknown) => Action.KnowWords;
   export type NotKnowWords = (wordObj: unknown) => Action.NotKnowWords;
+  export type ToggleStatistic = () => Action.ToggleStatistic;
   export type ResetCurrStatistic = () => Action.ResetCurrStatistic;
+  export type UpdateLongStatDate = (payload: StatisticInfo) => Action.UpdateLongStatDate;
+  export type UpdateLongStatTime = (payload: StatisticInfo) => Action.UpdateLongStatTime;
+  export type UpdateLongStatLevels = (payload: StatisticInfo) => Action.UpdateLongStatLevels;
+  export type UpdateLongStatFailed = (payload: StatisticInfo) => Action.UpdateLongStatFailed;
+  export type UpdateLongStatSuccess = (payload: StatisticInfo) => Action.UpdateLongStatSuccess;
   export type ToggleModal = (messageType: string) => Action.ToggleModal;
 }
 
@@ -103,6 +115,20 @@ export interface AnswerInitState {
 }
 
 export interface StatisticInitState {
+  isLongStatistic: boolean,
   wrongAnswers: Array<Json>,
   correctAnswers: Array<Json>,
+}
+
+export interface StatisticInfo {
+  date: string;
+  payload?: string | number;
+}
+
+export interface LongStatisticState {
+  playedDates: StatisticInfo[],
+  playedTimes: StatisticInfo[],
+  playedLevels: StatisticInfo[],
+  failed: StatisticInfo[],
+  success: StatisticInfo[],
 }

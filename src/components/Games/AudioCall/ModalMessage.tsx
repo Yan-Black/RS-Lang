@@ -2,17 +2,23 @@ import * as React from 'react';
 import './index.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import { State } from 'models';
-import { toggleModal, startPage, resetGame } from 'containers/Games/AudioCall/actions';
+import {
+  toggleModal, startPage, resetGame, resetCurrStatistic,
+} from 'containers/Games/AudioCall/actions';
 import { Link } from 'react-router-dom';
+import { eng, ru } from 'constants/audio-call-constants';
 
 function ModalMessage(): JSX.Element {
   const dispatch = useDispatch();
+  const lang = useSelector((state: State) => state.mainLang.lang);
+  const usedLang = lang === 'eng' ? eng : ru;
   const isOpen = useSelector((state: State) => state.audioCallModal.isOpen);
   const messageTitle = useSelector((state: State) => state.audioCallModal.title);
   const messageBody = useSelector((state: State) => state.audioCallModal.message);
   const stayBtnClickHandler = () => dispatch(toggleModal(null));
   const exitBtnClickHandler = () => {
-    dispatch(toggleModal(null)); dispatch(resetGame()); dispatch(startPage());
+    dispatch(toggleModal(null)); dispatch(resetGame());
+    dispatch(startPage()); dispatch(resetCurrStatistic());
   };
 
   const stayKeyPressHandler = (event: React.KeyboardEvent<HTMLElement>) => {
@@ -26,6 +32,7 @@ function ModalMessage(): JSX.Element {
       dispatch(toggleModal(null));
       dispatch(resetGame());
       dispatch(startPage());
+      dispatch(resetCurrStatistic());
     }
   };
 
@@ -47,10 +54,10 @@ function ModalMessage(): JSX.Element {
             {messageBody}
           </div>
           <div className="modal-footer">
-            <Link to="/Main" onClick={exitBtnClickHandler} onKeyPress={exitKeyPressHandler}>
-              <button tabIndex={-1} type="button" className="btn btn-secondary">Да, уйти</button>
+            <Link to="/" onClick={exitBtnClickHandler} onKeyPress={exitKeyPressHandler}>
+              <button tabIndex={-1} type="button" className="btn btn-secondary">{usedLang.buttons.leave}</button>
             </Link>
-            <button type="button" className="btn btn-primary" onClick={stayBtnClickHandler} onKeyPress={stayKeyPressHandler}>Нет, я продолжу</button>
+            <button type="button" className="btn btn-primary" onClick={stayBtnClickHandler} onKeyPress={stayKeyPressHandler}>{usedLang.buttons.stay}</button>
           </div>
         </div>
       </div>

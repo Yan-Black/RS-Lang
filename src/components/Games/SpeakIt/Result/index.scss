@@ -28,3 +28,14 @@
     }
   }
 }
+
+.btn-block {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.return-btn, .new-game-btn, .statistic-btn {
+  padding: 10px 20px;
+  width: 150px;
+  margin: 3% 2%;
+}

@@ -10,3 +10,13 @@
   margin: 200px auto;
   z-index: 2;
 }
+
+#audio-call-statistic-card {
+  width: inherit;
+  height: inherit;
+  &:hover {
+    transform: inherit;
+    background: inherit;
+    color: inherit;
+  }
+}

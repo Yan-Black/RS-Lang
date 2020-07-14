@@ -1,4 +1,5 @@
 import * as React from 'react';
+import './index.scss';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import ProgressBar from 'react-bootstrap/ProgressBar';
@@ -12,12 +13,15 @@ import {
 } from 'constants/main-page-constants';
 import { handleSettings } from 'containers/Main/actions';
 import Authorization from 'components/Authorization';
-import './index.scss';
+import { Link } from 'react-router-dom';
 
 const CardGame: React.FC = () => {
+  const theme = useSelector((state: State) => state.mainTheme.theme);
   const dispatch = useDispatch();
   const settingsState = useSelector((state: State) => state.mainSetEnabled.hintsState);
   const amount = useSelector((state: State) => state.mainCardsWords.amount);
+  const totalIndex = useSelector((state: State) => state.training.totalProgress);
+  const totalCardsToTrain = amount.cards;
   const clickHandler = () => dispatch(handleSettings(true));
   const logged = useSelector((state: State) => state.authLog.isLogged);
   const lang = useSelector((state: State) => state.mainLang.lang);
@@ -34,8 +38,14 @@ const CardGame: React.FC = () => {
     }
   }, [lang]);
 
+  const learnBtnClickHandler = () => {
+    if (totalIndex >= totalCardsToTrain) {
+      alert(usedLang.alert.dailyRate);
+    }
+  };
+
   return (
-    <div className="main-control-center">
+    <div className={theme === 'light' ? 'main-control-center' : 'main-control-center main-control-center-dark'}>
       {logged ? (
         <div className="main-control-wrapper">
           <div className="cards-words-amount">
@@ -92,14 +102,17 @@ const CardGame: React.FC = () => {
             <ProgressBar variant="success" now={20} />
           </div>
           <div className="cards-game-buttons">
-            <button
-              type="button"
-              className="cards-game-play-button"
-            >
-              <FontAwesomeIcon icon={faPlay} />
-              &nbsp;
-              {usedLang.cardSettings.buttons.learn}
-            </button>
+            <Link to={totalIndex >= totalCardsToTrain ? '/' : '/Training'}>
+              <button
+                type="button"
+                className="cards-game-play-button"
+                onClick={learnBtnClickHandler}
+              >
+                <FontAwesomeIcon icon={faPlay} />
+                &nbsp;
+                {usedLang.cardSettings.buttons.learn}
+              </button>
+            </Link>
             <button
               type="button"
               onClick={clickHandler}

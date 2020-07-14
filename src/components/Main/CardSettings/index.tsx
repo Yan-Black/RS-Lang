@@ -1,9 +1,9 @@
 import * as React from 'react';
+import './index.scss';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import './index.scss';
 import { handleSettings, updateSettings, updateAmount } from 'containers/Main/actions';
 import {
   checkBoxesRu, checkBoxesEng, eng, ru,
