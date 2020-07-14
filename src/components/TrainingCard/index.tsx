@@ -18,6 +18,8 @@ const Training: React.FC = () => {
   const amount = useSelector((state: State) => state.mainCardsWords.amount);
   const index = useSelector((state: State) => state.training.currIndex);
   const isAnswerCorrect = useSelector((state: State) => state.training.isCorrect);
+
+  // to do set cardsToTrain = select words from all user's words using filter(studyMode)
   const cardsToTrain = amount.words;
   const done = isAnswerCorrect
     ? Math.ceil(((+index + 1) * 100) / cardsToTrain)

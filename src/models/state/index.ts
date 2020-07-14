@@ -46,5 +46,6 @@ export interface State {
   speakItFetch;
   speakItWord;
   speakItButtons;
+  mainErrorModal;
   // add more fields according rootReducer
 }
