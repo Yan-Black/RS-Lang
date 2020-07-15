@@ -23,6 +23,8 @@ function Deleted(): JSX.Element {
     const clickedId = event.currentTarget.id;
     const clickedWord = usedWords.filter((wordItem) => String(wordItem.id) === clickedId);
     delete clickedWord[0].userWord.optional.del;
+    delete clickedWord[0].userWord.optional.success;
+    delete clickedWord[0].userWord.optional.repeatTimes;
     dispatch(deletedToLearning(clickedWord));
     updateUserWord(clickedWord[0], dispatch);
   };

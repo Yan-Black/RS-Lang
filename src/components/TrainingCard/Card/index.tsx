@@ -26,7 +26,12 @@ const Card: React.FC = () => {
   const settingsState = useSelector((state: State) => state.mainSetEnabled.hintsState);
   const dispatch = useDispatch();
   const index = useSelector((state: State) => state.training.currIndex);
-  const usedWords: FetchedWordData[] = useSelector((state: State) => state.appUserWords.userWords);
+  const clonedWords: FetchedWordData[] = useSelector((state: State) => state.appUserWords.userWords);
+
+  const usedWords = clonedWords.filter(
+    (word) => word.userWord && !word.userWord.optional.del,
+  );
+
   const data = usedWords[index];
   const prevData = usedWords[index - 1];
   const cardsToTrain = amount.words;
@@ -110,24 +115,19 @@ const Card: React.FC = () => {
     }
   };
 
+  const [delMes, showDelMes] = useState(false);
+  const [mes, setMes] = useState('');
+  const [delActive, setDelActive] = useState(false);
+  const [difActive, setDifActive] = useState(false);
+  const [isWordSuccess, setSuccess] = useState(false);
+
   const checkAnswerBTNHandler = () => {
     if (!canMoveToNext && !isAnswerChecked && inputData.length > 0) {
       dispatch(setInputWord(inputData));
       setInputData('');
       if (inputData.toLowerCase() === data.word.toLowerCase()) {
-        // if (isSuccess) setSuccessRow(successRow + 1);
-        // const clone = Array.from(usedWords);
-        // const currentWord = clone[index];
-        // const handledWord = { ...currentWord };
-        // handledWord.success
-        // && handledWord.success === 2
-        //   ? handledWord.deleted = true
-        //   : null;
-        // !handledWord.success
-        //   ? handledWord.success = 1
-        //   : handledWord.success++;
-        // clone.splice(usedWords.indexOf(data), 1, handledWord);
-        // dispatch(updateUserWords(clone));
+        if (isSuccess) setSuccessRow(successRow + 1);
+        setSuccess(true);
         dispatch(toggleAnswerCorrect());
         dispatch(toggleMoveToNext());
       } else {
@@ -148,11 +148,6 @@ const Card: React.FC = () => {
     }
   };
 
-  const [delMes, showDelMes] = useState(false);
-  const [mes, setMes] = useState('');
-  const [delActive, setDelActive] = useState(false);
-  const [difActive, setDifActive] = useState(false);
-
   interface Prop {
     played: boolean;
     repeatTimes: number;
@@ -160,6 +155,8 @@ const Card: React.FC = () => {
     time: string;
     del: boolean;
     dif: boolean;
+    lastRepeat: string;
+    nextRepeat: string;
   }
 
   const propObject = {} as Prop;
@@ -186,23 +183,42 @@ const Card: React.FC = () => {
     const currentWord = clone[index];
     const handledWord = { ...currentWord };
     if (handledWord.userWord) {
-      handledWord.userWord.optional.repeatTimes++;
+      !handledWord.userWord.optional.repeatTimes
+        ? handledWord.userWord.optional.repeatTimes = 0
+        : handledWord.userWord.optional.repeatTimes++;
+      !handledWord.userWord.optional.lastRepeat
+        ? handledWord.userWord.optional.lastRepeat = `${new Date().toDateString().slice(3, -4)} ${new Date().toLocaleTimeString().slice(0, -3)}`
+        : handledWord.userWord.optional.lastRepeat = `${new Date().toDateString().slice(3, -4)} ${new Date().toLocaleTimeString().slice(0, -3)}`;
+      !handledWord.userWord.optional.nextRepeat
+        ? handledWord.userWord.optional.nextRepeat = `${new Date(new Date().getTime() + 1000 * 60 * 5).toLocaleTimeString().slice(0, -3)}`
+        : handledWord.userWord.optional.nextRepeat = `${new Date(new Date().getTime() + 1000 * 60 * 5).toLocaleTimeString().slice(0, -3)}`;
+      if (isWordSuccess && !handledWord.userWord.optional.success) {
+        handledWord.userWord.optional.success = 1;
+      } else if (handledWord.userWord.optional.success === 8) {
+        handledWord.userWord.optional.del = true;
+      } else {
+        handledWord.userWord.optional.success++;
+      }
       if (delActive) {
         handledWord.userWord.optional.del = true;
         handledWord.userWord.optional.dif = false;
+        handledWord.userWord.optional.nextRepeat = '-';
       }
       if (difActive) {
         handledWord.userWord.optional.dif = true;
-        handledWord.userWord.optional.del = false;
       }
-      clone.splice(usedWords.indexOf(data), 1, handledWord);
+      clone.splice(index, 1, handledWord);
       dispatch(updateUserWords(clone));
       updateUserWord(handledWord, dispatch);
+      setDelActive(false);
+      setDifActive(false);
     } else {
       propObject.played = true;
       propObject.repeatTimes = 0;
       propObject.date = new Date().toDateString();
       propObject.time = new Date().toTimeString();
+      propObject.lastRepeat = `${new Date().toDateString().slice(0, -4)} ${new Date().toLocaleTimeString().slice(0, -3)}`;
+      propObject.nextRepeat = `${new Date(new Date().getTime() + 1000 * 60 * 5).toDateString()}`;
       handledWord.userWord = optional;
       if (delActive) {
         handledWord.userWord.optional.del = true;

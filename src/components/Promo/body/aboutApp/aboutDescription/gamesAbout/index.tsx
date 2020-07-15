@@ -12,7 +12,9 @@ const GameTab: React.FC<Props> = ({ tabInfo }) => (
   <div className="game-tab">
     <Image src={tabInfo.imagePath} fluid />
     <p>{tabInfo.text}</p>
-    <Button className="game-tab-button" variant="outline-primary"><Link to={tabInfo.linkToGame}>Play it now!</Link></Button>
+    <Link to={tabInfo.linkToGame}>
+      <Button className="game-tab-button" variant="outline-primary">Play it now!</Button>
+    </Link>
   </div>
 );
 

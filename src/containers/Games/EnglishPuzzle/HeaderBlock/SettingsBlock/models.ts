@@ -17,7 +17,7 @@ export interface FetchedWordData {
       played?: boolean;
       time?: string;
       date?: string;
-      lastTimeRepeat?: string;
+      lastRepeat?: string;
       repeatTimes?: number;
       nextRepeat?: string;
       dif?: boolean;

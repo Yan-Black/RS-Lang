@@ -1,9 +1,11 @@
+import { IntialStateUserWords } from 'containers/TrainingCard/models';
+
 export interface State {
   trainingSettings;
   trainingStatistic;
   training;
   app;
-  appUserWords;
+  appUserWords: IntialStateUserWords;
   authToken;
   authErrors;
   authLog;

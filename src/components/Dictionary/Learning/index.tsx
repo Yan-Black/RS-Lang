@@ -17,7 +17,7 @@ function Learning(): JSX.Element {
         && !word.userWord.optional.del,
       ),
   );
-
+  console.log(usedWords);
   return (
     <div className="dictionary-content bg-light rounded container py-2 my-3">
       <p className="font-weight-bold border-bottom text-uppercase py-2">

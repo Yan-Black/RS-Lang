@@ -13,7 +13,6 @@ function Dictionary(): JSX.Element {
   const lang = useSelector((state: State) => state.mainLang.lang);
   const usedLang = lang === 'eng' ? eng : ru;
   const [currPage, setCurrPage] = useState('learning');
-
   const btnClickHandler = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => setCurrPage(event.currentTarget.id);

@@ -90,6 +90,9 @@ $font: #fff;
   border-radius: 5px;
   padding: 0 5px;
   position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   top: calc(50% - (2vw / 2));
   left: 200%;
   z-index: 1;
@@ -123,6 +126,7 @@ $font: #fff;
   font-size: 1vw;
   margin-left: 0;
   padding: 0;
+  color: $font;
   &:hover {
     transition: .2s;
     .aside-menu-tooltip {

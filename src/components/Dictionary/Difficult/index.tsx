@@ -37,8 +37,8 @@ function Difficult(): JSX.Element {
         )
       </p>
       {usedWords.map((element) => (
-        <div className="d-flex align-items-center" key={element.id}>
-          <DictionaryItem item={element} key={element.word} />
+        <div className="d-flex align-items-center" key={element.word}>
+          <DictionaryItem item={element} />
           <button
             className="btn btn-back-to-learning btn-outline-primary shadow rounded-circle p-1 m-1"
             type="button"

@@ -65,23 +65,23 @@ function DictionaryItem({ item }: {item: FetchedWordData}): JSX.Element {
         <span className="px-1">
           {usedLang.wordProgress}
           {' '}
-          {item.userWord.optional.success}
+          {item.userWord.optional.success || 0}
         </span>
         <span className="px-1">
           {usedLang.repeats}
           {' '}
-          {item.userWord.optional.repeatTimes}
+          {item.userWord.optional.repeatTimes || 0}
         </span>
         <span className="px-1">
           {usedLang.lastRepeat}
           {' '}
-          {item.userWord.optional.lastTimeRepeat}
+          {item.userWord.optional.lastRepeat || '-'}
           {' '}
         </span>
         <span className="px-1">
           {usedLang.nextRepeat}
           {' '}
-          {item.userWord.optional.nextRepeat}
+          {item.userWord.optional.nextRepeat || '-'}
         </span>
       </div>
     </div>

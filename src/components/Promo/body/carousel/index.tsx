@@ -11,9 +11,9 @@ const BodyCarousel: React.FC = () => (
           src="/src/assets/promo/carouselPic1.jpg"
           alt="First slide"
         />
-        <Carousel.Caption>
-          <h3>Just random kitty</h3>
-          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+        <Carousel.Caption className="carousel-text-dark">
+          <h3>Learn new words!</h3>
+          <p>Изучайте новые слова и вспоминайте забытые</p>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>

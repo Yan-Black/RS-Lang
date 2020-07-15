@@ -4,7 +4,6 @@ import {
 } from 'containers/Authorisation/actions';
 import { ActionAuth } from 'containers/Authorisation/models';
 import { showLoader, hideLoader } from 'containers/Games/EnglishPuzzle/GameBlock/GameBoard/Loader/actions';
-import { updateUserWords } from 'containers/TrainingCard/actions';
 import { FetchedWordData } from 'containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/models';
 import { Dispatch, Action } from 'redux';
 
@@ -72,12 +71,11 @@ export const createUserWord = (word: FetchedWordData) => {
       optional: word.userWord.optional,
     }),
   })
-    .catch((e) => console.log(e));
+    .catch();
 };
 
 export const updateUserWord = (word: FetchedWordData, dispatch: Dispatch<Action>) => {
   const { token, userId } = localStorage;
-  dispatch(showLoader());
   // eslint-disable-next-line no-underscore-dangle
   fetch(`https://afternoon-falls-25894.herokuapp.com/users/${userId}/words/${word._id}`, {
     method: 'PUT',
@@ -94,10 +92,7 @@ export const updateUserWord = (word: FetchedWordData, dispatch: Dispatch<Action>
   })
     .then((res) => (res.ok ? res.json() : Promise.reject(res)))
     .then(() => dispatch(hideLoader()))
-    .catch((e) => {
-      dispatch(hideLoader());
-      alert(e);
-    });
+    .catch();
 };
 
 export const loginUser = (

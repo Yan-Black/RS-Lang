@@ -41,6 +41,9 @@ import studyModesReducer from 'containers/Main/studyModesReducer.';
 import { trainingReducer, trainingStatisticReducer } from 'containers/TrainingCard/reducers';
 import userWordsReducer from 'containers/Training/trainingCardsReducer';
 import MainErrorModalReducer from 'containers/Main/mainErrorModalReducer';
+import {
+  modeReducer, buttonAccess, fallingWordToggle, showAnswerToggle, addFailedWords, addTrueWords, showWordsToggle, setFallingWord, modalSavannahReducer,
+} from 'containers/Games/Savannah/store/store';
 import appReducer from '../containers/App/reducer';
 import btnsReducer from '../containers/Games/EnglishPuzzle/HeaderBlock/HintButtons/btnsReducer';
 import wordsReducer from '../containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/wordsReducer';
@@ -102,6 +105,15 @@ const rootReducer = combineReducers({
   training: trainingReducer,
   trainingStatistic: trainingStatisticReducer,
   mainErrorModal: MainErrorModalReducer,
+  mode: modeReducer,
+  modalWindow: modalSavannahReducer,
+  buttonAccessProperty: buttonAccess,
+  fallingWordActive: fallingWordToggle,
+  showAnswer: showAnswerToggle,
+  failedWords: addFailedWords,
+  trueWords: addTrueWords,
+  showWords: showWordsToggle,
+  fallingWord: setFallingWord,
 });
 
 const store = createStore(rootReducer, compose(applyMiddleware(thunk)));

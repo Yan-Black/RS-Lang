@@ -11,7 +11,10 @@ function CheckedAnswer(): JSX.Element {
   const isAnswerCorrect = useSelector((state: State) => state.training.isCorrect);
   const canMoveToNext = useSelector((state: State) => state.training.moveToNext);
   const index = useSelector((state: State) => state.training.currIndex);
-  const usedWords: FetchedWordData[] = useSelector((state: State) => state.appUserWords.userWords);
+  const usedData: FetchedWordData[] = useSelector((state: State) => state.appUserWords.userWords);
+  const usedWords = usedData.filter(
+    (word) => !word.userWord.optional.del,
+  );
   const data = usedWords[index];
   const [checkedAnswerClass, setCheckedAnswerClass] = useState('checked-answer');
   const inputWord: string = useSelector((state: State) => state.training.inputWord);
