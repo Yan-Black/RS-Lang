@@ -4,6 +4,11 @@ import {
   faUsers,
   faChartBar,
 } from '@fortawesome/free-solid-svg-icons';
+import solution from '../../assets/main-page-images/solution.png';
+import speaking from '../../assets/main-page-images/speaking.png';
+import savannah from '../../assets/main-page-images/savannah.png';
+import sprint from '../../assets/main-page-images/sprint.png';
+import conference from '../../assets/main-page-images/conference.png';
 
 export const eng = {
   unregistred: 'As an anonymous user, you can test our mini-games, but long-term statistics will not be saved. Setting up training cards as well as the training process itself is available only to registered users.',
@@ -41,32 +46,32 @@ export const eng = {
     audioCall: {
       name: 'Audio Call',
       description: 'Improves listening comprehension',
-      imgSrc: 'src/assets/main-page-images/conference.png',
+      imgSrc: conference,
     },
     englishPuzzle: {
       name: 'English Puzzle',
       description: 'Collect whole sentences from single words. After you collect all 10 sentences, a surprise awaits you',
-      imgSrc: 'src/assets/main-page-images/solution.png',
+      imgSrc: solution,
     },
     ourGame: {
       name: 'Our Game',
       description: 'description',
-      imgSrc: 'src/assets/main-page-images/speaking.png',
+      imgSrc: speaking,
     },
     savannah: {
       name: 'Savannah',
       description: 'Helps remember learned words. Also trains your reaction and speed of perception of English words',
-      imgSrc: 'src/assets/main-page-images/savannah.png',
+      imgSrc: savannah,
     },
     speakIt: {
       name: 'Speak It',
       description: 'Say the words! This game will help check your pronunciation',
-      imgSrc: 'src/assets/main-page-images/speaking.png',
+      imgSrc: speaking,
     },
     sprint: {
       name: 'Sprint',
       description: 'Teaches you to quickly translate into English. This game uses words from your vocabulary',
-      imgSrc: 'src/assets/main-page-images/sprint.png',
+      imgSrc: sprint,
     },
   },
   errorMessage: {
@@ -113,32 +118,32 @@ export const ru = {
     audioCall: {
       name: 'Аудио Вызов',
       description: 'Улучшает восприятие английской речи.',
-      imgSrc: 'src/assets/main-page-images/conference.png',
+      imgSrc: conference,
     },
     englishPuzzle: {
       name: 'Мозайка',
       description: 'Собирай предложения из отдельных слов. После 10 собранных предложений тебе откроется картина.',
-      imgSrc: 'src/assets/main-page-images/solution.png',
+      imgSrc: solution,
     },
     ourGame: {
       name: 'Наша Игра',
       description: 'Описание.',
-      imgSrc: 'src/assets/main-page-images/speaking.png',
+      imgSrc: speaking,
     },
     savannah: {
       name: 'Саванна',
       description: 'Помогает лучше запомнить выученные слова. Также тренирует твою реакцию и скорость восприятия английской речи.',
-      imgSrc: 'src/assets/main-page-images/savannah.png',
+      imgSrc: savannah,
     },
     speakIt: {
       name: 'Скажи Это',
       description: 'Произноси слова. Это поможет улучшить твоё произношение.',
-      imgSrc: 'src/assets/main-page-images/speaking.png',
+      imgSrc: speaking,
     },
     sprint: {
       name: 'Спринт',
       description: 'Учит тебя переводить быстро. Игра использует слова из твоего словаря.',
-      imgSrc: 'src/assets/main-page-images/sprint.png',
+      imgSrc: sprint,
     },
   },
   errorMessage: {
