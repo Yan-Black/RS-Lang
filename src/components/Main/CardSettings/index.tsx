@@ -5,13 +5,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { handleSettings, updateSettings, updateAmount } from 'containers/Main/actions';
+import { addNewUserWords } from 'containers/TrainingCard/actions';
 import {
   checkBoxesRu, checkBoxesEng, eng, ru, engSetiingsErrors, ruSetiingsErrors,
 } from 'constants/main-page-constants';
 import { State } from 'models';
+import Spinner from 'react-bootstrap/Spinner';
 
 const CardSettings: React.FC = () => {
   const dispatch = useDispatch();
+  const loading = useSelector((state: State) => state.engPuzzleLoading.isLoading);
+  const userWords = useSelector((state: State) => state.appUserWords.userWords);
   const amount = useSelector((state: State) => state.mainCardsWords.amount);
   const lang = useSelector((state: State) => state.mainLang.lang);
   const [err, setErr] = useState(false);
@@ -65,6 +69,17 @@ const CardSettings: React.FC = () => {
         'savedAmount',
         JSON.stringify({ words: cardsWordsAmount[0], cards: cardsWordsAmount[1] }),
       );
+      if (cardsWordsAmount[0] > userWords.length) {
+        let pages: number[];
+        const group = 0;
+        if (cardsWordsAmount[0] > userWords.length * 2) {
+          pages = [userWords.length, 2];
+        } else {
+          pages = [1];
+        }
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
+        pages.forEach((page) => addNewUserWords(dispatch, group, page));
+      }
       dispatch(handleSettings(false));
     }
   };
@@ -134,11 +149,17 @@ const CardSettings: React.FC = () => {
                 : 'cохранить'}
             </button>
             {err
-            && (
-            <div className="settings-error">
-              <span>{errMes}</span>
-            </div>
-            )}
+              && (
+              <div className="settings-error">
+                <span>{errMes}</span>
+              </div>
+              )}
+            {loading
+              && (
+                <Spinner animation="border" role="status">
+                  <span className="sr-only">Loading...</span>
+                </Spinner>
+              )}
             <button
               type="button"
               className="settings-btn"

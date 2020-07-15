@@ -5,6 +5,7 @@ import { State } from 'models';
 import { deletedToLearning } from 'containers/Dictionary/actions';
 import { ru, eng } from 'constants/dictionary-constants';
 import { FetchedWordData } from 'containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/models';
+import { updateUserWord } from 'constants/athorization-constants';
 import DictionaryItem from '../DictionaryItem';
 
 function Deleted(): JSX.Element {
@@ -13,14 +14,17 @@ function Deleted(): JSX.Element {
   const dispatch = useDispatch();
   const usedWords: FetchedWordData[] = useSelector(
     (state: State) => state.appUserWords.userWords
-      .filter((word: FetchedWordData) => word.deleted),
+      .filter((word: FetchedWordData) => word.userWord
+      && word.userWord.optional.del
+      && !word.userWord.optional.dif),
   );
 
   const btnClickHandler = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const clickedId = event.currentTarget.id;
     const clickedWord = usedWords.filter((wordItem) => String(wordItem.id) === clickedId);
-    delete clickedWord[0].deleted;
+    delete clickedWord[0].userWord.optional.del;
     dispatch(deletedToLearning(clickedWord));
+    updateUserWord(clickedWord[0], dispatch);
   };
 
   return (
@@ -33,8 +37,8 @@ function Deleted(): JSX.Element {
         )
       </p>
       {usedWords.map((element) => (
-        <div className="d-flex align-items-center" key={element.id}>
-          <DictionaryItem item={element} key={element.word} />
+        <div className="d-flex align-items-center" key={element.word}>
+          <DictionaryItem item={element} />
           <button
             className="btn btn-deleted-words btn-outline-primary shadow rounded-circle p-1 m-1"
             type="button"

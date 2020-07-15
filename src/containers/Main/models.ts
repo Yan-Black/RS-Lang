@@ -1,3 +1,5 @@
+import * as Models from 'models';
+
 export interface InitialStateModal {
   isOpen: boolean;
 }
@@ -82,4 +84,29 @@ export interface ActionAmount {
 export interface ActionStudy {
   type: string;
   payload: InitialStudyState;
+}
+
+export interface MainErrorModal {
+  isOpen: boolean,
+  title: string,
+  content: string,
+}
+
+export interface ModalObj {
+  title: string,
+  content: string,
+}
+
+export namespace Payload {
+  export interface SetDocumentTypes { }
+}
+
+export namespace Action {
+  export interface OpenErrorModal extends Models.Action<Payload.SetDocumentTypes> { }
+  export interface CloseErrorModal extends Models.Action<Payload.SetDocumentTypes> { }
+}
+
+export namespace ActionCreator {
+  export type OpenErrorModal = (data: ModalObj) => Action.OpenErrorModal;
+  export type CloseErrorModal = () => Action.CloseErrorModal;
 }

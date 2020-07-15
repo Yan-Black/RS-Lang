@@ -29,12 +29,12 @@ const Navigation: React.FC = () => {
   const handleAsideMenu = () => setAsideOpen(!isOpen);
   const closeAsideMenu = () => setAsideOpen(false);
   const logout = () => {
+    createUserStatistic({ leaernedWords: 0, options: { stat: statInfo } });
     localStorage.removeItem('token');
     localStorage.removeItem('userId');
     localStorage.removeItem('userName');
     dispatch(setUnLogged());
     dispatch(setUserName(''));
-    createUserStatistic({ leaernedWords: 0, options: { stat: statInfo } });
   };
 
   useEffect(() => {
@@ -91,17 +91,20 @@ const Navigation: React.FC = () => {
             </button>
           </li>
         </ul>
-        <div className="profile">
-          <FontAwesomeIcon
-            icon={faUserCircle}
-            className="aside-logout"
-            onClick={logout}
-          />
-          <span className="aside-menu-tooltip">
-            {usedLang.logout}
-          </span>
-          <span>{name}</span>
-        </div>
+        {isLogged
+          && (
+          <div className="profile">
+            <FontAwesomeIcon
+              icon={faUserCircle}
+              className="aside-logout"
+              onClick={logout}
+            />
+            <span className="aside-menu-tooltip">
+              {usedLang.logout}
+            </span>
+            <span>{name}</span>
+          </div>
+          )}
       </div>
       <MainSection />
     </div>

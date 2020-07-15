@@ -4,6 +4,9 @@ import {
 } from 'containers/Authorisation/actions';
 import { ActionAuth } from 'containers/Authorisation/models';
 import { showLoader, hideLoader } from 'containers/Games/EnglishPuzzle/GameBlock/GameBoard/Loader/actions';
+import { updateUserWords } from 'containers/TrainingCard/actions';
+import { FetchedWordData } from 'containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/models';
+import { Dispatch, Action } from 'redux';
 
 const regUrl = 'https://afternoon-falls-25894.herokuapp.com/users';
 const tokenUrl = 'https://afternoon-falls-25894.herokuapp.com/signin';
@@ -50,6 +53,50 @@ export const createUser = (
           break;
         default: dispatch(addApiError('some server error occures'));
       }
+    });
+};
+
+export const createUserWord = (word: FetchedWordData) => {
+  const { token, userId } = localStorage;
+  // eslint-disable-next-line no-underscore-dangle
+  fetch(`https://afternoon-falls-25894.herokuapp.com/users/${userId}/words/${word.id}`, {
+    method: 'POST',
+    headers: {
+      'Access-Control-Allow-Credentials': 'true',
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      difficulty: 'easy',
+      optional: word.userWord.optional,
+    }),
+  })
+    .catch((e) => console.log(e));
+};
+
+export const updateUserWord = (word: FetchedWordData, dispatch: Dispatch<Action>) => {
+  const { token, userId } = localStorage;
+  dispatch(showLoader());
+  // eslint-disable-next-line no-underscore-dangle
+  fetch(`https://afternoon-falls-25894.herokuapp.com/users/${userId}/words/${word._id}`, {
+    method: 'PUT',
+    headers: {
+      'Access-Control-Allow-Credentials': 'true',
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      difficulty: 'easy',
+      optional: word.userWord.optional,
+    }),
+  })
+    .then((res) => (res.ok ? res.json() : Promise.reject(res)))
+    .then(() => dispatch(hideLoader()))
+    .catch((e) => {
+      dispatch(hideLoader());
+      alert(e);
     });
 };
 
@@ -105,7 +152,7 @@ export const getProfileFetch = (
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
-        Authorization: `Bearer ${token}1`,
+        Authorization: `Bearer ${token}`,
       },
     })
       .then(async (res) => {
@@ -165,5 +212,7 @@ export const getUserStatistic = () => {
       Authorization: `Bearer ${token}`,
       Accept: 'application/json',
     },
-  });
+  })
+    .then((res) => res.json())
+    .then((res) => localStorage.setItem('userStatistic', JSON.stringify(res)));
 };

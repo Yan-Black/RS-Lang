@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { WordObj } from 'containers/Dictionary/models';
 import { useSelector } from 'react-redux';
 import { State } from 'models';
 import { ru, eng } from 'constants/dictionary-constants';
@@ -11,7 +10,12 @@ function Learning(): JSX.Element {
   const usedLang = lang === 'eng' ? eng : ru;
   const usedWords: FetchedWordData[] = useSelector(
     (state: State) => state.appUserWords.userWords
-      .filter((word: FetchedWordData) => word.played && !word.difficult && !word.deleted),
+      .filter(
+        (word: FetchedWordData) => word.userWord
+        && word.userWord.optional.played
+        && !word.userWord.optional.dif
+        && !word.userWord.optional.del,
+      ),
   );
 
   return (

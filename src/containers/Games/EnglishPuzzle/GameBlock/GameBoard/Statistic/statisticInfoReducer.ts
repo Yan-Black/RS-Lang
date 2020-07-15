@@ -2,6 +2,8 @@ import { Reducer } from 'react';
 import { ActionType } from './constants';
 import { InitialStateStatisticInfo, ActionStatistic } from './models';
 
+const { savedStatistic } = localStorage;
+
 const initialState: InitialStateStatisticInfo = {
   playedDates: [],
   playedTimes: [],

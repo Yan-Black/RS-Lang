@@ -11,6 +11,7 @@ import CardGame from './CardState';
 import Settings from './MainSettings';
 import ModalMain from './Modal';
 import CardSettings from './CardSettings';
+import MainModal from './MainModal';
 
 const MainInformation: React.FC = () => {
   const settingOpen = useSelector((state: State) => state.mainSettings.isOpen);
@@ -24,6 +25,7 @@ const MainInformation: React.FC = () => {
   useEffect(() => (lang === 'eng' ? setUsedLang(eng) : setUsedLang(ru)), [lang]);
   return (
     <div>
+      <MainModal />
       <div
         className={
           theme === 'light'

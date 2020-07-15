@@ -21,6 +21,7 @@ import { State } from 'models';
 import Main from 'components/Main';
 import { getProfileFetch, getUserStatistic } from 'constants/athorization-constants';
 import Training from 'components/TrainingCard';
+import { getStartWords, getUsertWords } from 'containers/TrainingCard/actions';
 import Loader from '../Authorization/Loader';
 
 const App: React.FC = () => {
@@ -30,8 +31,10 @@ const App: React.FC = () => {
   const { userId } = localStorage;
   const dispatch = useDispatch();
   useEffect(() => {
-    userId && getUserStatistic();
+    !userId && getStartWords(dispatch);
     userId && getProfileFetch(dispatch);
+    // userId && getUserStatistic();
+    userId && getUsertWords(dispatch);
   }, []);
   if (loading && !regOpen && !logOpen) {
     return (

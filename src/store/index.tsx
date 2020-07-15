@@ -40,6 +40,7 @@ import logFormReducer from 'containers/Authorisation/logFormReducer';
 import studyModesReducer from 'containers/Main/studyModesReducer.';
 import { trainingReducer, trainingStatisticReducer } from 'containers/TrainingCard/reducers';
 import userWordsReducer from 'containers/Training/trainingCardsReducer';
+import MainErrorModalReducer from 'containers/Main/mainErrorModalReducer';
 import appReducer from '../containers/App/reducer';
 import btnsReducer from '../containers/Games/EnglishPuzzle/HeaderBlock/HintButtons/btnsReducer';
 import wordsReducer from '../containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/wordsReducer';
@@ -100,6 +101,7 @@ const rootReducer = combineReducers({
   loading: loaderReducer,
   training: trainingReducer,
   trainingStatistic: trainingStatisticReducer,
+  mainErrorModal: MainErrorModalReducer,
 });
 
 const store = createStore(rootReducer, compose(applyMiddleware(thunk)));

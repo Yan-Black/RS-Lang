@@ -5,6 +5,7 @@ import { State } from 'models';
 import { difficultToLearning } from 'containers/Dictionary/actions';
 import { ru, eng } from 'constants/dictionary-constants';
 import { FetchedWordData } from 'containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/models';
+import { updateUserWord } from 'constants/athorization-constants';
 import DictionaryItem from '../DictionaryItem';
 
 function Difficult(): JSX.Element {
@@ -13,14 +14,17 @@ function Difficult(): JSX.Element {
   const dispatch = useDispatch();
   const usedWords: FetchedWordData[] = useSelector(
     (state: State) => state.appUserWords.userWords
-      .filter((word: FetchedWordData) => word.difficult),
+      .filter((word: FetchedWordData) => word.userWord
+      && word.userWord.optional.dif
+      && !word.userWord.optional.del),
   );
 
   const btnClickHandler = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const clickedId = event.currentTarget.id;
     const clickedWord = usedWords.filter((wordItem) => String(wordItem.id) === clickedId);
-    delete clickedWord[0].difficult;
+    delete clickedWord[0].userWord.optional.dif;
     dispatch(difficultToLearning(clickedWord));
+    updateUserWord(clickedWord[0], dispatch);
   };
 
   return (

@@ -18,7 +18,7 @@ const Easy: React.FC = () => {
       const clone = Array.from(usedWords);
       const currentWord = clone[index];
       const handledWord = { ...currentWord };
-      handledWord.nextRepeat = new Date(
+      handledWord.userWord.optional.nextRepeat = new Date(
         new Date().getTime() + 1000 * 60 * 60 * 168,
       ).toDateString();
       clone.splice(usedWords.indexOf(data), 1, handledWord);

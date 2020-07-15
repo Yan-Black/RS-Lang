@@ -5,9 +5,11 @@ import { ru, eng } from 'constants/dictionary-constants';
 import { State } from 'models';
 import { useSelector } from 'react-redux';
 import { FetchedWordData } from 'containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/models';
+import Spinner from 'react-bootstrap/Spinner';
 
 function DictionaryItem({ item }: {item: FetchedWordData}): JSX.Element {
   const lang = useSelector((state: State) => state.mainLang.lang);
+  const loading = useSelector((state: State) => state.engPuzzleLoading.isLoading);
   const usedLang = lang === 'eng' ? eng : ru;
   const settingsState = useSelector((state: State) => state.mainSetEnabled.hintsState);
   const url = `https://raw.githubusercontent.com/lactivka/rslang-data/master/${item.audio}`;
@@ -26,13 +28,21 @@ function DictionaryItem({ item }: {item: FetchedWordData}): JSX.Element {
 
   return (
     <div className="dictionary-item container shadow d-flex flex-wrap justify-content-between align-items-center my-1 py-1">
-      <button
-        className="btn btn-speaker btn-outline-primary shadow rounded-circle p-1 m-1"
-        type="button"
-        onClick={speakerIconClickHandler}
-      >
-        <div className="speaker-icon" />
-      </button>
+      {loading
+        ? (
+          <Spinner animation="border" role="status" className="dict-spinner">
+            <span className="sr-only">Loading...</span>
+          </Spinner>
+        )
+        : (
+          <button
+            className="btn btn-speaker btn-outline-primary shadow rounded-circle p-1 m-1"
+            type="button"
+            onClick={speakerIconClickHandler}
+          >
+            <div className="speaker-icon" />
+          </button>
+        )}
       <div className="word-translate-transcription-block d-flex flex-column justify-content-around align-items-center m-1">
         <span className="text-primary">{item.word}</span>
         <span className="text-center">{item.wordTranslate}</span>
@@ -55,26 +65,23 @@ function DictionaryItem({ item }: {item: FetchedWordData}): JSX.Element {
         <span className="px-1">
           {usedLang.wordProgress}
           {' '}
-          {item.success}
+          {item.userWord.optional.success}
         </span>
         <span className="px-1">
           {usedLang.repeats}
           {' '}
-          {item.repeatTimes}
+          {item.userWord.optional.repeatTimes}
         </span>
         <span className="px-1">
           {usedLang.lastRepeat}
           {' '}
-          {item.lastTimeRepeat}
+          {item.userWord.optional.lastTimeRepeat}
           {' '}
-          {usedLang.before}
         </span>
         <span className="px-1">
           {usedLang.nextRepeat}
           {' '}
-          {usedLang.in}
-          {' '}
-          {item.nextRepeat}
+          {item.userWord.optional.nextRepeat}
         </span>
       </div>
     </div>

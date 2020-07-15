@@ -33,7 +33,7 @@ function TrainingStatistic(): JSX.Element {
 
   const usedWords: FetchedWordData[] = useSelector(
     (state: State) => state.appUserWords.userWords
-      .filter((word: FetchedWordData) => word.repeatTimes === 0),
+      .filter((word: FetchedWordData) => word.userWord && word.userWord.optional.repeatTimes === 0),
   );
 
   const cardsCount = +successWords.length + +failedWords.length;

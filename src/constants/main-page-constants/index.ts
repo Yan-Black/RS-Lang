@@ -69,8 +69,11 @@ export const eng = {
       imgSrc: 'src/assets/main-page-images/sprint.png',
     },
   },
-  alert: {
-    dailyRate: 'Daily cards reached',
+  errorMessage: {
+    dailyRateTitle: 'Daily cards reached',
+    dailyRateContent: 'You can increase the limit on cards per day, but we do not recommend practicing too much',
+    noWordsTitle: 'No words available',
+    noWordsContent: 'There are no words in your dictionary for the selected category available for training',
   },
 };
 
@@ -138,8 +141,11 @@ export const ru = {
       imgSrc: 'src/assets/main-page-images/sprint.png',
     },
   },
-  alert: {
-    dailyRate: 'Дневная норма карточек достигнута',
+  errorMessage: {
+    dailyRateTitle: 'Дневная норма карточек достигнута',
+    dailyRateContent: 'Вы можете увеличить лимит карточек на день, но мы не рекомендуем заниматься слишком много',
+    noWordsTitle: 'Нет доступных слов',
+    noWordsContent: 'В вашем словаре нет слов выбранной категории доступных для тренировки',
   },
 };
 

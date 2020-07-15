@@ -145,8 +145,13 @@ $font: #fff;
   .header {
     width: 8%;
   }
-  .header-nav li {
+  .header-nav li,
+  .aside-menu-tooltip
+  {
     font-size: 1.5em;
+  }
+  .aside-menu-tooltip {
+    height: 3vw;
   }
   .header-nav li span {
     font-size: 0.8em;
@@ -160,8 +165,13 @@ $font: #fff;
   .header {
     width: 10%;
   }
-  .header-nav li {
+  .header-nav li,
+  .aside-menu-tooltip
+  {
     font-size: 2em;
+  }
+  .aside-menu-tooltip {
+    height: 3.3vw;
   }
   .header-nav li span {
     font-size: 0.5em;
@@ -178,8 +188,13 @@ $font: #fff;
   .header {
     width: 15%;
   }
-  .header-nav li {
+  .header-nav li,
+  .aside-menu-tooltip
+  {
     font-size: 2em;
+  }
+  .aside-menu-tooltip {
+    height: 6.3vw;
   }
   .header-nav li span {
     font-size: 0.5em;
@@ -196,8 +211,13 @@ $font: #fff;
   .header {
     width: 18%;
   }
-  .header-nav li {
+  .header-nav li,
+  .aside-menu-tooltip
+  {
     font-size: 2em;
+  }
+  .aside-menu-tooltip {
+    height: 8.3vw;
   }
   .header-nav li span {
     font-size: 0.5em;
@@ -214,8 +234,13 @@ $font: #fff;
   .header {
     width: 20%;
   }
-  .header-nav li {
+  .header-nav li,
+  .aside-menu-tooltip
+  {
     font-size: 2em;
+  }
+  .aside-menu-tooltip {
+    height: 8.3vw;
   }
   .header-nav li span {
     font-size: 0.5em;
