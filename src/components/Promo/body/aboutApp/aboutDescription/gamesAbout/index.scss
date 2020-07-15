@@ -1,8 +1,10 @@
 .game-tab{
-display: flex;
+  display: flex;
   flex-flow: column;
   align-items: center;
   justify-content: center;
+  text-align: center;
+  font-size: 1.2em;
 }
 
 .game-tab-button{
