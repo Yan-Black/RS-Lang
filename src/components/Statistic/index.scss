@@ -1,0 +1,11 @@
+.statistic-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .statistic-graf {
+    width: 500px;
+    height: 300px;
+  }
+}
