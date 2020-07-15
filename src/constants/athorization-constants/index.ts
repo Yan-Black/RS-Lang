@@ -74,6 +74,7 @@ export const loginUser = (
       dispatch(setUserName(res.name));
       localStorage.setItem('userName', res.name);
       localStorage.setItem('token', res.token);
+      localStorage.setItem('refToken', res.refreshToken);
       localStorage.setItem('userId', res.userId);
     })
     .catch((e) => {
@@ -96,7 +97,7 @@ export const getProfileFetch = (
   dispatch: React.Dispatch<ActionAuth>,
 // eslint-disable-next-line consistent-return
 ): Promise<void> => {
-  const { token, userId } = localStorage;
+  const { refToken, token, userId } = localStorage;
   if (token) {
     dispatch(showLoader());
     return fetch(userUrl(userId), {
@@ -104,14 +105,33 @@ export const getProfileFetch = (
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}1`,
       },
     })
-      .then((res) => {
+      .then(async (res) => {
         if (res.ok) {
           dispatch(setLogged());
           dispatch(hideLoader());
           return res.json();
+        } if (res.status === 401) {
+          dispatch(showLoader());
+          const resp = await fetch('https://afternoon-falls-25894.herokuapp.com/users/5f05c72b59be47001749a688/tokens', {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              Accept: 'application/json',
+              Authorization: `Bearer ${refToken}`,
+            },
+          });
+          const tokens = await resp.json();
+          dispatch(hideLoader());
+          dispatch(removeApiError());
+          dispatch(setLogged());
+          dispatch(setUserName(tokens.name));
+          localStorage.setItem('userName', tokens.name);
+          localStorage.setItem('token', tokens.token);
+          localStorage.setItem('refToken', tokens.refreshToken);
+          localStorage.setItem('userId', tokens.userId);
         }
         return Promise.reject(res);
       })

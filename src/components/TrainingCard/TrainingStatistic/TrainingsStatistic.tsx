@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { resetTrainingStatistic, toggleTrainingStatistic, resetTraining } from 'containers/TrainingCard/actions';
 import { eng, ru } from 'constants/training-constants';
 import { Link } from 'react-router-dom';
+import { FetchedWordData } from 'containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/models';
 
 function TrainingStatistic(): JSX.Element {
   const lang = useSelector((state: State) => state.mainLang.lang);
@@ -29,6 +30,11 @@ function TrainingStatistic(): JSX.Element {
   const successRow = useSelector((
     state: State,
   ) => state.trainingStatistic.correctAnswersInRow);
+
+  const usedWords: FetchedWordData[] = useSelector(
+    (state: State) => state.appUserWords.userWords
+      .filter((word: FetchedWordData) => word.repeatTimes === 0),
+  );
 
   const cardsCount = +successWords.length + +failedWords.length;
   const correctPercent = Math.ceil((successWords.length * 100) / cardsCount);
@@ -61,7 +67,7 @@ function TrainingStatistic(): JSX.Element {
           </div>
           <div className="d-flex justify-content-between border-bottom my-2">
             <span className="text-warning">{usedLang.statistic.newWords}</span>
-            <span className="font-weight-bold">25</span>
+            <span className="font-weight-bold">{usedWords.length}</span>
           </div>
           <div className="d-flex justify-content-between border-bottom my-2">
             <span className="text-info">{usedLang.statistic.longestCorrectSeries}</span>

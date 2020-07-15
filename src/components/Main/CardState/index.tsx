@@ -22,6 +22,7 @@ const CardGame: React.FC = () => {
   const amount = useSelector((state: State) => state.mainCardsWords.amount);
   const totalIndex = useSelector((state: State) => state.training.totalProgress);
   const totalCardsToTrain = amount.cards;
+  const progress = (totalIndex / amount.cards) * 100;
   const clickHandler = () => dispatch(handleSettings(true));
   const logged = useSelector((state: State) => state.authLog.isLogged);
   const lang = useSelector((state: State) => state.mainLang.lang);
@@ -95,14 +96,18 @@ const CardGame: React.FC = () => {
             <div className="card-game-progress-info">
               <p>{usedLang.cardSettings.yourProgress}</p>
               <span>
-                4/
-                {amount.words}
+                {totalIndex}
+                /
+                {amount.cards}
               </span>
             </div>
-            <ProgressBar variant="success" now={20} />
+            <ProgressBar variant="success" now={progress} />
           </div>
           <div className="cards-game-buttons">
-            <Link to={totalIndex >= totalCardsToTrain ? '/' : '/Training'}>
+            <Link
+              to={totalIndex >= totalCardsToTrain ? '/' : '/Training'}
+              className="study-option-start-btn"
+            >
               <button
                 type="button"
                 className="cards-game-play-button"

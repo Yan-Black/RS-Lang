@@ -3,6 +3,7 @@ $font: #fff;
 $sub-set-back: rgba(255, 255, 255, 0.2);
 $set-btn-hov: rgb(124, 166, 222);
 $card-font-hover: #f0e3b8;
+$font-category: #f0db98;
 
 .settings-main-wrapper {
   display: flex;
@@ -106,6 +107,11 @@ $card-font-hover: #f0e3b8;
   }
 }
 
+.settings-option-category {
+  font-weight: bold;
+  color: $font-category;
+}
+
 .settings-btn {
   background-color: $sub-set-back;
   border-radius: 5px 0 0 5px;
@@ -139,6 +145,10 @@ $card-font-hover: #f0e3b8;
 .settings-error {
   width: 75%;
   text-align: center;
+}
+
+.cards-game-link {
+  width: 30%;
 }
 
 @media (max-width: 1024px) {

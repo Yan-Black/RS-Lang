@@ -298,32 +298,64 @@ export const pagesRu = [
 ];
 
 export const checkBoxesRu = [
-  { name: 'Перевод слова', id: 'translate' },
-  { name: 'Предложение объясняющее значение слова', id: 'wordMeaning' },
-  { name: 'Предложение - пример использования слова', id: 'example' },
-  { name: 'Показывать транскрипцию', id: 'showTranscription' },
-  { name: 'Показывать картинку', id: 'showImage' },
-  { name: 'Автопроизношение слова', id: 'autoPronounce' },
-  { name: 'Показывать перевод текста', id: 'showTextTranslate' },
-  { name: 'Кнопка "показать ответ"', id: 'showAnswerBtn' },
-  { name: 'Кнопка "удалить слово"', id: 'deleteWordBtn' },
-  { name: 'Кнопка "сложное слово"', id: 'difficultWordBtn' },
-  { name: 'Кнопки интервального повторения', id: 'repeatBtn' },
+  {
+    name: 'Обязательные:',
+    data: [
+      { name: 'Перевод слова', id: 'translate' },
+      { name: 'Предложение объясняющее значение слова', id: 'wordMeaning' },
+      { name: 'Предложение - пример использования слова', id: 'example' },
+    ],
+  },
+  {
+    name: 'Карточка:',
+    data: [
+      { name: 'Показывать транскрипцию', id: 'showTranscription' },
+      { name: 'Показывать картинку', id: 'showImage' },
+      { name: 'Автопроизношение слова', id: 'autoPronounce' },
+      { name: 'Показывать перевод текста', id: 'showTextTranslate' },
+      { name: 'Кнопка "показать ответ"', id: 'showAnswerBtn' },
+      { name: 'Кнопка "удалить слово"', id: 'deleteWordBtn' },
+      { name: 'Кнопка "сложное слово"', id: 'difficultWordBtn' },
+      { name: 'Кнопки интервального повторения', id: 'repeatBtn' },
+    ],
+  },
 ];
 
 export const checkBoxesEng = [
-  { name: 'Word translate', id: 'translate' },
-  { name: 'Sentence with word meaning explanation', id: 'wordMeaning' },
-  { name: 'Sentence with examlple of word usage', id: 'example' },
-  { name: 'Show transcription', id: 'showTranscription' },
-  { name: 'Show image', id: 'showImage' },
-  { name: 'Autoplay pronunciation', id: 'autoPronounce' },
-  { name: 'Show text translate', id: 'showTextTranslate' },
-  { name: 'Show answer button', id: 'showAnswerBtn' },
-  { name: 'Delete word button', id: 'deleteWordBtn' },
-  { name: 'Difficult word button', id: 'difficultWordBtn' },
-  { name: 'Show repeat buttons', id: 'repeatBtn' },
+  {
+    name: 'Required:',
+    data: [
+      { name: 'Word translate', id: 'translate' },
+      { name: 'Sentence with word meaning explanation', id: 'wordMeaning' },
+      { name: 'Sentence with examlple of word usage', id: 'example' },
+    ],
+  },
+  {
+    name: 'Card:',
+    data: [
+      { name: 'Show transcription', id: 'showTranscription' },
+      { name: 'Show image', id: 'showImage' },
+      { name: 'Autoplay pronunciation', id: 'autoPronounce' },
+      { name: 'Show text translate', id: 'showTextTranslate' },
+      { name: 'Show answer button', id: 'showAnswerBtn' },
+      { name: 'Delete word button', id: 'deleteWordBtn' },
+      { name: 'Difficult word button', id: 'difficultWordBtn' },
+      { name: 'Show repeat buttons', id: 'repeatBtn' },
+    ],
+  },
 ];
+
+export const engSetiingsErrors = {
+  mandatoryHint: 'Choose required hint',
+  amountCards: 'Amount of cards must be less than 50',
+  amountWords: 'Amount of words must be less than 50',
+};
+
+export const ruSetiingsErrors = {
+  mandatoryHint: 'Выберите обязательную подсказку',
+  amountCards: 'Количество слов не должно превышать 50',
+  amountWords: 'Количество карточек не должно превышать 50',
+};
 
 export const cardsNames = ['audioCall', 'englishPuzzle', 'ourGame', 'savannah', 'speakIt', 'sprint'];
 
@@ -335,7 +367,7 @@ export const studyModesRu = [
 ];
 
 export const studyModesEng = [
-  { name: 'Lear all words', id: 'trainAllWords' },
+  { name: 'Learn all words', id: 'trainAllWords' },
   { name: 'Learn only new words', id: 'onlyNew' },
   { name: 'Repeat known words', id: 'onlyRepeat' },
   { name: 'Learn difficult words', id: 'onlyDifficult' },

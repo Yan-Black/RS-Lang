@@ -39,6 +39,7 @@ import regFormReducer from 'containers/Authorisation/regFormReducer';
 import logFormReducer from 'containers/Authorisation/logFormReducer';
 import studyModesReducer from 'containers/Main/studyModesReducer.';
 import { trainingReducer, trainingStatisticReducer } from 'containers/TrainingCard/reducers';
+import userWordsReducer from 'containers/Training/trainingCardsReducer';
 import appReducer from '../containers/App/reducer';
 import btnsReducer from '../containers/Games/EnglishPuzzle/HeaderBlock/HintButtons/btnsReducer';
 import wordsReducer from '../containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/wordsReducer';
@@ -49,6 +50,7 @@ import collectionReducer from '../containers/Games/EnglishPuzzle/GameBlock/GameB
 
 const rootReducer = combineReducers({
   app: appReducer,
+  appUserWords: userWordsReducer,
   authToken: authTokenReducer,
   authErrors: authErrorsReducer,
   authLog: logReducer,

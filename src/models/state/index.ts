@@ -3,6 +3,7 @@ export interface State {
   trainingStatistic;
   training;
   app;
+  appUserWords;
   authToken;
   authErrors;
   authLog;

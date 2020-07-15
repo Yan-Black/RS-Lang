@@ -3,13 +3,15 @@ import { WordObj } from 'containers/Dictionary/models';
 import { useSelector } from 'react-redux';
 import { State } from 'models';
 import { ru, eng } from 'constants/dictionary-constants';
+import { FetchedWordData } from 'containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/models';
 import DictionaryItem from '../DictionaryItem';
 
 function Learning(): JSX.Element {
   const lang = useSelector((state: State) => state.mainLang.lang);
   const usedLang = lang === 'eng' ? eng : ru;
-  const learningWords: Array<WordObj> = useSelector(
-    (state: State) => state.dictionaryState.learningWords,
+  const usedWords: FetchedWordData[] = useSelector(
+    (state: State) => state.appUserWords.userWords
+      .filter((word: FetchedWordData) => word.played && !word.difficult && !word.deleted),
   );
 
   return (
@@ -18,10 +20,10 @@ function Learning(): JSX.Element {
         {usedLang.learningWords}
         {' '}
         (
-        {learningWords.length}
+        {usedWords.length}
         )
       </p>
-      {learningWords.map((element) => <DictionaryItem item={element} key={element.word} />)}
+      {usedWords.map((element) => <DictionaryItem item={element} key={element.word} />)}
     </div>
   );
 }

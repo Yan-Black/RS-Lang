@@ -1,13 +1,12 @@
 /* eslint-disable react/no-danger */
 import * as React from 'react';
 import './index.scss';
-import { WordObj } from 'containers/Dictionary/models';
-import colorSpeaker from 'assets/colored_speaker.svg';
 import { ru, eng } from 'constants/dictionary-constants';
 import { State } from 'models';
 import { useSelector } from 'react-redux';
+import { FetchedWordData } from 'containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/models';
 
-function DictionaryItem({ item }: {item: WordObj}): JSX.Element {
+function DictionaryItem({ item }: {item: FetchedWordData}): JSX.Element {
   const lang = useSelector((state: State) => state.mainLang.lang);
   const usedLang = lang === 'eng' ? eng : ru;
   const settingsState = useSelector((state: State) => state.mainSetEnabled.hintsState);
@@ -56,17 +55,17 @@ function DictionaryItem({ item }: {item: WordObj}): JSX.Element {
         <span className="px-1">
           {usedLang.wordProgress}
           {' '}
-          1 2 3 4 5
+          {item.success}
         </span>
         <span className="px-1">
           {usedLang.repeats}
           {' '}
-          125
+          {item.repeatTimes}
         </span>
         <span className="px-1">
           {usedLang.lastRepeat}
           {' '}
-          2d
+          {item.lastTimeRepeat}
           {' '}
           {usedLang.before}
         </span>
@@ -75,7 +74,7 @@ function DictionaryItem({ item }: {item: WordObj}): JSX.Element {
           {' '}
           {usedLang.in}
           {' '}
-          1m
+          {item.nextRepeat}
         </span>
       </div>
     </div>

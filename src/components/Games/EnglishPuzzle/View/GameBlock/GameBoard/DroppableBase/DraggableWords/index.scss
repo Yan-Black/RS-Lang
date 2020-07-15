@@ -69,3 +69,27 @@
       opacity: 0;
   }
 }
+
+@media (max-width: 1366px) {
+  .eng-puzzle-start-words {
+    height: 4vw;
+  }
+  .eng-puzzle-start-word {
+    font-size: 1.5vw;
+  }
+}
+
+@media (max-width: 1024px) {
+  .eng-puzzle-start-words {
+    height: 4.5vw;
+  }
+  .eng-puzzle-start-word {
+    font-size: 1.5vw;
+  }
+}
+
+@media (max-width: 768px) {
+  .eng-puzzle-start-word {
+    font-size: 2vw;
+  }
+}

@@ -30,7 +30,8 @@ const Settings: React.FC = () => {
   localStorage.setItem('font-size', String(fontSize));
   const theme = useSelector((state: State) => state.mainTheme.theme);
   const dispatch = useDispatch();
-  const lang = useSelector((state: State) => state.mainLang.lang);
+  const lang: string = useSelector((state: State) => state.mainLang.lang);
+  const logged: boolean = useSelector((state: State) => state.authLog.isLogged);
   const studyMode = useSelector((state: State) => state.mainStudyMode.studyModes);
   const [usedLang, setUsedLang] = lang === 'eng' ? useState(eng) : useState(ru);
   const [usedModes, setModes] = lang === 'eng' ? useState(studyModesEng) : useState(studyModesRu);
@@ -170,23 +171,28 @@ const Settings: React.FC = () => {
             </button>
           </div>
         </div>
+        {logged && (
         <div className="settings-block-modes">
           <ul className="settings-study-modes">
             {usedModes.map((modes) => (
               <li key={modes.name} className="study-option">
                 <span>{modes.name}</span>
-                <input
-                  type="radio"
-                  className="mode-check"
-                  value={modes.id}
-                  id={modes.id}
-                  checked={selected === modes.id}
-                  onChange={modeHandler}
-                />
+                <label className="study-option-container">
+                  <input
+                    type="radio"
+                    className="mode-check"
+                    value={modes.id}
+                    id={modes.id}
+                    checked={selected === modes.id}
+                    onChange={modeHandler}
+                  />
+                  <span className="study-option-checkmark" />
+                </label>
               </li>
             ))}
           </ul>
         </div>
+        )}
       </div>
     </div>
   );

@@ -1,23 +1,25 @@
 import * as React from 'react';
 import './index.scss';
-import { WordObj } from 'containers/Dictionary/models';
 import { useSelector, useDispatch } from 'react-redux';
 import { State } from 'models';
 import { difficultToLearning } from 'containers/Dictionary/actions';
 import { ru, eng } from 'constants/dictionary-constants';
+import { FetchedWordData } from 'containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/models';
 import DictionaryItem from '../DictionaryItem';
 
 function Difficult(): JSX.Element {
   const lang = useSelector((state: State) => state.mainLang.lang);
   const usedLang = lang === 'eng' ? eng : ru;
   const dispatch = useDispatch();
-  const difficultWords: Array<WordObj> = useSelector(
-    (state: State) => state.dictionaryState.difficultWords,
+  const usedWords: FetchedWordData[] = useSelector(
+    (state: State) => state.appUserWords.userWords
+      .filter((word: FetchedWordData) => word.difficult),
   );
 
   const btnClickHandler = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const clickedId = event.currentTarget.id;
-    const clickedWord = difficultWords.filter((wordItem) => wordItem.id === clickedId);
+    const clickedWord = usedWords.filter((wordItem) => String(wordItem.id) === clickedId);
+    delete clickedWord[0].difficult;
     dispatch(difficultToLearning(clickedWord));
   };
 
@@ -27,10 +29,10 @@ function Difficult(): JSX.Element {
         {usedLang.difficultWords}
         {' '}
         (
-        {difficultWords.length}
+        {usedWords.length}
         )
       </p>
-      {difficultWords.map((element) => (
+      {usedWords.map((element) => (
         <div className="d-flex align-items-center" key={element.id}>
           <DictionaryItem item={element} key={element.word} />
           <button
@@ -39,7 +41,7 @@ function Difficult(): JSX.Element {
             data-toggle="tooltip"
             data-placement="left"
             title={usedLang.returnToLearning}
-            id={element.id}
+            id={String(element.id)}
             onClick={btnClickHandler}
           >
             <div className="back-to-learning-icon" />

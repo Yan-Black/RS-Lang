@@ -5,7 +5,7 @@ const devData = {
       overview: {
         imagePath: 'src/assets/promo/Promo-game-pic1.jpg',
         text: '1',
-        linkToGame: '/Games',
+        linkToGame: '/',
       },
       audioCall: {
         imagePath: 'src/assets/promo/Promo-game-pic2.jpg',

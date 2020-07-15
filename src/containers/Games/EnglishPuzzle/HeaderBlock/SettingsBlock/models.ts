@@ -11,6 +11,15 @@ export interface FetchedWordData {
   textMeaningTranslate: string;
   textExampleTranslate: string;
   id: number;
+  played?: boolean;
+  time?: string;
+  date?: string;
+  lastTimeRepeat?: string;
+  repeatTimes?: number;
+  nextRepeat?: string;
+  difficult?: boolean;
+  deleted?: boolean;
+  success?: number;
 }
 
 export interface ActionWords {

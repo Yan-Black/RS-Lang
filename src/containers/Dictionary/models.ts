@@ -1,4 +1,5 @@
 import * as Models from 'models';
+import { FetchedWordData } from 'containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/models';
 
 export namespace Payload {
   export interface SetDocumentTypes { }
@@ -15,17 +16,17 @@ export namespace Action {
 
 export namespace ActionCreator {
   export type DifficultToLearning = (
-    payload: Array<WordObj>) => Action.DifficultToLearning;
+    payload: FetchedWordData[]) => Action.DifficultToLearning;
   export type DifficultToDeleted = (
-    payload: Array<WordObj>) => Action.DifficultToDeleted;
+    payload: FetchedWordData[]) => Action.DifficultToDeleted;
   export type DeletedToLearning = (
-    payload: Array<WordObj>) => Action.DeletedToLearning;
+    payload: FetchedWordData[]) => Action.DeletedToLearning;
   export type AddToLearning = (
-    payload: Array<WordObj>) => Action.AddToLearning;
+    payload: FetchedWordData[]) => Action.AddToLearning;
   export type AddToDifficult = (
-    payload: Array<WordObj>) => Action.AddToDifficult;
+    payload: FetchedWordData[]) => Action.AddToDifficult;
   export type AddToDeleted = (
-    payload: Array<WordObj>) => Action.AddToDeleted;
+    payload: FetchedWordData[]) => Action.AddToDeleted;
 }
 
 export interface WordObj {
