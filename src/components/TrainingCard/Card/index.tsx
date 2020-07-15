@@ -27,7 +27,6 @@ const Card: React.FC = () => {
   const dispatch = useDispatch();
   const index = useSelector((state: State) => state.training.currIndex);
   const clonedWords: FetchedWordData[] = useSelector((state: State) => state.appUserWords.userWords);
-
   const usedWords = clonedWords.filter(
     (word) => word.userWord && !word.userWord.optional.del,
   );
@@ -44,7 +43,6 @@ const Card: React.FC = () => {
   const [isSuccess, setIsSuccess] = useState(true);
   const [successRow, setSuccessRow] = useState(0);
   const inputRef: React.LegacyRef<HTMLInputElement> = useRef(null);
-
   const totalIndex = useSelector((state: State) => state.training.totalProgress);
   const isAnswerChecked = useSelector((state: State) => state.training.isChecked);
   const isAnswerCorrect = useSelector((state: State) => state.training.isCorrect);
@@ -69,7 +67,7 @@ const Card: React.FC = () => {
       inputRef.current.focus();
     } else {
       inputRef.current.blur();
-      if (isAnswerCorrect && playAudioSetting) {
+      if (isAnswerCorrect && playAudioSetting && !delActive && !difActive) {
         const handleAudio = async () => {
           try {
             wordAudio.onclick = () => wordAudio.pause();
@@ -106,13 +104,20 @@ const Card: React.FC = () => {
   const imgURL = getUrl();
   const nextCardBTNClass = canMoveToNext ? 'next-card-btn btn btn-success shadow my-2' : 'btn invisible my-2';
   const helpBTNClass = showHelpBTN ? 'btn btn-info shadow my-1' : 'd-none';
-  const deleteBTNClass = showDeleteBTN ? 'btn btn-info shadow my-1' : 'd-none';
-  const difficultBTNClass = showDifficultBTN ? 'btn btn-info shadow my-1' : 'd-none';
+  const deleteBTNClass = (showDeleteBTN && canMoveToNext) ? 'btn btn-info shadow my-1' : 'd-none';
+  const difficultBTNClass = (showDifficultBTN && canMoveToNext) ? 'btn btn-info shadow my-1' : 'd-none';
 
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!canMoveToNext) {
       setInputData(event.target.value);
     }
+  };
+
+  const audioHandler = () => {
+    const event = new Event('click');
+    wordAudio.dispatchEvent(event);
+    meaningAudio.dispatchEvent(event);
+    exampleAudio.dispatchEvent(event);
   };
 
   const [delMes, showDelMes] = useState(false);
@@ -165,20 +170,23 @@ const Card: React.FC = () => {
   };
 
   const deleteWord = () => {
+    audioHandler();
     setDelActive(true);
     setMes('deleted');
     showDelMes(true);
   };
 
   const setAsDifficult = () => {
+    audioHandler();
     setDifActive(true);
     setMes('added to difficult');
     showDelMes(true);
   };
 
   const nextCardBTNHandler = () => {
+    audioHandler();
     showDelMes(false);
-    const event = new Event('click');
+
     const clone = Array.from(usedWords);
     const currentWord = clone[index];
     const handledWord = { ...currentWord };
@@ -239,9 +247,7 @@ const Card: React.FC = () => {
     } else {
       dispatch(addToFailedTraining(data));
     }
-    wordAudio.dispatchEvent(event);
-    meaningAudio.dispatchEvent(event);
-    exampleAudio.dispatchEvent(event);
+
     setIsSuccess(true);
     index < usedWords.length - 1
     && dispatch(progressTraining());

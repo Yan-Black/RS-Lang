@@ -30,11 +30,10 @@ function TrainingCardFields(): JSX.Element {
   const meaningTranslateClass = ((showWordMeaning && showAllTranslates) && (isAnswerCorrect || index >= cardsToTrain)) ? 'translate' : 'invisible';
   const wordClass = isAnswerCorrect || index >= cardsToTrain ? 'training-card-word text-primary' : 'training-card-word invisible';
 
-  // to do fix the next function: change filter to find word
-  function getInnerText(text: string, word: string) {
+  function getInnerText(text: string) {
     const textField = [];
     text.split(' ').map((el) => {
-      if (el.toLowerCase() === word.toLowerCase()) textField.push('[......]');
+      if (el.match(/<[a-z][a-z0-9]*>/gi)) textField.push('[......]');
       else textField.push(el);
       return el;
     });
@@ -43,10 +42,10 @@ function TrainingCardFields(): JSX.Element {
 
   const textExample = (
     showWordExample && !isAnswerCorrect && index < cardsToTrain)
-    ? getInnerText(data.textExample, data.word) : data.textExample;
+    ? getInnerText(data.textExample) : data.textExample;
   const textMeaning = (
     showWordMeaning && !isAnswerCorrect && index < cardsToTrain)
-    ? getInnerText(data.textMeaning, data.word) : data.textMeaning;
+    ? getInnerText(data.textMeaning) : data.textMeaning;
 
   return (
     <>
@@ -59,15 +58,11 @@ function TrainingCardFields(): JSX.Element {
       <span className={transcriptionClass}>
         {data.transcription}
       </span>
-      <span className={meaningClass}>
-        {textMeaning}
-      </span>
+      <span className={meaningClass} dangerouslySetInnerHTML={{ __html: `${textMeaning}` }} />
       <span className={meaningTranslateClass}>
         {data.textMeaningTranslate}
       </span>
-      <span className={exampleClass}>
-        {textExample}
-      </span>
+      <span className={exampleClass} dangerouslySetInnerHTML={{ __html: `${textExample}` }} />
       <span className={exampleTranslateClass}>
         {data.textExampleTranslate}
       </span>
