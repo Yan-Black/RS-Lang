@@ -179,7 +179,7 @@ const Card: React.FC = () => {
   const nextCardBTNHandler = () => {
     showDelMes(false);
     const event = new Event('click');
-    const clone = Array.from(usedWords);
+    const clone = Array.from(clonedWords);
     const currentWord = clone[index];
     const handledWord = { ...currentWord };
     if (handledWord.userWord) {

@@ -53,3 +53,7 @@ export const openLogForm = () => ({
 export const closeLogForm = () => ({
   type: ActionType.CLOSE_LOG_FORM,
 });
+
+export const updateVisits = () => ({
+  type: ActionType.UPDATE_VISITS,
+});
