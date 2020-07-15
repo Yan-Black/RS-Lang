@@ -21,13 +21,14 @@ import { State } from 'models';
 import Main from 'components/Main';
 import { getProfileFetch, getUserStatistic } from 'constants/athorization-constants';
 import Training from 'components/TrainingCard';
-import { getStartWords, getUsertWords } from 'containers/TrainingCard/actions';
+import { getStartWords, getUsertWords, addNewUserWords } from 'containers/TrainingCard/actions';
 import Loader from '../Authorization/Loader';
 
 const App: React.FC = () => {
   const loading = useSelector((state: State) => state.engPuzzleLoading.isLoading);
   const regOpen = useSelector((state: State) => state.mainReg.regOpen);
   const logOpen = useSelector((state: State) => state.mainLog.logOpen);
+  const visit = useSelector((state: State) => state.appVisit.visits);
   const { userId } = localStorage;
   const dispatch = useDispatch();
   useEffect(() => {
@@ -35,6 +36,8 @@ const App: React.FC = () => {
     userId && getProfileFetch(dispatch);
     userId && getUserStatistic();
     userId && getUsertWords(dispatch);
+    userId && addNewUserWords(dispatch, 1, visit);
+    localStorage.setItem('visit', visit);
   }, []);
   if (loading && !regOpen && !logOpen) {
     return (

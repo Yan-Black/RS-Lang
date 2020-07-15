@@ -186,7 +186,7 @@ const Card: React.FC = () => {
   const nextCardBTNHandler = () => {
     audioHandler();
     showDelMes(false);
-
+    
     const clone = Array.from(usedWords);
     const currentWord = clone[index];
     const handledWord = { ...currentWord };

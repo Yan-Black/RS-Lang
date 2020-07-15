@@ -7,6 +7,7 @@ export interface State {
   app;
   appUserWords: IntialStateUserWords;
   authToken;
+  appVisit;
   authErrors;
   authLog;
   authName;

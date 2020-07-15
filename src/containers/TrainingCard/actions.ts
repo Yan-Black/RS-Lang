@@ -21,11 +21,10 @@ export const getUsertWords = async (dispatch: Dispatch<ActionUserWords | Action>
     });
     const words = await resp.json();
     dispatch(hideLoader());
-    console.log(words);
     dispatch({ type: ActionType.UPDATE_USER_WORDS, payload: words[0].paginatedResults });
   } catch (err) {
     dispatch(hideLoader());
-    window.console.log(err);
+    alert(err);
   }
 };
 
@@ -40,7 +39,7 @@ export const getStartWords = async (
     dispatch({ type: ActionType.UPDATE_USER_WORDS, payload: words });
   } catch (err) {
     dispatch(hideLoader());
-    window.console.log(err);
+    alert(err);
   }
 };
 
@@ -57,7 +56,7 @@ export const addNewUserWords = async (
     dispatch({ type: ActionType.ADD_NEW_WORDS, payload: words });
   } catch (err) {
     dispatch(hideLoader());
-    window.console.log(err);
+    alert(err);
   }
 };
 
