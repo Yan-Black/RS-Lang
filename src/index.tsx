@@ -4,10 +4,11 @@ import * as ReactDOM from 'react-dom';
 
 import App from 'components/App';
 import store from 'store';
+import SavannahIndex from './containers/Games/Savannah';
 
 const Index: React.FC = () => (
   <Provider store={store}>
-    <App />
+    <SavannahIndex />
   </Provider>
 );
 
