@@ -1,6 +1,6 @@
 import { User } from 'components/Authorization/models';
 import {
-  addApiError, removeApiError, setLogged, setUserName,
+  addApiError, removeApiError, setLogged, setUserName, updateVisits,
 } from 'containers/Authorisation/actions';
 import { ActionAuth } from 'containers/Authorisation/models';
 import { showLoader, hideLoader } from 'containers/Games/EnglishPuzzle/GameBlock/GameBoard/Loader/actions';
@@ -95,6 +95,26 @@ export const updateUserWord = (word: FetchedWordData, dispatch: Dispatch<Action>
     .catch();
 };
 
+export const updateUserSettings = (amount, settings) => {
+  const { token, userId } = localStorage;
+  // eslint-disable-next-line no-underscore-dangle
+  fetch(`https://afternoon-falls-25894.herokuapp.com/users/${userId}/settings`, {
+    method: 'PUT',
+    headers: {
+      'Access-Control-Allow-Credentials': 'true',
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      wordsPerDay: amount,
+      optional: settings,
+    }),
+  })
+    .then((res) => (res.ok ? res.json() : Promise.reject(res)))
+    .catch();
+};
+
 export const loginUser = (
   user: User,
   dispatch: React.Dispatch<ActionAuth>,
@@ -114,6 +134,7 @@ export const loginUser = (
       dispatch(removeApiError());
       dispatch(setLogged());
       dispatch(setUserName(res.name));
+      dispatch(updateVisits());
       localStorage.setItem('userName', res.name);
       localStorage.setItem('token', res.token);
       localStorage.setItem('refToken', res.refreshToken);
@@ -195,7 +216,7 @@ export const createUserStatistic = (statistic: any) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(statistic),
-  });
+  }).catch((e) => alert(e));
 };
 
 export const getUserStatistic = () => {
@@ -209,5 +230,6 @@ export const getUserStatistic = () => {
     },
   })
     .then((res) => res.json())
-    .then((res) => localStorage.setItem('userStatistic', JSON.stringify(res)));
+    .then((res) => localStorage.setItem('userStatistic', JSON.stringify(res)))
+    .catch((e) => alert(e));
 };

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { State } from 'models';
-import { progressTraining, updateUserWords, toggleMoveToNext } from 'containers/TrainingCard/actions';
+import { updateUserWords } from 'containers/TrainingCard/actions';
 import { ru, eng } from 'constants/training-constants';
 import { FetchedWordData } from 'containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/models';
 
@@ -28,8 +28,7 @@ const Easy: React.FC = () => {
 
   return (
     <div className="d-flex flex-column">
-      {/* to do add not static period to next repeating */}
-      <span className="text-center">1.5 m  </span>
+      <span className="text-center">1.5 m</span>
       <button
         className="btn btn-success"
         type="button"

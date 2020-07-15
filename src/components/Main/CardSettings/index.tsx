@@ -11,6 +11,7 @@ import {
 } from 'constants/main-page-constants';
 import { State } from 'models';
 import Spinner from 'react-bootstrap/Spinner';
+import { updateUserSettings } from 'constants/athorization-constants';
 
 const CardSettings: React.FC = () => {
   const dispatch = useDispatch();
@@ -70,17 +71,13 @@ const CardSettings: React.FC = () => {
         JSON.stringify({ words: cardsWordsAmount[0], cards: cardsWordsAmount[1] }),
       );
       if (cardsWordsAmount[0] > userWords.length) {
-        let pages: number[];
         const group = 0;
-        if (cardsWordsAmount[0] > userWords.length * 2) {
-          pages = [userWords.length, 2];
-        } else {
-          pages = [1];
-        }
+        const pages: number[] = [1, 2, 3];
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         pages.forEach((page) => addNewUserWords(dispatch, group, page));
       }
       dispatch(handleSettings(false));
+      updateUserSettings(cardsWordsAmount[0], newSettingsState);
     }
   };
 
