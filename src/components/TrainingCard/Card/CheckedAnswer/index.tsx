@@ -39,8 +39,9 @@ function CheckedAnswer(): JSX.Element {
   const clickHandler = () => {
     if (!canMoveToNext) {
       dispatch(toggleAnswerChecked());
-      setCheckedAnswerClass('checked-answer');
+      // setCheckedAnswerClass('checked-answer');
     }
+    setCheckedAnswerClass('checked-answer');
   };
 
   const keyPressHandler = (event: React.KeyboardEvent<HTMLDivElement>) => event.preventDefault();
