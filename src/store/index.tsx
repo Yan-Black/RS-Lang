@@ -24,6 +24,9 @@ import loaderReducer from '../containers/Games/EnglishPuzzle/GameBlock/GameBoard
 import activeIndexReducer from '../containers/Games/EnglishPuzzle/GameController/activeIndexReducer';
 import helpBtnsReducer from '../containers/Games/EnglishPuzzle/GameBlock/GameBoard/HelpButtons/reducer';
 import collectionReducer from '../containers/Games/EnglishPuzzle/GameBlock/GameBoard/collectionReducer';
+import toggleSprintReducer from '../containers/Games/Sprint/ToggleSprintReducer';
+import sprintGameModeReducer from '../containers/Games/Sprint/SprintGameModeReducer';
+import SprintScoreReducer from '../containers/Games/Sprint/SprintScoreReducer';
 
 const rootReducer = combineReducers({
   app: appReducer,
@@ -50,6 +53,9 @@ const rootReducer = combineReducers({
   engPuzzleFetchedWords: wordsReducer,
   engPuzzleLoading: loaderReducer,
   engPuzzleStartPage: startPageReducer,
+  sprintMode: toggleSprintReducer,
+  sprintGameMode: sprintGameModeReducer,
+  sprintScore: SprintScoreReducer,
 });
 
 const store = createStore(rootReducer, compose(applyMiddleware(thunk)));

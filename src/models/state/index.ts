@@ -23,5 +23,8 @@ export interface State {
   engPuzzleFetchedWords;
   engPuzzleLoading;
   engPuzzleStartPage;
+  sprintMode;
+  sprintGameMode;
+  sprintScore;
   // add more fields according rootReducer
 }

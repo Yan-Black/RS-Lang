@@ -1,8 +1,9 @@
 import * as React from 'react';
+import View from './components/View';
 
-function Sprint() {
+function Sprint(): JSX.Element {
   return (
-    <div />
+    <View />
   );
 }
 
