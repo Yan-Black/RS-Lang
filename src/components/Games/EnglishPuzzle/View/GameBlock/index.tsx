@@ -8,7 +8,7 @@ import paintings3 from 'constants/english-puzzle-constants/images-imports/level3
 import paintings4 from 'constants/english-puzzle-constants/images-imports/level4/levelData/level4';
 import paintings5 from 'constants/english-puzzle-constants/images-imports/level5/levelData/level5';
 import paintings6 from 'constants/english-puzzle-constants/images-imports/level6/LevelData/level6';
-import { levelOneDatabase } from 'constants/english-puzzle-constants/images-imports/level1/imagesImports1';
+import { levelOneDatabase } from 'constants/english-puzzle-constants/images-imports/level1/ImagesImports1';
 import { levelTwoDatabase } from 'constants/english-puzzle-constants/images-imports/level2/imagesImports2';
 import { levelThreeDatabase } from 'constants/english-puzzle-constants/images-imports/level3/imagesImports3';
 import { levelFourDatabase } from 'constants/english-puzzle-constants/images-imports/level4/imagesImports4';
