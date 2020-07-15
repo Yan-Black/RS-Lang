@@ -9,15 +9,15 @@ import {
   useState, useEffect, useRef,
 } from 'react';
 import { FetchedWordData } from 'containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/models';
-import book1 from 'constants/words-constants';
 import TrainingCardFields from 'components/TrainingCard/Card/TrainingCardFields';
 import CheckedAnswer from 'components/TrainingCard/Card/CheckedAnswer';
 import {
   setInputWord, toggleAnswerCorrect, toggleMoveToNext,
   addToSuccessTraining, addToFailedTraining, progressTraining,
-  addRowOfSuccess, toggleTrainingStatistic,
+  addRowOfSuccess, toggleTrainingStatistic, updateUserWords,
 } from 'containers/TrainingCard/actions';
 import { ru, eng } from 'constants/training-constants';
+import { createUserWord, updateUserWord } from 'constants/athorization-constants';
 
 const Card: React.FC = () => {
   const lang = useSelector((state: State) => state.mainLang.lang);
@@ -26,9 +26,14 @@ const Card: React.FC = () => {
   const settingsState = useSelector((state: State) => state.mainSetEnabled.hintsState);
   const dispatch = useDispatch();
   const index = useSelector((state: State) => state.training.currIndex);
-  const totalIndex = useSelector((state: State) => state.training.totalProgress);
-  const data: FetchedWordData = book1[0][index];
-  const prevData: FetchedWordData = book1[0][index - 1];
+  const clonedWords: FetchedWordData[] = useSelector((state: State) => state.appUserWords.userWords);
+
+  const usedWords = clonedWords.filter(
+    (word) => word.userWord && !word.userWord.optional.del,
+  );
+
+  const data = usedWords[index];
+  const prevData = usedWords[index - 1];
   const cardsToTrain = amount.words;
   const totalCardsToTrain = amount.cards;
   const inputWidth = data.word.length * 12;
@@ -40,6 +45,7 @@ const Card: React.FC = () => {
   const [successRow, setSuccessRow] = useState(0);
   const inputRef: React.LegacyRef<HTMLInputElement> = useRef(null);
 
+  const totalIndex = useSelector((state: State) => state.training.totalProgress);
   const isAnswerChecked = useSelector((state: State) => state.training.isChecked);
   const isAnswerCorrect = useSelector((state: State) => state.training.isCorrect);
   const showWordExample = settingsState.example;
@@ -85,8 +91,7 @@ const Card: React.FC = () => {
             throw new Error('Cannot load the audio files');
           }
         };
-        // eslint-disable-next-line no-void
-        void handleAudio();
+        handleAudio();
       }
     }
   });
@@ -110,12 +115,19 @@ const Card: React.FC = () => {
     }
   };
 
+  const [delMes, showDelMes] = useState(false);
+  const [mes, setMes] = useState('');
+  const [delActive, setDelActive] = useState(false);
+  const [difActive, setDifActive] = useState(false);
+  const [isWordSuccess, setSuccess] = useState(false);
+
   const checkAnswerBTNHandler = () => {
     if (!canMoveToNext && !isAnswerChecked && inputData.length > 0) {
       dispatch(setInputWord(inputData));
       setInputData('');
       if (inputData.toLowerCase() === data.word.toLowerCase()) {
         if (isSuccess) setSuccessRow(successRow + 1);
+        setSuccess(true);
         dispatch(toggleAnswerCorrect());
         dispatch(toggleMoveToNext());
       } else {
@@ -136,8 +148,92 @@ const Card: React.FC = () => {
     }
   };
 
+  interface Prop {
+    played: boolean;
+    repeatTimes: number;
+    date: string;
+    time: string;
+    del: boolean;
+    dif: boolean;
+    lastRepeat: string;
+    nextRepeat: string;
+  }
+
+  const propObject = {} as Prop;
+  const optional = {
+    optional: propObject,
+  };
+
+  const deleteWord = () => {
+    setDelActive(true);
+    setMes('deleted');
+    showDelMes(true);
+  };
+
+  const setAsDifficult = () => {
+    setDifActive(true);
+    setMes('added to difficult');
+    showDelMes(true);
+  };
+
   const nextCardBTNHandler = () => {
+    showDelMes(false);
     const event = new Event('click');
+    const clone = Array.from(usedWords);
+    const currentWord = clone[index];
+    const handledWord = { ...currentWord };
+    if (handledWord.userWord) {
+      !handledWord.userWord.optional.repeatTimes
+        ? handledWord.userWord.optional.repeatTimes = 0
+        : handledWord.userWord.optional.repeatTimes++;
+      !handledWord.userWord.optional.lastRepeat
+        ? handledWord.userWord.optional.lastRepeat = `${new Date().toDateString().slice(3, -4)} ${new Date().toLocaleTimeString().slice(0, -3)}`
+        : handledWord.userWord.optional.lastRepeat = `${new Date().toDateString().slice(3, -4)} ${new Date().toLocaleTimeString().slice(0, -3)}`;
+      !handledWord.userWord.optional.nextRepeat
+        ? handledWord.userWord.optional.nextRepeat = `${new Date(new Date().getTime() + 1000 * 60 * 5).toLocaleTimeString().slice(0, -3)}`
+        : handledWord.userWord.optional.nextRepeat = `${new Date(new Date().getTime() + 1000 * 60 * 5).toLocaleTimeString().slice(0, -3)}`;
+      if (isWordSuccess && !handledWord.userWord.optional.success) {
+        handledWord.userWord.optional.success = 1;
+      } else if (handledWord.userWord.optional.success === 8) {
+        handledWord.userWord.optional.del = true;
+      } else {
+        handledWord.userWord.optional.success++;
+      }
+      if (delActive) {
+        handledWord.userWord.optional.del = true;
+        handledWord.userWord.optional.dif = false;
+        handledWord.userWord.optional.nextRepeat = '-';
+      }
+      if (difActive) {
+        handledWord.userWord.optional.dif = true;
+      }
+      clone.splice(index, 1, handledWord);
+      dispatch(updateUserWords(clone));
+      updateUserWord(handledWord, dispatch);
+      setDelActive(false);
+      setDifActive(false);
+    } else {
+      propObject.played = true;
+      propObject.repeatTimes = 0;
+      propObject.date = new Date().toDateString();
+      propObject.time = new Date().toTimeString();
+      propObject.lastRepeat = `${new Date().toDateString().slice(0, -4)} ${new Date().toLocaleTimeString().slice(0, -3)}`;
+      propObject.nextRepeat = `${new Date(new Date().getTime() + 1000 * 60 * 5).toDateString()}`;
+      handledWord.userWord = optional;
+      if (delActive) {
+        handledWord.userWord.optional.del = true;
+        handledWord.userWord.optional.dif = false;
+      }
+      if (difActive) {
+        handledWord.userWord.optional.dif = true;
+        handledWord.userWord.optional.del = false;
+      }
+      clone.splice(usedWords.indexOf(data), 1, handledWord);
+      dispatch(updateUserWords(clone));
+      createUserWord(handledWord);
+      setDelActive(false);
+      setDifActive(false);
+    }
     if (isSuccess) {
       dispatch(addToSuccessTraining(data));
     } else {
@@ -147,7 +243,8 @@ const Card: React.FC = () => {
     meaningAudio.dispatchEvent(event);
     exampleAudio.dispatchEvent(event);
     setIsSuccess(true);
-    dispatch(progressTraining());
+    index < usedWords.length - 1
+    && dispatch(progressTraining());
     dispatch(addRowOfSuccess(successRow));
     if ((index === cardsToTrain - 1 || totalIndex === totalCardsToTrain - 1) && !isStatisticOpen) {
       dispatch(toggleTrainingStatistic(true));
@@ -161,9 +258,27 @@ const Card: React.FC = () => {
   return (
     <div className="training-card-wrapper shadow">
       <div className="training-card-content">
-        <div className="training-card-info">
-          <TrainingCardFields />
-          <form action="" className="checking-form m-auto" id="checking-form" style={{ width: `${inputWidth}px` }} onSubmit={formSubmitHandler}>
+        <div
+          className={
+            delMes
+              ? 'training-card-info training-card-info-deleted'
+              : 'training-card-info'
+          }
+        >
+          {delMes
+            ? <span>{mes}</span>
+            : <TrainingCardFields />}
+          <form
+            action=""
+            className={
+              delMes
+                ? 'checking-form m-auto disabled'
+                : 'checking-form m-auto'
+            }
+            id="checking-form"
+            style={{ width: `${inputWidth}px` }}
+            onSubmit={formSubmitHandler}
+          >
             <input
               className="mx-auto"
               type="text"
@@ -200,11 +315,13 @@ const Card: React.FC = () => {
           <button
             type="button"
             className={deleteBTNClass}
+            onClick={deleteWord}
           >
             {usedLang.buttons.deleteBTN}
           </button>
           <button
             type="button"
+            onClick={setAsDifficult}
             className={difficultBTNClass}
           >
             {usedLang.buttons.difficultBTN}

@@ -25,7 +25,7 @@ const GameCard: React.FC<CardProps> = ({
   };
   return (
     <div className={theme === 'light' ? 'game-card' : 'game-card card-dark'} id={cardId}>
-      <Link to={`/${route}`} className="game-link">
+      <Link to={`/${route === 'savannah' || route === 'ourGame' || route === 'sprint' ? '/' : route}`} className="game-link">
         <p className="game-name">{name}</p>
       </Link>
       <img src={imgSrc} alt="Game Card" />
@@ -41,4 +41,3 @@ const GameCard: React.FC<CardProps> = ({
 };
 
 export default GameCard;
-

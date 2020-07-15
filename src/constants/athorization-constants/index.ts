@@ -4,6 +4,8 @@ import {
 } from 'containers/Authorisation/actions';
 import { ActionAuth } from 'containers/Authorisation/models';
 import { showLoader, hideLoader } from 'containers/Games/EnglishPuzzle/GameBlock/GameBoard/Loader/actions';
+import { FetchedWordData } from 'containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/models';
+import { Dispatch, Action } from 'redux';
 
 const regUrl = 'https://afternoon-falls-25894.herokuapp.com/users';
 const tokenUrl = 'https://afternoon-falls-25894.herokuapp.com/signin';
@@ -53,6 +55,46 @@ export const createUser = (
     });
 };
 
+export const createUserWord = (word: FetchedWordData) => {
+  const { token, userId } = localStorage;
+  // eslint-disable-next-line no-underscore-dangle
+  fetch(`https://afternoon-falls-25894.herokuapp.com/users/${userId}/words/${word.id}`, {
+    method: 'POST',
+    headers: {
+      'Access-Control-Allow-Credentials': 'true',
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      difficulty: 'easy',
+      optional: word.userWord.optional,
+    }),
+  })
+    .catch();
+};
+
+export const updateUserWord = (word: FetchedWordData, dispatch: Dispatch<Action>) => {
+  const { token, userId } = localStorage;
+  // eslint-disable-next-line no-underscore-dangle
+  fetch(`https://afternoon-falls-25894.herokuapp.com/users/${userId}/words/${word._id}`, {
+    method: 'PUT',
+    headers: {
+      'Access-Control-Allow-Credentials': 'true',
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      difficulty: 'easy',
+      optional: word.userWord.optional,
+    }),
+  })
+    .then((res) => (res.ok ? res.json() : Promise.reject(res)))
+    .then(() => dispatch(hideLoader()))
+    .catch();
+};
+
 export const loginUser = (
   user: User,
   dispatch: React.Dispatch<ActionAuth>,
@@ -74,6 +116,7 @@ export const loginUser = (
       dispatch(setUserName(res.name));
       localStorage.setItem('userName', res.name);
       localStorage.setItem('token', res.token);
+      localStorage.setItem('refToken', res.refreshToken);
       localStorage.setItem('userId', res.userId);
     })
     .catch((e) => {
@@ -96,7 +139,7 @@ export const getProfileFetch = (
   dispatch: React.Dispatch<ActionAuth>,
 // eslint-disable-next-line consistent-return
 ): Promise<void> => {
-  const { token, userId } = localStorage;
+  const { refToken, token, userId } = localStorage;
   if (token) {
     dispatch(showLoader());
     return fetch(userUrl(userId), {
@@ -107,11 +150,30 @@ export const getProfileFetch = (
         Authorization: `Bearer ${token}`,
       },
     })
-      .then((res) => {
+      .then(async (res) => {
         if (res.ok) {
           dispatch(setLogged());
           dispatch(hideLoader());
           return res.json();
+        } if (res.status === 401) {
+          dispatch(showLoader());
+          const resp = await fetch('https://afternoon-falls-25894.herokuapp.com/users/5f05c72b59be47001749a688/tokens', {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              Accept: 'application/json',
+              Authorization: `Bearer ${refToken}`,
+            },
+          });
+          const tokens = await resp.json();
+          dispatch(hideLoader());
+          dispatch(removeApiError());
+          dispatch(setLogged());
+          dispatch(setUserName(tokens.name));
+          localStorage.setItem('userName', tokens.name);
+          localStorage.setItem('token', tokens.token);
+          localStorage.setItem('refToken', tokens.refreshToken);
+          localStorage.setItem('userId', tokens.userId);
         }
         return Promise.reject(res);
       })
@@ -145,5 +207,7 @@ export const getUserStatistic = () => {
       Authorization: `Bearer ${token}`,
       Accept: 'application/json',
     },
-  });
+  })
+    .then((res) => res.json())
+    .then((res) => localStorage.setItem('userStatistic', JSON.stringify(res)));
 };

@@ -45,11 +45,17 @@ const Card = ({ data, index, next }) => {
     <div
       className={
         game
-          ? classNames('card-game', { 'card-selected': pagination === Number(next), 'card-win': winCard, 'card-mistake': mistakeCard })
-          : classNames('card-game', { 'active-card': index === active })
+          ? classNames(
+            'speak-it-card', {
+              'card-selected': pagination === Number(next),
+              'card-win': winCard,
+              'card-mistake': mistakeCard,
+            },
+          )
+          : classNames('speak-it-card', { 'active-card': index === active })
         }
       id={next}
-      onClick={game ? null : cardData}
+      onClick={!game && cardData}
     >
       <FontAwesomeIcon icon={faVolumeUp} className="voice-img" />
       <p className="word">{data.word}</p>

@@ -1,16 +1,20 @@
 import * as React from 'react';
 import { useSelector } from 'react-redux';
-import { State } from 'models';
 import { FetchedWordData } from 'containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/models';
-import book1 from 'constants/words-constants';
+import { State } from 'models';
 
 function TrainingCardFields(): JSX.Element {
-  const cardsToTrain = 10;
+  const amount = useSelector((state: State) => state.mainCardsWords.amount);
+  const cardsToTrain = amount.cards;
   const index = useSelector((state: State) => state.training.currIndex);
+  const usedData: FetchedWordData[] = useSelector((state: State) => state.appUserWords.userWords);
+  const usedWords = usedData.filter(
+    (word) => !word.userWord.optional.del,
+  );
+
   const settingsState = useSelector((state: State) => state.mainSetEnabled.hintsState);
   // to do change data to data from dictionary
-  const data: FetchedWordData = index > cardsToTrain - 1
-    ? book1[0][cardsToTrain - 1] : book1[0][index];
+  const data = usedWords[index];
   const showWordTranslate = settingsState.translate;
   const showWordExample = settingsState.example;
   const showWordMeaning = settingsState.wordMeaning;

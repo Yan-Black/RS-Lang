@@ -35,3 +35,24 @@
   }
 }
 
+@media (max-width: 1366px) {
+  .eng-puzzle-help-buttons {
+    margin-top: 2.5vw;
+  }
+  .eng-puzzle-help-button {
+    width: 8vw;
+    height: 3.5vw;
+    font-size: 1.2vw;
+  }
+}
+
+@media (max-width: 1024px) {
+  .eng-puzzle-help-buttons {
+    margin-top: 3vw;
+  }
+  .eng-puzzle-help-button {
+    width: 10vw;
+    height: 4vw;
+    font-size: 1.5vw;
+  }
+}

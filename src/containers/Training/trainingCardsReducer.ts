@@ -1,11 +1,10 @@
-import wordsData from 'constants/words-constants';
 import update from 'immutability-helper';
 import { Reducer } from 'react';
-import { IntialStateUserWords, ActionUserWords } from 'containers/TrainingCard/models';
 import { ActionType } from 'containers/TrainingCard/constants';
+import { IntialStateUserWords, ActionUserWords } from '../TrainingCard/models';
 
 const initialState: IntialStateUserWords = {
-  userWords: wordsData[0].slice(0, 20),
+  userWords: [],
 };
 
 const userWordsReducer: Reducer<IntialStateUserWords, ActionUserWords> = (
@@ -15,6 +14,8 @@ const userWordsReducer: Reducer<IntialStateUserWords, ActionUserWords> = (
   switch (action.type) {
     case ActionType.UPDATE_USER_WORDS:
       return update(state, { userWords: { $set: action.payload } });
+    case ActionType.ADD_NEW_WORDS:
+      return { ...state, userWords: state.userWords.concat(action.payload) };
     default: return state;
   }
 };

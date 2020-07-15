@@ -26,7 +26,7 @@ const Statistic: React.FC<StatisticProps> = ({
                   {info.date}
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey={`${i}`}>
-                  <Card.Body>
+                  <Card.Body className="eng-puzzle-statistic-card-body">
                     <table className="eng-puzzle-stat-table">
                       <tbody>
                         <tr>

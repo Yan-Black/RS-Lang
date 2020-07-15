@@ -62,3 +62,30 @@
 .off, .off:hover, .off:active {
   background-color: #38626e;
 }
+
+@media(max-width: 1366px) {
+  .eng-puzzle-hint-button {
+    height: 3vw;
+    width: 3vw;
+    font-size: 1.5vw;
+    margin-left: 1vw;
+  }
+}
+
+@media(max-width: 1024px) {
+  .eng-puzzle-hint-button {
+    height: 3vw;
+    width: 3vw;
+    font-size: 1.6vw;
+    margin-left: 1vw;
+  }
+}
+
+@media(max-width: 768px) {
+  .eng-puzzle-hint-button {
+    height: 4vw;
+    width: 4vw;
+    font-size: 2vw;
+    margin-left: 1.5vw;
+  }
+}

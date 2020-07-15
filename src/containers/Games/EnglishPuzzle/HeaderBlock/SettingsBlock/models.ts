@@ -1,4 +1,5 @@
 export interface FetchedWordData {
+  _id?: string;
   word: string;
   image: string;
   audio: string;
@@ -11,6 +12,19 @@ export interface FetchedWordData {
   textMeaningTranslate: string;
   textExampleTranslate: string;
   id: number;
+  userWord?: {
+    optional?: {
+      played?: boolean;
+      time?: string;
+      date?: string;
+      lastRepeat?: string;
+      repeatTimes?: number;
+      nextRepeat?: string;
+      dif?: boolean;
+      del?: boolean;
+      success?: number;
+    }
+  }
 }
 
 export interface ActionWords {

@@ -1,17 +1,17 @@
 import * as React from 'react';
 import { useSelector } from 'react-redux';
-import { State } from 'models';
 import { eng, ru } from 'constants/audio-call-constants';
-import { Json } from './utils';
+import { FetchedWordData } from 'containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/models';
+import { State } from 'models';
 import StatisticItem from './StatisticItem';
 
 function ShortStatisticContent(): JSX.Element {
   const lang = useSelector((state: State) => state.mainLang.lang);
   const usedLang = lang === 'eng' ? eng : ru;
-  const knowWords: Array<Json> = useSelector(
+  const knowWords: FetchedWordData[] = useSelector(
     (state: State) => state.audioCallStatistic.correctAnswers,
   );
-  const notKnowWords: Array<Json> = useSelector(
+  const notKnowWords: FetchedWordData[] = useSelector(
     (state: State) => state.audioCallStatistic.wrongAnswers,
   );
   const isLongStatistic = useSelector(

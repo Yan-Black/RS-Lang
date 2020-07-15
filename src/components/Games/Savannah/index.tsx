@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { Component } from 'react';
 import { connect } from 'react-redux';
+import { openModalWindow, setGameMode, setLoadingMode } from 'containers/Games/Savannah/actions';
 import MainScreen from './MainScreen/mainScreen';
 import GameScreen from './GameScreen/gameScreen';
 import CrossComponent from './Cross/cross';
 import LoadingScreen from './LoadingScreen/loadingScreen';
-import { openModalWindow, setGameMode, setLoadingMode } from '../../../containers/Games/Savannah/actions';
 import ModalWindow from './ModalWindow/modalWindow';
 import EndScreen from './EndScreen/endScreen';
 
@@ -15,7 +15,6 @@ class SavannahComponent extends Component {
     const { startGame } = this.props;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     startGame();
-    console.log(startGame);
   };
 
   // eslint-disable-next-line max-len

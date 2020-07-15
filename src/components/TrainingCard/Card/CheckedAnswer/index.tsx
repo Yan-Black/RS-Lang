@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { State } from 'models';
 import { toggleAnswerChecked } from 'containers/TrainingCard/actions';
 import { FetchedWordData } from 'containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/models';
-import book1 from 'constants/words-constants';
 
 function CheckedAnswer(): JSX.Element {
   const dispatch = useDispatch();
@@ -12,7 +11,11 @@ function CheckedAnswer(): JSX.Element {
   const isAnswerCorrect = useSelector((state: State) => state.training.isCorrect);
   const canMoveToNext = useSelector((state: State) => state.training.moveToNext);
   const index = useSelector((state: State) => state.training.currIndex);
-  const data: FetchedWordData = book1[0][index];
+  const usedData: FetchedWordData[] = useSelector((state: State) => state.appUserWords.userWords);
+  const usedWords = usedData.filter(
+    (word) => !word.userWord.optional.del,
+  );
+  const data = usedWords[index];
   const [checkedAnswerClass, setCheckedAnswerClass] = useState('checked-answer');
   const inputWord: string = useSelector((state: State) => state.training.inputWord);
   const correctWord = data.word;
