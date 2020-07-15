@@ -1,7 +1,8 @@
 import { Action } from 'redux';
 import { ActionType } from './constants';
 import {
-  ActionModalInfo, InitialStateModalInfo, ActionTheme, ActionSettings, ActionStudy,
+  ActionModalInfo, InitialStateModalInfo, ActionTheme,
+  ActionSettings, ActionStudy, ModalObj, ActionCreator,
 } from './models';
 
 export const openModal = (): Action => ({
@@ -45,4 +46,13 @@ export const changeAppLang = (lang: string) => ({
 export const updateStudySettings = (obj: any): ActionStudy => ({
   type: ActionType.UPDATE_STUDY_SETTINGS,
   payload: obj,
+});
+
+export const openErrorModal: ActionCreator.OpenErrorModal = (data: ModalObj) => ({
+  type: ActionType.OPEN_ERROR_MODAL,
+  payload: data,
+});
+
+export const closeErrorModal: ActionCreator.CloseErrorModal = () => ({
+  type: ActionType.CLOSE_ERROR_MODAL,
 });

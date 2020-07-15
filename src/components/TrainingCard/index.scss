@@ -11,3 +11,9 @@
   max-width: 800px;
   margin: auto;
 }
+
+@media(max-width: 950px) {
+  .training-page-wrapper {
+    height: 100%;
+  }
+}

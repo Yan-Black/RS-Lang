@@ -11,7 +11,7 @@ import { State } from 'models';
 import {
   cardEngOptions, cardRuOptions, eng, ru,
 } from 'constants/main-page-constants';
-import { handleSettings } from 'containers/Main/actions';
+import { handleSettings, openErrorModal } from 'containers/Main/actions';
 import Authorization from 'components/Authorization';
 import { Link } from 'react-router-dom';
 
@@ -27,6 +27,7 @@ const CardGame: React.FC = () => {
   const lang = useSelector((state: State) => state.mainLang.lang);
   const [usedLang, setUsedLang] = lang === 'eng' ? useState(eng) : useState(ru);
   const [userCardLang, setUsedCardLang] = lang === 'eng' ? useState(cardEngOptions) : useState(cardRuOptions);
+  // const isModalOpen = useSelector((state: State) => state.mainErrorModal.isOpen);
 
   useEffect(() => {
     if (lang === 'eng') {
@@ -40,8 +41,19 @@ const CardGame: React.FC = () => {
 
   const learnBtnClickHandler = () => {
     if (totalIndex >= totalCardsToTrain) {
-      alert(usedLang.alert.dailyRate);
+      const title = usedLang.errorMessage.dailyRateTitle;
+      const content = usedLang.errorMessage.dailyRateContent;
+      dispatch(openErrorModal({ title, content }));
     }
+
+    //   to do
+    // else {
+    //   if (usedWords.filter(studyMode).length === 0) {
+    //     const title = usedLang.errorMessage.noWordsTitle;
+    //     const content = usedLang.errorMessage.noWordsContent;
+    //     dispatch(openErrorModal({ title, content }));
+    //   }
+    // }
   };
 
   return (
