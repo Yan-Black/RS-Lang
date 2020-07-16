@@ -11,11 +11,13 @@ import {
   faCheckCircle,
   faEquals,
 } from '@fortawesome/free-solid-svg-icons';
+import { GetWordObjectFromData, shuffleArray } from './functions';
 import book1 from '../../../../constants/words-constants';
-// import book from './WordData';
+import error from '../assets/audio/error.mp3';
+import correct from '../assets/audio/correct.mp3';
 import './sass/sprint.scss';
 
-const words = book1[0].slice(0);
+const words = book1[0].slice(0, 100);
 
 function Game(): JSX.Element {
   // const stateScore = useSelector((state: State) => state.sprintScore.score);
@@ -26,11 +28,20 @@ function Game(): JSX.Element {
   const [currentWordObject, setCurrentWordObject] = useState(words.pop());
   const [currentWord, setCurrentWord] = useState(currentWordObject.word);
   const [currentTranslate, setCurrentTranslate] = useState(currentWordObject.wordTranslate);
+  const audioSucces = new Audio(correct);
+  const audioFail = new Audio(error);
 
   const levelPlus1 = 10;
   const levelPlus2 = 20;
   const levelPlus3 = 30;
   const levelPlus4 = 40;
+
+  async function playSuccesAudio(): Promise<void> {
+    await audioSucces.play();
+  }
+  async function playFailAudio(): Promise<void> {
+    await audioFail.play();
+  }
 
   const resetLevel = () => {
     setLevel(1);
@@ -53,6 +64,9 @@ function Game(): JSX.Element {
   };
 
   const rightAnswerHandler = () => {
+    // eslint-disable-next-line no-void
+    void playSuccesAudio();
+
     if (level === 1) {
       setScore(score + levelPlus1);
       increaseSubLevel();
@@ -76,28 +90,24 @@ function Game(): JSX.Element {
   };
 
   const wrongAnswerHandler = () => {
+    // eslint-disable-next-line no-void
+    void playFailAudio();
     resetLevel();
   };
 
   const SprintHandler = () => {
     if (currentTranslate === currentWordObject.wordTranslate) {
       rightAnswerHandler();
-      setCurrentWordObject(words.pop());
-      setCurrentWord(currentWordObject.word);
-      setCurrentTranslate(currentWordObject.wordTranslate);
     } else {
       wrongAnswerHandler();
-      setCurrentWordObject(words.pop());
-      setCurrentWord(currentWordObject.word);
-      setCurrentTranslate(currentWordObject.wordTranslate);
     }
+
+    setCurrentWordObject(words.pop());
   };
 
   const keyPressHandler = (e) => {
-    if (e.key === 'ArrowLeft') {
-      rightAnswerHandler();
-    } else if (e.key === 'ArrowRight') {
-      wrongAnswerHandler();
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+      SprintHandler();
     }
   };
 
@@ -107,6 +117,16 @@ function Game(): JSX.Element {
       window.removeEventListener('keydown', keyPressHandler);
     };
   }, []);
+
+  useEffect(() => {
+    const trans = shuffleArray([currentWordObject.wordTranslate, GetWordObjectFromData(words)]);
+    setCurrentWord(currentWordObject.word);
+    setCurrentTranslate(trans[0]);
+    // const curTranslate = GetWordObjectFromData(translates);
+    // console.log(translates);
+    // setCurrentWord(currentWordObject.word);
+    // setCurrentTranslate(curTranslate);
+  }, [currentWordObject]);
 
   return (
     <div>
@@ -138,11 +158,11 @@ function Game(): JSX.Element {
           </div>
         </div>
         <div className="game-field">
-          <span className="actual-word">{currentWordObject.word}</span>
+          <span className="actual-word">{currentWord}</span>
           <FontAwesomeIcon
             icon={faEquals}
           />
-          <span className="actual-translation">{currentWordObject.wordTranslate}</span>
+          <span className="actual-translation">{currentTranslate}</span>
           <div className="indication">
             <FontAwesomeIcon
               icon={faCheckCircle}
