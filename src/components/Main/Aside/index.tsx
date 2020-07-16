@@ -55,7 +55,10 @@ const Navigation: React.FC = () => {
             : pages.page
           )).map((pagesData) => (
             <li key={pagesData.page}>
-              <Link to={`/${pagesData.path}`} onClick={closeAsideMenu}>
+              <Link
+                to={`/${pagesData.path === 'Promo' || pagesData.path === 'Team' || pagesData.path === 'Statistic' ? '' : pagesData.path}`}
+                onClick={closeAsideMenu}
+              >
                 <button
                   type="button"
                   className="main-aside-btn"
