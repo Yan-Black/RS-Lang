@@ -1,14 +1,15 @@
 /* eslint-disable react/no-danger */
 import * as React from 'react';
 import './index.scss';
-import { WordObj } from 'containers/Dictionary/models';
-import colorSpeaker from 'assets/colored_speaker.svg';
 import { ru, eng } from 'constants/dictionary-constants';
 import { State } from 'models';
 import { useSelector } from 'react-redux';
+import { FetchedWordData } from 'containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/models';
+import Spinner from 'react-bootstrap/Spinner';
 
-function DictionaryItem({ item }: {item: WordObj}): JSX.Element {
+function DictionaryItem({ item }: {item: FetchedWordData}): JSX.Element {
   const lang = useSelector((state: State) => state.mainLang.lang);
+  const loading = useSelector((state: State) => state.engPuzzleLoading.isLoading);
   const usedLang = lang === 'eng' ? eng : ru;
   const settingsState = useSelector((state: State) => state.mainSetEnabled.hintsState);
   const url = `https://raw.githubusercontent.com/lactivka/rslang-data/master/${item.audio}`;
@@ -27,13 +28,21 @@ function DictionaryItem({ item }: {item: WordObj}): JSX.Element {
 
   return (
     <div className="dictionary-item container shadow d-flex flex-wrap justify-content-between align-items-center my-1 py-1">
-      <button
-        className="btn btn-speaker btn-outline-primary shadow rounded-circle p-1 m-1"
-        type="button"
-        onClick={speakerIconClickHandler}
-      >
-        <div className="speaker-icon" />
-      </button>
+      {loading
+        ? (
+          <Spinner animation="border" role="status" className="dict-spinner">
+            <span className="sr-only">Loading...</span>
+          </Spinner>
+        )
+        : (
+          <button
+            className="btn btn-speaker btn-outline-primary shadow rounded-circle p-1 m-1"
+            type="button"
+            onClick={speakerIconClickHandler}
+          >
+            <div className="speaker-icon" />
+          </button>
+        )}
       <div className="word-translate-transcription-block d-flex flex-column justify-content-around align-items-center m-1">
         <span className="text-primary">{item.word}</span>
         <span className="text-center">{item.wordTranslate}</span>
@@ -56,26 +65,23 @@ function DictionaryItem({ item }: {item: WordObj}): JSX.Element {
         <span className="px-1">
           {usedLang.wordProgress}
           {' '}
-          1 2 3 4 5
+          {item.userWord.optional.success || 0}
         </span>
         <span className="px-1">
           {usedLang.repeats}
           {' '}
-          125
+          {item.userWord.optional.repeatTimes || 0}
         </span>
         <span className="px-1">
           {usedLang.lastRepeat}
           {' '}
-          2d
+          {item.userWord.optional.lastRepeat || '-'}
           {' '}
-          {usedLang.before}
         </span>
         <span className="px-1">
           {usedLang.nextRepeat}
           {' '}
-          {usedLang.in}
-          {' '}
-          1m
+          {item.userWord.optional.nextRepeat || '-'}
         </span>
       </div>
     </div>

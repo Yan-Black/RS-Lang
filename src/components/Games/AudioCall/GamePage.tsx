@@ -10,7 +10,7 @@ import { useEffect } from 'react';
 import backgroundImage from 'assets/pattern-369543.svg';
 import { Json } from 'containers/Games/AudioCall/models';
 import { eng, ru } from 'constants/audio-call-constants';
-import TranslateOptions from './translateOptions';
+import TranslateOptions from './TranslateOptions';
 import GameButton from './GameButton';
 import TargetWordBlock from './TargetWordBlock';
 import ModalMessage from './ModalMessage';

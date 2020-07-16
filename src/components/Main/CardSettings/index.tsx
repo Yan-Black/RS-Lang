@@ -1,25 +1,31 @@
 import * as React from 'react';
 import './index.scss';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { handleSettings, updateSettings, updateAmount } from 'containers/Main/actions';
+import { addNewUserWords } from 'containers/TrainingCard/actions';
 import {
-  checkBoxesRu, checkBoxesEng, eng, ru,
+  checkBoxesRu, checkBoxesEng, eng, ru, engSetiingsErrors, ruSetiingsErrors,
 } from 'constants/main-page-constants';
 import { State } from 'models';
+import Spinner from 'react-bootstrap/Spinner';
+import { updateUserSettings, createUserWord } from 'constants/athorization-constants';
 
 const CardSettings: React.FC = () => {
   const dispatch = useDispatch();
+  const loading = useSelector((state: State) => state.engPuzzleLoading.isLoading);
+  const userWords = useSelector((state: State) => state.appUserWords.userWords);
   const amount = useSelector((state: State) => state.mainCardsWords.amount);
   const lang = useSelector((state: State) => state.mainLang.lang);
   const [err, setErr] = useState(false);
   const [errMes, setErrMes] = useState('');
   const [selectedHints, setSelected] = useState([]);
   const [cardsWordsAmount, setCardsWordsAmount] = useState([amount.words, amount.cards]);
-  const [usedLang, setUsedLang] = lang === 'eng' ? useState(eng) : useState(ru);
-  const [usedCheckboxes, setUsedCheckboxes] = lang === 'eng' ? useState(checkBoxesEng) : useState(checkBoxesRu);
+  const usedLang = lang === 'eng' ? eng : ru;
+  const usedCheckboxes = lang === 'eng' ? checkBoxesEng : checkBoxesRu;
+  const usedErrors = lang === 'eng' ? engSetiingsErrors : ruSetiingsErrors;
   const setiingsModalHandler = () => dispatch(handleSettings(false));
   const collectProps = (e: React.MouseEvent<HTMLInputElement>) => {
     setErr(false);
@@ -38,20 +44,28 @@ const CardSettings: React.FC = () => {
   };
   const newSettingsState = {};
   const save = () => {
-    if (!selectedHints.length) {
+    if (usedCheckboxes[0].data.every(
+      (option) => selectedHints.indexOf(option.id) === -1,
+    )) {
       setErr(true);
-      setErrMes('Как минимум одна подсказка должна быть выбрана');
+      setErrMes(usedErrors.mandatoryHint);
     } else if (cardsWordsAmount[0] > 50) {
       setErr(true);
-      setErrMes('Количество слов не должно превышать 50');
-    } else if (cardsWordsAmount[1] > 50) {
+      setErrMes(usedErrors.amountWords);
+    } else if (cardsWordsAmount[1] > 150) {
       setErr(true);
-      setErrMes('Количество карточек не должно превышать 50');
+      setErrMes(usedErrors.amountCards);
+    } else if (cardsWordsAmount[1] < cardsWordsAmount[0] * 3) {
+      setErr(true);
+      const cardsAmount = cardsWordsAmount[0] * 3;
+      setErrMes(`${usedErrors.cardsError} ${cardsAmount}`);
     } else {
       usedCheckboxes.forEach((prop) => {
-        selectedHints.indexOf(prop.id) !== -1
-          ? newSettingsState[prop.id] = true
-          : newSettingsState[prop.id] = false;
+        prop.data.forEach((option) => {
+          selectedHints.indexOf(option.id) !== -1
+            ? newSettingsState[option.id] = true
+            : newSettingsState[option.id] = false;
+        });
       });
       dispatch(updateSettings(newSettingsState));
       localStorage.setItem('savedSettings', JSON.stringify(newSettingsState));
@@ -60,19 +74,26 @@ const CardSettings: React.FC = () => {
         'savedAmount',
         JSON.stringify({ words: cardsWordsAmount[0], cards: cardsWordsAmount[1] }),
       );
+      if (cardsWordsAmount[0] > userWords.length) {
+        const group = 5;
+        const pages: number[] = [1, 2, 3];
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
+        pages.forEach((page) => addNewUserWords(dispatch, group, page));
+        !loading && userWords.forEach((word) => {
+          if (!word.userWord) {
+            word.userWord = {
+              optional: {
+                binded: true,
+              },
+            };
+            createUserWord(word, dispatch);
+          }
+        });
+      }
       dispatch(handleSettings(false));
+      updateUserSettings(cardsWordsAmount[0], newSettingsState);
     }
   };
-
-  useEffect(() => {
-    if (lang === 'eng') {
-      setUsedCheckboxes(checkBoxesEng);
-      setUsedLang(eng);
-    } else {
-      setUsedCheckboxes(checkBoxesRu);
-      setUsedLang(ru);
-    }
-  }, [lang]);
 
   return (
     <div className="settings-main-wrapper">
@@ -95,7 +116,7 @@ const CardSettings: React.FC = () => {
               id="inputCards"
               type="number"
               min="0"
-              max="50"
+              max="150"
               defaultValue={amount.cards}
               onChange={updateCardsWords}
             />
@@ -104,21 +125,28 @@ const CardSettings: React.FC = () => {
         <div>
           <div className="settings-options">
             {usedCheckboxes.map((data) => (
-              <div className="settings-option" key={data.name}>
-                <span>{data.name}</span>
-                <label
-                  className="check-container"
-                  htmlFor={data.id}
-                >
-                  <input
-                    className="set-check"
-                    type="checkbox"
-                    onClick={collectProps}
-                    id={data.id}
-                  />
-                  <span className="checkmark" />
-                </label>
-              </div>
+              <React.Fragment key={data.name}>
+                <div className="settings-option-category">
+                  <span>{data.name}</span>
+                </div>
+                {data.data.map((option) => (
+                  <div className="settings-option" key={option.name}>
+                    <span>{option.name}</span>
+                    <label
+                      className="check-container"
+                      htmlFor={option.id}
+                    >
+                      <input
+                        className="set-check"
+                        type="checkbox"
+                        onClick={collectProps}
+                        id={option.id}
+                      />
+                      <span className="checkmark" />
+                    </label>
+                  </div>
+                ))}
+              </React.Fragment>
             ))}
           </div>
           <div className="settings-field">
@@ -132,11 +160,17 @@ const CardSettings: React.FC = () => {
                 : 'cохранить'}
             </button>
             {err
-            && (
-            <div className="settings-error">
-              <span>{errMes}</span>
-            </div>
-            )}
+              && (
+              <div className="settings-error">
+                <span>{errMes}</span>
+              </div>
+              )}
+            {loading
+              && (
+                <Spinner animation="border" role="status">
+                  <span className="sr-only">Loading...</span>
+                </Spinner>
+              )}
             <button
               type="button"
               className="settings-btn"

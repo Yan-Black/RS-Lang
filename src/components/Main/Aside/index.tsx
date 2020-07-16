@@ -19,21 +19,21 @@ import './index.scss';
 
 const Navigation: React.FC = () => {
   const dispatch = useDispatch();
-  const statInfo = useSelector((state: State) => state.engPuzzleStatisticInfo);
   const name = useSelector((state: State) => state.authName.name);
   const lang = useSelector((state: State) => state.mainLang.lang);
+  const isLogged = useSelector((state: State) => state.authLog.isLogged);
   const [usedLang, setUsedLang] = lang === 'eng' ? useState(eng) : useState(ru);
   const [usedPages, setUsedPages] = lang === 'eng' ? useState(pagesEng) : useState(pagesRu);
   const [isOpen, setAsideOpen] = useState(false);
   const handleAsideMenu = () => setAsideOpen(!isOpen);
   const closeAsideMenu = () => setAsideOpen(false);
   const logout = () => {
+    localStorage.removeItem('refToken');
     localStorage.removeItem('token');
     localStorage.removeItem('userId');
     localStorage.removeItem('userName');
     dispatch(setUnLogged());
     dispatch(setUserName(''));
-    createUserStatistic({ leaernedWords: 0, options: { stat: statInfo } });
   };
 
   useEffect(() => {
@@ -50,16 +50,22 @@ const Navigation: React.FC = () => {
     <div className="main-entire-wrapper">
       <div id="header" className={isOpen ? 'header open' : 'header'}>
         <ul className="header-nav">
-          {usedPages.map((pageData) => (
-            <li key={pageData.page} className="main-header-menu-item">
-              <Link to={`/${pageData.path}`} onClick={closeAsideMenu}>
+          {usedPages.filter((pages) => (!isLogged
+            ? (pages.page === 'Promo' || pages.page === 'Промо')
+            : pages.page
+          )).map((pagesData) => (
+            <li key={pagesData.page}>
+              <Link
+                to={`/${pagesData.path === 'Promo' || pagesData.path === 'Team' || pagesData.path === 'Statistic' ? '' : pagesData.path}`}
+                onClick={closeAsideMenu}
+              >
                 <button
                   type="button"
                   className="main-aside-btn"
                 >
                   <FontAwesomeIcon
                     className="main-aside-point"
-                    icon={pageData.icon}
+                    icon={pagesData.icon}
                   />
                   <span
                     id="statistic"
@@ -69,7 +75,7 @@ const Navigation: React.FC = () => {
                         : 'aside-menu-tooltip'
                     }
                   >
-                    {pageData.page}
+                    {pagesData.page}
                   </span>
                 </button>
               </Link>
@@ -87,17 +93,20 @@ const Navigation: React.FC = () => {
             </button>
           </li>
         </ul>
-        <div className="profile">
-          <FontAwesomeIcon
-            icon={faUserCircle}
-            className="aside-logout"
-            onClick={logout}
-          />
-          <span className="aside-menu-tooltip">
-            {usedLang.logout}
-          </span>
-          <span>{name}</span>
-        </div>
+        {isLogged
+          && (
+          <div className="profile">
+            <FontAwesomeIcon
+              icon={faUserCircle}
+              className="aside-logout"
+              onClick={logout}
+            />
+            <span className="aside-menu-tooltip">
+              {usedLang.logout}
+            </span>
+            <span>{name}</span>
+          </div>
+          )}
       </div>
       <MainSection />
     </div>
@@ -105,4 +114,3 @@ const Navigation: React.FC = () => {
 };
 
 export default Navigation;
-

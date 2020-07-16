@@ -1,16 +1,29 @@
 import * as React from 'react';
 import { useSelector } from 'react-redux';
-import { State } from 'models';
 import { FetchedWordData } from 'containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/models';
-import book1 from 'constants/words-constants';
+import { State } from 'models';
 
 function TrainingCardFields(): JSX.Element {
-  const cardsToTrain = 10;
   const index = useSelector((state: State) => state.training.currIndex);
+  const studyMode = useSelector((state: State) => state.mainStudyMode.studyModes);
+  const clonedWords: FetchedWordData[] = useSelector((state: State) => state.appUserWords.userWords);
+  let usedWords;
+  if (studyMode.trainAllWords) {
+    usedWords = clonedWords.filter((word) => (word || word.userWord) && (word || !word.userWord.optional.del));
+  }
+  if (studyMode.onlyNew) {
+    usedWords = clonedWords.filter((word) => !word.userWord.optional.played);
+  }
+  if (studyMode.onlyRepeat) {
+    usedWords = clonedWords.filter((word) => word.userWord.optional.repeatTimes > 0);
+  }
+  if (studyMode.onlyDifficult) {
+    usedWords = clonedWords.filter((word) => word.userWord.optional.dif);
+  }
+  const cardsToTrain = usedWords.length;
   const settingsState = useSelector((state: State) => state.mainSetEnabled.hintsState);
   // to do change data to data from dictionary
-  const data: FetchedWordData = index > cardsToTrain - 1
-    ? book1[0][cardsToTrain - 1] : book1[0][index];
+  const data = usedWords[index];
   const showWordTranslate = settingsState.translate;
   const showWordExample = settingsState.example;
   const showWordMeaning = settingsState.wordMeaning;
@@ -18,19 +31,18 @@ function TrainingCardFields(): JSX.Element {
   const showAllTranslates = settingsState.showTextTranslate;
   const isAnswerCorrect = useSelector((state: State) => state.training.isCorrect);
 
-  const translateClass = (showWordTranslate || (showAllTranslates && (isAnswerCorrect || index >= cardsToTrain))) ? 'training-card-translate' : 'invisible';
-  const exampleClass = showWordExample ? 'training-card-example' : 'invisible';
-  const meaningClass = showWordMeaning ? 'training-card-meaning' : 'invisible';
+  const translateClass = (showWordTranslate || (showAllTranslates && (isAnswerCorrect || index >= cardsToTrain))) ? 'training-card-translate text-dark' : 'invisible';
+  const exampleClass = showWordExample ? 'training-card-example text-dark' : 'invisible';
+  const meaningClass = showWordMeaning ? 'training-card-meaning text-dark' : 'invisible';
   const transcriptionClass = (showWordTranscription && (isAnswerCorrect || index >= cardsToTrain)) ? 'training-card-transcript text-danger' : 'invisible';
-  const exampleTranslateClass = ((showWordExample && showAllTranslates) && (isAnswerCorrect || index >= cardsToTrain)) ? 'translate' : 'invisible';
-  const meaningTranslateClass = ((showWordMeaning && showAllTranslates) && (isAnswerCorrect || index >= cardsToTrain)) ? 'translate' : 'invisible';
+  const exampleTranslateClass = ((showWordExample && showAllTranslates) && (isAnswerCorrect || index >= cardsToTrain)) ? 'translate text-dark' : 'invisible';
+  const meaningTranslateClass = ((showWordMeaning && showAllTranslates) && (isAnswerCorrect || index >= cardsToTrain)) ? 'translate text-dark' : 'invisible';
   const wordClass = isAnswerCorrect || index >= cardsToTrain ? 'training-card-word text-primary' : 'training-card-word invisible';
 
-  // to do fix the next function: change filter to find word
-  function getInnerText(text: string, word: string) {
+  function getInnerText(text: string) {
     const textField = [];
     text.split(' ').map((el) => {
-      if (el.toLowerCase() === word.toLowerCase()) textField.push('[......]');
+      if (el.match(/<[a-z][a-z0-9]*>/gi)) textField.push('[......]');
       else textField.push(el);
       return el;
     });
@@ -39,10 +51,10 @@ function TrainingCardFields(): JSX.Element {
 
   const textExample = (
     showWordExample && !isAnswerCorrect && index < cardsToTrain)
-    ? getInnerText(data.textExample, data.word) : data.textExample;
+    ? getInnerText(data.textExample) : data.textExample;
   const textMeaning = (
     showWordMeaning && !isAnswerCorrect && index < cardsToTrain)
-    ? getInnerText(data.textMeaning, data.word) : data.textMeaning;
+    ? getInnerText(data.textMeaning) : data.textMeaning;
 
   return (
     <>
@@ -55,15 +67,11 @@ function TrainingCardFields(): JSX.Element {
       <span className={transcriptionClass}>
         {data.transcription}
       </span>
-      <span className={meaningClass}>
-        {textMeaning}
-      </span>
+      <span className={meaningClass} dangerouslySetInnerHTML={{ __html: `${textMeaning}` }} />
       <span className={meaningTranslateClass}>
         {data.textMeaningTranslate}
       </span>
-      <span className={exampleClass}>
-        {textExample}
-      </span>
+      <span className={exampleClass} dangerouslySetInnerHTML={{ __html: `${textExample}` }} />
       <span className={exampleTranslateClass}>
         {data.textExampleTranslate}
       </span>

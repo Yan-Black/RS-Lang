@@ -1,10 +1,16 @@
+import { IntialStateUserWords } from 'containers/TrainingCard/models';
+
 export interface State {
   trainingSettings;
   trainingStatistic;
   training;
   app;
+  appErr;
+  appUserWords: IntialStateUserWords;
   authToken;
+  appVisit;
   authErrors;
+  appTraining;
   authLog;
   authName;
   mainModal;

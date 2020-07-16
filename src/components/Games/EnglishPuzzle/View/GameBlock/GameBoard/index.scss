@@ -53,3 +53,20 @@
 .disabled {
   display: none !important;
 }
+
+@media (max-width: 1366px) {
+  .eng-puzzle-canvas {
+    height: 40vw;
+  }
+
+  .eng-puzzle-string-number {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .eng-puzzle-canvas {
+    height: 45vw;
+  }
+}

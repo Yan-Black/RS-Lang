@@ -7,10 +7,10 @@ import {
 } from 'react-router-dom';
 import AudioCall from 'components/Games/AudioCall';
 import EnglishPuzzle from 'components/Games/EnglishPuzzle';
-import Savannah from 'components/Games/Savannah';
+// import Savannah from 'components/Games/Savannah';
 import SpeakIt from 'components/Games/SpeakIt';
 import Sprint from 'components/Games/Sprint';
-import OurGame from 'components/Games/OurGame';
+// import OurGame from 'components/Games/OurGame';
 import Statistic from 'components/Statistic';
 import Dictionary from 'components/Dictionary';
 import Promo from 'components/Promo';
@@ -21,17 +21,23 @@ import { State } from 'models';
 import Main from 'components/Main';
 import { getProfileFetch, getUserStatistic } from 'constants/athorization-constants';
 import Training from 'components/TrainingCard';
+import { getStartWords, getUsertWords, addNewUserWords } from 'containers/TrainingCard/actions';
 import Loader from '../Authorization/Loader';
 
 const App: React.FC = () => {
   const loading = useSelector((state: State) => state.engPuzzleLoading.isLoading);
   const regOpen = useSelector((state: State) => state.mainReg.regOpen);
   const logOpen = useSelector((state: State) => state.mainLog.logOpen);
+  const visit = useSelector((state: State) => state.appVisit.visits);
   const { userId } = localStorage;
   const dispatch = useDispatch();
   useEffect(() => {
-    userId && getUserStatistic();
+    !userId && getStartWords(dispatch);
     userId && getProfileFetch(dispatch);
+    visit > 0 && getUserStatistic();
+    userId && getUsertWords(dispatch);
+    userId && addNewUserWords(dispatch, 1, visit);
+    localStorage.setItem('visit', visit);
   }, []);
   if (loading && !regOpen && !logOpen) {
     return (
@@ -64,18 +70,18 @@ const App: React.FC = () => {
         <Route path="/EnglishPuzzle">
           <EnglishPuzzle />
         </Route>
-        <Route path="/Savannah">
+        {/* <Route path="/Savannah">
           <Savannah />
-        </Route>
+        </Route> */}
         <Route path="/SpeakIt">
           <SpeakIt />
         </Route>
         <Route path="/Sprint">
           <Sprint />
         </Route>
-        <Route path="/OurGame">
+        {/* <Route path="/OurGame">
           <OurGame />
-        </Route>
+        </Route> */}
         <Route path="/Training">
           <Training />
         </Route>

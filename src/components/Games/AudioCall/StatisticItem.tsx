@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { Json } from 'containers/Games/AudioCall/models';
 import { useSelector, useDispatch } from 'react-redux';
 import { State } from 'models';
 import { addToDeleted, difficultToDeleted } from 'containers/Dictionary/actions';
 import { eng, ru } from 'constants/audio-call-constants';
+import { FetchedWordData } from 'containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/models';
 
-function StatisticItem(currWord: {item: Json}): JSX.Element {
+function StatisticItem(currWord: {item: FetchedWordData}): JSX.Element {
   const lang = useSelector((state: State) => state.mainLang.lang);
   const usedLang = lang === 'eng' ? eng : ru;
 
@@ -14,10 +14,10 @@ function StatisticItem(currWord: {item: Json}): JSX.Element {
   }
 
   const dispatch = useDispatch();
-  const learningWords: Array<Json> = useSelector(
+  const learningWords: FetchedWordData[] = useSelector(
     (state: State) => state.dictionaryState.learningWords,
   );
-  const difficultWords: Array<Json> = useSelector(
+  const difficultWords: FetchedWordData[] = useSelector(
     (state: State) => state.dictionaryState.difficultWords,
   );
   const trashIconClass = (learningWords.includes(currWord.item) || difficultWords.includes(currWord.item)) ? 'fas fa-trash ml-auto mr-3' : 'd-none';

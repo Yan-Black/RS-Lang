@@ -4,6 +4,7 @@ import { TrainingState, TrainingStatistic } from './models';
 
 const trainingInitState = <TrainingState> {
   totalProgress: 0,
+  newCardProgress: 0,
   currIndex: 0,
   isChecked: false,
   isCorrect: false,
@@ -16,6 +17,7 @@ const trainingStatisticInitState = <TrainingStatistic> {
   failedWordsTraining: [],
   successWordTraining: [],
   correctAnswersInRow: 0,
+  playedNewCards: 0,
 };
 
 const trainingReducer: Models.Reducer<unknown> = (
@@ -40,10 +42,13 @@ const trainingReducer: Models.Reducer<unknown> = (
       return { ...state, inputWord: payload, isChecked: true };
     case ActionType.TOGGLE_MOVE_TO_NEXT:
       return { ...state, moveToNext: !state.moveToNext };
+    case ActionType.UPDATE_CARD_PROGRESS:
+      return { ...state, newCardProgress: +state.newCardProgress + 1 };
     case ActionType.RESET_TRAINING:
       return {
         ...state,
         currIndex: 0,
+        newCardProgress: 0,
         inputWord: '',
         isChecked: false,
         isCorrect: false,
@@ -67,6 +72,8 @@ const trainingStatisticReducer: Models.Reducer<unknown> = (
     case ActionType.ADD_ROW_OF_SUCCESS:
       return state.correctAnswersInRow > payload
         ? state : { ...state, correctAnswersInRow: payload };
+    case ActionType.GAME_CARD_PROGRESS:
+      return { ...state, playedNewCards: state.playedNewCards + 1 };
     case ActionType.RESET_TRAINING_STATISTIC:
       return trainingStatisticInitState;
     default:

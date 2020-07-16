@@ -18,7 +18,7 @@ function MainModal(): JSX.Element {
   };
 
   return (
-    <Modal show={isModalOpen}>
+    <Modal show={isModalOpen} onHide={() => false}>
       <Modal.Header>
         <Modal.Title>{title}</Modal.Title>
       </Modal.Header>

@@ -14,7 +14,7 @@ $font: #fff;
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
-  z-index: 9;
+  z-index: 3;
   box-shadow: 3px 0 10px rgba(58, 58, 58, 0.589);
   border-right: 1px solid rgba(68, 68, 68, 0.24);
   transition: .3s;
@@ -90,6 +90,9 @@ $font: #fff;
   border-radius: 5px;
   padding: 0 5px;
   position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   top: calc(50% - (2vw / 2));
   left: 200%;
   z-index: 1;
@@ -123,6 +126,7 @@ $font: #fff;
   font-size: 1vw;
   margin-left: 0;
   padding: 0;
+  color: $font;
   &:hover {
     transition: .2s;
     .aside-menu-tooltip {
@@ -145,8 +149,13 @@ $font: #fff;
   .header {
     width: 8%;
   }
-  .header-nav li {
+  .header-nav li,
+  .aside-menu-tooltip
+  {
     font-size: 1.5em;
+  }
+  .aside-menu-tooltip {
+    height: 3vw;
   }
   .header-nav li span {
     font-size: 0.8em;
@@ -160,8 +169,13 @@ $font: #fff;
   .header {
     width: 10%;
   }
-  .header-nav li {
+  .header-nav li,
+  .aside-menu-tooltip
+  {
     font-size: 2em;
+  }
+  .aside-menu-tooltip {
+    height: 3.3vw;
   }
   .header-nav li span {
     font-size: 0.5em;
@@ -178,8 +192,13 @@ $font: #fff;
   .header {
     width: 15%;
   }
-  .header-nav li {
+  .header-nav li,
+  .aside-menu-tooltip
+  {
     font-size: 2em;
+  }
+  .aside-menu-tooltip {
+    height: 6.3vw;
   }
   .header-nav li span {
     font-size: 0.5em;
@@ -196,8 +215,13 @@ $font: #fff;
   .header {
     width: 18%;
   }
-  .header-nav li {
+  .header-nav li,
+  .aside-menu-tooltip
+  {
     font-size: 2em;
+  }
+  .aside-menu-tooltip {
+    height: 8.3vw;
   }
   .header-nav li span {
     font-size: 0.5em;
@@ -214,8 +238,13 @@ $font: #fff;
   .header {
     width: 20%;
   }
-  .header-nav li {
+  .header-nav li,
+  .aside-menu-tooltip
+  {
     font-size: 2em;
+  }
+  .aside-menu-tooltip {
+    height: 8.3vw;
   }
   .header-nav li span {
     font-size: 0.5em;

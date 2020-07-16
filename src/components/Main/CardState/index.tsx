@@ -14,6 +14,8 @@ import {
 import { handleSettings, openErrorModal } from 'containers/Main/actions';
 import Authorization from 'components/Authorization';
 import { Link } from 'react-router-dom';
+import { FetchedWordData } from 'containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/models';
+import { openTraining } from 'containers/Training/action';
 
 const CardGame: React.FC = () => {
   const theme = useSelector((state: State) => state.mainTheme.theme);
@@ -21,13 +23,28 @@ const CardGame: React.FC = () => {
   const settingsState = useSelector((state: State) => state.mainSetEnabled.hintsState);
   const amount = useSelector((state: State) => state.mainCardsWords.amount);
   const totalIndex = useSelector((state: State) => state.training.totalProgress);
+  const studyMode = useSelector((state: State) => state.mainStudyMode.studyModes);
+  const clonedWords: FetchedWordData[] = useSelector((state: State) => state.appUserWords.userWords);
   const totalCardsToTrain = amount.cards;
+  const progress = (totalIndex / amount.cards) * 100;
   const clickHandler = () => dispatch(handleSettings(true));
   const logged = useSelector((state: State) => state.authLog.isLogged);
   const lang = useSelector((state: State) => state.mainLang.lang);
   const [usedLang, setUsedLang] = lang === 'eng' ? useState(eng) : useState(ru);
   const [userCardLang, setUsedCardLang] = lang === 'eng' ? useState(cardEngOptions) : useState(cardRuOptions);
-  // const isModalOpen = useSelector((state: State) => state.mainErrorModal.isOpen);
+  let usedWords;
+  if (studyMode.trainAllWords) {
+    usedWords = clonedWords.filter((word) => (word || word.userWord) && (word || !word.userWord.optional.del));
+  }
+  if (studyMode.onlyNew) {
+    usedWords = clonedWords.filter((word) => !word.userWord.optional.played);
+  }
+  if (studyMode.onlyRepeat) {
+    usedWords = clonedWords.filter((word) => word.userWord.optional.repeatTimes > 0);
+  }
+  if (studyMode.onlyDifficult) {
+    usedWords = clonedWords.filter((word) => word.userWord.optional.dif);
+  }
 
   useEffect(() => {
     if (lang === 'eng') {
@@ -40,20 +57,17 @@ const CardGame: React.FC = () => {
   }, [lang]);
 
   const learnBtnClickHandler = () => {
-    if (totalIndex >= totalCardsToTrain) {
+    if (usedWords.length === 0) {
+      const title = usedLang.errorMessage.noWordsTitle;
+      const content = usedLang.errorMessage.noWordsContent;
+      dispatch(openErrorModal({ title, content }));
+    } else if (totalIndex >= totalCardsToTrain) {
       const title = usedLang.errorMessage.dailyRateTitle;
       const content = usedLang.errorMessage.dailyRateContent;
       dispatch(openErrorModal({ title, content }));
+    } else {
+      dispatch(openTraining());
     }
-
-    //   to do
-    // else {
-    //   if (usedWords.filter(studyMode).length === 0) {
-    //     const title = usedLang.errorMessage.noWordsTitle;
-    //     const content = usedLang.errorMessage.noWordsContent;
-    //     dispatch(openErrorModal({ title, content }));
-    //   }
-    // }
   };
 
   return (
@@ -107,24 +121,23 @@ const CardGame: React.FC = () => {
             <div className="card-game-progress-info">
               <p>{usedLang.cardSettings.yourProgress}</p>
               <span>
-                4/
-                {amount.words}
+                {totalIndex}
+                /
+                {amount.cards}
               </span>
             </div>
-            <ProgressBar variant="success" now={20} />
+            <ProgressBar variant="success" now={progress} />
           </div>
           <div className="cards-game-buttons">
-            <Link to={totalIndex >= totalCardsToTrain ? '/' : '/Training'}>
-              <button
-                type="button"
-                className="cards-game-play-button"
-                onClick={learnBtnClickHandler}
-              >
-                <FontAwesomeIcon icon={faPlay} />
-                &nbsp;
-                {usedLang.cardSettings.buttons.learn}
-              </button>
-            </Link>
+            <button
+              type="button"
+              className="cards-game-play-button"
+              onClick={learnBtnClickHandler}
+            >
+              <FontAwesomeIcon icon={faPlay} />
+              {' '}
+              {usedLang.cardSettings.buttons.learn}
+            </button>
             <button
               type="button"
               onClick={clickHandler}

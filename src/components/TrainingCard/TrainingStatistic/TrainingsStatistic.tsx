@@ -3,9 +3,9 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import { State } from 'models';
 import { useSelector, useDispatch } from 'react-redux';
-import { resetTrainingStatistic, toggleTrainingStatistic, resetTraining } from 'containers/TrainingCard/actions';
+import { resetTrainingStatistic, toggleTrainingStatistic } from 'containers/TrainingCard/actions';
 import { eng, ru } from 'constants/training-constants';
-import { Link } from 'react-router-dom';
+import { closeTraining } from 'containers/Training/action';
 
 function TrainingStatistic(): JSX.Element {
   const lang = useSelector((state: State) => state.mainLang.lang);
@@ -30,13 +30,15 @@ function TrainingStatistic(): JSX.Element {
     state: State,
   ) => state.trainingStatistic.correctAnswersInRow);
 
+  const cardProgres = useSelector((state: State) => state.trainingStatistic.playedNewCards);
   const cardsCount = +successWords.length + +failedWords.length;
   const correctPercent = Math.ceil((successWords.length * 100) / cardsCount);
 
   const btnClickHandler = () => {
     dispatch(resetTrainingStatistic());
     dispatch(toggleTrainingStatistic(false));
-    dispatch(resetTraining());
+    dispatch(closeTraining());
+    // dispatch(resetTraining());
   };
 
   return (
@@ -61,7 +63,7 @@ function TrainingStatistic(): JSX.Element {
           </div>
           <div className="d-flex justify-content-between border-bottom my-2">
             <span className="text-warning">{usedLang.statistic.newWords}</span>
-            <span className="font-weight-bold">25</span>
+            <span className="font-weight-bold">{cardProgres}</span>
           </div>
           <div className="d-flex justify-content-between border-bottom my-2">
             <span className="text-info">{usedLang.statistic.longestCorrectSeries}</span>
@@ -70,11 +72,9 @@ function TrainingStatistic(): JSX.Element {
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <Link to="/">
-          <Button variant="primary" onClick={btnClickHandler}>
-            {usedLang.buttons.toMain}
-          </Button>
-        </Link>
+        <Button variant="primary" onClick={btnClickHandler}>
+          {usedLang.buttons.toMain}
+        </Button>
       </Modal.Footer>
     </Modal>
   );

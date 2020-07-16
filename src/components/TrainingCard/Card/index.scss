@@ -97,6 +97,10 @@ margin: auto;
   }
 }
 
+.text-dark {
+  color: black;
+}
+
 #checked-answer {
     text-align: left;
     padding: 2px;
@@ -104,6 +108,10 @@ margin: auto;
     font-family: monospace;
     font-size: 20px;
   }
+}
+
+.training-card-info-deleted {
+  justify-content: center !important;
 }
 
 @media (max-width: 900px) {

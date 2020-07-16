@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { State } from 'models';
 import { toggleAnswerChecked } from 'containers/TrainingCard/actions';
 import { FetchedWordData } from 'containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/models';
-import book1 from 'constants/words-constants';
 
 function CheckedAnswer(): JSX.Element {
   const dispatch = useDispatch();
@@ -12,7 +11,22 @@ function CheckedAnswer(): JSX.Element {
   const isAnswerCorrect = useSelector((state: State) => state.training.isCorrect);
   const canMoveToNext = useSelector((state: State) => state.training.moveToNext);
   const index = useSelector((state: State) => state.training.currIndex);
-  const data: FetchedWordData = book1[0][index];
+  const studyMode = useSelector((state: State) => state.mainStudyMode.studyModes);
+  const clonedWords: FetchedWordData[] = useSelector((state: State) => state.appUserWords.userWords);
+  let usedWords;
+  if (studyMode.trainAllWords) {
+    usedWords = clonedWords.filter((word) => (word || word.userWord) && (word || !word.userWord.optional.del));
+  }
+  if (studyMode.onlyNew) {
+    usedWords = clonedWords.filter((word) => !word.userWord.optional.played);
+  }
+  if (studyMode.onlyRepeat) {
+    usedWords = clonedWords.filter((word) => word.userWord.optional.repeatTimes > 0);
+  }
+  if (studyMode.onlyDifficult) {
+    usedWords = clonedWords.filter((word) => word.userWord.optional.dif);
+  }
+  const data = usedWords[index];
   const [checkedAnswerClass, setCheckedAnswerClass] = useState('checked-answer');
   const inputWord: string = useSelector((state: State) => state.training.inputWord);
   const correctWord = data.word;
@@ -36,8 +50,8 @@ function CheckedAnswer(): JSX.Element {
   const clickHandler = () => {
     if (!canMoveToNext) {
       dispatch(toggleAnswerChecked());
-      setCheckedAnswerClass('checked-answer');
     }
+    setCheckedAnswerClass('checked-answer');
   };
 
   const keyPressHandler = (event: React.KeyboardEvent<HTMLDivElement>) => event.preventDefault();

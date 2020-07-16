@@ -1,5 +1,7 @@
 import * as React from 'react';
 import './index.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ru, eng } from 'constants/dictionary-constants';
@@ -8,12 +10,9 @@ import { useSelector } from 'react-redux';
 import View from './View.tsx';
 
 function Dictionary(): JSX.Element {
-  const settingsState = useSelector((state: State) => state.mainSetEnabled.hintsState);
-  console.log(settingsState);
   const lang = useSelector((state: State) => state.mainLang.lang);
   const usedLang = lang === 'eng' ? eng : ru;
   const [currPage, setCurrPage] = useState('learning');
-
   const btnClickHandler = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => setCurrPage(event.currentTarget.id);
@@ -23,7 +22,7 @@ function Dictionary(): JSX.Element {
       <div className="dictionary-header bg-light rounded container py-2">
         <div className="title-container d-flex justify-content-between">
           <h4 className="dictionary-title text-uppercase display-4">{usedLang.title}</h4>
-          <Link to="/"><i className="fas fa-times" role="button" aria-label="Times icon" tabIndex={-1} /></Link>
+          <Link to="/"><FontAwesomeIcon icon={faTimes} /></Link>
         </div>
         <div className="dictionary-btn-container d-flex">
           <button
