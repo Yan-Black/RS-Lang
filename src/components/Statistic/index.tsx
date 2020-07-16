@@ -11,8 +11,26 @@ import './index.scss';
 import View from 'components/Dictionary/View.tsx';
 
 function Statistic() {
+  const stat = {
+    days: ['10 июля', '11 июля', '12 июля', '13 июля', '14 июля'],
+    wordsToDays : [20, 10, 20, 50, 35],
+  }
+
+  function getSums(arr) {
+    let result = [];
+    if (!arr.length) return result;
+
+    let totalSum = arr.reduce(function(sum, item) {
+      result.push(sum);
+      return sum + item;
+    });
+    result.push(totalSum);
+    return result;
+  }
+  const allWords = getSums(stat.wordsToDays);
+
   const data = {
-    labels: ['10 июля', '11 июля', '12 июля', '13 июля', '14 июля'],
+    labels: stat.days,
     datasets: [
       {
         label: 'Изученные за сегодня',
@@ -33,10 +51,10 @@ function Statistic() {
         pointHoverBorderWidth: 2,
         pointRadius: 1,
         pointHitRadius: 10,
-        data: [0, 10, 20, 50, 35],
+        data: stat.wordsToDays,
       },
       {
-        label: 'всего слов выученно',
+        label: 'Все изученные слова',
         fill: false,
         lineTension: 0.1,
         backgroundColor: 'rgba(75,192,192,0.4)',
@@ -54,7 +72,7 @@ function Statistic() {
         pointHoverBorderWidth: 2,
         pointRadius: 1,
         pointHitRadius: 10,
-        data: [0, 10, 30, 80, 105],
+        data: allWords,
       },
     ],
   };
