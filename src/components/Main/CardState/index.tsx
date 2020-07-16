@@ -14,6 +14,8 @@ import {
 import { handleSettings, openErrorModal } from 'containers/Main/actions';
 import Authorization from 'components/Authorization';
 import { Link } from 'react-router-dom';
+import { FetchedWordData } from 'containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/models';
+import { toggleError } from 'containers/Training/action';
 
 const CardGame: React.FC = () => {
   const theme = useSelector((state: State) => state.mainTheme.theme);
@@ -21,6 +23,8 @@ const CardGame: React.FC = () => {
   const settingsState = useSelector((state: State) => state.mainSetEnabled.hintsState);
   const amount = useSelector((state: State) => state.mainCardsWords.amount);
   const totalIndex = useSelector((state: State) => state.training.totalProgress);
+  const studyMode = useSelector((state: State) => state.mainStudyMode.studyModes);
+  const usedWords: FetchedWordData[] = useSelector((state: State) => state.appUserWords.userWords);
   const totalCardsToTrain = amount.cards;
   const progress = (totalIndex / amount.cards) * 100;
   const clickHandler = () => dispatch(handleSettings(true));
@@ -28,7 +32,6 @@ const CardGame: React.FC = () => {
   const lang = useSelector((state: State) => state.mainLang.lang);
   const [usedLang, setUsedLang] = lang === 'eng' ? useState(eng) : useState(ru);
   const [userCardLang, setUsedCardLang] = lang === 'eng' ? useState(cardEngOptions) : useState(cardRuOptions);
-  // const isModalOpen = useSelector((state: State) => state.mainErrorModal.isOpen);
 
   useEffect(() => {
     if (lang === 'eng') {
@@ -41,21 +44,17 @@ const CardGame: React.FC = () => {
   }, [lang]);
 
   const learnBtnClickHandler = () => {
-    if (totalIndex >= totalCardsToTrain) {
-      const title = usedLang.errorMessage.dailyRateTitle;
-      const content = usedLang.errorMessage.dailyRateContent;
+    if (usedWords.filter((word) => word.userWord && !word.userWord.optional.played).length === 0) {
+      const title = usedLang.errorMessage.noWordsTitle;
+      const content = usedLang.errorMessage.noWordsContent;
       dispatch(openErrorModal({ title, content }));
     }
-
-    //   to do
-    // else {
-    //   if (usedWords.filter(studyMode).length === 0) {
-    //     const title = usedLang.errorMessage.noWordsTitle;
-    //     const content = usedLang.errorMessage.noWordsContent;
-    //     dispatch(openErrorModal({ title, content }));
-    //   }
-    // }
   };
+  if (totalIndex >= totalCardsToTrain) {
+    const title = usedLang.errorMessage.dailyRateTitle;
+    const content = usedLang.errorMessage.dailyRateContent;
+    dispatch(openErrorModal({ title, content }));
+  }
 
   return (
     <div className={theme === 'light' ? 'main-control-center' : 'main-control-center main-control-center-dark'}>
@@ -117,7 +116,14 @@ const CardGame: React.FC = () => {
           </div>
           <div className="cards-game-buttons">
             <Link
-              to={totalIndex >= totalCardsToTrain ? '/' : '/Training'}
+              to={usedWords[0] && usedWords[0].userWord && usedWords[0].userWord.optional ? usedWords.filter(
+                (word) => (studyMode.trainAllWords && (word.userWord || word) && !word.userWord.optional.del)
+                  || (studyMode.onlyNew && !word.userWord)
+                  || (studyMode.onlyRepeat && word.userWord && word.userWord.optional.repeatTimes > 0)
+                  || (studyMode.onlyDifficult && word.userWord && word.userWord.optional.dif),
+              ).length === 0
+                ? '/'
+                : '/Training' : '/Training'}
               className="study-option-start-btn"
             >
               <button
@@ -126,7 +132,7 @@ const CardGame: React.FC = () => {
                 onClick={learnBtnClickHandler}
               >
                 <FontAwesomeIcon icon={faPlay} />
-                &nbsp;
+                {' '}
                 {usedLang.cardSettings.buttons.learn}
               </button>
             </Link>

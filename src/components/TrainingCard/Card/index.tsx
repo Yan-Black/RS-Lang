@@ -26,11 +26,14 @@ const Card: React.FC = () => {
   const settingsState = useSelector((state: State) => state.mainSetEnabled.hintsState);
   const dispatch = useDispatch();
   const index = useSelector((state: State) => state.training.currIndex);
+  const studyMode = useSelector((state: State) => state.mainStudyMode.studyModes);
   const clonedWords: FetchedWordData[] = useSelector((state: State) => state.appUserWords.userWords);
   const usedWords = clonedWords.filter(
-    (word) => word.userWord && !word.userWord.optional.del,
+    (word) => (studyMode.trainAllWords && (word.userWord || word) && !word.userWord.optional.del)
+      || (studyMode.onlyNew && !word.userWord)
+      || (studyMode.onlyRepeat && word.userWord && word.userWord.optional.repeatTimes > 0)
+      || (studyMode.onlyDifficult && word.userWord && word.userWord.optional.dif),
   );
-
   const data = usedWords[index];
   const prevData = usedWords[index - 1];
   const cardsToTrain = amount.words;
@@ -186,14 +189,14 @@ const Card: React.FC = () => {
   const nextCardBTNHandler = () => {
     audioHandler();
     showDelMes(false);
-    
-    const clone = Array.from(usedWords);
-    const currentWord = clone[index];
+
+    const clone = Array.from(clonedWords);
+    const currentWord = usedWords[index];
     const handledWord = { ...currentWord };
     if (handledWord.userWord) {
       !handledWord.userWord.optional.repeatTimes
         ? handledWord.userWord.optional.repeatTimes = 0
-        : handledWord.userWord.optional.repeatTimes++;
+        : +handledWord.userWord.optional.repeatTimes + 1;
       !handledWord.userWord.optional.lastRepeat
         ? handledWord.userWord.optional.lastRepeat = `${new Date().toDateString().slice(3, -4)} ${new Date().toLocaleTimeString().slice(0, -3)}`
         : handledWord.userWord.optional.lastRepeat = `${new Date().toDateString().slice(3, -4)} ${new Date().toLocaleTimeString().slice(0, -3)}`;
@@ -205,7 +208,7 @@ const Card: React.FC = () => {
       } else if (handledWord.userWord.optional.success === 8) {
         handledWord.userWord.optional.del = true;
       } else {
-        handledWord.userWord.optional.success++;
+        +handledWord.userWord.optional.success + 1;
       }
       if (delActive) {
         handledWord.userWord.optional.del = true;
@@ -215,7 +218,7 @@ const Card: React.FC = () => {
       if (difActive) {
         handledWord.userWord.optional.dif = true;
       }
-      clone.splice(index, 1, handledWord);
+      clone.splice(clonedWords.indexOf(currentWord), 1, handledWord);
       dispatch(updateUserWords(clone));
       updateUserWord(handledWord, dispatch);
       setDelActive(false);
@@ -236,7 +239,7 @@ const Card: React.FC = () => {
         handledWord.userWord.optional.dif = true;
         handledWord.userWord.optional.del = false;
       }
-      clone.splice(usedWords.indexOf(data), 1, handledWord);
+      clone.splice(index, 1, handledWord);
       dispatch(updateUserWords(clone));
       createUserWord(handledWord);
       setDelActive(false);

@@ -45,6 +45,7 @@ import {
   modeReducer, buttonAccess, fallingWordToggle, showAnswerToggle, addFailedWords, addTrueWords, showWordsToggle, setFallingWord, modalSavannahReducer,
 } from 'containers/Games/Savannah/store/store';
 import visitsReducer from 'containers/Authorisation/visitsReducer';
+import errorReducer from 'containers/Training/errorReducer';
 import appReducer from '../containers/App/reducer';
 import btnsReducer from '../containers/Games/EnglishPuzzle/HeaderBlock/HintButtons/btnsReducer';
 import wordsReducer from '../containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/wordsReducer';
@@ -55,6 +56,7 @@ import collectionReducer from '../containers/Games/EnglishPuzzle/GameBlock/GameB
 
 const rootReducer = combineReducers({
   app: appReducer,
+  appErr: errorReducer,
   appVisit: visitsReducer,
   appUserWords: userWordsReducer,
   authToken: authTokenReducer,

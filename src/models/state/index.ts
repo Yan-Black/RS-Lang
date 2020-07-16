@@ -5,6 +5,7 @@ export interface State {
   trainingStatistic;
   training;
   app;
+  appErr;
   appUserWords: IntialStateUserWords;
   authToken;
   appVisit;
