@@ -4,14 +4,23 @@ import { FetchedWordData } from 'containers/Games/EnglishPuzzle/HeaderBlock/Sett
 import { State } from 'models';
 
 function TrainingCardFields(): JSX.Element {
-  const amount = useSelector((state: State) => state.mainCardsWords.amount);
-  const cardsToTrain = amount.cards;
   const index = useSelector((state: State) => state.training.currIndex);
-  const usedData: FetchedWordData[] = useSelector((state: State) => state.appUserWords.userWords);
-  const usedWords = usedData.filter(
-    (word) => (word || word.userWord) && (word || !word.userWord.optional.del),
-  );
-
+  const studyMode = useSelector((state: State) => state.mainStudyMode.studyModes);
+  const clonedWords: FetchedWordData[] = useSelector((state: State) => state.appUserWords.userWords);
+  let usedWords;
+  if (studyMode.trainAllWords) {
+    usedWords = clonedWords.filter((word) => (word || word.userWord) && (word || !word.userWord.optional.del));
+  }
+  if (studyMode.onlyNew) {
+    usedWords = clonedWords.filter((word) => !word.userWord.optional.played);
+  }
+  if (studyMode.onlyRepeat) {
+    usedWords = clonedWords.filter((word) => word.userWord.optional.repeatTimes > 0);
+  }
+  if (studyMode.onlyDifficult) {
+    usedWords = clonedWords.filter((word) => word.userWord.optional.dif);
+  }
+  const cardsToTrain = usedWords.length;
   const settingsState = useSelector((state: State) => state.mainSetEnabled.hintsState);
   // to do change data to data from dictionary
   const data = usedWords[index];
@@ -22,12 +31,12 @@ function TrainingCardFields(): JSX.Element {
   const showAllTranslates = settingsState.showTextTranslate;
   const isAnswerCorrect = useSelector((state: State) => state.training.isCorrect);
 
-  const translateClass = (showWordTranslate || (showAllTranslates && (isAnswerCorrect || index >= cardsToTrain))) ? 'training-card-translate' : 'invisible';
-  const exampleClass = showWordExample ? 'training-card-example' : 'invisible';
-  const meaningClass = showWordMeaning ? 'training-card-meaning' : 'invisible';
+  const translateClass = (showWordTranslate || (showAllTranslates && (isAnswerCorrect || index >= cardsToTrain))) ? 'training-card-translate text-dark' : 'invisible';
+  const exampleClass = showWordExample ? 'training-card-example text-dark' : 'invisible';
+  const meaningClass = showWordMeaning ? 'training-card-meaning text-dark' : 'invisible';
   const transcriptionClass = (showWordTranscription && (isAnswerCorrect || index >= cardsToTrain)) ? 'training-card-transcript text-danger' : 'invisible';
-  const exampleTranslateClass = ((showWordExample && showAllTranslates) && (isAnswerCorrect || index >= cardsToTrain)) ? 'translate' : 'invisible';
-  const meaningTranslateClass = ((showWordMeaning && showAllTranslates) && (isAnswerCorrect || index >= cardsToTrain)) ? 'translate' : 'invisible';
+  const exampleTranslateClass = ((showWordExample && showAllTranslates) && (isAnswerCorrect || index >= cardsToTrain)) ? 'translate text-dark' : 'invisible';
+  const meaningTranslateClass = ((showWordMeaning && showAllTranslates) && (isAnswerCorrect || index >= cardsToTrain)) ? 'translate text-dark' : 'invisible';
   const wordClass = isAnswerCorrect || index >= cardsToTrain ? 'training-card-word text-primary' : 'training-card-word invisible';
 
   function getInnerText(text: string) {

@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
 import { resetTrainingStatistic, toggleTrainingStatistic, resetTraining } from 'containers/TrainingCard/actions';
 import { FetchedWordData } from 'containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/models';
+import { closeTraining } from 'containers/Training/action';
 import Card from './Card';
 import './index.scss';
 import AnkiBtns from './Card/AnkiBtns';
@@ -32,7 +33,7 @@ const Training: React.FC = () => {
     usedWords = clonedWords.filter((word) => word.userWord.optional.repeatTimes > 0 || !word);
   }
   if (studyMode.onlyDifficult) {
-    usedWords = clonedWords.filter((word) => (word || word.userWord) && (word || !word.userWord.optional.del));
+    usedWords = clonedWords.filter((word) => word.userWord.optional.dif);
   }
 
   // to do set cardsToTrain = select words from all user's words using filter(studyMode)
@@ -45,20 +46,19 @@ const Training: React.FC = () => {
     dispatch(resetTrainingStatistic());
     dispatch(toggleTrainingStatistic(false));
     dispatch(resetTraining());
+    dispatch(closeTraining());
   };
 
   return (
     <div className="training-page-wrapper">
       <div className="p-4 mb-2 text-right">
-        <Link to="/">
-          <button
-            type="button"
-            className="btn btn-light"
-            onClick={btnClickHandler}
-          >
-            <FontAwesomeIcon icon={faHome} />
-          </button>
-        </Link>
+        <button
+          type="button"
+          className="btn btn-light"
+          onClick={btnClickHandler}
+        >
+          <FontAwesomeIcon icon={faHome} />
+        </button>
       </div>
       <Card />
       <ProgressBar className="training-progress" now={done} label={`${done}%`} />

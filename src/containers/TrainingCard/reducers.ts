@@ -43,7 +43,7 @@ const trainingReducer: Models.Reducer<unknown> = (
     case ActionType.TOGGLE_MOVE_TO_NEXT:
       return { ...state, moveToNext: !state.moveToNext };
     case ActionType.UPDATE_CARD_PROGRESS:
-      return { ...state, newCardProgress: state.newCardProgress + 1 };
+      return { ...state, newCardProgress: +state.newCardProgress + 1 };
     case ActionType.RESET_TRAINING:
       return {
         ...state,

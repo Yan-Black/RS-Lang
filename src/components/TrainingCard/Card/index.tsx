@@ -33,13 +33,13 @@ const Card: React.FC = () => {
     usedWords = clonedWords.filter((word) => (word || word.userWord) && (word || !word.userWord.optional.del));
   }
   if (studyMode.onlyNew) {
-    usedWords = clonedWords.filter((word) => !word.userWord);
+    usedWords = clonedWords.filter((word) => !word.userWord.optional.played);
   }
   if (studyMode.onlyRepeat) {
     usedWords = clonedWords.filter((word) => word.userWord.optional.repeatTimes > 0 || !word);
   }
   if (studyMode.onlyDifficult) {
-    usedWords = clonedWords.filter((word) => (word || word.userWord) && (word || !word.userWord.optional.del));
+    usedWords = clonedWords.filter((word) => word.userWord.optional.del || !word);
   }
 
   const data = usedWords[index];
@@ -201,7 +201,7 @@ const Card: React.FC = () => {
     const clone = Array.from(clonedWords);
     const currentWord = usedWords[index];
     const handledWord = { ...currentWord };
-    if (handledWord.userWord) {
+    if (handledWord.userWord.optional.played) {
       handledWord.userWord.optional.repeatTimes === undefined
         ? handledWord.userWord.optional.repeatTimes = 0
         : +handledWord.userWord.optional.repeatTimes++;
@@ -251,7 +251,7 @@ const Card: React.FC = () => {
       dispatch(updateUserWords(clone));
       dispatch(updateNewCardProgress());
       dispatch(updateGameCardProgress());
-      createUserWord(handledWord);
+      createUserWord(handledWord, dispatch);
       setDelActive(false);
       setDifActive(false);
     }

@@ -41,6 +41,7 @@ export const createUser = (
       }
       return Promise.reject(res);
     })
+    .then((res) => console.log(res))
     .catch((e) => {
       dispatch(hideLoader());
       switch (e.status) {
@@ -55,10 +56,12 @@ export const createUser = (
     });
 };
 
-export const createUserWord = (word: FetchedWordData) => {
+export const createUserWord = (word: FetchedWordData, dispatch: Dispatch<Action>) => {
   const { token, userId } = localStorage;
   // eslint-disable-next-line no-underscore-dangle
-  fetch(`https://afternoon-falls-25894.herokuapp.com/users/${userId}/words/${word.id}`, {
+  dispatch(showLoader());
+  // eslint-disable-next-line no-underscore-dangle
+  fetch(`https://afternoon-falls-25894.herokuapp.com/users/${userId}/words/${word.id || word._id}`, {
     method: 'POST',
     headers: {
       'Access-Control-Allow-Credentials': 'true',
@@ -71,7 +74,15 @@ export const createUserWord = (word: FetchedWordData) => {
       optional: word.userWord.optional,
     }),
   })
-    .catch();
+    .then((res) => (res.ok ? res.json() : Promise.reject(res))
+      .then(() => dispatch(hideLoader()))
+      .catch((e) => {
+        switch (e.status) {
+          case 417: updateUserWord(word, dispatch);
+            break;
+          default: window.console.log(e);
+        }
+      }));
 };
 
 export const updateUserWord = (word: FetchedWordData, dispatch: Dispatch<Action>) => {
@@ -130,15 +141,15 @@ export const loginUser = (
   })
     .then((res) => (res.ok ? res.json() : Promise.reject(res)))
     .then((res) => {
-      dispatch(hideLoader());
       dispatch(removeApiError());
-      dispatch(setLogged());
       dispatch(setUserName(res.name));
       dispatch(updateVisits());
       localStorage.setItem('userName', res.name);
       localStorage.setItem('token', res.token);
       localStorage.setItem('refToken', res.refreshToken);
       localStorage.setItem('userId', res.userId);
+      dispatch(setLogged());
+      dispatch(hideLoader());
     })
     .catch((e) => {
       dispatch(hideLoader());

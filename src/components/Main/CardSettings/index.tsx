@@ -11,7 +11,7 @@ import {
 } from 'constants/main-page-constants';
 import { State } from 'models';
 import Spinner from 'react-bootstrap/Spinner';
-import { updateUserSettings } from 'constants/athorization-constants';
+import { updateUserSettings, createUserWord } from 'constants/athorization-constants';
 
 const CardSettings: React.FC = () => {
   const dispatch = useDispatch();
@@ -52,9 +52,13 @@ const CardSettings: React.FC = () => {
     } else if (cardsWordsAmount[0] > 50) {
       setErr(true);
       setErrMes(usedErrors.amountWords);
-    } else if (cardsWordsAmount[1] > 100) {
+    } else if (cardsWordsAmount[1] > 150) {
       setErr(true);
       setErrMes(usedErrors.amountCards);
+    } else if (cardsWordsAmount[1] < cardsWordsAmount[0] * 3) {
+      setErr(true);
+      const cardsAmount = cardsWordsAmount[0] * 3;
+      setErrMes(`${usedErrors.cardsError} ${cardsAmount}`);
     } else {
       usedCheckboxes.forEach((prop) => {
         prop.data.forEach((option) => {
@@ -71,10 +75,20 @@ const CardSettings: React.FC = () => {
         JSON.stringify({ words: cardsWordsAmount[0], cards: cardsWordsAmount[1] }),
       );
       if (cardsWordsAmount[0] > userWords.length) {
-        const group = 0;
+        const group = 5;
         const pages: number[] = [1, 2, 3];
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         pages.forEach((page) => addNewUserWords(dispatch, group, page));
+        !loading && userWords.forEach((word) => {
+          if (!word.userWord) {
+            word.userWord = {
+              optional: {
+                binded: true,
+              },
+            };
+            createUserWord(word, dispatch);
+          }
+        });
       }
       dispatch(handleSettings(false));
       updateUserSettings(cardsWordsAmount[0], newSettingsState);
@@ -102,7 +116,7 @@ const CardSettings: React.FC = () => {
               id="inputCards"
               type="number"
               min="0"
-              max="100"
+              max="150"
               defaultValue={amount.cards}
               onChange={updateCardsWords}
             />

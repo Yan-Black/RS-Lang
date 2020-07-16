@@ -5,7 +5,8 @@ import { Action } from 'redux';
 import { ActionType } from './constants';
 import { ActionUserWords, ActionCreator } from './models';
 
-const filter = `${encodeURIComponent('{"$and":[{"userWord.optional.played":true}]}')}`;
+const filter = `${encodeURIComponent('{"$or":[{"userWord.optional.binded":true},{"userWord.optional.played":true}]}')}`;
+// filter: {"$or":[{"$and": [{"$or": [{"userWord.difficulty": "strong"},{"userWord.difficulty": "easy"}]}]},{"userWord": null}]}
 
 export const getUsertWords = async (dispatch: Dispatch<ActionUserWords | Action>) => {
   const { userId, token } = localStorage;

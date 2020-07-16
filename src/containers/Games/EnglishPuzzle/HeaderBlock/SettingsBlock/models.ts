@@ -23,6 +23,7 @@ export interface FetchedWordData {
       dif?: boolean;
       del?: boolean;
       success?: number;
+      binded?: boolean;
     }
   }
 }

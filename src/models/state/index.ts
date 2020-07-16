@@ -10,6 +10,7 @@ export interface State {
   authToken;
   appVisit;
   authErrors;
+  appTraining;
   authLog;
   authName;
   mainModal;

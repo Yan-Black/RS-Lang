@@ -11,6 +11,7 @@ import {
   emailErrorMessage,
   passErrorMessage,
   loginUser,
+  createUserWord,
 } from 'constants/athorization-constants';
 import { useForm } from 'react-hook-form';
 import { removeApiError, closeLogForm, openRegForm } from 'containers/Authorisation/actions';
@@ -21,7 +22,16 @@ const LoginForm: React.FC = () => {
   const { register, handleSubmit, errors } = useForm();
   const dispatch = useDispatch();
   const logged = useSelector((state: State) => state.authLog.isLogged);
+  const userWords = useSelector((state: State) => state.appUserWords.userWords);
   const onSubmit = (user: User) => loginUser(user, dispatch);
+  logged && !userWords[0].userWord && userWords.forEach((word) => {
+    word.userWord = {
+      optional: {
+        binded: true,
+      },
+    };
+    createUserWord(word, dispatch);
+  });
   const [type, setType] = useState('password');
   const clickHandler = () => {
     dispatch(removeApiError());

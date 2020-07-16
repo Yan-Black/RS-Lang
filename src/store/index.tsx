@@ -46,6 +46,7 @@ import {
 } from 'containers/Games/Savannah/store/store';
 import visitsReducer from 'containers/Authorisation/visitsReducer';
 import errorReducer from 'containers/Training/errorReducer';
+import trainingPageReducer from 'containers/Training/trainingPageReducer';
 import appReducer from '../containers/App/reducer';
 import btnsReducer from '../containers/Games/EnglishPuzzle/HeaderBlock/HintButtons/btnsReducer';
 import wordsReducer from '../containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/wordsReducer';
@@ -59,6 +60,7 @@ const rootReducer = combineReducers({
   appErr: errorReducer,
   appVisit: visitsReducer,
   appUserWords: userWordsReducer,
+  appTraining: trainingPageReducer,
   authToken: authTokenReducer,
   authErrors: authErrorsReducer,
   authLog: logReducer,

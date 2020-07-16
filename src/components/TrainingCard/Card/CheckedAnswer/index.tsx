@@ -11,10 +11,21 @@ function CheckedAnswer(): JSX.Element {
   const isAnswerCorrect = useSelector((state: State) => state.training.isCorrect);
   const canMoveToNext = useSelector((state: State) => state.training.moveToNext);
   const index = useSelector((state: State) => state.training.currIndex);
-  const usedData: FetchedWordData[] = useSelector((state: State) => state.appUserWords.userWords);
-  const usedWords = usedData.filter(
-    (word) => (word || word.userWord) && (word || !word.userWord.optional.del),
-  );
+  const studyMode = useSelector((state: State) => state.mainStudyMode.studyModes);
+  const clonedWords: FetchedWordData[] = useSelector((state: State) => state.appUserWords.userWords);
+  let usedWords;
+  if (studyMode.trainAllWords) {
+    usedWords = clonedWords.filter((word) => (word || word.userWord) && (word || !word.userWord.optional.del));
+  }
+  if (studyMode.onlyNew) {
+    usedWords = clonedWords.filter((word) => !word.userWord.optional.played);
+  }
+  if (studyMode.onlyRepeat) {
+    usedWords = clonedWords.filter((word) => word.userWord.optional.repeatTimes > 0);
+  }
+  if (studyMode.onlyDifficult) {
+    usedWords = clonedWords.filter((word) => word.userWord.optional.dif);
+  }
   const data = usedWords[index];
   const [checkedAnswerClass, setCheckedAnswerClass] = useState('checked-answer');
   const inputWord: string = useSelector((state: State) => state.training.inputWord);

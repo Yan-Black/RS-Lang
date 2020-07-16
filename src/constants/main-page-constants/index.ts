@@ -360,12 +360,14 @@ export const engSetiingsErrors = {
   mandatoryHint: 'Choose required hint',
   amountCards: 'Amount of cards must be less than 50',
   amountWords: 'Amount of words must be less than 50',
+  cardsError: 'Amount of cards must be more',
 };
 
 export const ruSetiingsErrors = {
   mandatoryHint: 'Выберите обязательную подсказку',
   amountCards: 'Количество слов не должно превышать 50',
   amountWords: 'Количество карточек не должно превышать 50',
+  cardsError: 'Количество карточек должно быть больше',
 };
 
 export const cardsNames = ['audioCall', 'englishPuzzle', 'ourGame', 'savannah', 'speakIt', 'sprint'];
