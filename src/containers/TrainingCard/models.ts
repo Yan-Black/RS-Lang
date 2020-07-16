@@ -26,6 +26,8 @@ export namespace Action {
   export interface AddToSuccessTraining extends Models.Action<Payload.SetDocumentTypes> { }
   export interface AddRowOfSuccess extends Models.Action<Payload.SetDocumentTypes> { }
   export interface ResetTrainingStatistic extends Models.Action<Payload.SetDocumentTypes> { }
+  export interface UpdateNewCardProgress extends Models.Action<Payload.SetDocumentTypes> { }
+  export interface UpdateGameCardsProgress extends Models.Action<Payload.SetDocumentTypes> { }
 }
 
 export namespace ActionCreator {
@@ -40,10 +42,13 @@ export namespace ActionCreator {
   export type AddToSuccessTraining = (wordObj: FetchedWordData) => Action.AddToSuccessTraining;
   export type AddRowOfSuccess = (success: number) => Action.AddRowOfSuccess;
   export type ResetTrainingStatistic = () => Action.ResetTrainingStatistic;
+  export type UpdateNewCardProgress = () => Action.UpdateNewCardProgress;
+  export type UpdateGameCardsProgress = () => Action.UpdateGameCardsProgress;
 }
 
 export interface TrainingState {
   totalProgress: number | string,
+  newCardProgress: number;
   currIndex: number | string,
   isChecked: boolean,
   isCorrect: boolean,
@@ -56,4 +61,5 @@ export interface TrainingStatistic {
   failedWordsTraining: Array<FetchedWordData>,
   successWordTraining: Array<FetchedWordData>,
   correctAnswersInRow: number,
+  playedNewCards: number,
 }

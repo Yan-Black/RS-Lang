@@ -19,7 +19,6 @@ import './index.scss';
 
 const Navigation: React.FC = () => {
   const dispatch = useDispatch();
-  const statInfo = useSelector((state: State) => state.engPuzzleStatisticInfo);
   const name = useSelector((state: State) => state.authName.name);
   const lang = useSelector((state: State) => state.mainLang.lang);
   const isLogged = useSelector((state: State) => state.authLog.isLogged);
@@ -29,7 +28,7 @@ const Navigation: React.FC = () => {
   const handleAsideMenu = () => setAsideOpen(!isOpen);
   const closeAsideMenu = () => setAsideOpen(false);
   const logout = () => {
-    createUserStatistic({ leaernedWords: 0, options: { stat: statInfo } });
+    localStorage.removeItem('refToken');
     localStorage.removeItem('token');
     localStorage.removeItem('userId');
     localStorage.removeItem('userName');

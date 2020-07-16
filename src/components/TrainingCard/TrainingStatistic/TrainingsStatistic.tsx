@@ -31,6 +31,7 @@ function TrainingStatistic(): JSX.Element {
     state: State,
   ) => state.trainingStatistic.correctAnswersInRow);
 
+  const cardProgres = useSelector((state: State) => state.trainingStatistic.playedNewCards);
   const usedWords: FetchedWordData[] = useSelector(
     (state: State) => state.appUserWords.userWords
       .filter((word: FetchedWordData) => word.userWord && word.userWord.optional.repeatTimes === 0),
@@ -67,7 +68,7 @@ function TrainingStatistic(): JSX.Element {
           </div>
           <div className="d-flex justify-content-between border-bottom my-2">
             <span className="text-warning">{usedLang.statistic.newWords}</span>
-            <span className="font-weight-bold">{usedWords.length}</span>
+            <span className="font-weight-bold">{cardProgres}</span>
           </div>
           <div className="d-flex justify-content-between border-bottom my-2">
             <span className="text-info">{usedLang.statistic.longestCorrectSeries}</span>

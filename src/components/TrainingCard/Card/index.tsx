@@ -14,7 +14,7 @@ import CheckedAnswer from 'components/TrainingCard/Card/CheckedAnswer';
 import {
   setInputWord, toggleAnswerCorrect, toggleMoveToNext,
   addToSuccessTraining, addToFailedTraining, progressTraining,
-  addRowOfSuccess, toggleTrainingStatistic, updateUserWords,
+  addRowOfSuccess, toggleTrainingStatistic, updateUserWords, updateNewCardProgress, updateGameCardProgress,
 } from 'containers/TrainingCard/actions';
 import { ru, eng } from 'constants/training-constants';
 import { createUserWord, updateUserWord } from 'constants/athorization-constants';
@@ -28,15 +28,23 @@ const Card: React.FC = () => {
   const index = useSelector((state: State) => state.training.currIndex);
   const studyMode = useSelector((state: State) => state.mainStudyMode.studyModes);
   const clonedWords: FetchedWordData[] = useSelector((state: State) => state.appUserWords.userWords);
-  const usedWords = clonedWords.filter(
-    (word) => (studyMode.trainAllWords && (word.userWord || word) && !word.userWord.optional.del)
-      || (studyMode.onlyNew && !word.userWord)
-      || (studyMode.onlyRepeat && word.userWord && word.userWord.optional.repeatTimes > 0)
-      || (studyMode.onlyDifficult && word.userWord && word.userWord.optional.dif),
-  );
+  let usedWords;
+  if (studyMode.trainAllWords) {
+    usedWords = clonedWords.filter((word) => (word || word.userWord) && (word || !word.userWord.optional.del));
+  }
+  if (studyMode.onlyNew) {
+    usedWords = clonedWords.filter((word) => !word.userWord);
+  }
+  if (studyMode.onlyRepeat) {
+    usedWords = clonedWords.filter((word) => word.userWord.optional.repeatTimes > 0 || !word);
+  }
+  if (studyMode.onlyDifficult) {
+    usedWords = clonedWords.filter((word) => (word || word.userWord) && (word || !word.userWord.optional.del));
+  }
+
   const data = usedWords[index];
   const prevData = usedWords[index - 1];
-  const cardsToTrain = amount.words;
+  const cardsToTrain = usedWords.length;
   const totalCardsToTrain = amount.cards;
   const inputWidth = data.word.length * 12;
   const isStatisticOpen = useSelector((
@@ -194,9 +202,9 @@ const Card: React.FC = () => {
     const currentWord = usedWords[index];
     const handledWord = { ...currentWord };
     if (handledWord.userWord) {
-      !handledWord.userWord.optional.repeatTimes
+      handledWord.userWord.optional.repeatTimes === undefined
         ? handledWord.userWord.optional.repeatTimes = 0
-        : +handledWord.userWord.optional.repeatTimes + 1;
+        : +handledWord.userWord.optional.repeatTimes++;
       !handledWord.userWord.optional.lastRepeat
         ? handledWord.userWord.optional.lastRepeat = `${new Date().toDateString().slice(3, -4)} ${new Date().toLocaleTimeString().slice(0, -3)}`
         : handledWord.userWord.optional.lastRepeat = `${new Date().toDateString().slice(3, -4)} ${new Date().toLocaleTimeString().slice(0, -3)}`;
@@ -208,7 +216,7 @@ const Card: React.FC = () => {
       } else if (handledWord.userWord.optional.success === 8) {
         handledWord.userWord.optional.del = true;
       } else {
-        +handledWord.userWord.optional.success + 1;
+        +handledWord.userWord.optional.success++;
       }
       if (delActive) {
         handledWord.userWord.optional.del = true;
@@ -241,6 +249,8 @@ const Card: React.FC = () => {
       }
       clone.splice(index, 1, handledWord);
       dispatch(updateUserWords(clone));
+      dispatch(updateNewCardProgress());
+      dispatch(updateGameCardProgress());
       createUserWord(handledWord);
       setDelActive(false);
       setDifActive(false);
@@ -307,18 +317,18 @@ const Card: React.FC = () => {
       <div className="training-card-footer px-1">
         <div className="btn-block-one">
           <button
-            type="button"
-            className={helpBTNClass}
-            onClick={helpBTNHandler}
-          >
-            {usedLang.buttons.showAnswerBTN}
-          </button>
-          <button
             className="btn btn-info shadow my-1"
             type="button"
             onClick={checkAnswerBTNHandler}
           >
             {usedLang.buttons.checkBTN}
+          </button>
+          <button
+            type="button"
+            className={helpBTNClass}
+            onClick={helpBTNHandler}
+          >
+            {usedLang.buttons.showAnswerBTN}
           </button>
 
           <button

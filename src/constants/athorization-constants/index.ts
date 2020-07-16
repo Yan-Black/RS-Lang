@@ -229,7 +229,7 @@ export const getUserStatistic = () => {
       Accept: 'application/json',
     },
   })
-    .then((res) => res.json())
+    .then((res) => (res.ok ? res.json() : Promise.reject(res)))
     .then((res) => localStorage.setItem('userStatistic', JSON.stringify(res)))
-    .catch((e) => alert(e));
+    .catch();
 };

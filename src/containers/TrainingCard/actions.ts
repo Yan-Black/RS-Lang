@@ -113,3 +113,11 @@ export const addRowOfSuccess: ActionCreator.AddRowOfSuccess = (number) => ({
 export const resetTrainingStatistic: ActionCreator.ResetTrainingStatistic = () => ({
   type: ActionType.RESET_TRAINING_STATISTIC,
 });
+
+export const updateNewCardProgress: ActionCreator.UpdateNewCardProgress = () => ({
+  type: ActionType.UPDATE_CARD_PROGRESS,
+});
+
+export const updateGameCardProgress: ActionCreator.UpdateGameCardsProgress = () => ({
+  type: ActionType.GAME_CARD_PROGRESS,
+});

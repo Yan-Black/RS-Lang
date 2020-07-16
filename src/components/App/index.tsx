@@ -34,7 +34,7 @@ const App: React.FC = () => {
   useEffect(() => {
     !userId && getStartWords(dispatch);
     userId && getProfileFetch(dispatch);
-    userId && getUserStatistic();
+    visit > 0 && getUserStatistic();
     userId && getUsertWords(dispatch);
     userId && addNewUserWords(dispatch, 1, visit);
     localStorage.setItem('visit', visit);

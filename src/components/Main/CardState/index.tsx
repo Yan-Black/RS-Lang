@@ -15,7 +15,6 @@ import { handleSettings, openErrorModal } from 'containers/Main/actions';
 import Authorization from 'components/Authorization';
 import { Link } from 'react-router-dom';
 import { FetchedWordData } from 'containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/models';
-import { toggleError } from 'containers/Training/action';
 
 const CardGame: React.FC = () => {
   const theme = useSelector((state: State) => state.mainTheme.theme);
@@ -117,7 +116,7 @@ const CardGame: React.FC = () => {
           <div className="cards-game-buttons">
             <Link
               to={usedWords[0] && usedWords[0].userWord && usedWords[0].userWord.optional ? usedWords.filter(
-                (word) => (studyMode.trainAllWords && (word.userWord || word) && !word.userWord.optional.del)
+                (word) => (studyMode.trainAllWords && (word.userWord || word) && (word || !word.userWord.optional.del))
                   || (studyMode.onlyNew && !word.userWord)
                   || (studyMode.onlyRepeat && word.userWord && word.userWord.optional.repeatTimes > 0)
                   || (studyMode.onlyDifficult && word.userWord && word.userWord.optional.dif),

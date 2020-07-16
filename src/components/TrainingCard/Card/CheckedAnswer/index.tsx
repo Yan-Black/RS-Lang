@@ -13,7 +13,7 @@ function CheckedAnswer(): JSX.Element {
   const index = useSelector((state: State) => state.training.currIndex);
   const usedData: FetchedWordData[] = useSelector((state: State) => state.appUserWords.userWords);
   const usedWords = usedData.filter(
-    (word) => !word.userWord.optional.del,
+    (word) => (word || word.userWord) && (word || !word.userWord.optional.del),
   );
   const data = usedWords[index];
   const [checkedAnswerClass, setCheckedAnswerClass] = useState('checked-answer');
@@ -39,7 +39,6 @@ function CheckedAnswer(): JSX.Element {
   const clickHandler = () => {
     if (!canMoveToNext) {
       dispatch(toggleAnswerChecked());
-      // setCheckedAnswerClass('checked-answer');
     }
     setCheckedAnswerClass('checked-answer');
   };

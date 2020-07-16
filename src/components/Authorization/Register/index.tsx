@@ -14,6 +14,7 @@ import {
 } from 'constants/athorization-constants';
 import { State } from 'models';
 import { removeApiError, closeRegForm } from 'containers/Authorisation/actions';
+import { getStartWords } from 'containers/TrainingCard/actions';
 import { User } from '../models';
 import Loader from '../Loader';
 import '../index.scss';
@@ -32,6 +33,7 @@ const RegisterForm: React.FC = () => {
   const changeHandler = () => dispatch(removeApiError());
   const onSubmit = (user: User) => createUser(user, dispatch, setRegistred);
   const inputTypeHandler = () => (type === 'password' ? setType('text') : setType('password'));
+  const getWordsOnSubmit = () => getStartWords(dispatch);
   return (
     <div className="auth-wrapper">
       <div className="auth-form-block-wrapper">
@@ -135,6 +137,7 @@ const RegisterForm: React.FC = () => {
             type="submit"
             className="auth-reg-but"
             form="auth-form"
+            onClick={getWordsOnSubmit}
           >
             <span>submit</span>
           </button>

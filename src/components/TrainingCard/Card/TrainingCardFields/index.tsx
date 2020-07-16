@@ -9,7 +9,7 @@ function TrainingCardFields(): JSX.Element {
   const index = useSelector((state: State) => state.training.currIndex);
   const usedData: FetchedWordData[] = useSelector((state: State) => state.appUserWords.userWords);
   const usedWords = usedData.filter(
-    (word) => !word.userWord.optional.del,
+    (word) => (word || word.userWord) && (word || !word.userWord.optional.del),
   );
 
   const settingsState = useSelector((state: State) => state.mainSetEnabled.hintsState);
