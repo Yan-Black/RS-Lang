@@ -2,11 +2,12 @@ import { FetchedWordData } from 'containers/Games/EnglishPuzzle/HeaderBlock/Sett
 import { Dispatch } from 'react';
 import { showLoader, hideLoader } from 'containers/Games/EnglishPuzzle/GameBlock/GameBoard/Loader/actions';
 import { Action } from 'redux';
+import { showSettingsLoader, hideSettingsLoader } from 'containers/Main/actions';
+import { createUserWord } from 'constants/athorization-constants';
 import { ActionType } from './constants';
 import { ActionUserWords, ActionCreator } from './models';
 
 const filter = `${encodeURIComponent('{"$or":[{"userWord.optional.binded":true},{"userWord.optional.played":true}]}')}`;
-// filter: {"$or":[{"$and": [{"$or": [{"userWord.difficulty": "strong"},{"userWord.difficulty": "easy"}]}]},{"userWord": null}]}
 
 export const getUsertWords = async (dispatch: Dispatch<ActionUserWords | Action>) => {
   const { userId, token } = localStorage;
@@ -25,22 +26,24 @@ export const getUsertWords = async (dispatch: Dispatch<ActionUserWords | Action>
     dispatch({ type: ActionType.UPDATE_USER_WORDS, payload: words[0].paginatedResults });
   } catch (err) {
     dispatch(hideLoader());
-    alert(err);
+    window.console.log(err);
   }
 };
 
 export const getStartWords = async (
   dispatch: Dispatch<ActionUserWords | Action>,
+  page: number,
+  level: number,
 ) => {
   try {
     dispatch(showLoader());
-    const resp = await fetch('https://afternoon-falls-25894.herokuapp.com/words?page=0&group=0');
+    const resp = await fetch(`https://afternoon-falls-25894.herokuapp.com/words?page=${page}&group=${level}`);
     const words = await resp.json();
     dispatch(hideLoader());
     dispatch({ type: ActionType.UPDATE_USER_WORDS, payload: words });
   } catch (err) {
     dispatch(hideLoader());
-    alert(err);
+    window.console.log(err);
   }
 };
 
@@ -50,14 +53,26 @@ export const addNewUserWords = async (
   page = 0,
 ) => {
   try {
-    dispatch(showLoader());
+    dispatch(showSettingsLoader());
     const resp = await fetch(`https://afternoon-falls-25894.herokuapp.com/words?page=${page}&group=${group}`);
-    const words = await resp.json();
-    dispatch(hideLoader());
+    const words: FetchedWordData[] = await resp.json();
     dispatch({ type: ActionType.ADD_NEW_WORDS, payload: words });
+    try {
+      words.forEach((word: FetchedWordData) => {
+        word.userWord = {
+          optional: {
+            binded: true,
+          },
+        };
+        createUserWord(word, dispatch);
+      });
+    } catch (err) {
+      window.console.log(err);
+    }
+    dispatch(hideSettingsLoader());
   } catch (err) {
-    dispatch(hideLoader());
-    alert(err);
+    dispatch(hideSettingsLoader());
+    window.console.log(err);
   }
 };
 

@@ -23,6 +23,7 @@ export interface InitialStateHintsState {
   showImage: boolean;
   autoPronounce: boolean;
   showTextTranslate: boolean;
+  example: boolean;
   showAnswerBtn: boolean;
   deleteWordBtn: boolean;
   difficultWordBtn: boolean;

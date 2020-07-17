@@ -56,3 +56,11 @@ export const openErrorModal: ActionCreator.OpenErrorModal = (data: ModalObj) => 
 export const closeErrorModal: ActionCreator.CloseErrorModal = () => ({
   type: ActionType.CLOSE_ERROR_MODAL,
 });
+
+export const showSettingsLoader = () => ({
+  type: 'SHOW_SETTINGS_LOADER',
+});
+
+export const hideSettingsLoader = () => ({
+  type: 'HIDE_SETTINGS_LOADER',
+});

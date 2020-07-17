@@ -4,29 +4,36 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import { handleSettings, updateSettings, updateAmount } from 'containers/Main/actions';
+import { handleSettings } from 'containers/Main/actions';
 import { addNewUserWords } from 'containers/TrainingCard/actions';
 import {
   checkBoxesRu, checkBoxesEng, eng, ru, engSetiingsErrors, ruSetiingsErrors,
 } from 'constants/main-page-constants';
 import { State } from 'models';
 import Spinner from 'react-bootstrap/Spinner';
-import { updateUserSettings, createUserWord } from 'constants/athorization-constants';
+import { updateUserSettings } from 'constants/athorization-constants';
+import { updateUserStoredSettings, updateUserWordsAmount } from 'containers/Authorisation/actions';
+import { OptionalSettings } from 'containers/Authorisation/models';
 
 const CardSettings: React.FC = () => {
   const dispatch = useDispatch();
-  const loading = useSelector((state: State) => state.engPuzzleLoading.isLoading);
+  const settingsState = useSelector((state: State) => state.appUserSettings);
+  const setLoading = useSelector((state: State) => state.mainSettLoader.setLoading);
   const userWords = useSelector((state: State) => state.appUserWords.userWords);
   const amount = useSelector((state: State) => state.mainCardsWords.amount);
   const lang = useSelector((state: State) => state.mainLang.lang);
-  const [err, setErr] = useState(false);
-  const [errMes, setErrMes] = useState('');
-  const [selectedHints, setSelected] = useState([]);
+
   const [cardsWordsAmount, setCardsWordsAmount] = useState([amount.words, amount.cards]);
+  const [selectedHints, setSelected] = useState([]);
+  const [errMes, setErrMes] = useState('');
+  const [err, setErr] = useState(false);
+
   const usedLang = lang === 'eng' ? eng : ru;
   const usedCheckboxes = lang === 'eng' ? checkBoxesEng : checkBoxesRu;
   const usedErrors = lang === 'eng' ? engSetiingsErrors : ruSetiingsErrors;
+
   const setiingsModalHandler = () => dispatch(handleSettings(false));
+
   const collectProps = (e: React.MouseEvent<HTMLInputElement>) => {
     setErr(false);
     const target = e.currentTarget;
@@ -35,6 +42,7 @@ const CardSettings: React.FC = () => {
     !target.checked && clone.splice(selectedHints.indexOf(target.id), 1);
     setSelected(clone);
   };
+
   const updateCardsWords = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.currentTarget;
     const clone = Array.from(cardsWordsAmount);
@@ -42,7 +50,9 @@ const CardSettings: React.FC = () => {
     target.id === 'inputCards' && clone.splice(1, 1, Number(target.value));
     setCardsWordsAmount(clone);
   };
-  const newSettingsState = {};
+
+  const newSettingsState = {} as OptionalSettings;
+
   const save = () => {
     if (usedCheckboxes[0].data.every(
       (option) => selectedHints.indexOf(option.id) === -1,
@@ -67,31 +77,21 @@ const CardSettings: React.FC = () => {
             : newSettingsState[option.id] = false;
         });
       });
-      dispatch(updateSettings(newSettingsState));
-      localStorage.setItem('savedSettings', JSON.stringify(newSettingsState));
-      dispatch(updateAmount({ words: cardsWordsAmount[0], cards: cardsWordsAmount[1] }));
-      localStorage.setItem(
-        'savedAmount',
-        JSON.stringify({ words: cardsWordsAmount[0], cards: cardsWordsAmount[1] }),
-      );
-      if (cardsWordsAmount[0] > userWords.length) {
-        const group = 5;
-        const pages: number[] = [1, 2, 3];
+      [,newSettingsState.cardsPerDay] = cardsWordsAmount;
+      if (cardsWordsAmount[0] > userWords.length && userWords.length === 20) {
+        const group = settingsState.optional.level;
+        const pages: number[] = [settingsState.optional.page + 1, settingsState.optional.page + 2];
+        newSettingsState.level = settingsState.optional.level;
+        newSettingsState.page = settingsState.optional.page + 3;
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
-        pages.forEach((page) => addNewUserWords(dispatch, group, page));
-        !loading && userWords.forEach((word) => {
-          if (!word.userWord) {
-            word.userWord = {
-              optional: {
-                binded: true,
-              },
-            };
-            createUserWord(word, dispatch);
-          }
+        pages.forEach(async (page) => {
+          await addNewUserWords(dispatch, page, group);
         });
       }
+      dispatch(updateUserWordsAmount(cardsWordsAmount[0]));
+      dispatch(updateUserStoredSettings(newSettingsState));
+      updateUserSettings({ wordsPerDay: cardsWordsAmount[0], optional: newSettingsState });
       dispatch(handleSettings(false));
-      updateUserSettings(cardsWordsAmount[0], newSettingsState);
     }
   };
 
@@ -165,11 +165,14 @@ const CardSettings: React.FC = () => {
                 <span>{errMes}</span>
               </div>
               )}
-            {loading
+            {setLoading
               && (
+              <>
                 <Spinner animation="border" role="status">
                   <span className="sr-only">Loading...</span>
                 </Spinner>
+                <span>Loading...</span>
+              </>
               )}
             <button
               type="button"

@@ -11,14 +11,14 @@ function DictionaryItem({ item }: {item: FetchedWordData}): JSX.Element {
   const lang = useSelector((state: State) => state.mainLang.lang);
   const loading = useSelector((state: State) => state.engPuzzleLoading.isLoading);
   const usedLang = lang === 'eng' ? eng : ru;
-  const settingsState = useSelector((state: State) => state.mainSetEnabled.hintsState);
+  const settingsState = useSelector((state: State) => state.appUserSettings);
   const url = `https://raw.githubusercontent.com/lactivka/rslang-data/master/${item.audio}`;
   const audio = new Audio(url);
 
-  const transcriptionClass = settingsState.showTranscription ? 'text-danger' : 'd-none';
-  const imageBlockClass = settingsState.showImage ? 'image-block shadow m-1' : 'd-none';
-  const exampleClass = settingsState.example ? null : 'd-none';
-  const meaningClass = settingsState.wordMeaning ? null : 'd-none';
+  const transcriptionClass = settingsState.optional.showTranscription ? 'text-danger' : 'd-none';
+  const imageBlockClass = settingsState.optional.showImage ? 'image-block shadow m-1' : 'd-none';
+  const exampleClass = settingsState.optional.example ? null : 'd-none';
+  const meaningClass = settingsState.optional.wordMeaning ? null : 'd-none';
 
   async function playWordAudio(): Promise<void> {
     await audio.play();

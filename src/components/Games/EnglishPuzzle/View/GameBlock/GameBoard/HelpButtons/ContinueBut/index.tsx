@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { State } from 'models';
@@ -13,14 +12,12 @@ import { reomveFailed, reomveSuccess, closeResults } from 'containers/Games/Engl
 import {
   closeStatistic, updateDate, updateTime, updateLevels, updateFailed, updateSuccess,
 } from 'containers/Games/EnglishPuzzle/GameBlock/GameBoard/Statistic/actions';
-import { createUserStatistic } from 'constants/athorization-constants';
 import { countXOffsets } from 'constants/english-puzzle-constants';
 import { ContinueBtnProps } from 'components/Games/EnglishPuzzle/models';
 
 const ContinueBtn: React.FC<ContinueBtnProps> = ({
   wordsToApply, setCheckedStateToCards, setDragging,
 }) => {
-  const statInfo = useSelector((state: State) => state.engPuzzleStatisticInfo);
   const continueBtnState = useSelector((state: State) => state.engPuzzleControlBtns.continueBtn);
   const page: number = useSelector((state: State) => state.engPuzzlePage.page);
   const group: number = useSelector((state: State) => state.engPuzzleGroup.group);
@@ -83,7 +80,6 @@ const ContinueBtn: React.FC<ContinueBtnProps> = ({
       dispatch(enableDontKnowBtn());
     }
   };
-  createUserStatistic({ learnedWords: 0, optional: { stat: statInfo } });
   const continueBtnStyle = continueBtnState ? 'eng-puzzle-help-button' : 'disabled';
   return (
     <button

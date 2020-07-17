@@ -4,15 +4,18 @@ import { FetchedWordData } from 'containers/Games/EnglishPuzzle/HeaderBlock/Sett
 import { State } from 'models';
 
 function TrainingCardFields(): JSX.Element {
-  const index = useSelector((state: State) => state.training.currIndex);
-  const studyMode = useSelector((state: State) => state.mainStudyMode.studyModes);
   const clonedWords: FetchedWordData[] = useSelector((state: State) => state.appUserWords.userWords);
-  let usedWords;
+  const isAnswerCorrect = useSelector((state: State) => state.training.isCorrect);
+  const settingsState = useSelector((state: State) => state.appUserSettings);
+  const studyMode = useSelector((state: State) => state.mainStudyMode.studyModes);
+  const index = useSelector((state: State) => state.training.currIndex);
+
+  let usedWords: FetchedWordData[];
   if (studyMode.trainAllWords) {
     usedWords = clonedWords.filter((word) => (word || word.userWord) && (word || !word.userWord.optional.del));
   }
   if (studyMode.onlyNew) {
-    usedWords = clonedWords.filter((word) => !word.userWord.optional.played);
+    usedWords = clonedWords.filter((word) => !word.userWord.optional.played).slice(0, settingsState.wordsPerDay);
   }
   if (studyMode.onlyRepeat) {
     usedWords = clonedWords.filter((word) => word.userWord.optional.repeatTimes > 0);
@@ -20,16 +23,14 @@ function TrainingCardFields(): JSX.Element {
   if (studyMode.onlyDifficult) {
     usedWords = clonedWords.filter((word) => word.userWord.optional.dif);
   }
+
   const cardsToTrain = usedWords.length;
-  const settingsState = useSelector((state: State) => state.mainSetEnabled.hintsState);
-  // to do change data to data from dictionary
   const data = usedWords[index];
-  const showWordTranslate = settingsState.translate;
-  const showWordExample = settingsState.example;
-  const showWordMeaning = settingsState.wordMeaning;
-  const showWordTranscription = settingsState.showTranscription;
-  const showAllTranslates = settingsState.showTextTranslate;
-  const isAnswerCorrect = useSelector((state: State) => state.training.isCorrect);
+  const showWordTranslate = settingsState.optional.translate;
+  const showWordExample = settingsState.optional.example;
+  const showWordMeaning = settingsState.optional.wordMeaning;
+  const showWordTranscription = settingsState.optional.showTranscription;
+  const showAllTranslates = settingsState.optional.showTextTranslate;
 
   const translateClass = (showWordTranslate || (showAllTranslates && (isAnswerCorrect || index >= cardsToTrain))) ? 'training-card-translate text-dark' : 'invisible';
   const exampleClass = showWordExample ? 'training-card-example text-dark' : 'invisible';

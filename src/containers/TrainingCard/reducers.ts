@@ -48,7 +48,6 @@ const trainingReducer: Models.Reducer<unknown> = (
       return {
         ...state,
         currIndex: 0,
-        newCardProgress: 0,
         inputWord: '',
         isChecked: false,
         isCorrect: false,

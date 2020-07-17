@@ -13,31 +13,38 @@ import {
 } from 'constants/main-page-constants';
 import { handleSettings, openErrorModal } from 'containers/Main/actions';
 import Authorization from 'components/Authorization';
-import { Link } from 'react-router-dom';
 import { FetchedWordData } from 'containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/models';
 import { openTraining } from 'containers/Training/action';
 
 const CardGame: React.FC = () => {
-  const theme = useSelector((state: State) => state.mainTheme.theme);
   const dispatch = useDispatch();
-  const settingsState = useSelector((state: State) => state.mainSetEnabled.hintsState);
-  const amount = useSelector((state: State) => state.mainCardsWords.amount);
-  const totalIndex = useSelector((state: State) => state.training.totalProgress);
-  const studyMode = useSelector((state: State) => state.mainStudyMode.studyModes);
   const clonedWords: FetchedWordData[] = useSelector((state: State) => state.appUserWords.userWords);
-  const totalCardsToTrain = amount.cards;
-  const progress = (totalIndex / amount.cards) * 100;
-  const clickHandler = () => dispatch(handleSettings(true));
+  const userStatistic = useSelector((state: State) => state.appUserStatistic);
+  const settingsState = useSelector((state: State) => state.appUserSettings);
+  const dailyProgress = useSelector((state: State) => state.appUserStatistic.optional.totalDailyProgress);
+  const studyMode = useSelector((state: State) => state.mainStudyMode.studyModes);
   const logged = useSelector((state: State) => state.authLog.isLogged);
+  const theme = useSelector((state: State) => state.mainTheme.theme);
   const lang = useSelector((state: State) => state.mainLang.lang);
-  const [usedLang, setUsedLang] = lang === 'eng' ? useState(eng) : useState(ru);
-  const [userCardLang, setUsedCardLang] = lang === 'eng' ? useState(cardEngOptions) : useState(cardRuOptions);
-  let usedWords;
+
+  const [userCardLang, setUsedCardLang] = lang === 'eng'
+    ? useState(cardEngOptions)
+    : useState(cardRuOptions);
+  const [usedLang, setUsedLang] = lang === 'eng'
+    ? useState(eng)
+    : useState(ru);
+
+  const totalCardsToTrain = settingsState.optional.cardsPerDay;
+  const progress = (dailyProgress / settingsState.optional.cardsPerDay) * 100;
+
+  const clickHandler = () => dispatch(handleSettings(true));
+
+  let usedWords: FetchedWordData[];
   if (studyMode.trainAllWords) {
     usedWords = clonedWords.filter((word) => (word || word.userWord) && (word || !word.userWord.optional.del));
   }
   if (studyMode.onlyNew) {
-    usedWords = clonedWords.filter((word) => !word.userWord.optional.played);
+    usedWords = clonedWords.filter((word) => !word.userWord.optional.played).slice(0, settingsState.wordsPerDay);
   }
   if (studyMode.onlyRepeat) {
     usedWords = clonedWords.filter((word) => word.userWord.optional.repeatTimes > 0);
@@ -57,11 +64,15 @@ const CardGame: React.FC = () => {
   }, [lang]);
 
   const learnBtnClickHandler = () => {
-    if (usedWords.length === 0) {
+    if (studyMode.onlyNew && settingsState.wordsPerDay <= userStatistic.learnedWords) {
       const title = usedLang.errorMessage.noWordsTitle;
       const content = usedLang.errorMessage.noWordsContent;
       dispatch(openErrorModal({ title, content }));
-    } else if (totalIndex >= totalCardsToTrain) {
+    } else if (usedWords.length === 0) {
+      const title = usedLang.errorMessage.noWordsTitle;
+      const content = usedLang.errorMessage.noWordsContent;
+      dispatch(openErrorModal({ title, content }));
+    } else if (dailyProgress >= totalCardsToTrain) {
       const title = usedLang.errorMessage.dailyRateTitle;
       const content = usedLang.errorMessage.dailyRateContent;
       dispatch(openErrorModal({ title, content }));
@@ -77,11 +88,11 @@ const CardGame: React.FC = () => {
           <div className="cards-words-amount">
             <div className="main-control-field">
               <span>{usedLang.cardSettings.amountNewWords}</span>
-              <span id="cardsGameWords">{amount.words}</span>
+              <span id="cardsGameWords">{settingsState.wordsPerDay}</span>
             </div>
             <div className="main-control-field">
               <span>{usedLang.cardSettings.amountNewCards}</span>
-              <span id="cardsGameCards">{amount.cards}</span>
+              <span id="cardsGameCards">{settingsState.optional.cardsPerDay}</span>
             </div>
           </div>
           <div className="main-control-hints">
@@ -98,7 +109,7 @@ const CardGame: React.FC = () => {
                       key={setData.str}
                     >
                       {setData.str}
-                      {settingsState[setData.val]
+                      {settingsState.optional[setData.val]
                         ? (
                           <FontAwesomeIcon
                             icon={faCheckCircle}
@@ -121,9 +132,9 @@ const CardGame: React.FC = () => {
             <div className="card-game-progress-info">
               <p>{usedLang.cardSettings.yourProgress}</p>
               <span>
-                {totalIndex}
+                {dailyProgress}
                 /
-                {amount.cards}
+                {settingsState.optional.cardsPerDay}
               </span>
             </div>
             <ProgressBar variant="success" now={progress} />

@@ -10,7 +10,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { setUnLogged, setUserName } from 'containers/Authorisation/actions';
-import { createUserStatistic } from 'constants/athorization-constants';
 import {
   pagesEng, pagesRu, eng, ru,
 } from 'constants/main-page-constants';

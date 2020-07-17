@@ -55,7 +55,13 @@ const Settings: React.FC = () => {
     dispatch(setTheme('light'));
     localStorage.setItem('theme', JSON.stringify({ theme: 'light' }));
   };
-  const [selected, setSelected] = useState('trainAllWords');
+  const modesToApply: [string, boolean][] = Object.entries(studyMode);
+
+  let usedMode;
+  // eslint-disable-next-line no-return-assign
+  modesToApply.forEach((mode) => (studyMode[mode[0]] ? usedMode = modesToApply.indexOf(mode) : 0));
+  const modesToChoose = ['trainAllWords', 'onlyNew', 'onlyRepeat', 'onlyDifficult'];
+  const [selected, setSelected] = useState(modesToChoose[usedMode]);
   const modeHandler = (e: any) => {
     const target = e.currentTarget;
     setSelected(target.value);

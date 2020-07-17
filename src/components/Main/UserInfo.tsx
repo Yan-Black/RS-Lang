@@ -6,23 +6,22 @@ import { eng, ru } from 'constants/main-page-constants';
 
 const UserInfo: React.FC = () => {
   const lang = useSelector((state: State) => state.mainLang.lang);
-  const newWords = useSelector((state: State) => state.training);
-  // console.log(newWords);
+  const userStatistic = useSelector((state: State) => state.appUserStatistic);
   const [usedLang, setUsedLang] = lang === 'eng' ? useState(eng) : useState(ru);
   useEffect(() => (lang === 'eng' ? setUsedLang(eng) : setUsedLang(ru)), [lang]);
   return (
     <div className="main-stat">
       <div>
-        <p>{`${usedLang.userProgress.learned} ${newWords.newCardProgress}`}</p>
+        <p>{`${usedLang.userProgress.learned} ${userStatistic.learnedWords}`}</p>
       </div>
       <div>
-        <p>{usedLang.userProgress.played}</p>
+        <p>{`${usedLang.userProgress.played} ${userStatistic.optional.playedGames}`}</p>
       </div>
       <div>
-        <p>{usedLang.userProgress.rightInARow}</p>
+        <p>{`${usedLang.userProgress.rightInARow} ${userStatistic.optional.bestAttempts}`}</p>
       </div>
       <div>
-        <p>{usedLang.userProgress.correctRepeats}</p>
+        <p>{`${usedLang.userProgress.correctRepeats} ${userStatistic.optional.correctRepeats}`}</p>
       </div>
     </div>
   );

@@ -33,7 +33,7 @@ const RegisterForm: React.FC = () => {
   const changeHandler = () => dispatch(removeApiError());
   const onSubmit = (user: User) => createUser(user, dispatch, setRegistred);
   const inputTypeHandler = () => (type === 'password' ? setType('text') : setType('password'));
-  const getWordsOnSubmit = () => getStartWords(dispatch);
+  const getWordsOnSubmit = () => getStartWords(dispatch, 0, 0);
   return (
     <div className="auth-wrapper">
       <div className="auth-form-block-wrapper">

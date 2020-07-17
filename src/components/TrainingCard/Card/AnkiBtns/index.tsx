@@ -8,8 +8,8 @@ import Normal from './Normal';
 import Easy from './Easy';
 
 const AnkiBtns: React.FC = () => {
-  const settingsState = useSelector((state: State) => state.mainSetEnabled.hintsState);
-  const showIntervalBTNS = settingsState.repeatBtn;
+  const settingsState = useSelector((state: State) => state.appUserSettings);
+  const showIntervalBTNS = settingsState.optional.repeatBtn;
   const isAnswerCorrect = useSelector((state: State) => state.training.isCorrect);
 
   if (!showIntervalBTNS || !isAnswerCorrect) {

@@ -3,7 +3,6 @@ import questionMarkImage from 'assets/question.svg';
 import checkMarkImage from 'assets/checkbox.svg';
 import { useSelector, useDispatch } from 'react-redux';
 import { State } from 'models';
-
 import './index.scss';
 import {
   useState, useEffect, useRef,
@@ -17,58 +16,66 @@ import {
   addRowOfSuccess, toggleTrainingStatistic, updateUserWords, updateNewCardProgress, updateGameCardProgress,
 } from 'containers/TrainingCard/actions';
 import { ru, eng } from 'constants/training-constants';
-import { createUserWord, updateUserWord } from 'constants/athorization-constants';
+import { updateUserWord } from 'constants/athorization-constants';
 
 const Card: React.FC = () => {
-  const lang = useSelector((state: State) => state.mainLang.lang);
-  const usedLang = lang === 'eng' ? eng : ru;
-  const amount = useSelector((state: State) => state.mainCardsWords.amount);
-  const settingsState = useSelector((state: State) => state.mainSetEnabled.hintsState);
   const dispatch = useDispatch();
-  const index = useSelector((state: State) => state.training.currIndex);
-  const studyMode = useSelector((state: State) => state.mainStudyMode.studyModes);
   const clonedWords: FetchedWordData[] = useSelector((state: State) => state.appUserWords.userWords);
-  let usedWords;
+  const isAnswerChecked = useSelector((state: State) => state.training.isChecked);
+  const isAnswerCorrect = useSelector((state: State) => state.training.isCorrect);
+  const settingsState = useSelector((state: State) => state.appUserSettings);
+  const canMoveToNext = useSelector((state: State) => state.training.moveToNext);
+  const totalIndex = useSelector((state: State) => state.training.totalProgress);
+  const studyMode = useSelector((state: State) => state.mainStudyMode.studyModes);
+  const index = useSelector((state: State) => state.training.currIndex);
+  const lang = useSelector((state: State) => state.mainLang.lang);
+  const isStatisticOpen = useSelector((
+    state: State,
+  ) => state.trainingStatistic.isTrainingStatisticOpen);
+
+  const [isWordSuccess, setSuccess] = useState(false);
+  const [successRow, setSuccessRow] = useState(0);
+  const [isSuccess, setIsSuccess] = useState(true);
+  const [delActive, setDelActive] = useState(false);
+  const [difActive, setDifActive] = useState(false);
+  const [inputData, setInputData] = useState('');
+  const [delMes, showDelMes] = useState(false);
+  const [mes, setMes] = useState('');
+  const usedLang = lang === 'eng' ? eng : ru;
+
+  let usedWords: FetchedWordData[];
   if (studyMode.trainAllWords) {
     usedWords = clonedWords.filter((word) => (word || word.userWord) && (word || !word.userWord.optional.del));
   }
   if (studyMode.onlyNew) {
-    usedWords = clonedWords.filter((word) => !word.userWord.optional.played);
+    usedWords = clonedWords.filter((word) => !word.userWord.optional.played).slice(0, settingsState.wordsPerDay);
   }
   if (studyMode.onlyRepeat) {
-    usedWords = clonedWords.filter((word) => word.userWord.optional.repeatTimes > 0 || !word);
+    usedWords = clonedWords.filter((word) => word.userWord.optional.repeatTimes > 0);
   }
   if (studyMode.onlyDifficult) {
-    usedWords = clonedWords.filter((word) => word.userWord.optional.del || !word);
+    usedWords = clonedWords.filter((word) => word.userWord.optional.dif);
   }
 
   const data = usedWords[index];
   const prevData = usedWords[index - 1];
-  const cardsToTrain = usedWords.length;
-  const totalCardsToTrain = amount.cards;
   const inputWidth = data.word.length * 12;
-  const isStatisticOpen = useSelector((
-    state: State,
-  ) => state.trainingStatistic.isTrainingStatisticOpen);
-  const [inputData, setInputData] = useState('');
-  const [isSuccess, setIsSuccess] = useState(true);
-  const [successRow, setSuccessRow] = useState(0);
+  const cardsToTrain = usedWords.length;
+  const totalCardsToTrain = settingsState.optional.cardsPerDay;
+
   const inputRef: React.LegacyRef<HTMLInputElement> = useRef(null);
-  const totalIndex = useSelector((state: State) => state.training.totalProgress);
-  const isAnswerChecked = useSelector((state: State) => state.training.isChecked);
-  const isAnswerCorrect = useSelector((state: State) => state.training.isCorrect);
-  const showWordExample = settingsState.example;
-  const showWordMeaning = settingsState.wordMeaning;
-  const showWordImage = settingsState.showImage;
-  const canMoveToNext = useSelector((state: State) => state.training.moveToNext);
-  const showHelpBTN = settingsState.showAnswerBtn;
-  const showDeleteBTN = settingsState.deleteWordBtn;
-  const showDifficultBTN = settingsState.difficultWordBtn;
-  const playAudioSetting = settingsState.autoPronounce;
+
+  const showWordExample = settingsState.optional.example;
+  const showWordMeaning = settingsState.optional.wordMeaning;
+  const showWordImage = settingsState.optional.showImage;
+  const showHelpBTN = settingsState.optional.showAnswerBtn;
+  const showDeleteBTN = settingsState.optional.deleteWordBtn;
+  const showDifficultBTN = settingsState.optional.difficultWordBtn;
+  const playAudioSetting = settingsState.optional.autoPronounce;
+
   const wordAudioURL = `https://raw.githubusercontent.com/lactivka/rslang-data/master/${data.audio}`;
   const meaningAudioURL = `https://raw.githubusercontent.com/lactivka/rslang-data/master/${data.audioMeaning}`;
   const exampleAudioURL = `https://raw.githubusercontent.com/lactivka/rslang-data/master/${data.audioExample}`;
-
   const wordAudio = new Audio(wordAudioURL);
   const meaningAudio = new Audio(meaningAudioURL);
   const exampleAudio = new Audio(exampleAudioURL);
@@ -131,12 +138,6 @@ const Card: React.FC = () => {
     exampleAudio.dispatchEvent(event);
   };
 
-  const [delMes, showDelMes] = useState(false);
-  const [mes, setMes] = useState('');
-  const [delActive, setDelActive] = useState(false);
-  const [difActive, setDifActive] = useState(false);
-  const [isWordSuccess, setSuccess] = useState(false);
-
   const checkAnswerBTNHandler = () => {
     if (!canMoveToNext && !isAnswerChecked && inputData.length > 0) {
       dispatch(setInputWord(inputData));
@@ -164,7 +165,7 @@ const Card: React.FC = () => {
     }
   };
 
-  interface Prop {
+  interface WordSigns {
     played: boolean;
     repeatTimes: number;
     date: string;
@@ -175,7 +176,7 @@ const Card: React.FC = () => {
     nextRepeat: string;
   }
 
-  const propObject = {} as Prop;
+  const propObject = {} as WordSigns;
   const optional = {
     optional: propObject,
   };
@@ -197,7 +198,6 @@ const Card: React.FC = () => {
   const nextCardBTNHandler = () => {
     audioHandler();
     showDelMes(false);
-
     const clone = Array.from(clonedWords);
     const currentWord = usedWords[index];
     const handledWord = { ...currentWord };
@@ -251,7 +251,7 @@ const Card: React.FC = () => {
       dispatch(updateUserWords(clone));
       dispatch(updateNewCardProgress());
       dispatch(updateGameCardProgress());
-      createUserWord(handledWord, dispatch);
+      updateUserWord(handledWord, dispatch);
       setDelActive(false);
       setDifActive(false);
     }
