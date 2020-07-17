@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { ru, eng } from 'constants/dictionary-constants';
 import { State } from 'models';
 import { useSelector } from 'react-redux';
-import View from './View.tsx';
+import View from './View';
 
 function Dictionary(): JSX.Element {
   const lang = useSelector((state: State) => state.mainLang.lang);

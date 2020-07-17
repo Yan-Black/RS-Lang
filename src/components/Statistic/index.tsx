@@ -8,19 +8,19 @@ import { ru, eng } from 'constants/dictionary-constants';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import './index.scss';
-import View from 'components/Dictionary/View.tsx';
+import View from 'components/Dictionary/View';
 
 function Statistic() {
   const stat = {
     days: ['10 июля', '11 июля', '12 июля', '13 июля', '14 июля'],
-    wordsToDays : [20, 10, 20, 50, 35],
-  }
+    wordsToDays: [20, 10, 20, 50, 35],
+  };
 
   function getSums(arr) {
-    let result = [];
+    const result = [];
     if (!arr.length) return result;
 
-    let totalSum = arr.reduce(function(sum, item) {
+    const totalSum = arr.reduce((sum: number, item: number) => {
       result.push(sum);
       return sum + item;
     });
