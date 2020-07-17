@@ -2,7 +2,6 @@ import * as React from 'react';
 import './index.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import { State } from 'models';
-import { deletedToLearning } from 'containers/Dictionary/actions';
 import { ru, eng } from 'constants/dictionary-constants';
 import { FetchedWordData } from 'containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/models';
 import { updateUserWord } from 'constants/athorization-constants';
@@ -14,8 +13,7 @@ function Deleted(): JSX.Element {
   const dispatch = useDispatch();
   const usedWords: FetchedWordData[] = useSelector(
     (state: State) => state.appUserWords.userWords
-      .filter((word: FetchedWordData) => word.userWord
-      && word.userWord.optional.del),
+      .filter((word: FetchedWordData) => word.userWord && word.userWord.optional.del),
   );
   const btnClickHandler = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const clickedId = event.currentTarget.id;
@@ -23,7 +21,6 @@ function Deleted(): JSX.Element {
     delete clickedWord[0].userWord.optional.del;
     delete clickedWord[0].userWord.optional.success;
     delete clickedWord[0].userWord.optional.repeatTimes;
-    dispatch(deletedToLearning(clickedWord));
     updateUserWord(clickedWord[0], dispatch);
   };
 

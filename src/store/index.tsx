@@ -25,7 +25,6 @@ import statisticInfo from 'containers/Games/SpeakIt/LongTermStatistic/statisticI
 import statisticGameReducer from 'containers/Games/SpeakIt/LongTermStatistic/statisticReducer';
 import authTokenReducer from 'containers/Authorisation/authReducer';
 import authErrorsReducer from 'containers/Authorisation/authErrorsReducer';
-import { dictionaryReducer } from 'containers/Dictionary/reducer';
 import logReducer from 'containers/Authorisation/logReducer';
 import modalMainReducer from 'containers/Main/modalMainReducer';
 import modalInfoReducer from 'containers/Main/modalInfoReducer';
@@ -103,7 +102,6 @@ const rootReducer = combineReducers({
   engPuzzleFetchedWords: wordsReducer,
   engPuzzleLoading: loaderReducer,
   engPuzzleStartPage: startPageReducer,
-  dictionaryState: dictionaryReducer,
   speakItControl: levelControlReducer,
   speakItFetch: fetchReducer,
   speakItWord: cardsReducer,

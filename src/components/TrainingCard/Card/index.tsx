@@ -45,7 +45,7 @@ const Card: React.FC = () => {
 
   let usedWords: FetchedWordData[];
   if (studyMode.trainAllWords) {
-    usedWords = clonedWords.filter((word) => (word || word.userWord) && (word || !word.userWord.optional.del));
+    usedWords = clonedWords.filter((word) => !word.userWord.optional.del);
   }
   if (studyMode.onlyNew) {
     usedWords = clonedWords.filter((word) => !word.userWord.optional.played).slice(0, settingsState.wordsPerDay);
@@ -285,7 +285,7 @@ const Card: React.FC = () => {
           }
         >
           {delMes
-            ? <span>{mes}</span>
+            ? <span style={{ color: 'black' }}>{mes}</span>
             : <TrainingCardFields />}
           <form
             action=""

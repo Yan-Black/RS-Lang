@@ -1,4 +1,3 @@
-/* eslint-disable react/no-danger */
 import * as React from 'react';
 import './index.scss';
 import { ru, eng } from 'constants/dictionary-constants';

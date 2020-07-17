@@ -30,7 +30,7 @@ const LoginForm: React.FC = () => {
   const userWords = useSelector((state: State) => state.appUserWords.userWords);
   const initialSettings = useSelector((state: State) => state.appUserSettings);
   const initialStatistic = useSelector((state: State) => state.appUserStatistic);
-  if (initialSettings.optional.firstVisit) {
+  if (logged && initialSettings.optional.firstVisit) {
     initialSettings.optional.firstVisit = false;
     logged && createUserSettings(initialSettings);
     logged && updateUserStatistic(initialStatistic);
