@@ -13,7 +13,7 @@ function Deleted(): JSX.Element {
   const dispatch = useDispatch();
   const usedWords: FetchedWordData[] = useSelector(
     (state: State) => state.appUserWords.userWords
-      .filter((word: FetchedWordData) => word.userWord && word.userWord.optional.del),
+      .filter((word: FetchedWordData) => word.userWord.optional.del),
   );
   const btnClickHandler = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const clickedId = event.currentTarget.id;

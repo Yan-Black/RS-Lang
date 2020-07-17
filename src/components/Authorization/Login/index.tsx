@@ -42,6 +42,7 @@ const LoginForm: React.FC = () => {
       };
       createUserWord(word, dispatch);
     });
+    dispatch({ type: 'UPDATE_USER_WORDS', payload: userWords });
   }
   dispatch(updateVisits());
   const onSubmit = (user: User) => loginUser(user, dispatch);

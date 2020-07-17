@@ -13,7 +13,7 @@ function Difficult(): JSX.Element {
   const dispatch = useDispatch();
   const usedWords: FetchedWordData[] = useSelector(
     (state: State) => state.appUserWords.userWords
-      .filter((word: FetchedWordData) => word.userWord && word.userWord.optional.dif),
+      .filter((word: FetchedWordData) => word.userWord.optional.dif),
   );
 
   const btnClickHandler = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
