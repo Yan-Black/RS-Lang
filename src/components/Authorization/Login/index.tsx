@@ -12,9 +12,13 @@ import {
   passErrorMessage,
   loginUser,
   createUserWord,
+  createUserSettings,
+  updateUserStatistic,
 } from 'constants/athorization-constants';
 import { useForm } from 'react-hook-form';
-import { removeApiError, closeLogForm, openRegForm } from 'containers/Authorisation/actions';
+import {
+  removeApiError, closeLogForm, openRegForm, updateVisits,
+} from 'containers/Authorisation/actions';
 import { User } from '../models';
 import Loader from '../Loader';
 
@@ -22,16 +26,25 @@ const LoginForm: React.FC = () => {
   const { register, handleSubmit, errors } = useForm();
   const dispatch = useDispatch();
   const logged = useSelector((state: State) => state.authLog.isLogged);
+  const loading = useSelector((state: State) => state.engPuzzleLoading.isLoading);
   const userWords = useSelector((state: State) => state.appUserWords.userWords);
+  const initialSettings = useSelector((state: State) => state.appUserSettings);
+  const initialStatistic = useSelector((state: State) => state.appUserStatistic);
+  if (initialSettings.optional.firstVisit) {
+    initialSettings.optional.firstVisit = false;
+    logged && createUserSettings(initialSettings);
+    logged && updateUserStatistic(initialStatistic);
+    logged && userWords.forEach((word) => {
+      word.userWord = {
+        optional: {
+          binded: true,
+        },
+      };
+      createUserWord(word, dispatch);
+    });
+  }
+  dispatch(updateVisits());
   const onSubmit = (user: User) => loginUser(user, dispatch);
-  logged && !userWords[0].userWord && userWords.forEach((word) => {
-    word.userWord = {
-      optional: {
-        binded: true,
-      },
-    };
-    createUserWord(word, dispatch);
-  });
   const [type, setType] = useState('password');
   const clickHandler = () => {
     dispatch(removeApiError());
@@ -45,7 +58,6 @@ const LoginForm: React.FC = () => {
     dispatch(removeApiError());
   };
   const changeHandler = () => dispatch(removeApiError());
-  const loading = useSelector((state: State) => state.engPuzzleLoading.isLoading);
   const apiError: string = useSelector((state: State) => state.authErrors.error);
   if (logged) {
     setTimeout(() => {

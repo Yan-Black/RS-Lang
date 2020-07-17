@@ -3,23 +3,24 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import { State } from 'models';
 import { useSelector, useDispatch } from 'react-redux';
-import { resetTrainingStatistic, toggleTrainingStatistic } from 'containers/TrainingCard/actions';
+import { resetTrainingStatistic, toggleTrainingStatistic, resetTraining } from 'containers/TrainingCard/actions';
 import { eng, ru } from 'constants/training-constants';
 import { closeTraining } from 'containers/Training/action';
+import { updateUserLearnedWordsAmount, updateUserStoredStatistic } from 'containers/Authorisation/actions';
+import { OptionalUserStatistc } from 'containers/Authorisation/models';
+import { updateUserStatistic } from 'constants/athorization-constants';
 
 function TrainingStatistic(): JSX.Element {
-  const lang = useSelector((state: State) => state.mainLang.lang);
-  const usedLang = lang === 'eng' ? eng : ru;
   const dispatch = useDispatch();
+  const learnedWords: number = useSelector((state: State) => state.training.newCardProgress);
+  const userStatistic = useSelector((state: State) => state.appUserStatistic);
+  const cardProgres = useSelector((state: State) => state.trainingStatistic.playedNewCards);
+  const totalIndex = useSelector((state: State) => state.training.totalProgress);
+  const cardsAmount = useSelector((state: State) => state.appUserSettings.optional.cardsPerDay);
+  const lang = useSelector((state: State) => state.mainLang.lang);
   const isStatisticOpen = useSelector((
     state: State,
   ) => state.trainingStatistic.isTrainingStatisticOpen);
-  const amount = useSelector((state: State) => state.mainCardsWords.amount);
-  const totalIndex = useSelector((state: State) => state.training.totalProgress);
-  const totalCardsToTrain = amount.cards;
-  const modalTitle = totalIndex >= totalCardsToTrain
-    ? usedLang.statistic.titleDailyRate
-    : usedLang.statistic.titleSeries;
   const successWords = useSelector((
     state: State,
   ) => state.trainingStatistic.successWordTraining);
@@ -30,7 +31,11 @@ function TrainingStatistic(): JSX.Element {
     state: State,
   ) => state.trainingStatistic.correctAnswersInRow);
 
-  const cardProgres = useSelector((state: State) => state.trainingStatistic.playedNewCards);
+  const usedLang = lang === 'eng' ? eng : ru;
+  const modalTitle = totalIndex >= cardsAmount
+    ? usedLang.statistic.titleDailyRate
+    : usedLang.statistic.titleSeries;
+
   const cardsCount = +successWords.length + +failedWords.length;
   const correctPercent = Math.ceil((successWords.length * 100) / cardsCount);
 
@@ -38,7 +43,20 @@ function TrainingStatistic(): JSX.Element {
     dispatch(resetTrainingStatistic());
     dispatch(toggleTrainingStatistic(false));
     dispatch(closeTraining());
-    // dispatch(resetTraining());
+
+    const statistic = {
+      playedGames: 0,
+      bestAttempts: +userStatistic.optional.bestAttempts + +successRow,
+      correctRepeats: +userStatistic.optional.correctRepeats + +successWords.length,
+      totalDailyProgress: totalIndex,
+    } as OptionalUserStatistc;
+
+    const learned = userStatistic.learnedWords + learnedWords;
+
+    updateUserStatistic({ learnedWords: learned, optional: statistic });
+    dispatch(updateUserLearnedWordsAmount(learned));
+    dispatch(updateUserStoredStatistic(statistic));
+    dispatch(resetTraining());
   };
 
   return (

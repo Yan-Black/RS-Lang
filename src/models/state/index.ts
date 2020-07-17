@@ -1,4 +1,5 @@
 import { IntialStateUserWords } from 'containers/TrainingCard/models';
+import { InitialStateSettings, InitialStateUserStatistic } from 'containers/Authorisation/models';
 
 export interface State {
   trainingSettings;
@@ -7,6 +8,8 @@ export interface State {
   app;
   appErr;
   appUserWords: IntialStateUserWords;
+  appUserSettings: InitialStateSettings;
+  appUserStatistic: InitialStateUserStatistic;
   authToken;
   appVisit;
   authErrors;
@@ -17,6 +20,7 @@ export interface State {
   mainModalInfo;
   mainTheme;
   mainSettings;
+  mainSettLoader;
   mainSetEnabled;
   mainCardsWords;
   mainLang;

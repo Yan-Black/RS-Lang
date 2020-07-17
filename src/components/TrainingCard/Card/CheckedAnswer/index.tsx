@@ -7,18 +7,21 @@ import { FetchedWordData } from 'containers/Games/EnglishPuzzle/HeaderBlock/Sett
 
 function CheckedAnswer(): JSX.Element {
   const dispatch = useDispatch();
+  const clonedWords: FetchedWordData[] = useSelector((state: State) => state.appUserWords.userWords);
+  const inputWord: string = useSelector((state: State) => state.training.inputWord);
   const isAnswerChecked = useSelector((state: State) => state.training.isChecked);
   const isAnswerCorrect = useSelector((state: State) => state.training.isCorrect);
+  const settingsState = useSelector((state: State) => state.appUserSettings);
   const canMoveToNext = useSelector((state: State) => state.training.moveToNext);
-  const index = useSelector((state: State) => state.training.currIndex);
   const studyMode = useSelector((state: State) => state.mainStudyMode.studyModes);
-  const clonedWords: FetchedWordData[] = useSelector((state: State) => state.appUserWords.userWords);
-  let usedWords;
+  const index = useSelector((state: State) => state.training.currIndex);
+
+  let usedWords: FetchedWordData[];
   if (studyMode.trainAllWords) {
     usedWords = clonedWords.filter((word) => (word || word.userWord) && (word || !word.userWord.optional.del));
   }
   if (studyMode.onlyNew) {
-    usedWords = clonedWords.filter((word) => !word.userWord.optional.played);
+    usedWords = clonedWords.filter((word) => !word.userWord.optional.played).slice(0, settingsState.wordsPerDay);
   }
   if (studyMode.onlyRepeat) {
     usedWords = clonedWords.filter((word) => word.userWord.optional.repeatTimes > 0);
@@ -26,9 +29,9 @@ function CheckedAnswer(): JSX.Element {
   if (studyMode.onlyDifficult) {
     usedWords = clonedWords.filter((word) => word.userWord.optional.dif);
   }
+
   const data = usedWords[index];
   const [checkedAnswerClass, setCheckedAnswerClass] = useState('checked-answer');
-  const inputWord: string = useSelector((state: State) => state.training.inputWord);
   const correctWord = data.word;
 
   if (!isAnswerChecked) return null;

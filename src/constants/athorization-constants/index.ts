@@ -1,8 +1,22 @@
 import { User } from 'components/Authorization/models';
 import {
-  addApiError, removeApiError, setLogged, setUserName, updateVisits,
+  addApiError,
+  removeApiError,
+  setLogged,
+  setUserName,
+  updateVisits,
+  updateUserWordsAmount,
+  updateUserStoredSettings,
+  updateUserLearnedWordsAmount,
+  updateUserStoredStatistic,
 } from 'containers/Authorisation/actions';
-import { ActionAuth } from 'containers/Authorisation/models';
+import {
+  ActionAuth,
+  InitialStateSettings,
+  ActionUserSettings,
+  InitialStateUserStatistic,
+  ActionUserStatistic,
+} from 'containers/Authorisation/models';
 import { showLoader, hideLoader } from 'containers/Games/EnglishPuzzle/GameBlock/GameBoard/Loader/actions';
 import { FetchedWordData } from 'containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/models';
 import { Dispatch, Action } from 'redux';
@@ -11,6 +25,7 @@ const regUrl = 'https://afternoon-falls-25894.herokuapp.com/users';
 const tokenUrl = 'https://afternoon-falls-25894.herokuapp.com/signin';
 const userUrl = (userId: string) => `https://afternoon-falls-25894.herokuapp.com/users/${userId}`;
 const statUrl = (userId: string) => `https://afternoon-falls-25894.herokuapp.com/users/${userId}/statistics`;
+const settUrl = (userId: string) => `https://afternoon-falls-25894.herokuapp.com/users/${userId}/settings`;
 
 export const passRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
 export const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
@@ -41,7 +56,6 @@ export const createUser = (
       }
       return Promise.reject(res);
     })
-    .then((res) => console.log(res))
     .catch((e) => {
       dispatch(hideLoader());
       switch (e.status) {
@@ -56,11 +70,9 @@ export const createUser = (
     });
 };
 
-export const createUserWord = (word: FetchedWordData, dispatch: Dispatch<Action>) => {
+export const createUserWord = (word: FetchedWordData, dispatch) => {
   const { token, userId } = localStorage;
-  // eslint-disable-next-line no-underscore-dangle
   dispatch(showLoader());
-  // eslint-disable-next-line no-underscore-dangle
   fetch(`https://afternoon-falls-25894.herokuapp.com/users/${userId}/words/${word.id || word._id}`, {
     method: 'POST',
     headers: {
@@ -87,7 +99,6 @@ export const createUserWord = (word: FetchedWordData, dispatch: Dispatch<Action>
 
 export const updateUserWord = (word: FetchedWordData, dispatch: Dispatch<Action>) => {
   const { token, userId } = localStorage;
-  // eslint-disable-next-line no-underscore-dangle
   fetch(`https://afternoon-falls-25894.herokuapp.com/users/${userId}/words/${word._id}`, {
     method: 'PUT',
     headers: {
@@ -103,26 +114,6 @@ export const updateUserWord = (word: FetchedWordData, dispatch: Dispatch<Action>
   })
     .then((res) => (res.ok ? res.json() : Promise.reject(res)))
     .then(() => dispatch(hideLoader()))
-    .catch();
-};
-
-export const updateUserSettings = (amount, settings) => {
-  const { token, userId } = localStorage;
-  // eslint-disable-next-line no-underscore-dangle
-  fetch(`https://afternoon-falls-25894.herokuapp.com/users/${userId}/settings`, {
-    method: 'PUT',
-    headers: {
-      'Access-Control-Allow-Credentials': 'true',
-      Authorization: `Bearer ${token}`,
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      wordsPerDay: amount,
-      optional: settings,
-    }),
-  })
-    .then((res) => (res.ok ? res.json() : Promise.reject(res)))
     .catch();
 };
 
@@ -216,7 +207,7 @@ export const getProfileFetch = (
   }
 };
 
-export const createUserStatistic = (statistic: any) => {
+export const updateUserStatistic = (statistic: InitialStateUserStatistic) => {
   const { token, userId } = localStorage;
   fetch(statUrl(userId), {
     method: 'PUT',
@@ -227,10 +218,10 @@ export const createUserStatistic = (statistic: any) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(statistic),
-  }).catch((e) => alert(e));
+  }).catch((e) => window.console.log(e));
 };
 
-export const getUserStatistic = () => {
+export const getUserStatistic = (dispatch: Dispatch<ActionUserStatistic>) => {
   const { token, userId } = localStorage;
   fetch(statUrl(userId), {
     method: 'GET',
@@ -241,6 +232,57 @@ export const getUserStatistic = () => {
     },
   })
     .then((res) => (res.ok ? res.json() : Promise.reject(res)))
-    .then((res) => localStorage.setItem('userStatistic', JSON.stringify(res)))
-    .catch();
+    .then((res) => {
+      dispatch(updateUserLearnedWordsAmount(res.learnedWords));
+      dispatch(updateUserStoredStatistic(res.optional));
+    })
+    .catch((e) => window.console.log(e));
+};
+
+export const createUserSettings = (settings: InitialStateSettings) => {
+  const { token, userId } = localStorage;
+  fetch(settUrl(userId), {
+    method: 'PUT',
+    headers: {
+      'Access-Control-Allow-Credentials': 'true',
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(settings),
+  }).catch((e) => window.console.log(e));
+};
+
+export const getUserSettings = (dispatch: Dispatch<ActionUserSettings>) => {
+  const { token, userId } = localStorage;
+  fetch(settUrl(userId), {
+    method: 'GET',
+    headers: {
+      'Access-Control-Allow-Credentials': 'true',
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/json',
+    },
+  })
+    .then((res) => (res.ok ? res.json() : Promise.reject(res)))
+    .then((res) => {
+      dispatch(updateUserWordsAmount(res.wordsPerDay));
+      dispatch(updateUserStoredSettings(res.optional));
+    })
+    .catch((e) => window.console.log(e));
+};
+
+export const updateUserSettings = (settings: InitialStateSettings) => {
+  const { token, userId } = localStorage;
+  fetch(`https://afternoon-falls-25894.herokuapp.com/users/${userId}/settings`, {
+    method: 'PUT',
+    headers: {
+      'Access-Control-Allow-Credentials': 'true',
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(settings),
+  })
+    .then((res) => (res.ok ? res.json() : Promise.reject(res)))
+    .catch((e) => window.console.log(e));
 };
