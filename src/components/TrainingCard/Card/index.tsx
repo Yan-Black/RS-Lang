@@ -18,7 +18,12 @@ import {
 import { ru, eng } from 'constants/training-constants';
 import { updateUserWord, updateUserStatistic } from 'constants/athorization-constants';
 import Spinner from 'react-bootstrap/Spinner';
-import { updateUserLearnedWordsAmount, updateUserStoredStatistic } from 'containers/Authorisation/actions';
+import {
+  updateUserLearnedWordsAmount,
+  updateDailyCardProgress,
+  updateUserBestAttempts,
+  updateUserCorrectRepeats,
+} from 'containers/Authorisation/actions';
 import { OptionalUserStatistc } from 'containers/Authorisation/models';
 
 const Card: React.FC = () => {
@@ -27,11 +32,12 @@ const Card: React.FC = () => {
   const bestRow = useSelector((state: State) => state.trainingStatistic.correctAnswersInRow);
   const userStatistic = useSelector((state: State) => state.appUserStatistic);
   const trainingLoader = useSelector((state: State) => state.trainingCardLoader.isCardLoad);
+  const cardsProgress = useSelector((state: State) => state.appUserStatistic.optional.totalDailyProgress);
   const isAnswerChecked = useSelector((state: State) => state.training.isChecked);
   const isAnswerCorrect = useSelector((state: State) => state.training.isCorrect);
   const settingsState = useSelector((state: State) => state.appUserSettings);
   const canMoveToNext = useSelector((state: State) => state.training.moveToNext);
-  const totalIndex = useSelector((state: State) => state.training.totalProgress);
+  // const totalIndex = useSelector((state: State) => state.training.totalProgress);
   const studyMode = useSelector((state: State) => state.mainStudyMode.studyModes);
   const index = useSelector((state: State) => state.training.currIndex);
   const lang = useSelector((state: State) => state.mainLang.lang);
@@ -237,17 +243,15 @@ const Card: React.FC = () => {
         playedGames: 0,
         bestAttempts: bestRow > userStatistic.optional.bestAttempts ? bestRow : userStatistic.optional.bestAttempts,
         correctRepeats: isSuccess ? +userStatistic.optional.correctRepeats + 1 : userStatistic.optional.correctRepeats,
-        totalDailyProgress: totalIndex,
+        totalDailyProgress: cardsProgress + 1,
       } as OptionalUserStatistc;
-
-      const learned = userStatistic.learnedWords + 1;
-
+      bestRow > userStatistic.optional.bestAttempts && dispatch(updateUserBestAttempts(bestRow));
+      isSuccess && dispatch(updateUserCorrectRepeats());
       dispatch(updateUserWords(clone));
+      dispatch(updateDailyCardProgress());
       dispatch(updateNewCardProgress());
       dispatch(updateGameCardProgress());
-      dispatch(updateUserLearnedWordsAmount(learned));
-      dispatch(updateUserStoredStatistic(statistic));
-      updateUserStatistic({ learnedWords: learned, optional: statistic });
+      updateUserStatistic({ learnedWords: userStatistic.learnedWords, optional: statistic });
       updateUserWord(handledWord, dispatch);
 
       dispatch(updateUserWords(clone));
@@ -270,22 +274,22 @@ const Card: React.FC = () => {
         handledWord.userWord.optional.dif = true;
         handledWord.userWord.optional.del = false;
       }
-      clone.splice(index, 1, handledWord);
+      clone.splice(clonedWords.indexOf(currentWord), 1, handledWord);
 
       const statistic = {
         playedGames: 0,
         bestAttempts: bestRow > userStatistic.optional.bestAttempts ? bestRow : userStatistic.optional.bestAttempts,
         correctRepeats: isSuccess ? +userStatistic.optional.correctRepeats + 1 : userStatistic.optional.correctRepeats,
-        totalDailyProgress: totalIndex,
+        totalDailyProgress: cardsProgress,
       } as OptionalUserStatistc;
-
+      bestRow > userStatistic.optional.bestAttempts && dispatch(updateUserBestAttempts(bestRow));
+      isSuccess && dispatch(updateUserCorrectRepeats());
       const learned = userStatistic.learnedWords + 1;
-
       dispatch(updateUserWords(clone));
+      dispatch(updateDailyCardProgress());
       dispatch(updateNewCardProgress());
       dispatch(updateGameCardProgress());
       dispatch(updateUserLearnedWordsAmount(learned));
-      dispatch(updateUserStoredStatistic(statistic));
       updateUserStatistic({ learnedWords: learned, optional: statistic });
       updateUserWord(handledWord, dispatch);
       setDelActive(false);
@@ -301,7 +305,7 @@ const Card: React.FC = () => {
     index < usedWords.length - 1
     && dispatch(progressTraining());
     dispatch(addRowOfSuccess(successRow));
-    if ((index === cardsToTrain - 1 || totalIndex === totalCardsToTrain - 1) && !isStatisticOpen) {
+    if ((index === cardsToTrain - 1 || cardsProgress === totalCardsToTrain - 1) && !isStatisticOpen) {
       dispatch(toggleTrainingStatistic(true));
     }
   };

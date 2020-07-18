@@ -6,14 +6,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { resetTrainingStatistic, toggleTrainingStatistic, resetTraining } from 'containers/TrainingCard/actions';
 import { eng, ru } from 'constants/training-constants';
 import { closeTraining } from 'containers/Training/action';
-import { updateUserLearnedWordsAmount, updateUserStoredStatistic } from 'containers/Authorisation/actions';
-import { OptionalUserStatistc } from 'containers/Authorisation/models';
-import { updateUserStatistic } from 'constants/athorization-constants';
 
 function TrainingStatistic(): JSX.Element {
   const dispatch = useDispatch();
-  const learnedWords: number = useSelector((state: State) => state.training.newCardProgress);
-  const userStatistic = useSelector((state: State) => state.appUserStatistic);
   const cardProgres = useSelector((state: State) => state.trainingStatistic.playedNewCards);
   const totalIndex = useSelector((state: State) => state.training.totalProgress);
   const cardsAmount = useSelector((state: State) => state.appUserSettings.optional.cardsPerDay);
@@ -43,24 +38,15 @@ function TrainingStatistic(): JSX.Element {
     dispatch(resetTrainingStatistic());
     dispatch(toggleTrainingStatistic(false));
     dispatch(closeTraining());
-
-    const statistic = {
-      playedGames: 0,
-      bestAttempts: +userStatistic.optional.bestAttempts + +successRow,
-      correctRepeats: +userStatistic.optional.correctRepeats + +successWords.length,
-      totalDailyProgress: totalIndex,
-    } as OptionalUserStatistc;
-
-    const learned = userStatistic.learnedWords + learnedWords;
-
-    updateUserStatistic({ learnedWords: learned, optional: statistic });
-    dispatch(updateUserLearnedWordsAmount(learned));
-    dispatch(updateUserStoredStatistic(statistic));
     dispatch(resetTraining());
   };
 
   return (
-    <Modal show={isStatisticOpen} dialogClassName="mt-5 pt-5">
+    <Modal
+      backdrop="static"
+      show={isStatisticOpen}
+      dialogClassName="mt-5 pt-5"
+    >
       <Modal.Header>
         <Modal.Title>
           {modalTitle}

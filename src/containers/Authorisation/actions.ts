@@ -93,3 +93,16 @@ export const showFormLoader = (): Action => ({
 export const hideFormLoader = (): Action => ({
   type: ActionType.HIDE_FORM_LOADER,
 });
+
+export const updateDailyCardProgress = (): Action => ({
+  type: ActionType.UPDATE_DAILY_CARDS_PROGRESS,
+});
+
+export const updateUserBestAttempts = (amount: number): ActionUserStatistic => ({
+  type: ActionType.UPDATE_USER_BEST_ATTEMPTS,
+  amount,
+});
+
+export const updateUserCorrectRepeats = (): Action => ({
+  type: ActionType.UPDATE_USER_CORRECT_REPEATS,
+});

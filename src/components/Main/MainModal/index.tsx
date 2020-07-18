@@ -17,7 +17,7 @@ function MainModal(): JSX.Element {
   return (
     <Modal
       show={isModalOpen}
-      onHide={() => false}
+      backdrop="static"
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >

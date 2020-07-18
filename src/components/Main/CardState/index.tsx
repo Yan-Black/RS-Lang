@@ -35,13 +35,13 @@ const CardGame: React.FC = () => {
     : useState(ru);
 
   const totalCardsToTrain = settingsState.optional.cardsPerDay;
-  const progress = (dailyProgress / settingsState.optional.cardsPerDay) * 100;
+  const progress = (dailyProgress / totalCardsToTrain) * 100;
 
   const clickHandler = () => dispatch(handleSettings(true));
 
   let usedWords: FetchedWordData[];
   if (studyMode.trainAllWords) {
-    usedWords = clonedWords.filter((word) => (word || word.userWord) && (word || !word.userWord.optional.del));
+    usedWords = clonedWords.filter((word) => !word.userWord.optional.del);
   }
   if (studyMode.onlyNew) {
     usedWords = clonedWords.filter((word) => !word.userWord.optional.played).slice(0, settingsState.wordsPerDay);
