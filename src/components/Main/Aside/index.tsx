@@ -9,7 +9,9 @@ import {
   faUserCircle,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { setUnLogged, setUserName, updateUserStoredSettings } from 'containers/Authorisation/actions';
+import {
+  setUnLogged, setUserName, updateUserStoredSettings, updateUserLearnedWordsAmount, updateUserStoredStatistic, updateUserWordsAmount,
+} from 'containers/Authorisation/actions';
 import {
   pagesEng, pagesRu, eng, ru,
 } from 'constants/main-page-constants';
@@ -36,6 +38,31 @@ const Navigation: React.FC = () => {
     dispatch(setUnLogged());
     dispatch(setUserName(''));
     dispatch({ type: 'UPDATE_USER_WORDS', payload: [] });
+    dispatch(updateUserWordsAmount(20));
+    dispatch(updateUserStoredStatistic({
+      playedGames: 0,
+      bestAttempts: 0,
+      correctRepeats: 0,
+      totalDailyProgress: 0,
+    }));
+    dispatch(updateUserLearnedWordsAmount(0));
+    dispatch(updateUserStoredSettings({
+      level: 0,
+      page: 0,
+      cardsPerDay: 60,
+      showTranscription: true,
+      showImage: true,
+      example: true,
+      wordMeaning: true,
+      autoPronounce: true,
+      showTextTranslate: true,
+      translate: true,
+      showAnswerBtn: true,
+      deleteWordBtn: true,
+      difficultWordBtn: true,
+      repeatBtn: true,
+      firstVisit: true,
+    }));
   };
 
   useEffect(() => {

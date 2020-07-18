@@ -28,10 +28,11 @@ const trainingReducer: Models.Reducer<unknown> = (
       return { ...state, isChecked: !state.isChecked };
     case ActionType.TOGGLE_ANSWER_CORRECT:
       return { ...state, isCorrect: !state.isCorrect };
+    case ActionType.UPDATE_DAILY_CARDS_PROGRESS:
+      return { ...state, totalProgress: +state.totalProgress + 1 };
     case ActionType.PROGRESS_TRAINING:
       return {
         ...state,
-        totalProgress: +state.totalProgress + 1,
         currIndex: +state.currIndex + 1,
         inputWord: '',
         isChecked: false,
