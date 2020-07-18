@@ -23,7 +23,7 @@ export const eng = {
     learned: 'Learned new words:',
     played: 'Games you played:',
     rightInARow: 'Right words in a row:',
-    correctRepeats: 'Correct repeats:',
+    correctRepeats: 'Correct answers:',
   },
   settings: {
     name: 'Settings',
@@ -94,8 +94,8 @@ export const ru = {
   userProgress: {
     learned: 'Выученные новые слова:',
     played: 'Игры которые вы сыграли:',
-    rightInARow: 'Правильно слов без ошибок:',
-    correctRepeats: 'Правильные повторения:',
+    rightInARow: 'Максимальная цепочка правильных ответов:',
+    correctRepeats: 'Правильные ответы:',
   },
   settings: {
     name: 'Настройки',
