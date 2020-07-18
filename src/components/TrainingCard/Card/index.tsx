@@ -38,7 +38,6 @@ const Card: React.FC = () => {
   const isStatisticOpen = useSelector((
     state: State,
   ) => state.trainingStatistic.isTrainingStatisticOpen);
-
   const [isWordSuccess, setSuccess] = useState(false);
   const [successRow, setSuccessRow] = useState(0);
   const [isSuccess, setIsSuccess] = useState(true);
@@ -207,7 +206,7 @@ const Card: React.FC = () => {
     const clone = Array.from(clonedWords);
     const currentWord = usedWords[index];
     const handledWord = { ...currentWord };
-    if (handledWord.userWord.optional.played) {
+    if (handledWord.userWord && handledWord.userWord.optional.played) {
       handledWord.userWord.optional.repeatTimes === undefined
         ? handledWord.userWord.optional.repeatTimes = 0
         : +handledWord.userWord.optional.repeatTimes++;

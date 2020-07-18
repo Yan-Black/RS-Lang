@@ -15,13 +15,18 @@ function MainModal(): JSX.Element {
   };
 
   return (
-    <Modal show={isModalOpen} onHide={() => false}>
+    <Modal
+      show={isModalOpen}
+      onHide={() => false}
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
       <Modal.Header>
         <Modal.Title>{title}</Modal.Title>
       </Modal.Header>
       <Modal.Body>{content}</Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={btnClickHandle}>
+        <Button variant="info" onClick={btnClickHandle}>
           OK
         </Button>
       </Modal.Footer>
