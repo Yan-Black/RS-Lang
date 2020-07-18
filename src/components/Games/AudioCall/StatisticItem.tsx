@@ -3,23 +3,25 @@ import { useSelector, useDispatch } from 'react-redux';
 import { State } from 'models';
 import { eng, ru } from 'constants/audio-call-constants';
 import { FetchedWordData } from 'containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/models';
+import { updateUserWords } from 'containers/TrainingCard/actions';
+import { updateUserWord } from 'constants/athorization-constants';
+import { useState } from 'react';
 
 function StatisticItem(currWord: {item: FetchedWordData}): JSX.Element {
+  const dispatch = useDispatch();
   const lang = useSelector((state: State) => state.mainLang.lang);
+  const clonedWords: FetchedWordData[] = useSelector((state: State) => state.appUserWords.userWords);
   const usedLang = lang === 'eng' ? eng : ru;
+  const [deleted, setDeleted] = useState(false);
 
   if (!currWord) {
     return null;
   }
 
-  // const dispatch = useDispatch();
-  const learningWords: FetchedWordData[] = useSelector(
-    (state: State) => state.dictionaryState.learningWords,
-  );
-  const difficultWords: FetchedWordData[] = useSelector(
-    (state: State) => state.dictionaryState.difficultWords,
-  );
-  const trashIconClass = (learningWords.includes(currWord.item) || difficultWords.includes(currWord.item)) ? 'fas fa-trash ml-auto mr-3' : 'd-none';
+  const gameMode = useSelector((state: State) => state.audioCallMode.mode);
+  const trashIconClass = gameMode === 'my-words' && !deleted
+    ? 'fas fa-trash ml-auto mr-3'
+    : 'd-none';
 
   async function playWordAudio() {
     const audioUrl: string = currWord.item.audio;
@@ -52,8 +54,19 @@ function StatisticItem(currWord: {item: FetchedWordData}): JSX.Element {
   ) => unHovered(event);
   const trashFocusHandler = (event: React.FocusEvent<HTMLElement>) => hovered(event);
   const trashClickHandler = () => {
-    // if (learningWords.includes(currWord.item)) dispatch(addToDeleted([currWord.item]));
-    // if (difficultWords.includes(currWord.item)) dispatch(difficultToDeleted([currWord.item]));
+    setDeleted(true);
+    const clone = Array.from(clonedWords);
+    const handledWord = { ...currWord.item };
+    const index = clonedWords.findIndex((el) => el.word === handledWord.word);
+    handledWord.userWord.optional.del = true;
+    handledWord.userWord.optional.dif = false;
+    handledWord.userWord.optional.nextRepeat = '-';
+    delete handledWord.translateOptions;
+    clone.splice(index, 1, handledWord);
+    dispatch(updateUserWords(clone));
+    updateUserWord(handledWord, dispatch);
+    dispatch(updateUserWords(clone));
+    updateUserWord(handledWord, dispatch);
   };
 
   return (

@@ -1,6 +1,7 @@
 import { Json, WordsFromAPI, WordInfo } from 'containers/Games/AudioCall/models';
 import urlError from 'assets/error.mp3';
 import urlCorrect from 'assets/correct.mp3';
+import { FetchedWordData } from 'containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/models';
 
 async function getWordsForGame(level: number, round: number): Promise<Array<Json>> {
   try {
@@ -15,7 +16,7 @@ async function getWordsForGame(level: number, round: number): Promise<Array<Json
 }
 
 async function getTranslates(
-  wordsData: Array<Json>, word: string, wordTranslate: string,
+  wordsData: Array<Json | FetchedWordData>, word: string, wordTranslate: string,
 ): Promise<Array<string>> {
   const translates = [];
   const similarTranslates = [];
@@ -129,7 +130,7 @@ function addTranslateOptions(dataObj, optionsArr) {
   return gameData;
 }
 
-async function getTranslateOptions(dataObj: Array<Json>): Promise<Array<Json>> {
+async function getTranslateOptions(dataObj: Array<Json | FetchedWordData>): Promise<Array<Json | FetchedWordData>> {
   const gameData = dataObj;
   const allOptions = [];
   for (let i = 0; i < gameData.length; i += 1) {
@@ -142,7 +143,7 @@ async function getTranslateOptions(dataObj: Array<Json>): Promise<Array<Json>> {
   return dataWithOptions;
 }
 
-function shuffleArray(arr: Array<string> | Array<Json>): Array<string> | Array<Json> {
+function shuffleArray(arr: Array<string> | Array<Json> | FetchedWordData[]): Array<string> | Array<Json> | FetchedWordData[] {
   const newArr = arr;
   for (let i = arr.length - 1; i > 0; i -= 1) {
     const j = Math.floor(Math.random() * (i + 1));
