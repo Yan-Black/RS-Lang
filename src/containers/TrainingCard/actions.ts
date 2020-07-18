@@ -4,15 +4,17 @@ import { showLoader, hideLoader } from 'containers/Games/EnglishPuzzle/GameBlock
 import { Action } from 'redux';
 import { showSettingsLoader, hideSettingsLoader } from 'containers/Main/actions';
 import { createUserWord } from 'constants/athorization-constants';
+import { showFormLoader, hideFormLoader } from 'containers/Authorisation/actions';
 import { ActionType } from './constants';
 import { ActionUserWords, ActionCreator } from './models';
 
 const filter = `${encodeURIComponent('{"$or":[{"userWord.optional.binded":true},{"userWord.optional.played":true}]}')}`;
 
-export const getUsertWords = async (dispatch: Dispatch<ActionUserWords | Action>) => {
+export const getUserWords = async (dispatch: Dispatch<ActionUserWords | Action>) => {
   const { userId, token } = localStorage;
   try {
     dispatch(showLoader());
+    dispatch(showFormLoader());
     const resp = await fetch(`https://afternoon-falls-25894.herokuapp.com/users/${userId}/aggregatedWords?wordsPerPage=3600&filter=${filter}`, {
       method: 'GET',
       headers: {
@@ -22,10 +24,21 @@ export const getUsertWords = async (dispatch: Dispatch<ActionUserWords | Action>
       },
     });
     const words = await resp.json();
-    dispatch(hideLoader());
-    dispatch({ type: ActionType.UPDATE_USER_WORDS, payload: words[0].paginatedResults });
+    if (words[0].paginatedResults.length === 0) {
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
+        [0, 1, 2].forEach((page) => getStartWords(dispatch, page, 0));
+      } catch (e) {
+        window.console.log(e);
+      }
+    } else {
+      dispatch(hideLoader());
+      dispatch(hideFormLoader());
+      dispatch({ type: ActionType.UPDATE_USER_WORDS, payload: words[0].paginatedResults });
+    }
   } catch (err) {
     dispatch(hideLoader());
+    dispatch(hideFormLoader());
     window.console.log(err);
   }
 };
@@ -36,13 +49,25 @@ export const getStartWords = async (
   level: number,
 ) => {
   try {
-    dispatch(showLoader());
     const resp = await fetch(`https://afternoon-falls-25894.herokuapp.com/words?page=${page}&group=${level}`);
-    const words = await resp.json();
+    const words = await resp.json() as FetchedWordData[];
+    try {
+      words.forEach((word: FetchedWordData) => {
+        word.userWord = {
+          optional: {
+            binded: true,
+          },
+        };
+        createUserWord(word);
+      });
+    } catch (err) {
+      window.console.log(err);
+    }
+    dispatch({ type: ActionType.ADD_NEW_WORDS, payload: words });
     dispatch(hideLoader());
-    dispatch({ type: ActionType.UPDATE_USER_WORDS, payload: words });
+    dispatch(hideFormLoader());
   } catch (err) {
-    dispatch(hideLoader());
+    dispatch(hideFormLoader());
     window.console.log(err);
   }
 };
@@ -55,7 +80,7 @@ export const addNewUserWords = async (
   try {
     dispatch(showSettingsLoader());
     const resp = await fetch(`https://afternoon-falls-25894.herokuapp.com/words?page=${page}&group=${group}`);
-    const words: FetchedWordData[] = await resp.json();
+    const words = await resp.json() as FetchedWordData[];
     dispatch({ type: ActionType.ADD_NEW_WORDS, payload: words });
     try {
       words.forEach((word: FetchedWordData) => {
@@ -64,7 +89,7 @@ export const addNewUserWords = async (
             binded: true,
           },
         };
-        createUserWord(word, dispatch);
+        createUserWord(word);
       });
     } catch (err) {
       window.console.log(err);

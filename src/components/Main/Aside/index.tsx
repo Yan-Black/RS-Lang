@@ -9,7 +9,7 @@ import {
   faUserCircle,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { setUnLogged, setUserName } from 'containers/Authorisation/actions';
+import { setUnLogged, setUserName, updateUserStoredSettings } from 'containers/Authorisation/actions';
 import {
   pagesEng, pagesRu, eng, ru,
 } from 'constants/main-page-constants';
@@ -20,6 +20,7 @@ const Navigation: React.FC = () => {
   const dispatch = useDispatch();
   const name = useSelector((state: State) => state.authName.name);
   const lang = useSelector((state: State) => state.mainLang.lang);
+  const initialSettings = useSelector((state: State) => state.appUserSettings);
   const isLogged = useSelector((state: State) => state.authLog.isLogged);
   const [usedLang, setUsedLang] = lang === 'eng' ? useState(eng) : useState(ru);
   const [usedPages, setUsedPages] = lang === 'eng' ? useState(pagesEng) : useState(pagesRu);
@@ -27,12 +28,14 @@ const Navigation: React.FC = () => {
   const handleAsideMenu = () => setAsideOpen(!isOpen);
   const closeAsideMenu = () => setAsideOpen(false);
   const logout = () => {
+    initialSettings.optional.firstVisit = true;
+    dispatch(updateUserStoredSettings(initialSettings.optional));
     localStorage.removeItem('refToken');
     localStorage.removeItem('token');
     localStorage.removeItem('userId');
-    localStorage.removeItem('userName');
     dispatch(setUnLogged());
     dispatch(setUserName(''));
+    dispatch({ type: 'UPDATE_USER_WORDS', payload: [] });
   };
 
   useEffect(() => {

@@ -1,9 +1,12 @@
 import { IntialStateUserWords } from 'containers/TrainingCard/models';
-import { InitialStateSettings, InitialStateUserStatistic } from 'containers/Authorisation/models';
+import { InitialStateSettings, InitialStateUserStatistic, InitialStateFormLoader } from 'containers/Authorisation/models';
+import { InitialStateDictLoad } from 'containers/Dictionary/models';
+import { InitialStateTrainCardLoader } from 'containers/Training/models';
 
 export interface State {
   trainingSettings;
   trainingStatistic;
+  trainingCardLoader: InitialStateTrainCardLoader;
   training;
   app;
   appErr;
@@ -15,6 +18,8 @@ export interface State {
   authErrors;
   appTraining;
   authLog;
+  authFormLoader: InitialStateFormLoader;
+  dictionaryLoader: InitialStateDictLoad;
   authName;
   mainModal;
   mainModalInfo;

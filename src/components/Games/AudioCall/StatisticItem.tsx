@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { State } from 'models';
-import { addToDeleted, difficultToDeleted } from 'containers/Dictionary/actions';
 import { eng, ru } from 'constants/audio-call-constants';
 import { FetchedWordData } from 'containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/models';
 
@@ -13,7 +12,7 @@ function StatisticItem(currWord: {item: FetchedWordData}): JSX.Element {
     return null;
   }
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const learningWords: FetchedWordData[] = useSelector(
     (state: State) => state.dictionaryState.learningWords,
   );
@@ -53,8 +52,8 @@ function StatisticItem(currWord: {item: FetchedWordData}): JSX.Element {
   ) => unHovered(event);
   const trashFocusHandler = (event: React.FocusEvent<HTMLElement>) => hovered(event);
   const trashClickHandler = () => {
-    if (learningWords.includes(currWord.item)) dispatch(addToDeleted([currWord.item]));
-    if (difficultWords.includes(currWord.item)) dispatch(difficultToDeleted([currWord.item]));
+    // if (learningWords.includes(currWord.item)) dispatch(addToDeleted([currWord.item]));
+    // if (difficultWords.includes(currWord.item)) dispatch(difficultToDeleted([currWord.item]));
   };
 
   return (
