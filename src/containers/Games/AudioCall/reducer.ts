@@ -1,7 +1,7 @@
 import * as Models from 'models';
 import { eng, ru } from 'constants/audio-call-constants';
 import {
-  ModalInitState, AnswerInitState, StatisticInitState, LongStatisticState,
+  ModalInitState, AnswerInitState, StatisticInitState, LongStatisticState, AudioCallMode,
 } from './models';
 import { ActionType } from './constants';
 
@@ -40,6 +40,10 @@ const longStatisticInitState = <LongStatisticState> {
   playedLevels: [],
   failed: [],
   success: [],
+};
+
+const audioCallModeInitState = <AudioCallMode>{
+  mode: 'free-mode',
 };
 
 const modalReducer: Models.Reducer<unknown> = (
@@ -187,7 +191,18 @@ const longStatisticReducer: Models.Reducer<unknown> = (
   }
 };
 
+const audioCallModeReducer: Models.Reducer<unknown> = (
+  state: AudioCallMode = audioCallModeInitState, { type, payload },
+) => {
+  switch (type) {
+    case ActionType.SET_AUDIOCALL_MODE:
+      return { ...state, mode: payload };
+    default:
+      return state;
+  }
+};
+
 export {
   pageReducer, levelReducer, roundReducer, currWordsReducer,
-  answerReducer, statisticReducer, modalReducer, longStatisticReducer,
+  answerReducer, statisticReducer, modalReducer, longStatisticReducer, audioCallModeReducer,
 };

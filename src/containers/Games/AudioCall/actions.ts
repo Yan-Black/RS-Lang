@@ -102,3 +102,8 @@ export const toggleModal: ActionCreator.ToggleModal = (messageType) => ({
   type: ActionType.TOGGLE_MODAL,
   payload: messageType,
 });
+
+export const setAudioCallMode: ActionCreator.SetAudioCallMode = (mode: string) => ({
+  type: ActionType.SET_AUDIOCALL_MODE,
+  payload: mode,
+});

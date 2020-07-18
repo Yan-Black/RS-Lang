@@ -11,6 +11,7 @@ export interface FetchedWordData {
   wordTranslate: string;
   textMeaningTranslate: string;
   textExampleTranslate: string;
+  translateOptions?: string[];
   id: number;
   userWord?: {
     optional?: {

@@ -6,7 +6,6 @@ import {
   updateLongStatFailed, updateLongStatSuccess,
 } from 'containers/Games/AudioCall/actions';
 import { State } from 'models';
-import { Json } from 'containers/Games/AudioCall/models';
 import { eng, ru } from 'constants/audio-call-constants';
 
 function GameButton(): JSX.Element {
@@ -16,19 +15,17 @@ function GameButton(): JSX.Element {
   const currWords = useSelector((state: State) => state.audioCallCurrWords);
   const isChecked = useSelector((state: State) => state.audioCallAnswer.isChecked);
   const currActiveId = useSelector((state: State) => state.audioCallAnswer.progress);
-  const learningWords: Array<Json> = useSelector(
-    (state: State) => state.dictionaryState.learningWords,
-  );
-  const difficultWords: Array<Json> = useSelector(
-    (state: State) => state.dictionaryState.difficultWords,
-  );
+  const gameMode = useSelector((state: State) => state.audioCallMode.mode);
   const failedWords = useSelector((state: State) => state.audioCallStatistic.wrongAnswers);
   const successWords = useSelector((state: State) => state.audioCallStatistic.correctAnswers);
   const savedDate = useSelector((state: State) => state.audioCallLongStatistic.playedDates[0]);
-  const level: string = (
-    learningWords.includes(currWords[0]) || difficultWords.includes(currWords[0]))
-    ? usedLang.longStatistic.myWords : useSelector((state: State) => state.audioCallLevel);
-  const round: string = (learningWords.includes(currWords[0]) || difficultWords.includes(currWords[0])) ? '-' : useSelector((state: State) => state.audioCallRound);
+
+  const level: string = gameMode === 'my-words'
+    ? usedLang.longStatistic.myWords
+    : useSelector((state: State) => state.audioCallLevel);
+  const round: string = gameMode === 'my-words'
+    ? '-'
+    : useSelector((state: State) => state.audioCallRound);
 
   const btnNextClickHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
