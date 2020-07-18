@@ -23,7 +23,7 @@ import {
   getProfileFetch, getUserStatistic, getUserSettings,
 } from 'constants/athorization-constants';
 import Training from 'components/TrainingCard';
-import { getUsertWords } from 'containers/TrainingCard/actions';
+import { getUserWords } from 'containers/TrainingCard/actions';
 import Loader from '../Authorization/Loader';
 
 const App: React.FC = () => {
@@ -33,10 +33,10 @@ const App: React.FC = () => {
   const { userId } = localStorage;
   const dispatch = useDispatch();
   useEffect(() => {
-    userId && getProfileFetch(dispatch);
     userId && getUserSettings(dispatch);
     userId && getUserStatistic(dispatch);
-    userId && getUsertWords(dispatch);
+    userId && getUserWords(dispatch);
+    userId && getProfileFetch(dispatch);
   }, []);
   if (loading && !regOpen && !logOpen) {
     return (

@@ -1,8 +1,12 @@
-const initialState = {
+import { Reducer } from 'react';
+import { Action } from 'redux';
+import { InitialStateTrainingPage } from './models';
+
+const initialState: InitialStateTrainingPage = {
   trainingOpen: false,
 };
 
-const trainingPageReducer = (
+const trainingPageReducer: Reducer<InitialStateTrainingPage, Action> = (
   state = initialState,
   action,
 ) => {

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { State } from 'models';
 import { useSelector, useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,61 +11,54 @@ import {
   emailErrorMessage,
   passErrorMessage,
   loginUser,
-  createUserWord,
-  createUserSettings,
-  updateUserStatistic,
+  getUserSettings,
+  getUserStatistic,
 } from 'constants/athorization-constants';
 import { useForm } from 'react-hook-form';
 import {
-  removeApiError, closeLogForm, openRegForm, updateVisits,
+  removeApiError, closeLogForm, openRegForm,
 } from 'containers/Authorisation/actions';
+import { getUserWords } from 'containers/TrainingCard/actions';
 import { User } from '../models';
 import Loader from '../Loader';
 
 const LoginForm: React.FC = () => {
-  const { register, handleSubmit, errors } = useForm();
   const dispatch = useDispatch();
   const logged = useSelector((state: State) => state.authLog.isLogged);
-  const loading = useSelector((state: State) => state.engPuzzleLoading.isLoading);
-  const userWords = useSelector((state: State) => state.appUserWords.userWords);
-  const initialSettings = useSelector((state: State) => state.appUserSettings);
-  const initialStatistic = useSelector((state: State) => state.appUserStatistic);
-  if (logged && initialSettings.optional.firstVisit) {
-    initialSettings.optional.firstVisit = false;
-    logged && createUserSettings(initialSettings);
-    logged && updateUserStatistic(initialStatistic);
-    logged && userWords.forEach((word) => {
-      word.userWord = {
-        optional: {
-          binded: true,
-        },
-      };
-      createUserWord(word, dispatch);
-    });
-    dispatch({ type: 'UPDATE_USER_WORDS', payload: userWords });
-  }
-  dispatch(updateVisits());
+  const formLoader = useSelector((state: State) => state.authFormLoader.isFormLoad);
+  const apiError: string = useSelector((state: State) => state.authErrors.error);
+
+  const { register, handleSubmit, errors } = useForm();
   const onSubmit = (user: User) => loginUser(user, dispatch);
   const [type, setType] = useState('password');
+
   const clickHandler = () => {
     dispatch(removeApiError());
     dispatch(closeLogForm());
   };
-  const inputTypeHandler = () => (type === 'password' ? setType('text') : setType('password'));
-  const removeError = () => dispatch(removeApiError());
+
+  const inputTypeHandler = () => (
+    type === 'password'
+      ? setType('text')
+      : setType('password')
+  );
+  const changeHandler = () => dispatch(removeApiError());
+  const removeError = () => {
+    dispatch(removeApiError());
+    setTimeout(() => dispatch(closeLogForm()), 1500);
+  };
   const openRegister = () => {
     dispatch(closeLogForm());
     dispatch(openRegForm());
     dispatch(removeApiError());
   };
-  const changeHandler = () => dispatch(removeApiError());
-  const apiError: string = useSelector((state: State) => state.authErrors.error);
-  if (logged) {
-    setTimeout(() => {
-      dispatch(removeApiError());
-      dispatch(closeLogForm());
-    }, 500);
-  }
+
+  useEffect(() => {
+    logged && getUserSettings(dispatch);
+    logged && getUserStatistic(dispatch);
+    logged && getUserWords(dispatch);
+  }, [logged]);
+
   return (
     <div className="auth-wrapper">
       <div className="auth-form-block-wrapper">
@@ -150,7 +143,7 @@ const LoginForm: React.FC = () => {
           </div>
         </div>
         <div className="auth-error">
-          {loading ? (
+          {formLoader ? (
             <Loader />
           ) : (
             <ul className="auth-error-list">

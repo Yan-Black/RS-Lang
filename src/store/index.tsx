@@ -48,6 +48,9 @@ import trainingPageReducer from 'containers/Training/trainingPageReducer';
 import userLevelPageReducer from 'containers/Authorisation/userSettingsReducer';
 import settingsLoaderReducer from 'containers/Main/settingsLoaderReducer';
 import userStatisticReducer from 'containers/Authorisation/userStatisticReducer';
+import dictLoaderReducer from 'containers/Dictionary/dictionaryLoaderReducer';
+import trainCardLoaderReducer from 'containers/Training/trainingCardLoaderReducer';
+import formLoaderReducer from 'containers/Authorisation/formLoaderReducer';
 import appReducer from '../containers/App/reducer';
 import btnsReducer from '../containers/Games/EnglishPuzzle/HeaderBlock/HintButtons/btnsReducer';
 import wordsReducer from '../containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/wordsReducer';
@@ -64,10 +67,12 @@ const rootReducer = combineReducers({
   appTraining: trainingPageReducer,
   appUserSettings: userLevelPageReducer,
   appUserStatistic: userStatisticReducer,
+  dictionaryLoader: dictLoaderReducer,
   authToken: authTokenReducer,
   authErrors: authErrorsReducer,
   authLog: logReducer,
   authName: userNameReducer,
+  authFormLoader: formLoaderReducer,
   mainModal: modalMainReducer,
   mainSettLoader: settingsLoaderReducer,
   mainModalInfo: modalInfoReducer,
@@ -112,6 +117,7 @@ const rootReducer = combineReducers({
   loading: loaderReducer,
   training: trainingReducer,
   trainingStatistic: trainingStatisticReducer,
+  trainingCardLoader: trainCardLoaderReducer,
   mainErrorModal: MainErrorModalReducer,
   mode: modeReducer,
   modalWindow: modalSavannahReducer,

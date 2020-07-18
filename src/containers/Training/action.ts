@@ -1,11 +1,21 @@
+import { ActionType } from './constants';
+
 export const toggleError = () => ({
-  type: 'TOGGLE_ERROR',
+  type: ActionType.TOGGLE_ERROR,
 });
 
 export const openTraining = () => ({
-  type: 'OPEN_TRAINING',
+  type: ActionType.OPEN_TRAINING,
 });
 
 export const closeTraining = () => ({
-  type: 'CLOSE_TRAINING',
+  type: ActionType.CLOSE_TRAINING,
+});
+
+export const showTrainingLoader = () => ({
+  type: ActionType.SHOW_TRAIN_LOADER,
+});
+
+export const hideTrainingLoader = () => ({
+  type: ActionType.HIDE_TRAIN_LOADER,
 });

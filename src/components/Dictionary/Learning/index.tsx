@@ -11,7 +11,9 @@ function Learning(): JSX.Element {
   const usedWords: FetchedWordData[] = useSelector(
     (state: State) => state.appUserWords.userWords
       .filter(
-        (word: FetchedWordData) => word.userWord.optional.played && !word.userWord.optional.dif && !word.userWord.optional.del,
+        (word: FetchedWordData) => word.userWord.optional.played
+        && !word.userWord.optional.dif
+        && !word.userWord.optional.del,
       ),
   );
   return (

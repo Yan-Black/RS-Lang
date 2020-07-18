@@ -9,6 +9,8 @@ import {
   updateUserStoredSettings,
   updateUserLearnedWordsAmount,
   updateUserStoredStatistic,
+  showFormLoader,
+  hideFormLoader,
 } from 'containers/Authorisation/actions';
 import {
   ActionAuth,
@@ -20,6 +22,8 @@ import {
 import { showLoader, hideLoader } from 'containers/Games/EnglishPuzzle/GameBlock/GameBoard/Loader/actions';
 import { FetchedWordData } from 'containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/models';
 import { Dispatch, Action } from 'redux';
+import { showDictLoader, hideDictLoader } from 'containers/Dictionary/actions';
+import { showTrainingLoader, hideTrainingLoader } from 'containers/Training/action';
 
 const regUrl = 'https://afternoon-falls-25894.herokuapp.com/users';
 const tokenUrl = 'https://afternoon-falls-25894.herokuapp.com/signin';
@@ -70,10 +74,9 @@ export const createUser = (
     });
 };
 
-export const createUserWord = (word: FetchedWordData, dispatch) => {
+export const createUserWord = (word: FetchedWordData) => {
   const { token, userId } = localStorage;
-  dispatch(showLoader());
-  fetch(`https://afternoon-falls-25894.herokuapp.com/users/${userId}/words/${word.id || word._id}`, {
+  fetch(`https://afternoon-falls-25894.herokuapp.com/users/${userId}/words/${word.id}`, {
     method: 'POST',
     headers: {
       'Access-Control-Allow-Credentials': 'true',
@@ -87,18 +90,13 @@ export const createUserWord = (word: FetchedWordData, dispatch) => {
     }),
   })
     .then((res) => (res.ok ? res.json() : Promise.reject(res))
-      .then(() => dispatch(hideLoader()))
-      .catch((e) => {
-        switch (e.status) {
-          case 417: updateUserWord(word, dispatch);
-            break;
-          default: window.console.log(e);
-        }
-      }));
+      .catch((e) => window.console.log(e)));
 };
 
 export const updateUserWord = (word: FetchedWordData, dispatch: Dispatch<Action>) => {
   const { token, userId } = localStorage;
+  dispatch(showDictLoader());
+  dispatch(showTrainingLoader());
   fetch(`https://afternoon-falls-25894.herokuapp.com/users/${userId}/words/${word._id}`, {
     method: 'PUT',
     headers: {
@@ -113,13 +111,16 @@ export const updateUserWord = (word: FetchedWordData, dispatch: Dispatch<Action>
     }),
   })
     .then((res) => (res.ok ? res.json() : Promise.reject(res)))
-    .then(() => dispatch(hideLoader()))
-    .catch();
+    .then(() => {
+      dispatch(hideTrainingLoader());
+      dispatch(hideDictLoader());
+    })
+    .catch((e) => window.console.log(e));
 };
 
 export const loginUser = (
   user: User,
-  dispatch: React.Dispatch<ActionAuth>,
+  dispatch: React.Dispatch<ActionAuth | ActionUserSettings>,
 ): void => {
   dispatch(showLoader());
   fetch(tokenUrl, {
@@ -132,7 +133,6 @@ export const loginUser = (
   })
     .then((res) => (res.ok ? res.json() : Promise.reject(res)))
     .then((res) => {
-      dispatch(removeApiError());
       dispatch(setUserName(res.name));
       dispatch(updateVisits());
       localStorage.setItem('userName', res.name);
@@ -207,6 +207,37 @@ export const getProfileFetch = (
   }
 };
 
+export const getUserStatistic = (dispatch: Dispatch<ActionUserStatistic>) => {
+  const { token, userId } = localStorage;
+  dispatch(showFormLoader());
+  fetch(statUrl(userId), {
+    method: 'GET',
+    headers: {
+      'Access-Control-Allow-Credentials': 'true',
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/json',
+    },
+  })
+    .then((res) => (res.ok ? res.json() : Promise.reject(res)))
+    .then((res) => {
+      dispatch(updateUserLearnedWordsAmount(res.learnedWords));
+      dispatch(updateUserStoredStatistic(res.optional));
+      dispatch(hideFormLoader());
+    })
+    .catch(() => {
+      updateUserStatistic({
+        learnedWords: 0,
+        optional: {
+          playedGames: 0,
+          bestAttempts: 0,
+          correctRepeats: 0,
+          totalDailyProgress: 0,
+        },
+      });
+      dispatch(hideFormLoader());
+    });
+};
+
 export const updateUserStatistic = (statistic: InitialStateUserStatistic) => {
   const { token, userId } = localStorage;
   fetch(statUrl(userId), {
@@ -221,9 +252,10 @@ export const updateUserStatistic = (statistic: InitialStateUserStatistic) => {
   }).catch((e) => window.console.log(e));
 };
 
-export const getUserStatistic = (dispatch: Dispatch<ActionUserStatistic>) => {
+export const getUserSettings = (dispatch: Dispatch<ActionUserSettings>) => {
   const { token, userId } = localStorage;
-  fetch(statUrl(userId), {
+  dispatch(showFormLoader());
+  fetch(settUrl(userId), {
     method: 'GET',
     headers: {
       'Access-Control-Allow-Credentials': 'true',
@@ -233,10 +265,33 @@ export const getUserStatistic = (dispatch: Dispatch<ActionUserStatistic>) => {
   })
     .then((res) => (res.ok ? res.json() : Promise.reject(res)))
     .then((res) => {
-      dispatch(updateUserLearnedWordsAmount(res.learnedWords));
-      dispatch(updateUserStoredStatistic(res.optional));
+      dispatch(updateUserWordsAmount(res.wordsPerDay));
+      dispatch(updateUserStoredSettings(res.optional));
+      dispatch(hideFormLoader());
     })
-    .catch((e) => window.console.log(e));
+    .catch(() => {
+      createUserSettings({
+        wordsPerDay: 20,
+        optional: {
+          level: 0,
+          page: 0,
+          cardsPerDay: 60,
+          showTranscription: true,
+          showImage: true,
+          example: true,
+          wordMeaning: true,
+          autoPronounce: true,
+          showTextTranslate: true,
+          translate: true,
+          showAnswerBtn: true,
+          deleteWordBtn: true,
+          difficultWordBtn: true,
+          repeatBtn: true,
+          firstVisit: true,
+        },
+      });
+      dispatch(hideFormLoader());
+    });
 };
 
 export const createUserSettings = (settings: InitialStateSettings) => {
@@ -251,24 +306,6 @@ export const createUserSettings = (settings: InitialStateSettings) => {
     },
     body: JSON.stringify(settings),
   }).catch((e) => window.console.log(e));
-};
-
-export const getUserSettings = (dispatch: Dispatch<ActionUserSettings>) => {
-  const { token, userId } = localStorage;
-  fetch(settUrl(userId), {
-    method: 'GET',
-    headers: {
-      'Access-Control-Allow-Credentials': 'true',
-      Authorization: `Bearer ${token}`,
-      Accept: 'application/json',
-    },
-  })
-    .then((res) => (res.ok ? res.json() : Promise.reject(res)))
-    .then((res) => {
-      dispatch(updateUserWordsAmount(res.wordsPerDay));
-      dispatch(updateUserStoredSettings(res.optional));
-    })
-    .catch((e) => window.console.log(e));
 };
 
 export const updateUserSettings = (settings: InitialStateSettings) => {

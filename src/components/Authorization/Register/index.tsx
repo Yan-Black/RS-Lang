@@ -13,7 +13,7 @@ import {
   createUser,
 } from 'constants/athorization-constants';
 import { State } from 'models';
-import { removeApiError, closeRegForm } from 'containers/Authorisation/actions';
+import { removeApiError, closeRegForm, openLogForm } from 'containers/Authorisation/actions';
 import { getStartWords } from 'containers/TrainingCard/actions';
 import { User } from '../models';
 import Loader from '../Loader';
@@ -31,9 +31,22 @@ const RegisterForm: React.FC = () => {
     dispatch(closeRegForm());
   };
   const changeHandler = () => dispatch(removeApiError());
-  const onSubmit = (user: User) => createUser(user, dispatch, setRegistred);
+  const onSubmit = (user: User) => {
+    createUser(user, dispatch, setRegistred);
+    localStorage.removeItem('refToken');
+    localStorage.removeItem('token');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('userName');
+  };
   const inputTypeHandler = () => (type === 'password' ? setType('text') : setType('password'));
-  const getWordsOnSubmit = () => getStartWords(dispatch, 0, 0);
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
+  // const getWordsOnSubmit = () => [0, 1, 2].forEach((page) => getStartWords(dispatch, page, 0));
+  const openLog = () => {
+    dispatch(closeRegForm());
+    dispatch(openLogForm());
+  };
+  registred && !apiError.length && setTimeout(() => openLog(), 1000);
+
   return (
     <div className="auth-wrapper">
       <div className="auth-form-block-wrapper">
@@ -137,7 +150,7 @@ const RegisterForm: React.FC = () => {
             type="submit"
             className="auth-reg-but"
             form="auth-form"
-            onClick={getWordsOnSubmit}
+            // onClick={getWordsOnSubmit}
           >
             <span>submit</span>
           </button>

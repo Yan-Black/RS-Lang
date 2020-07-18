@@ -9,7 +9,6 @@ import DictionaryItem from '../DictionaryItem';
 
 function Deleted(): JSX.Element {
   const lang = useSelector((state: State) => state.mainLang.lang);
-  const usedLang = lang === 'eng' ? eng : ru;
   const dispatch = useDispatch();
   const usedWords: FetchedWordData[] = useSelector(
     (state: State) => state.appUserWords.userWords
@@ -23,6 +22,7 @@ function Deleted(): JSX.Element {
     delete clickedWord[0].userWord.optional.repeatTimes;
     updateUserWord(clickedWord[0], dispatch);
   };
+  const usedLang = lang === 'eng' ? eng : ru;
 
   return (
     <div className="dictionary-content bg-light rounded container py-2 my-3">

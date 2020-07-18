@@ -56,6 +56,9 @@ export interface InitialStateSettings {
   optional: OptionalSettings;
 }
 
+export interface InitialStateFormLoader {
+  isFormLoad: boolean;
+}
 export interface ActionUserStatistic {
   type: string;
   amount?: number;

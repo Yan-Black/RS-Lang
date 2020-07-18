@@ -85,3 +85,11 @@ export const updateUserStoredStatistic = (statistic: OptionalUserStatistc): Acti
   type: ActionType.UPDATE_USER_STATISTIC,
   payload: statistic,
 });
+
+export const showFormLoader = (): Action => ({
+  type: ActionType.SHOW_FORM_LOADER,
+});
+
+export const hideFormLoader = (): Action => ({
+  type: ActionType.HIDE_FORM_LOADER,
+});

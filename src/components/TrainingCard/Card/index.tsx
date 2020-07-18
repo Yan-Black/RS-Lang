@@ -16,11 +16,17 @@ import {
   addRowOfSuccess, toggleTrainingStatistic, updateUserWords, updateNewCardProgress, updateGameCardProgress,
 } from 'containers/TrainingCard/actions';
 import { ru, eng } from 'constants/training-constants';
-import { updateUserWord } from 'constants/athorization-constants';
+import { updateUserWord, updateUserStatistic } from 'constants/athorization-constants';
+import Spinner from 'react-bootstrap/Spinner';
+import { updateUserLearnedWordsAmount, updateUserStoredStatistic } from 'containers/Authorisation/actions';
+import { OptionalUserStatistc } from 'containers/Authorisation/models';
 
 const Card: React.FC = () => {
   const dispatch = useDispatch();
   const clonedWords: FetchedWordData[] = useSelector((state: State) => state.appUserWords.userWords);
+  const bestRow = useSelector((state: State) => state.trainingStatistic.correctAnswersInRow);
+  const userStatistic = useSelector((state: State) => state.appUserStatistic);
+  const trainingLoader = useSelector((state: State) => state.trainingCardLoader.isCardLoad);
   const isAnswerChecked = useSelector((state: State) => state.training.isChecked);
   const isAnswerCorrect = useSelector((state: State) => state.training.isCorrect);
   const settingsState = useSelector((state: State) => state.appUserSettings);
@@ -227,6 +233,24 @@ const Card: React.FC = () => {
         handledWord.userWord.optional.dif = true;
       }
       clone.splice(clonedWords.indexOf(currentWord), 1, handledWord);
+
+      const statistic = {
+        playedGames: 0,
+        bestAttempts: bestRow > userStatistic.optional.bestAttempts ? bestRow : userStatistic.optional.bestAttempts,
+        correctRepeats: isSuccess ? +userStatistic.optional.correctRepeats + 1 : userStatistic.optional.correctRepeats,
+        totalDailyProgress: totalIndex,
+      } as OptionalUserStatistc;
+
+      const learned = userStatistic.learnedWords + 1;
+
+      dispatch(updateUserWords(clone));
+      dispatch(updateNewCardProgress());
+      dispatch(updateGameCardProgress());
+      dispatch(updateUserLearnedWordsAmount(learned));
+      dispatch(updateUserStoredStatistic(statistic));
+      updateUserStatistic({ learnedWords: learned, optional: statistic });
+      updateUserWord(handledWord, dispatch);
+
       dispatch(updateUserWords(clone));
       updateUserWord(handledWord, dispatch);
       setDelActive(false);
@@ -248,9 +272,22 @@ const Card: React.FC = () => {
         handledWord.userWord.optional.del = false;
       }
       clone.splice(index, 1, handledWord);
+
+      const statistic = {
+        playedGames: 0,
+        bestAttempts: bestRow > userStatistic.optional.bestAttempts ? bestRow : userStatistic.optional.bestAttempts,
+        correctRepeats: isSuccess ? +userStatistic.optional.correctRepeats + 1 : userStatistic.optional.correctRepeats,
+        totalDailyProgress: totalIndex,
+      } as OptionalUserStatistc;
+
+      const learned = userStatistic.learnedWords + 1;
+
       dispatch(updateUserWords(clone));
       dispatch(updateNewCardProgress());
       dispatch(updateGameCardProgress());
+      dispatch(updateUserLearnedWordsAmount(learned));
+      dispatch(updateUserStoredStatistic(statistic));
+      updateUserStatistic({ learnedWords: learned, optional: statistic });
       updateUserWord(handledWord, dispatch);
       setDelActive(false);
       setDifActive(false);
@@ -279,18 +316,24 @@ const Card: React.FC = () => {
       <div className="training-card-content">
         <div
           className={
-            delMes
+            delMes || trainingLoader
               ? 'training-card-info training-card-info-deleted'
               : 'training-card-info'
           }
         >
           {delMes
-            ? <span style={{ color: 'black' }}>{mes}</span>
-            : <TrainingCardFields />}
+            ? (<span style={{ color: 'black' }}>{mes}</span>)
+            : (trainingLoader ? (
+              <Spinner animation="border" role="status" className="dict-spinner text-info">
+                <span className="sr-only">Loading...</span>
+              </Spinner>
+            )
+              : <TrainingCardFields />
+            )}
           <form
             action=""
             className={
-              delMes
+              delMes || trainingLoader
                 ? 'checking-form m-auto disabled'
                 : 'checking-form m-auto'
             }
