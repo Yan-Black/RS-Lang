@@ -13,6 +13,8 @@ function View(props: {dictionaryPage: string}): JSX.Element {
       return (
         <Deleted />
       );
+    case (null):
+      return <span></span>;
     default:
       return (
         <Learning />

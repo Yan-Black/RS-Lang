@@ -9,11 +9,26 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import './index.scss';
 import View from 'components/Dictionary/View';
+import UserInfo from 'components/Main/UserInfo';
 
 function Statistic() {
+  const userStatistic = useSelector((state: State) => state.appUserStatistic);
+
+  let prevDate = [];
+  let i = 1;
+  const lastDay = new Date().setDate(new Date().getDate() - 7);
+  const startDay = new Date(lastDay).setHours(0, 0, 0, 0);
+  while (i <= 7) {
+    let day = startDay;
+    const nextDay = new Date(day).setDate(new Date(day).getDate() + i);
+    prevDate.push(new Date(nextDay).toDateString().slice(4, 10));
+    day = nextDay;
+    i++;
+  }
+
   const stat = {
-    days: ['10 июля', '11 июля', '12 июля', '13 июля', '14 июля'],
-    wordsToDays: [20, 10, 20, 50, 35],
+    days: [...prevDate],
+    wordsToDays: [null, null, null, null, null, null, userStatistic.learnedWords],
   };
 
   function getSums(arr) {
@@ -79,7 +94,7 @@ function Statistic() {
 
   const lang = useSelector((state: State) => state.mainLang.lang);
   const usedLang = lang === 'eng' ? eng : ru;
-  const [currPage, setCurrPage] = useState('learning');
+  const [currPage, setCurrPage] = useState(null);
   const btnClickHandler = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => setCurrPage(event.currentTarget.id);
@@ -87,6 +102,10 @@ function Statistic() {
   return (
     <div className="statistic-page">
       <Link to="/"><FontAwesomeIcon icon={faTimesCircle} className="statistic-image" /></Link>
+      <div className="main-stat-container statistic-page-stat">
+        <UserInfo />
+      </div>
+
       <p className="statistic-title">Статистика изучаемых слов</p>
       <div className="statistic-graf">
         <Line data={data} />
