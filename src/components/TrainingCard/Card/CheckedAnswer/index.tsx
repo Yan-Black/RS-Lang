@@ -37,8 +37,8 @@ function CheckedAnswer(): JSX.Element {
   if (!isAnswerChecked) return null;
 
   let mistakes = 0;
-  for (let i = 0; i < inputWord.length; i += 1) {
-    if (correctWord[i].toLowerCase() !== inputWord[i].toLowerCase()) mistakes += 1;
+  for (let i = 0; i < correctWord.length; i += 1) {
+    if (!inputWord[i] || correctWord[i].toLowerCase() !== inputWord[i].toLowerCase()) mistakes += 1;
   }
 
   const correctColor = 'text-success';
@@ -69,10 +69,10 @@ function CheckedAnswer(): JSX.Element {
       onKeyPress={keyPressHandler}
     >
       {
-        inputWord.split('').map((el: string, id) => (
+        correctWord.split('').map((el: string, id) => (
           <span
             className={
-              el.toLowerCase() === correctWord[id].toLowerCase() ? correctColor : wrongColor
+              inputWord[id] && el.toLowerCase() === inputWord[id].toLowerCase() ? correctColor : wrongColor
             }
             key={(new Date()).toDateString() + id.toString()}
           >
