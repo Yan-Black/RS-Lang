@@ -7,8 +7,8 @@ import './innerModal.scss';
 import ModalCross from '../ModalCross/modalCross';
 
 const InnerModal: React.FC = () => (
-  <div className="modal-wrapper">
-    <div className="inner-modal">
+  <div className="modal-wrapper-savannah">
+    <div className="inner-modal-savannah">
       <ModalCross />
       <WarningText />
       <TipText />

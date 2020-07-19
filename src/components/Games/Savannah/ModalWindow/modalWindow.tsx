@@ -7,7 +7,7 @@ const ModalWindowComponent = (props) => {
   const { modalWindow } = props;
   if (modalWindow) {
     return (
-      <div className="modal-window">
+      <div className="modal-window-savannah">
         <InnerModal />
       </div>
     );

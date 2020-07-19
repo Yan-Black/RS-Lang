@@ -5,7 +5,7 @@ import { closeModalWindow } from 'containers/Games/Savannah/actions';
 import './modalCross.scss';
 
 const ModalCrossComponent = ({ modalWindow }) => (
-  <div className="modal-cross" onClick={modalWindow} />
+  <div className="modal-cross-savannah" onClick={modalWindow} />
 );
 
 /* class ModalCrossComponent extends Component {

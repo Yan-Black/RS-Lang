@@ -8,6 +8,7 @@ import CrossComponent from './Cross/cross';
 import LoadingScreen from './LoadingScreen/loadingScreen';
 import ModalWindow from './ModalWindow/modalWindow';
 import EndScreen from './EndScreen/endScreen';
+import './index.scss';
 
 class SavannahComponent extends Component {
   setMode = () => {
@@ -20,7 +21,7 @@ class SavannahComponent extends Component {
   // eslint-disable-next-line max-len
   render() {
     return (
-      <div onAnimationEnd={this.setMode}>
+      <div className="main-savannah-index" onAnimationEnd={this.setMode}>
         <Cross />
         <MainScreen />
         <GameScreen />

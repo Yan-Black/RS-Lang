@@ -2,9 +2,9 @@ import * as React from 'react';
 import './indicator.scss';
 
 const Indicator: React.FC = () => (
-  <div className="indicator">
-    <div className="movingImg" />
-    <div className="pulsate-css" />
+  <div className="indicator-savannah">
+    <div className="movingImg-savannah" />
+    <div className="pulsate-css-savannah" />
   </div>
 );
 

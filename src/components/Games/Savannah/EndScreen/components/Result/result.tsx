@@ -9,7 +9,7 @@ interface Props {
 }
 
 const ResultComponent: React.FC<Props> = ({ showWords, firstNum, secondNum }) => (
-  !showWords ? <div className="result">{`${firstNum} слов изучено, ${secondNum} на изучении`}</div> : <div />
+  !showWords ? <div className="result-savannah">{`${firstNum} слов изучено, ${secondNum} на изучении`}</div> : <div />
 );
 
 const mapStateToPropsForCounter = (state) => ({

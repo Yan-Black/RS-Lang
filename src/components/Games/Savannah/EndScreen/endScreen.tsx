@@ -16,7 +16,7 @@ import TrueWordsArr from './components/Words/trueWordsArr/trueWordsArr';
 
 const EndScreenComponent = ({ mode, failedWords, trueWords }) => (
   mode === 'SETENDMODE' ? (
-    <div className="end-screen">
+    <div className="end-screen-savannah">
       <Header word="В этот раз не получилось, но продолжай тренироваться!" />
       <Result firstNum="1" secondNum="2" />
       <div className="words-window">

@@ -5,11 +5,10 @@ import { connect } from 'react-redux';
 
 interface Props {showWords: string, showWord: () => void}
 
-const ShowWordsComponent: React.FC<Props> = ({ showWords, showWord }) => (
+/*const ShowWordsComponent: React.FC<Props> = ({ showWords, showWord }) => (
   showWords ? <div className="show-words" onClick={showWord}>{'Show me stats>>'}</div> : <div />
-);
+);*/
 
-/*
 class ShowWordsComponent extends Component {
   onClickHandler = () => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -27,11 +26,10 @@ class ShowWordsComponent extends Component {
     if (!showWords) {
       // eslint-disable-next-line max-len
       // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-      return <div className="show-words" onClick={this.onClickHandler}>{'Show me stats>>'}</div>;
+      return <div className="show-words-savannah" onClick={this.onClickHandler}>{'Show me stats>>'}</div>;
     } return <div />;
   }
 }
-*/
 
 /* const mapDispatchToPropsForButton = (dispatch) => ({
   showWord: () => {

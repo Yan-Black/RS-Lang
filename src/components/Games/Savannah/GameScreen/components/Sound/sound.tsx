@@ -3,7 +3,7 @@ import { Component } from 'react';
 import './sound.scss';
 
 const Sound = () => (
-  <div className="sound" />
+  <div className="sound-savannah" />
 );
 
 /* class Sound extends Component {

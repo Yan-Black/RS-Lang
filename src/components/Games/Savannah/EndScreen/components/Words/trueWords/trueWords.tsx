@@ -6,7 +6,7 @@ const TrueWords: React.FC<{count: string}> = ({ count }) => {
   // @ts-ignore
   const showWords = useSelector((state) => state.showWords);
   if (showWords) {
-    return <div className="true-str">{`ПРАВИЛЬНО: ${count}`}</div>;
+    return <div className="true-str-savannah">{`ПРАВИЛЬНО: ${count}`}</div>;
   }
   return <div />;
 };

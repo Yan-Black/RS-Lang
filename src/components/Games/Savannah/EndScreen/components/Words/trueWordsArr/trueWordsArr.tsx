@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import AppendWord from '../appendWord/appendWord';
 
 const WordsComponent = ({ showWords, trueWords }) => (
-  showWords ? trueWords.trueWords.map((word) => <AppendWord word3={word} />) : <div />
+  showWords ? trueWords.trueWords.map((word) => <AppendWord word3={word} key={word} />) : <div />
 );
 
 const mapStateToPropsForCounter = (state) => ({
