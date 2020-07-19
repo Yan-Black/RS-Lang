@@ -9,6 +9,7 @@ import LoadingScreen from './LoadingScreen/loadingScreen';
 import ModalWindow from './ModalWindow/modalWindow';
 import EndScreen from './EndScreen/endScreen';
 import './index.scss';
+import background from '../../../containers/Games/Savannah/bg-all.svg';
 
 class SavannahComponent extends Component {
   setMode = () => {
@@ -21,7 +22,7 @@ class SavannahComponent extends Component {
   // eslint-disable-next-line max-len
   render() {
     return (
-      <div className="main-savannah-index" onAnimationEnd={this.setMode}>
+      <div className="main-savannah-index" onAnimationEnd={this.setMode} style={{ backgroundImage: `url(${background})` }}>
         <Cross />
         <MainScreen />
         <GameScreen />
