@@ -3,9 +3,10 @@ import * as React from 'react';
 import { Component } from 'react';
 import { closeModalWindow } from 'containers/Games/Savannah/actions';
 import './modalCross.scss';
+import background from './cross.png';
 
 const ModalCrossComponent = ({ modalWindow }) => (
-  <div className="modal-cross-savannah" onClick={modalWindow} />
+  <div className="modal-cross-savannah" onClick={modalWindow} style={{ backgroundImage: `url(${background})` }} />
 );
 
 /* class ModalCrossComponent extends Component {

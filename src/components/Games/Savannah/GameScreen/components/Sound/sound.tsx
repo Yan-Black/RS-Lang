@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { Component } from 'react';
 import './sound.scss';
+import background from './sound.svg';
 
 const Sound = () => (
-  <div className="sound-savannah" />
+  <div className="sound-savannah" style={{ backgroundImage: `url(${background})` }} />
 );
 
 /* class Sound extends Component {
