@@ -17,7 +17,7 @@ import error from '../assets/audio/error.mp3';
 import correct from '../assets/audio/correct.mp3';
 import './sass/sprint.scss';
 
-const words = book1[0].slice(0, 100);
+const words = book1[0].slice(0);
 
 function Game(): JSX.Element {
   // const stateScore = useSelector((state: State) => state.sprintScore.score);
@@ -63,7 +63,7 @@ function Game(): JSX.Element {
     }
   };
 
-  const rightAnswerHandler = () => {
+  const rightAnswerActions = () => {
     // eslint-disable-next-line no-void
     void playSuccesAudio();
 
@@ -89,49 +89,60 @@ function Game(): JSX.Element {
     }
   };
 
-  const wrongAnswerHandler = () => {
+  const wrongAnswerActions = () => {
     // eslint-disable-next-line no-void
     void playFailAudio();
     resetLevel();
   };
 
-  const SprintHandler = () => {
+  const RightButtonHandler = () => {
     if (currentTranslate === currentWordObject.wordTranslate) {
-      rightAnswerHandler();
+      rightAnswerActions();
     } else {
-      wrongAnswerHandler();
+      wrongAnswerActions();
     }
+    setCurrentWordObject(words.pop());
+  };
 
+  const WrongButtonHandler = () => {
+    if (currentTranslate !== currentWordObject.wordTranslate) {
+      rightAnswerActions();
+    } else {
+      wrongAnswerActions();
+    }
     setCurrentWordObject(words.pop());
   };
 
   const keyPressHandler = (e) => {
-    if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
-      SprintHandler();
+    if (e.key === 'ArrowLeft') {
+      RightButtonHandler();
+    } else if (e.key === 'ArrowRight') {
+      WrongButtonHandler();
     }
   };
 
-  useEffect(() => {
-    window.addEventListener('keydown', keyPressHandler);
-    return () => {
-      window.removeEventListener('keydown', keyPressHandler);
-    };
-  }, []);
+  // useEffect(() => {
+  //   window.addEventListener('keydown', keyPressHandler);
+  //   return () => {
+  //     window.removeEventListener('keydown', keyPressHandler);
+  //   };
+  // }, []);
 
   useEffect(() => {
     const trans = shuffleArray([currentWordObject.wordTranslate, GetWordObjectFromData(words)]);
     setCurrentWord(currentWordObject.word);
     setCurrentTranslate(trans[0]);
-    // const curTranslate = GetWordObjectFromData(translates);
-    // console.log(translates);
-    // setCurrentWord(currentWordObject.word);
-    // setCurrentTranslate(curTranslate);
   }, [currentWordObject]);
 
   return (
     <div>
       <div className="score">{score}</div>
-      <div className="game-container">
+      <div
+        className="game-container"
+        role="button"
+        tabIndex={-1}
+        onKeyDown={keyPressHandler}
+      >
         <div className="game-header">
           <div className="actual-level">
             <FontAwesomeIcon
@@ -173,7 +184,7 @@ function Game(): JSX.Element {
             <div className="right-button">
               <Button
                 variant="success"
-                onClick={SprintHandler}
+                onClick={RightButtonHandler}
               >
                 Right
               </Button>
@@ -185,7 +196,7 @@ function Game(): JSX.Element {
             <div className="wrong-button">
               <Button
                 variant="danger"
-                onClick={SprintHandler}
+                onClick={WrongButtonHandler}
               >
                 Wrong
               </Button>
