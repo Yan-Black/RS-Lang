@@ -79,13 +79,10 @@ const Navigation: React.FC = () => {
     <div className="main-entire-wrapper">
       <div id="header" className={isOpen ? 'header open' : 'header'}>
         <ul className="header-nav">
-          {usedPages.filter((pages) => (!isLogged
-            ? (pages.page === 'Promo' || pages.page === 'Промо')
-            : pages.page
-          )).map((pagesData) => (
+          {usedPages.map((pagesData) => (
             <li key={pagesData.page}>
               <Link
-                to={`/${pagesData.path === 'Promo' || pagesData.path === 'Team' ? '' : pagesData.path}`}
+                to={`/${pagesData.path === 'Team' ? '' : pagesData.path}`}
                 onClick={closeAsideMenu}
               >
                 <button
