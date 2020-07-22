@@ -1,0 +1,70 @@
+$light-theme: #F8F2EE;
+
+.hangman-container {
+  display: flex;
+  justify-content: center;
+  background-color: $light-theme;
+  padding-top: 50px;
+  width: 100%;
+  height: 100vh;
+}
+.hangman-content {
+  width: 80%;
+}
+.hangman-game-name {
+  text-align: center;
+}
+.hangman-guess {
+  display: flex;
+  justify-content: space-between;
+}
+.hangman-image,
+.hangman-question{
+  text-align: center;
+}
+.hangman-keyboard-container {
+  display: flex;
+  justify-content: center;
+}
+.hangman-keyboard {
+  width: 70%;
+}
+.hangman-guess-hint-button {
+  width: 160px;
+  height: 40px;
+  background-color: $light-theme;
+  border: 5px;
+}
+.hangman-level-choice {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+.hangman-level-item {
+  cursor: pointer;
+  margin-left: 10px;
+  transition: .2s;
+}
+.hangman-level-item:hover {
+  opacity: .8;
+  font-size: 1.1em;
+  transition: .2s;
+}
+.hangman-level-item:active {
+  color: #ffffff;
+  transition: .03s;
+}
+.hangman-chosen {
+  font-weight: bold;
+}
+.hangman-level-choice button {
+  background: none;
+  border: none;
+  outline: 0;
+}
+.hangman-level-choice button:active {
+  background: none;
+  border: none;
+  outline: 0;
+}
