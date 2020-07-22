@@ -22,7 +22,7 @@ import fetchReducer from 'containers/Games/SpeakIt/FetchGroup/reducer';
 import cardsReducer from 'containers/Games/SpeakIt/CardsGroup/reducer';
 import startGameReducer from 'containers/Games/SpeakIt/ControlButtons/reducer';
 import statisticInfo from 'containers/Games/SpeakIt/LongTermStatistic/statisticInfoReducer';
-import statisticGameReducer from 'containers/Games/SpeakIt/LongTermStatistic/statisticReducer';
+import statisticGameReducer from 'containers/Games/SpeakIt/LongTermStatistic/statisticReducer';;
 import authTokenReducer from 'containers/Authorisation/authReducer';
 import authErrorsReducer from 'containers/Authorisation/authErrorsReducer';
 import { dictionaryReducer } from 'containers/Dictionary/reducer';

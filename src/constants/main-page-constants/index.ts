@@ -9,6 +9,7 @@ import speaking from '../../assets/main-page-images/speaking.png';
 import savannah from '../../assets/main-page-images/savannah.png';
 import sprint from '../../assets/main-page-images/sprint.png';
 import conference from '../../assets/main-page-images/conference.png';
+import hangman from '../../assets/main-page-images/hangman.png';
 
 export const eng = {
   unregistred: 'As an anonymous user, you can test our mini-games, but long-term statistics will not be saved. Setting up training cards as well as the training process itself is available only to registered users.',
@@ -54,9 +55,9 @@ export const eng = {
       imgSrc: solution,
     },
     ourGame: {
-      name: 'Our Game',
-      description: 'description',
-      imgSrc: speaking,
+      name: 'English Hangman',
+      description: 'Click the letters - guess the words',
+      imgSrc: hangman,
     },
     savannah: {
       name: 'Savannah',
@@ -126,9 +127,9 @@ export const ru = {
       imgSrc: solution,
     },
     ourGame: {
-      name: 'Наша Игра',
-      description: 'Описание.',
-      imgSrc: speaking,
+      name: 'Английская виселица',
+      description: 'Кликай на буквы - отгадывай слова.',
+      imgSrc: hangman,
     },
     savannah: {
       name: 'Саванна',

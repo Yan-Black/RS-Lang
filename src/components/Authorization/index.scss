@@ -240,6 +240,11 @@ input {
     font-size: 1.5vw;
     height: 2.5vw;
   }
+  .auth-main-but {
+    font-size: 1.2vw;
+    padding: .5vw 1vw;
+    margin-left: 1vw;
+  }
 }
 
 @media (max-width: 768px) {
@@ -271,6 +276,11 @@ input {
   .auth-reg-but {
     font-size: 2.5vw;
     height: 4.5vw;
+  }
+  .auth-main-but {
+    font-size: 1.2em;
+    padding: 5px 10px;
+    margin-left: 10px;
   }
 }
 
@@ -312,5 +322,17 @@ input {
   .auth-reg-but {
     font-size: 5.5vw;
     height: 8.5vw;
+  }
+  .auth-reg-btns {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .auth-main-but {
+    font-size: 1em;
+    width: 190px;
+    padding: 5px 10px;
+    margin-top: 10px;
   }
 }

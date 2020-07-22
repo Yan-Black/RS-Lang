@@ -10,7 +10,7 @@ import EnglishPuzzle from 'components/Games/EnglishPuzzle';
 // import Savannah from 'components/Games/Savannah';
 import SpeakIt from 'components/Games/SpeakIt';
 import Sprint from 'components/Games/Sprint';
-// import OurGame from 'components/Games/OurGame';
+import OurGame from 'components/Games/OurGame/index';
 import Statistic from 'components/Statistic';
 import Dictionary from 'components/Dictionary';
 import Promo from 'components/Promo';
@@ -78,9 +78,9 @@ const App: React.FC = () => {
         <Route path="/Sprint">
           <Sprint />
         </Route>
-        {/* <Route path="/OurGame">
+        <Route path="/OurGame">
           <OurGame />
-        </Route> */}
+        </Route>
         <Route path="/Training">
           <Training />
         </Route>

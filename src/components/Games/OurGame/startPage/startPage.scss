@@ -1,0 +1,68 @@
+* {
+  box-sizing: border-box;
+}
+
+.our-game-start-page {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  background-image: url('../../../../assets/our-game-background/background.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  &.our-game-hide-start-page {
+    animation: fadeout .7s linear;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    opacity: 1
+  } to {
+      opacity: 0;
+    }
+}
+
+.our-game-help-button {
+  outline: 0;
+  border: 0;
+  border-radius: 5px;
+  color: #2C342C;
+  width: 15%;
+  height: 50px;
+  transition: .3s;
+}
+.our-game-help-button:hover {
+  transition: .3s;
+  opacity: .8;
+  font-size: 1.2em;
+}
+
+.our-game-guide {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15%;
+  .our-game-app-info {
+    text-align: center;
+    margin-bottom: 2vw;
+    .our-game-appName {
+      font-size: 6vw;
+      color: whitesmoke;
+      margin-bottom: 1vw;
+    }
+    .our-game-app-describe {
+      font-size: 2vw;
+      line-height: 1;
+      color: rgb(255, 255, 255);
+    }
+  }
+}
+

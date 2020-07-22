@@ -10,7 +10,7 @@ import EnglishPuzzle from './EnglishPuzzle';
 import Savannah from './Savannah';
 import SpeakIt from './SpeakIt';
 import Sprint from './Sprint';
-import OurGame from './OurGame';
+import OurGame from './OurGame/Hangman';
 
 const Games: React.FC = () => (
   <Router>
