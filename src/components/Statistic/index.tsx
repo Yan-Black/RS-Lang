@@ -14,7 +14,7 @@ import UserInfo from 'components/Main/UserInfo';
 function Statistic() {
   const userStatistic = useSelector((state: State) => state.appUserStatistic);
 
-  let prevDate = [];
+  const prevDate = [];
   let i = 1;
   const lastDay = new Date().setDate(new Date().getDate() - 7);
   const startDay = new Date(lastDay).setHours(0, 0, 0, 0);

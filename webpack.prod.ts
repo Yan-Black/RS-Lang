@@ -18,13 +18,13 @@ const config: webpack.Configuration = {
   },
   resolve: {
     plugins: [new TsconfigPathsPlugin({ configFile: './tsconfig.json' })],
-    // Add '.ts' and '.tsx' as resolvable extensions.
     extensions: ['.ts', '.tsx', '.js', '.json'],
   },
-
+  devServer: {
+    historyApiFallback: true,
+  },
   module: {
     rules: [
-      // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
       { test: /\.tsx?$/, loader: 'ts-loader' },
       {
         test: /\.s[ac]ss$/i,
