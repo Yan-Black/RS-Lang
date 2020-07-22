@@ -12,10 +12,11 @@ const config: webpack.Configuration = {
   entry: './src/index.tsx',
   resolve: {
     plugins: [new TsconfigPathsPlugin({ configFile: './tsconfig.json' })],
-    // Add '.ts' and '.tsx' as resolvable extensions.
     extensions: ['.ts', '.tsx', '.js', '.json'],
   },
-
+  devServer: {
+    historyApiFallback: true,
+  },
   module: {
     rules: [
       { test: /\.tsx?$/, loader: 'ts-loader' },
