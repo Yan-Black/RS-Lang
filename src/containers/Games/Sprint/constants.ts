@@ -4,4 +4,5 @@ export enum ActionType {
   START_GAME_MODE = 'START_GAME_MODE',
   STOP_GAME_MODE = 'STOP_GAME_MODE',
   GET_SCORE = 'GET_SCORE',
+  ADD_ERRORS = 'ADD_ERRORS',
 }

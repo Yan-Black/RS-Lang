@@ -14,3 +14,8 @@ export interface SprintGetScore {
 export interface SprintInitialScore {
   score: number;
 }
+
+// export interface SprintAddErrors {
+//   type: string;
+
+// }

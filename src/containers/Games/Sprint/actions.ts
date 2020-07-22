@@ -22,3 +22,7 @@ export const getScore = (num: number): SprintGetScore => ({
   type: ActionType.GET_SCORE,
   payload: num,
 });
+
+export const addErrors = () => ({
+  type: ActionType.ADD_ERRORS,
+});
