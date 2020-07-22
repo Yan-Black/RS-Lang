@@ -1,4 +1,4 @@
-.container {
+.container-savannah {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -6,20 +6,20 @@
   margin-top: -85.5px;
 }
 
-.ghost {
-  animation: float 3s ease-out infinite;
+.ghost-savannah {
+  animation: float-savannah 3s ease-out infinite;
 }
 
-@keyframes float {
+@keyframes float-savannah {
   50% {
     transform: translate(0, 20px);
   }
 }
-.shadowFrame {
+.shadowFrame-savannah {
   width: 130px;
   margin-top: 15px;
 }
-.shadow {
+.shadow-savannah {
   animation: shrink 3s ease-out infinite;
   transform-origin: center center;
   ellipse {
@@ -44,7 +44,7 @@
 
 
 
-.pulsate-css {
+.pulsate-css-savannah {
   animation: pulsate 1s ease-out;
   animation-iteration-count: infinite;
   opacity: 0.0;
@@ -66,7 +66,7 @@
   100% {-webkit-transform: scale(8 , 8); opacity: 0.0;}
 }
 
-.indicator {
+.indicator-savannah {
   position: absolute;
   top: 88%;
   left: 50%;
@@ -75,8 +75,7 @@
   margin: -57px 0 0 -57px;
 }
 
-.movingImg {
-  background-image: url('/src/components/Games/Savannah/GameScreen/components/Indicator/movingImg.png');
+.movingImg-savannah {
   background-size: cover;
   display: block;
   position: absolute;

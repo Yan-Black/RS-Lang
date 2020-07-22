@@ -5,7 +5,7 @@ import { closeModalWindow } from 'containers/Games/Savannah/actions';
 import './closeModalWindowButton.scss';
 
 const CloseModalWindowButtonComponent = ({ modalWindow }) => (
-  <div className="close-modal-window" onClick={modalWindow}>Отмена</div>
+  <div className="close-modal-window-savannah" onClick={modalWindow}>Отмена</div>
 );
 
 /* class CloseModalWindowButtonComponent extends Component {

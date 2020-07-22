@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { setLoadingMode } from 'containers/Games/Savannah/actions';
 
 const ButtonComponent: React.FC<{startGame: ()=>void}> = ({ startGame }) => (
-  <div className="start-button" onClick={startGame}>Начать</div>
+  <div className="start-button-savannah" onClick={startGame}>Начать</div>
 );
 
 /* class ButtonComponent extends Component {

@@ -27,6 +27,7 @@ export namespace Action {
   export interface UpdateLongStatFailed extends Models.Action<Payload.SetDocumentTypes> { }
   export interface UpdateLongStatSuccess extends Models.Action<Payload.SetDocumentTypes> { }
   export interface ToggleModal extends Models.Action<Payload.SetDocumentTypes> { }
+  export interface SetAudioCallMode extends Models.Action<Payload.SetDocumentTypes> { }
 }
 
 export namespace ActionCreator {
@@ -52,6 +53,7 @@ export namespace ActionCreator {
   export type UpdateLongStatFailed = (payload: StatisticInfo) => Action.UpdateLongStatFailed;
   export type UpdateLongStatSuccess = (payload: StatisticInfo) => Action.UpdateLongStatSuccess;
   export type ToggleModal = (messageType: string) => Action.ToggleModal;
+  export type SetAudioCallMode = (payload: string) => Action.SetAudioCallMode;
 }
 
 export interface Json {
@@ -131,4 +133,8 @@ export interface LongStatisticState {
   playedLevels: StatisticInfo[],
   failed: StatisticInfo[],
   success: StatisticInfo[],
+}
+
+export interface AudioCallMode {
+  mode: string,
 }

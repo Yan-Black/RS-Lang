@@ -27,16 +27,13 @@ function GamePage(): JSX.Element {
   const failedWords = useSelector((state: State) => state.audioCallStatistic.wrongAnswers);
   const successWords = useSelector((state: State) => state.audioCallStatistic.correctAnswers);
   const savedDate = useSelector((state: State) => state.audioCallLongStatistic.playedDates[0]);
-  const learningWords: Array<Json> = useSelector(
-    (state: State) => state.dictionaryState.learningWords,
-  );
-  const difficultWords: Array<Json> = useSelector(
-    (state: State) => state.dictionaryState.difficultWords,
-  );
-  const level: string = (
-    learningWords.includes(currWords[0]) || difficultWords.includes(currWords[0]))
-    ? usedLang.longStatistic.myWords : useSelector((state: State) => state.audioCallLevel);
-  const round: string = (learningWords.includes(currWords[0]) || difficultWords.includes(currWords[0])) ? '-' : useSelector((state: State) => state.audioCallRound);
+  const gameMode = useSelector((state: State) => state.audioCallMode.mode);
+  const level: string = gameMode === 'my-words'
+    ? usedLang.longStatistic.myWords
+    : useSelector((state: State) => state.audioCallLevel);
+  const round: string = gameMode === 'my-words'
+    ? '-'
+    : useSelector((state: State) => state.audioCallRound);
 
   let textInput: HTMLDivElement = null;
   useEffect(() => {

@@ -1,14 +1,12 @@
 .heart {
   width: 20px;
   height: 20px;
-  background-image: url(/src/components/Games/Savannah/GameScreen/components/HealthBar/Heart/hear1t.svg);
   position: relative;
 }
 
 .heart-dead {
   width: 20px;
   height: 20px;
-  background-image: url(/src/components/Games/Savannah/GameScreen/components/HealthBar/Heart/hear1t.svg);
   position: relative;
   top: 20px;
   animation: death linear .3s;

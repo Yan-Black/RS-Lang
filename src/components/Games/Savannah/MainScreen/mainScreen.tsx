@@ -8,7 +8,7 @@ const MainScreenComponent = (props) => {
   const { mode } = props;
   if (mode === '') {
     return (
-      <div className="main">
+      <div className="main-savannah">
         <DefaultInfo />
         <Button />
       </div>

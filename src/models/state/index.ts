@@ -64,5 +64,6 @@ export interface State {
   mainErrorModal;
   speakItStatisticInfo;
   speakItStatistic;
+  audioCallMode;
   // add more fields according rootReducer
 }

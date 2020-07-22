@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 import AudioCall from 'components/Games/AudioCall';
 import EnglishPuzzle from 'components/Games/EnglishPuzzle';
-// import Savannah from 'components/Games/Savannah';
+import Savannah from 'components/Games/Savannah';
 import SpeakIt from 'components/Games/SpeakIt';
 import Sprint from 'components/Games/Sprint';
 // import OurGame from 'components/Games/OurGame';
@@ -69,9 +69,9 @@ const App: React.FC = () => {
         <Route path="/EnglishPuzzle">
           <EnglishPuzzle />
         </Route>
-        {/* <Route path="/Savannah">
+        <Route path="/Savannah">
           <Savannah />
-        </Route> */}
+        </Route>
         <Route path="/SpeakIt">
           <SpeakIt />
         </Route>

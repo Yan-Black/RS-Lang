@@ -8,7 +8,7 @@ const BodyCarousel: React.FC = () => (
       <Carousel.Item>
         <img
           className="carousel-img"
-          src="/src/assets/promo/carouselPic1.jpg"
+          src="https://sun9-74.userapi.com/c858220/v858220403/224a50/xu1oTRmtlj0.jpg"
           alt="First slide"
         />
         <Carousel.Caption className="carousel-text-dark">
@@ -19,25 +19,25 @@ const BodyCarousel: React.FC = () => (
       <Carousel.Item>
         <img
           className="carousel-img"
-          src="/src/assets/promo/carouselPic2.jpg"
+          src="https://sun9-76.userapi.com/c858220/v858220403/224a28/JgCVvY7-ukU.jpg"
           alt="Third slide"
         />
 
-        <Carousel.Caption>
-          <h3>Random Hasselhoff</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <Carousel.Caption className="carousel-text-dark">
+          <h3>Check your stats</h3>
+          <p>Отслеживайте свои успехи</p>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
         <img
           className="carousel-img"
-          src="/src/assets/promo/carouselPic3.jpg"
+          src="https://sun1.velcom-by-minsk.userapi.com/c858220/v858220403/224a3c/YzS0JwdbxeA.jpg"
           alt="Third slide"
         />
 
-        <Carousel.Caption>
-          <h3>Random screenshot</h3>
-          <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+        <Carousel.Caption className="carousel-text-dark">
+          <h3>Enjoy awesome games!</h3>
+          <p>Проверьте себя и хорошо проведите время в увлекательных играх</p>
         </Carousel.Caption>
       </Carousel.Item>
     </Carousel>

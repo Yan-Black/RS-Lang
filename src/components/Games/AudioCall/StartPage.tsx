@@ -4,9 +4,10 @@ import { State } from 'models';
 import { useState } from 'react';
 import backgroundImage from 'assets/pattern-369543.svg';
 import {
-  gamePage, fetchWords, toggleModal,
+  gamePage, fetchWords, toggleModal, setAudioCallMode,
 } from 'containers/Games/AudioCall/actions';
 import { eng, ru } from 'constants/audio-call-constants';
+import { FetchedWordData } from 'containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/models';
 import OptionItems from './OptionItems';
 import {
   getWordsForGame, Json, getTranslateOptions, shuffleArray,
@@ -23,11 +24,11 @@ function StartPage(): JSX.Element {
   const usedLang = lang === 'eng' ? eng : ru;
   const level = useSelector((state: State) => state.audioCallLevel);
   const round = useSelector((state: State) => state.audioCallRound);
-  const myLearningWords: Array<Json> = useSelector(
-    (state: State) => state.dictionaryState.learningWords,
+  const clonedWords: FetchedWordData[] = useSelector((state: State) => state.appUserWords.userWords);
+  const myWords = clonedWords.filter(
+    (word: FetchedWordData) => word.userWord.optional.played
+    && !word.userWord.optional.del,
   );
-  const myDifficultWords = useSelector((state: State) => state.dictionaryState.difficultWords);
-  const myWords = myLearningWords.concat(myDifficultWords);
   const [isLoading, setIsLoading] = useState(false);
 
   const loaderClass = isLoading ? 'visible position-absolute' : 'invisible';
@@ -35,6 +36,7 @@ function StartPage(): JSX.Element {
   const exitClickHandler = () => { dispatch(toggleModal('exit')); };
   const btnMyWordsClickHandler = async () => {
     setIsLoading(true);
+    dispatch(setAudioCallMode('my-words'));
     if (myWords.length < 10) {
       setIsLoading(false);
       dispatch(toggleModal('not enough words'));
@@ -55,6 +57,7 @@ function StartPage(): JSX.Element {
 
   const btnFreeGameClickHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     setIsLoading(true);
+    dispatch(setAudioCallMode('free-mode'));
     try {
       e.preventDefault();
       const jsonObj: Array<Json> = await getWordsForGame(level, round);

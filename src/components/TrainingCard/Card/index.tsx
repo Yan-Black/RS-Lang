@@ -192,17 +192,21 @@ const Card: React.FC = () => {
   };
 
   const deleteWord = () => {
-    audioHandler();
-    setDelActive(true);
-    setMes('deleted');
-    showDelMes(true);
+    if (!difActive) {
+      audioHandler();
+      setDelActive(true);
+      setMes('deleted');
+      showDelMes(true);
+    }
   };
 
   const setAsDifficult = () => {
-    audioHandler();
-    setDifActive(true);
-    setMes('added to difficult');
-    showDelMes(true);
+    if (!delActive) {
+      audioHandler();
+      setDifActive(true);
+      setMes('added to difficult');
+      showDelMes(true);
+    }
   };
 
   const nextCardBTNHandler = () => {
@@ -240,7 +244,7 @@ const Card: React.FC = () => {
 
       const statistic = {
         playedGames: 0,
-        bestAttempts: bestRow > userStatistic.optional.bestAttempts ? bestRow : userStatistic.optional.bestAttempts,
+        bestAttempts: bestRow > userStatistic.optional.bestAttempts ? +bestRow + 1 : userStatistic.optional.bestAttempts,
         correctRepeats: isSuccess ? +userStatistic.optional.correctRepeats + 1 : userStatistic.optional.correctRepeats,
         totalDailyProgress: cardsProgress + 1,
       } as OptionalUserStatistc;

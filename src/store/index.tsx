@@ -15,7 +15,7 @@ import statisticInfoReducer from 'containers/Games/EnglishPuzzle/GameBlock/GameB
 import startPageReducer from 'containers/Games/EnglishPuzzle/StartPage/startPageReducer';
 import {
   pageReducer, levelReducer, roundReducer,
-  currWordsReducer, answerReducer, statisticReducer, modalReducer, longStatisticReducer,
+  currWordsReducer, answerReducer, statisticReducer, modalReducer, longStatisticReducer, audioCallModeReducer,
 } from 'containers/Games/AudioCall/reducer';
 import levelControlReducer from 'containers/Games/SpeakIt/ControlLevel/reducer';
 import fetchReducer from 'containers/Games/SpeakIt/FetchGroup/reducer';
@@ -128,6 +128,7 @@ const rootReducer = combineReducers({
   trueWords: addTrueWords,
   showWords: showWordsToggle,
   fallingWord: setFallingWord,
+  audioCallMode: audioCallModeReducer,
 });
 
 const store = createStore(rootReducer, compose(applyMiddleware(thunk)));

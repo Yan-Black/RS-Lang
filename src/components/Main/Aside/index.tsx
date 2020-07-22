@@ -80,35 +80,34 @@ const Navigation: React.FC = () => {
       <div id="header" className={isOpen ? 'header open' : 'header'}>
         <ul className="header-nav">
           {usedPages.filter((pages) => (!isLogged
-            ? (pages.page === 'Promo' || pages.page === 'Промо')
-            : pages.page
-          )).map((pagesData) => (
-            <li key={pagesData.page}>
-              <Link
-                to={`/${pagesData.path === 'Promo' || pagesData.path === 'Team' ? '' : pagesData.path}`}
-                onClick={closeAsideMenu}
-              >
-                <button
-                  type="button"
-                  className="main-aside-btn"
+            ? pages.path === 'Promo'
+            : pages)).map((pagesData) => (
+              <li key={pagesData.page}>
+                <Link
+                  to={`/${pagesData.path === 'Team' ? '' : pagesData.path}`}
+                  onClick={closeAsideMenu}
                 >
-                  <FontAwesomeIcon
-                    className="main-aside-point"
-                    icon={pagesData.icon}
-                  />
-                  <span
-                    id="statistic"
-                    className={
+                  <button
+                    type="button"
+                    className="main-aside-btn"
+                  >
+                    <FontAwesomeIcon
+                      className="main-aside-point"
+                      icon={pagesData.icon}
+                    />
+                    <span
+                      id="statistic"
+                      className={
                       isOpen
                         ? 'aside-menu-tooltip aside-tooltip-visible'
                         : 'aside-menu-tooltip'
                     }
-                  >
-                    {pagesData.page}
-                  </span>
-                </button>
-              </Link>
-            </li>
+                    >
+                      {pagesData.page}
+                    </span>
+                  </button>
+                </Link>
+              </li>
           ))}
           <li>
             <button
