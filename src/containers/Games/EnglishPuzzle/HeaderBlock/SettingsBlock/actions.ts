@@ -22,3 +22,4 @@ export const updateGrop = (num: number): ActionGroupsPages => ({
   type: ActionType.UPDATE_GROUP,
   payload: num,
 });
+

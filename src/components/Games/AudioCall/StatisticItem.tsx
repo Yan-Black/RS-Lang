@@ -1,10 +1,27 @@
 import * as React from 'react';
-import { Json } from 'containers/Games/AudioCall/models';
+import { useSelector, useDispatch } from 'react-redux';
+import { State } from 'models';
+import { eng, ru } from 'constants/audio-call-constants';
+import { FetchedWordData } from 'containers/Games/EnglishPuzzle/HeaderBlock/SettingsBlock/models';
+import { updateUserWords } from 'containers/TrainingCard/actions';
+import { updateUserWord } from 'constants/athorization-constants';
+import { useState } from 'react';
 
-function StatisticItem(currWord: {item: Json}): JSX.Element {
+function StatisticItem(currWord: {item: FetchedWordData}): JSX.Element {
+  const dispatch = useDispatch();
+  const lang = useSelector((state: State) => state.mainLang.lang);
+  const clonedWords: FetchedWordData[] = useSelector((state: State) => state.appUserWords.userWords);
+  const usedLang = lang === 'eng' ? eng : ru;
+  const [deleted, setDeleted] = useState(false);
+
   if (!currWord) {
     return null;
   }
+
+  const gameMode = useSelector((state: State) => state.audioCallMode.mode);
+  const trashIconClass = gameMode === 'my-words' && !deleted
+    ? 'fas fa-trash ml-auto mr-3'
+    : 'd-none';
 
   async function playWordAudio() {
     const audioUrl: string = currWord.item.audio;
@@ -26,7 +43,7 @@ function StatisticItem(currWord: {item: Json}): JSX.Element {
   }
 
   const speakerIconClickHandler = () => playWordAudio();
-  const speakerIconKeyPressHandler = (
+  const keyPressHandler = (
     event: React.KeyboardEvent<HTMLElement>,
   ) => event.preventDefault();
   const trashMouseOverHandler = (
@@ -36,10 +53,33 @@ function StatisticItem(currWord: {item: Json}): JSX.Element {
     event: React.MouseEvent<HTMLElement, MouseEvent>,
   ) => unHovered(event);
   const trashFocusHandler = (event: React.FocusEvent<HTMLElement>) => hovered(event);
+  const trashClickHandler = () => {
+    setDeleted(true);
+    const clone = Array.from(clonedWords);
+    const handledWord = { ...currWord.item };
+    const index = clonedWords.findIndex((el) => el.word === handledWord.word);
+    handledWord.userWord.optional.del = true;
+    handledWord.userWord.optional.dif = false;
+    handledWord.userWord.optional.nextRepeat = '-';
+    delete handledWord.translateOptions;
+    clone.splice(index, 1, handledWord);
+    dispatch(updateUserWords(clone));
+    updateUserWord(handledWord, dispatch);
+    dispatch(updateUserWords(clone));
+    updateUserWord(handledWord, dispatch);
+  };
 
   return (
     <div className="d-flex bg-light my-2 align-items-baseline">
-      <i className="fas fa-volume-down mr-3" role="button" aria-label="Speaker icon" tabIndex={-1} style={{ cursor: 'pointer' }} onClick={speakerIconClickHandler} onKeyPress={speakerIconKeyPressHandler} />
+      <i
+        className="fas fa-volume-down mr-3"
+        role="button"
+        aria-label="Speaker icon"
+        tabIndex={-1}
+        style={{ cursor: 'pointer' }}
+        onClick={speakerIconClickHandler}
+        onKeyPress={keyPressHandler}
+      />
       <span className="bg-light d-inline-block text-truncate" style={{ width: '70%' }}>
         <span className="text-primary">{currWord.item.word}</span>
         {' '}
@@ -47,7 +87,21 @@ function StatisticItem(currWord: {item: Json}): JSX.Element {
         {' '}
         {currWord.item.wordTranslate}
       </span>
-      <i className="fas fa-trash ml-auto mr-3" style={{ cursor: 'pointer' }} data-toggle="tooltip" data-placement="left" title="Удалить из словаря" onMouseOver={trashMouseOverHandler} onMouseLeave={trashMouseLeaveHandler} onFocus={trashFocusHandler} />
+      <i
+        className={trashIconClass}
+        style={{ cursor: 'pointer' }}
+        data-toggle="tooltip"
+        data-placement="left"
+        title={usedLang.shortStatistic.deleteHint}
+        tabIndex={-1}
+        role="button"
+        aria-label="Trash icon"
+        onMouseOver={trashMouseOverHandler}
+        onMouseLeave={trashMouseLeaveHandler}
+        onFocus={trashFocusHandler}
+        onClick={trashClickHandler}
+        onKeyPress={keyPressHandler}
+      />
     </div>
   );
 }

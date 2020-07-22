@@ -3,11 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { State } from 'models';
 import {
   toggleModal, resetGame, statisticPage, checkAnswer, notKnowWords, progressGame,
-  knowWords, correctAnswer, wrongAnswer,
+  knowWords, correctAnswer, wrongAnswer, updateLongStatDate, updateLongStatTime,
+  updateLongStatLevels, updateLongStatFailed, updateLongStatSuccess,
 } from 'containers/Games/AudioCall/actions';
 import { useEffect } from 'react';
 import backgroundImage from 'assets/pattern-369543.svg';
-import TranslateOptions from './translateOptions';
+import { Json } from 'containers/Games/AudioCall/models';
+import { eng, ru } from 'constants/audio-call-constants';
+import TranslateOptions from './TranslateOptions';
 import GameButton from './GameButton';
 import TargetWordBlock from './TargetWordBlock';
 import ModalMessage from './ModalMessage';
@@ -15,11 +18,22 @@ import { playSound } from './utils';
 
 function GamePage(): JSX.Element {
   const dispatch = useDispatch();
-
+  const lang = useSelector((state: State) => state.mainLang.lang);
+  const usedLang = lang === 'eng' ? eng : ru;
   const isChecked = useSelector((state: State) => state.audioCallAnswer.isChecked);
   const currWords = useSelector((state: State) => state.audioCallCurrWords);
   const currActiveId: number = useSelector((state: State) => state.audioCallAnswer.progress);
   const currGameProgress: number = currActiveId * 10;
+  const failedWords = useSelector((state: State) => state.audioCallStatistic.wrongAnswers);
+  const successWords = useSelector((state: State) => state.audioCallStatistic.correctAnswers);
+  const savedDate = useSelector((state: State) => state.audioCallLongStatistic.playedDates[0]);
+  const gameMode = useSelector((state: State) => state.audioCallMode.mode);
+  const level: string = gameMode === 'my-words'
+    ? usedLang.longStatistic.myWords
+    : useSelector((state: State) => state.audioCallLevel);
+  const round: string = gameMode === 'my-words'
+    ? '-'
+    : useSelector((state: State) => state.audioCallRound);
 
   let textInput: HTMLDivElement = null;
   useEffect(() => {
@@ -41,6 +55,22 @@ function GamePage(): JSX.Element {
       if (currActiveId >= 10) {
         dispatch(resetGame());
         dispatch(statisticPage());
+        if (!savedDate || savedDate.date !== new Date().toDateString()) {
+          dispatch(updateLongStatDate({ date: new Date().toDateString() }));
+        }
+        dispatch(updateLongStatTime(
+          {
+            date: new Date().toDateString(),
+            payload: new Date().toTimeString().slice(0, 9),
+          },
+        ));
+        dispatch(updateLongStatLevels({ date: new Date().toDateString(), payload: `${usedLang.longStatistic.group} ${level} - ${usedLang.longStatistic.page} ${round}` }));
+        dispatch(updateLongStatFailed(
+          { date: new Date().toDateString(), payload: failedWords.length },
+        ));
+        dispatch(updateLongStatSuccess(
+          { date: new Date().toDateString(), payload: successWords.length },
+        ));
       } else dispatch(checkAnswer('null'));
     }
     if (event.key === 'Enter' && !isChecked) {

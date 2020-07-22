@@ -18,12 +18,11 @@ const Results: React.FC<ResultsProps> = ({
   const dispatch = useDispatch();
   const failedWords: SavedResult[] = useSelector((state: State) => state.engPuzzleFailed.failed);
   const successWords: SavedResult[] = useSelector((state: State) => state.engPuzzleSuccess.success);
-  const isOpen = useSelector((state: State) => state.engPuzzleResults.isOpen);
   const speakHandler = (
     str: string,
   ) => pronounceAudio(true, str, dispatch, speakerEnable, speakerDisable);
   return (
-    <div className={isOpen ? 'eng-puzzle-results-wrapper' : 'disabled'}>
+    <div className="eng-puzzle-results-wrapper">
       <div className="eng-puzzle-results-container">
         <div className="eng-puzzle-results-header">
           <img className="eng-puzzle-results-miniature" src={back} alt="art" />

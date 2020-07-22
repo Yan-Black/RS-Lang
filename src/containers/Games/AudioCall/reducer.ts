@@ -1,6 +1,9 @@
 import * as Models from 'models';
+import { eng, ru } from 'constants/audio-call-constants';
+import {
+  ModalInitState, AnswerInitState, StatisticInitState, LongStatisticState, AudioCallMode,
+} from './models';
 import { ActionType } from './constants';
-import { ModalInitState, AnswerInitState, StatisticInitState } from './models';
 
 const initialState = {
   page: 'START_PAGE',
@@ -26,15 +29,45 @@ const answerInitState = <AnswerInitState> {
 };
 
 const statisticInitState = <StatisticInitState> {
+  isLongStatistic: false,
   wrongAnswers: [],
   correctAnswers: [],
+};
+
+const longStatisticInitState = <LongStatisticState> {
+  playedDates: [],
+  playedTimes: [],
+  playedLevels: [],
+  failed: [],
+  success: [],
+};
+
+const audioCallModeInitState = <AudioCallMode>{
+  mode: 'free-mode',
 };
 
 const modalReducer: Models.Reducer<unknown> = (
   state: ModalInitState = modalInitState, { type, payload },
 ) => {
-  const messageTitle = payload === 'exit' ? 'Вы уверены? Тренировка не закончена!' : 'Ой! Ошибка!';
-  const messageBody = payload === 'exit' ? 'Если вы выйдете из игры, ваш прогресс не будет сохранен' : 'Что-то пошло не так. Попробуйте, пожалуйста, позже';
+  let messageTitle = '';
+  let messageBody = '';
+  const lang = localStorage.getItem('lang') || 'ru';
+  const usedLang = lang === 'eng' ? eng : ru;
+  switch (payload) {
+    case 'exit':
+      messageTitle = usedLang.modalMessage.titleNotOver;
+      messageBody = usedLang.modalMessage.contentNotOver;
+      break;
+    case 'not enough words':
+      messageTitle = usedLang.modalMessage.titleNotEnough;
+      messageBody = usedLang.modalMessage.contentNotEnough;
+      break;
+    default:
+      messageTitle = usedLang.modalMessage.titleError;
+      messageBody = usedLang.modalMessage.contentError;
+      break;
+  }
+
   switch (type) {
     case ActionType.TOGGLE_MODAL:
       return {
@@ -130,6 +163,8 @@ const statisticReducer: Models.Reducer<unknown> = (
       return { ...state, correctAnswers: state.correctAnswers.concat(payload) };
     case ActionType.NOT_KNOW:
       return { ...state, wrongAnswers: state.wrongAnswers.concat(payload) };
+    case ActionType.TOGGLE_STATISTIC:
+      return { ...state, isLongStatistic: !state.isLongStatistic };
     case ActionType.RESET_CURR_STATISTIC:
       return statisticInitState;
     default:
@@ -137,7 +172,37 @@ const statisticReducer: Models.Reducer<unknown> = (
   }
 };
 
+const longStatisticReducer: Models.Reducer<unknown> = (
+  state: LongStatisticState = longStatisticInitState,
+  action,
+) => {
+  switch (action.type) {
+    case ActionType.UPDATE_DATE:
+      return { ...state, playedDates: state.playedDates.concat(action.payload) };
+    case ActionType.UPDATE_TIME:
+      return { ...state, playedTimes: state.playedTimes.concat(action.payload) };
+    case ActionType.UPDATE_LEVELS:
+      return { ...state, playedLevels: state.playedLevels.concat(action.payload) };
+    case ActionType.UPDATE_FAILED:
+      return { ...state, failed: state.failed.concat(action.payload) };
+    case ActionType.UPDATE_SUCCESS:
+      return { ...state, success: state.success.concat(action.payload) };
+    default: return state;
+  }
+};
+
+const audioCallModeReducer: Models.Reducer<unknown> = (
+  state: AudioCallMode = audioCallModeInitState, { type, payload },
+) => {
+  switch (type) {
+    case ActionType.SET_AUDIOCALL_MODE:
+      return { ...state, mode: payload };
+    default:
+      return state;
+  }
+};
+
 export {
   pageReducer, levelReducer, roundReducer, currWordsReducer,
-  answerReducer, statisticReducer, modalReducer,
+  answerReducer, statisticReducer, modalReducer, longStatisticReducer, audioCallModeReducer,
 };

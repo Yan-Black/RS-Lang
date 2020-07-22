@@ -28,23 +28,34 @@
     "@fortawesome/free-regular-svg-icons": "^5.13.0",
     "@fortawesome/free-solid-svg-icons": "^5.13.0",
     "@fortawesome/react-fontawesome": "^0.1.11",
+    "@types/react-bootstrap": "^1.0.1",
     "bootstrap": "^4.5.0",
+    "chart.js": "^2.9.3",
+    "classnames": "^2.2.6",
     "immutability-helper": "^3.1.1",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-beautiful-dnd": "^13.0.0",
     "react-bootstrap": "^1.0.1",
+    "react-chartjs-2": "^2.9.0",
     "react-countdown": "^2.2.1",
     "react-dom": "^16.13.1",
+    "react-hook-form": "^6.0.2",
+    "react-player": "^2.4.0",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.2.0",
+    "react-speech-kit": "^3.0.0",
     "redux": "^4.0.5",
-    "redux-thunk": "^2.3.0"
+    "redux-devtools-extension": "^2.13.8",
+    "redux-thunk": "^2.3.0",
+    "video-react": "^0.14.1"
   },
   "devDependencies": {
     "@svgr/webpack": "^5.4.0",
     "@types/copy-webpack-plugin": "^6.0.0",
+    "@types/node": "^14.0.23",
     "@types/react": "^16.9.36",
+    "@types/react-beautiful-dnd": "^13.0.0",
     "@types/react-dom": "^16.9.8",
     "@types/react-redux": "^7.1.9",
     "@types/react-router-dom": "^5.1.5",
@@ -64,6 +75,7 @@
     "html-webpack-plugin": "^4.3.0",
     "husky": "^4.2.5",
     "lint-staged": "^10.2.11",
+    "react-beautiful-dnd": "^13.0.0",
     "sass": "^1.26.8",
     "sass-loader": "^8.0.2",
     "style-loader": "^1.2.1",
@@ -75,8 +87,6 @@
     "url-loader": "^4.1.0",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11",
-    "webpack-dev-server": "^3.11.0",
-    "@types/react-beautiful-dnd": "^13.0.0",
-    "react-beautiful-dnd": "^13.0.0"
+    "webpack-dev-server": "^3.11.0"
   }
 }
