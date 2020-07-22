@@ -49,13 +49,13 @@ const GameBlock: React.FC = () => {
   return (
     <div className="english-puzzle-game-block">
       <HintsBlock />
-      {actualWordsCollection.length ? (
+      {actualWordsCollection.length && (
         <GameBoard
           gameData={wordsExtractor(actualWordsCollection, activeIdx)}
           background={playedBackground}
           description={description}
         />
-      ) : (null)}
+      )}
     </div>
   );
 };
