@@ -1,8 +1,13 @@
 import * as React from 'react';
+import StartPage from './startPage/startPage';
+import HangMan from './Hangman';
 
-function OurGame() {
+function OurGame(): JSX.Element {
   return (
-    <div />
+    <div>
+      <HangMan />
+      <StartPage />
+    </div>
   );
 }
 

@@ -31,6 +31,18 @@ $card: #84cca7;
   }
 }
 
+.settings-block-theme-switch {
+  display: flex;
+  width: 70px;
+}
+.settings-block-lang-switch {
+  display: flex;
+  width: 80px;
+}
+.settings-block-font-handler {
+  display: flex;
+  width: 79px;
+}
 .settings-block-lang-active {
   color: $card-font-hover;
 }
@@ -116,6 +128,7 @@ $card: #84cca7;
 }
 
 @media(max-width: 1024px) {
+  .study-option-checkmark,
   .study-option input {
     width: 20px;
     height: 20px;
@@ -123,6 +136,10 @@ $card: #84cca7;
 }
 
 @media(max-width: 425px) {
+  .settings-block-option {
+    font-size: .8em;
+  }
+  .study-option-checkmark,
   .study-option input {
     width: 15px;
     height: 15px;
