@@ -25,7 +25,7 @@ const GameCard: React.FC<CardProps> = ({
   };
   return (
     <div className={theme === 'light' ? 'game-card' : 'game-card card-dark'} id={cardId}>
-      { route === 'ourGame' || route === 'sprint'
+      { route === 'ourGame'
         ? <p className="game-name">{name}</p>
         : (
           <Link to={`/${route}`} className="game-link">
