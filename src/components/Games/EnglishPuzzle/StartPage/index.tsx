@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useDispatch } from 'react-redux';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { closeStartPage } from 'containers/Games/EnglishPuzzle/StartPage/actions';
 import './index.scss';
 
@@ -8,13 +8,13 @@ const StartPage: React.FC = () => {
   const dispatch = useDispatch();
   const [active, setActive] = useState('block');
   const [style, setStyle] = useState('eng-puzzle-start-page');
-  const removeStartPage = () => {
+  const removeStartPage = useCallback(() => {
     setStyle('eng-puzzle-start-page eng-puzzle-hide-start-page');
     dispatch(closeStartPage());
     setTimeout(() => {
       setActive('none');
     }, 700);
-  };
+  }, []);
   return (
     <div className={style} style={{ display: `${active}` }}>
       <div className="eng-puzzle-guide">

@@ -37,7 +37,6 @@ const Card: React.FC = () => {
   const isAnswerCorrect = useSelector((state: State) => state.training.isCorrect);
   const settingsState = useSelector((state: State) => state.appUserSettings);
   const canMoveToNext = useSelector((state: State) => state.training.moveToNext);
-  // const totalIndex = useSelector((state: State) => state.training.totalProgress);
   const studyMode = useSelector((state: State) => state.mainStudyMode.studyModes);
   const index = useSelector((state: State) => state.training.currIndex);
   const lang = useSelector((state: State) => state.mainLang.lang);

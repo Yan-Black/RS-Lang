@@ -97,7 +97,7 @@ export const updateUserWord = (word: FetchedWordData, dispatch: Dispatch<Action>
   const { token, userId } = localStorage;
   dispatch(showDictLoader());
   dispatch(showTrainingLoader());
-  fetch(`https://afternoon-falls-25894.herokuapp.com/users/${userId}/words/${word._id}`, {
+  fetch(`https://afternoon-falls-25894.herokuapp.com/users/${userId}/words/${word._id || word.id}`, {
     method: 'PUT',
     headers: {
       'Access-Control-Allow-Credentials': 'true',
