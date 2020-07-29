@@ -12,12 +12,12 @@ import {
   faEquals,
 } from '@fortawesome/free-solid-svg-icons';
 import { GetWordObjectFromData, shuffleArray } from './functions';
-import book1 from '../../../../constants/words-constants';
+import book2 from '../../../../constants/words-constants';
 import error from '../assets/audio/error.mp3';
 import correct from '../assets/audio/correct.mp3';
 import './sass/sprint.scss';
 
-const words = book1[0].slice(0);
+const words = book2[0].slice(0);
 
 function Game(): JSX.Element {
   // const stateScore = useSelector((state: State) => state.sprintScore.score);
